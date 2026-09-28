@@ -1,6 +1,6 @@
 -- HD2-Addon: mods/shodan/stat_editor
--- SHODAN Stat Editor v1.4.1 by SHODAN. Requires Bingus Shared Loader (API 1).
-local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '1.4.1', author = 'SHODAN', log = 'SHODANStatEditor.log' }
+-- SHODAN Stat Editor v1.4.2 by SHODAN. Requires Bingus Shared Loader (API 1).
+local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '1.4.2', author = 'SHODAN', log = 'SHODANStatEditor.log' }
 if rawget(_G, MOD.global) then return end
 
 -- Weapons: name, loadout slot, entity hash (from HD2Runtime's capability catalogs), variant note,
@@ -1247,6 +1247,11 @@ local function resolve_gun(weapon, key)
         add_row(weapon, 'Handling', 'sway', 'Sway multiplier', 'f32', { w('sway', 104) }, 0, 100, 0.1, 0.5)
         add_row(weapon, 'Handling', 'ergonomics', 'Ergonomics', 'f32', { w('ergonomics', 356) }, 0, 1000, 1, 5)
     end
+    for _, row in ipairs(weapon.rows) do
+        if row.section == 'Ammo' and not row.note then
+            row.note = 'applies to weapons spawned after the change (deploy, respawn, call-in)'
+        end
+    end
 end
 
 -- ---------------------------------------------------------------- stratagems
@@ -1999,6 +2004,10 @@ local function change(row, delta_sign, big, exact)
         else
             log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why)
         end
+    end
+    if row.section == 'Ammo' then
+        ui.message = { text = 'Saved. Ammo changes apply to the next ' .. weapon.name ..
+                              ' spawned (deploy, respawn, call-in), not the one already held.', till = api.now() + 4 }
     end
     ui.version = ui.version + 1
 end
