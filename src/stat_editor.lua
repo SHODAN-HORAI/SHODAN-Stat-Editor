@@ -427,6 +427,7 @@ local function build_api()
         'size_t VirtualQuery(const void *address, void *region, size_t size);',
         'int VirtualProtect(void *address, size_t size, uint32_t new_protection, uint32_t *old_protection);',
         'int CreateDirectoryA(const char *path, void *security);',
+        'int MoveFileExA(const char *from, const char *to, uint32_t flags);',
         'uint32_t GetLastError(void);',
         'int QueryPerformanceCounter(int64_t *count);',
         'int QueryPerformanceFrequency(int64_t *frequency);',
@@ -568,6 +569,10 @@ local function build_api()
 
     function self.mkdir(path)
         return kernel.CreateDirectoryA(path, nil) ~= 0 or kernel.GetLastError() == 183
+    end
+
+    function self.replace(from, to)
+        return kernel.MoveFileExA(from, to, 9) ~= 0
     end
 
     return self
@@ -879,6 +884,39 @@ local function data_dir(leaf)
     return base
 end
 
+function MOD.write_text(path, text)
+    local temp = path .. '.tmp'
+    local handle = io.open(temp, 'wb')
+    if not handle then return false, 'cannot open ' .. temp end
+    local wrote, result = pcall(handle.write, handle, text)
+    local closed, closing = pcall(handle.close, handle)
+    if not (wrote and result and closed and closing) then
+        pcall(os.remove, temp)
+        return false, 'cannot write ' .. temp
+    end
+    if not api.replace(temp, path) then
+        pcall(os.remove, temp)
+        return false, 'cannot replace ' .. path
+    end
+    return true
+end
+
+function MOD.parse_number(text)
+    local value = tonumber(text)
+    if value and value == value and value > -math.huge and value < math.huge then return value end
+    return nil
+end
+
+function MOD.lines_of(text)
+    local at = 0
+    return coroutine.wrap(function()
+        for line in (text .. '\n'):gmatch('([^\n]*)\n') do
+            at = at + 1
+            coroutine.yield(at, (line:gsub('\r$', '')))
+        end
+    end)
+end
+
 local log_lines, log_counts, log_dirty = {}, {}, false
 local MAX_LOG_LINES = 600
 
@@ -890,6 +928,10 @@ local function log(message)
     if count == 3 then line = line .. ' (further repeats not logged)' end
     log_lines[#log_lines + 1] = line
     log_dirty = true
+end
+
+function MOD.skipped(file, at, line)
+    log(file .. ': line ' .. at .. ' not understood: ' .. line:gsub('^%s+', ''):sub(1, 60))
 end
 
 local function flush_log()
@@ -2866,12 +2908,8 @@ local function save_config()
         lines[#lines + 1] = o.hash .. ' ' .. o.id .. ' ' .. number_text(o.value) ..
                             (weapon and ('   # ' .. weapon.name) or '')
     end
-    local ok, handle = pcall(io.open, path, 'wb')
-    if ok and handle then
-        pcall(function() handle:write(table.concat(lines, '\r\n') .. '\r\n'); handle:close() end)
-    else
-        log('could not write ' .. path)
-    end
+    local ok, why = MOD.write_text(path, table.concat(lines, '\r\n') .. '\r\n')
+    if not ok then log('could not write ' .. path .. ': ' .. why) end
 end
 
 local function load_config()
@@ -2881,26 +2919,37 @@ local function load_config()
     local text = handle:read('*a') or ''
     handle:close()
     local count = 0
-    for line in text:gmatch('[^\r\n]+') do
+    for at, line in MOD.lines_of(text) do
         line = line:gsub('#.*$', '')
-        local key = line:match('^%s*hotkey%s+(%S+)')
-        if key then hotkey_name = key end
-        local name, value = line:match('^%s*([%a_]+)%s+(%S+)%s*$')
-        if name == 'changes' or name == 'block_input' or name == 'remember' then
-            settings[name] = value ~= 'off'
-        elseif (name == 'panel_size' or name == 'panel_opacity') and tonumber(value) then
-            settings.set_percent(name:sub(7), tonumber(value))
-        elseif name == 'panel_side' and (value == 'left' or value == 'right') then
-            settings.side = value
-        elseif name == 'last_tab' then
-            settings.last_tab = value
-        elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
-            settings.last_weapon = value:upper()
-        end
-        local hash, id, value = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+([%d%.%-]+)')
-        if hash and tonumber(value) then
-            overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = tonumber(value) }
-            count = count + 1
+        if line:find('%S') then
+            local known = false
+            local key = line:match('^%s*hotkey%s+(%S+)')
+            if key then hotkey_name = key; known = true end
+            local name, value = line:match('^%s*([%a_]+)%s+(%S+)%s*$')
+            if name == 'changes' or name == 'block_input' or name == 'remember' then
+                settings[name] = value ~= 'off'
+                known = true
+            elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
+                settings.set_percent(name:sub(7), MOD.parse_number(value))
+                known = true
+            elseif name == 'panel_side' and (value == 'left' or value == 'right') then
+                settings.side = value
+                known = true
+            elseif name == 'last_tab' then
+                settings.last_tab = value
+                known = true
+            elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
+                settings.last_weapon = value:upper()
+                known = true
+            end
+            local hash, id, amount = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+(%S+)')
+            local parsed = hash and MOD.parse_number(amount)
+            if parsed then
+                overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = parsed }
+                count = count + 1
+                known = true
+            end
+            if not known then log('config: line ' .. at .. ' not understood: ' .. line:sub(1, 60)) end
         end
     end
     log('config: ' .. count .. ' value(s), hotkey ' .. hotkey_name .. (settings.changes and '' or ', changes OFF') ..
@@ -3531,13 +3580,9 @@ do
     local function full_preset_file(n) return preset_file(string.format('preset_%02d.txt', n)) end
 
     local function write_lines(path, lines)
-        local ok, handle = pcall(io.open, path, 'wb')
-        if ok and handle then
-            pcall(function() handle:write(table.concat(lines, '\r\n') .. '\r\n'); handle:close() end)
-            return true
-        end
-        log('could not write ' .. tostring(path))
-        return false
+        local ok, why = MOD.write_text(path, table.concat(lines, '\r\n') .. '\r\n')
+        if not ok then log('could not write ' .. tostring(path) .. ': ' .. why) end
+        return ok
     end
 
     -- The file's lines without comments, or nil when there is no file.
@@ -3546,10 +3591,14 @@ do
         if not handle then return nil end
         local text = handle:read('*a') or ''
         handle:close()
-        local out = {}
-        for line in text:gmatch('[^\r\n]+') do out[#out + 1] = (line:gsub('#.*$', '')) end
-        return out
+        local out, numbers = {}, {}
+        for at, line in MOD.lines_of(text) do
+            line = line:gsub('#.*$', '')
+            if line:find('%S') then out[#out + 1] = line; numbers[#out] = at end
+        end
+        return out, numbers
     end
+
 
     local function named(hash)
         local weapon = by_hash[hash]
@@ -3600,7 +3649,8 @@ do
 
     local function load_presets()
         local count = 0
-        for _, line in ipairs(read_lines(preset_file('weapon_presets.txt')) or {}) do
+        local weapon_lines, weapon_numbers = read_lines(preset_file('weapon_presets.txt'))
+        for i, line in ipairs(weapon_lines or {}) do
             local hash, n, rest = line:match('^%s*(' .. HEX16 .. ')%s+(%d+)%s+(.-)%s*$')
             n = tonumber(n)
             if hash and n and n >= 1 and n <= WEAPON_PRESETS then
@@ -3608,21 +3658,32 @@ do
                 weapon_presets[hash] = weapon_presets[hash] or {}
                 local values = weapon_presets[hash][n]
                 if not values then values = {}; weapon_presets[hash][n] = values; count = count + 1 end
-                local id, value = rest:match('^([%w_]+)%s+([%d%.%-]+)$')
-                if id and tonumber(value) then values[#values + 1] = { id = id, value = tonumber(value) } end
+                local id, amount = rest:match('^([%w_]+)%s+(%S+)$')
+                local parsed = id and MOD.parse_number(amount)
+                if parsed then
+                    values[#values + 1] = { id = id, value = parsed }
+                elseif rest ~= '-' then
+                    MOD.skipped('weapon_presets.txt', weapon_numbers[i], line)
+                end
+            else
+                MOD.skipped('weapon_presets.txt', weapon_numbers[i], line)
             end
         end
         local full = 0
         for n = 1, FULL_PRESETS do
-            local lines = read_lines(full_preset_file(n))
+            local lines, numbers = read_lines(full_preset_file(n))
             local preset = lines and { name = 'Preset ' .. n, values = {} }
-            for _, line in ipairs(lines or {}) do
+            for i, line in ipairs(lines or {}) do
                 if line:match('^%s*cleared') then preset = nil; break end
                 local name = line:match('^%s*name%s+(.-)%s*$')
-                if name and name ~= '' then preset.name = name:sub(1, NAME_BYTES) end
-                local hash, id, value = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+([%d%.%-]+)')
-                if hash and tonumber(value) then
-                    preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = tonumber(value) }
+                local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
+                local parsed = hash and MOD.parse_number(amount)
+                if name and name ~= '' then
+                    preset.name = name:sub(1, NAME_BYTES)
+                elseif parsed then
+                    preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
+                else
+                    MOD.skipped(string.format('preset_%02d.txt', n), numbers[i], line)
                 end
             end
             full_presets[n] = preset
