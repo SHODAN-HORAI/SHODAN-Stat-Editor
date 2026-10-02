@@ -427,7 +427,6 @@ local function build_api()
         'size_t VirtualQuery(const void *address, void *region, size_t size);',
         'int VirtualProtect(void *address, size_t size, uint32_t new_protection, uint32_t *old_protection);',
         'int CreateDirectoryA(const char *path, void *security);',
-        'int MoveFileExA(const char *from, const char *to, uint32_t flags);',
         'uint32_t GetLastError(void);',
         'int QueryPerformanceCounter(int64_t *count);',
         'int QueryPerformanceFrequency(int64_t *frequency);',
@@ -569,10 +568,6 @@ local function build_api()
 
     function self.mkdir(path)
         return kernel.CreateDirectoryA(path, nil) ~= 0 or kernel.GetLastError() == 183
-    end
-
-    function self.replace(from, to)
-        return kernel.MoveFileExA(from, to, 9) ~= 0
     end
 
     return self
@@ -884,6 +879,8 @@ local function data_dir(leaf)
     return base
 end
 
+-- Saves write <file>.tmp, then swap it in (MoveFileExA: replace existing, write through), so a crash
+-- mid-save leaves the old file whole (PR #10, Hung1510).
 function MOD.write_text(path, text)
     local temp = path .. '.tmp'
     local handle = io.open(temp, 'wb')
@@ -894,7 +891,11 @@ function MOD.write_text(path, text)
         pcall(os.remove, temp)
         return false, 'cannot write ' .. temp
     end
-    if not api.replace(temp, path) then
+    if not MOD.move_file then
+        pcall(ffi.cdef, 'int MoveFileExA(const char *from, const char *to, uint32_t flags);')
+        MOD.move_file = ffi.load('kernel32').MoveFileExA
+    end
+    if MOD.move_file(temp, path, 9) == 0 then
         pcall(os.remove, temp)
         return false, 'cannot replace ' .. path
     end
@@ -2958,36 +2959,34 @@ local function load_config()
     local count = 0
     for at, line in MOD.lines_of(text) do
         line = line:gsub('#.*$', '')
-        if line:find('%S') then
-            local known = false
-            local key = line:match('^%s*hotkey%s+(%S+)')
-            if key then hotkey_name = key; known = true end
-            local name, value = line:match('^%s*([%a_]+)%s+(%S+)%s*$')
-            if name == 'changes' or name == 'block_input' or name == 'remember' then
-                settings[name] = value ~= 'off'
-                known = true
-            elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
-                settings.set_percent(name:sub(7), MOD.parse_number(value))
-                known = true
-            elseif name == 'panel_side' and (value == 'left' or value == 'right') then
-                settings.side = value
-                known = true
-            elseif name == 'last_tab' then
-                settings.last_tab = value
-                known = true
-            elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
-                settings.last_weapon = value:upper()
-                known = true
-            end
-            local hash, id, amount = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+(%S+)')
-            local parsed = hash and MOD.parse_number(amount)
-            if parsed then
-                overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = parsed }
-                count = count + 1
-                known = true
-            end
-            if not known then log('config: line ' .. at .. ' not understood: ' .. line:sub(1, 60)) end
+        local known = not line:find('%S')
+        local key = line:match('^%s*hotkey%s+(%S+)')
+        if key then hotkey_name = key; known = true end
+        local name, value = line:match('^%s*([%a_]+)%s+(%S+)%s*$')
+        if name == 'changes' or name == 'block_input' or name == 'remember' then
+            settings[name] = value ~= 'off'
+            known = true
+        elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
+            settings.set_percent(name:sub(7), MOD.parse_number(value))
+            known = true
+        elseif name == 'panel_side' and (value == 'left' or value == 'right') then
+            settings.side = value
+            known = true
+        elseif name == 'last_tab' then
+            settings.last_tab = value
+            known = true
+        elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
+            settings.last_weapon = value:upper()
+            known = true
         end
+        local hash, id, amount = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+(%S+)')
+        local parsed = hash and MOD.parse_number(amount)
+        if parsed then
+            overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = parsed }
+            count = count + 1
+            known = true
+        end
+        if not known then MOD.skipped('config.txt', at, line) end
     end
     log('config: ' .. count .. ' value(s), hotkey ' .. hotkey_name .. (settings.changes and '' or ', changes OFF') ..
         ' (' .. path .. ')')
@@ -3635,7 +3634,6 @@ do
         end
         return out, numbers
     end
-
 
     local function named(hash)
         local weapon = by_hash[hash]
