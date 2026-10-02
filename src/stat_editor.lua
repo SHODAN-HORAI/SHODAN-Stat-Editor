@@ -252,7 +252,7 @@ local WEAPONS = {
     { 'MG-43 Machine Gun (SEAF)', 'Support', '587878FB76F4B9B1', 'The MG-43 SEAF soldiers carry. Not yours.' },
     { 'MGX-42 Bullet Storm', 'Support', 'B16C9D490AA59B77', '' },
     { 'MLS-4X Commando', 'Support', '5990123D142B16CB', '' },
-    { 'MS-11 Solo Silo', 'Support', 'DE18775FA447A9BF', '' },
+    { 'MS-11 Solo Silo', 'Support', 'DDDB2910FF2B24E9', '' },
     { 'PLAS-45 Epoch', 'Support', 'E8D5F49AD7780E54', '' },
     { 'RL-77 Airburst Rocket Launcher', 'Support', '26E40437EA275296', '' },
     { 'RS-422 Railgun', 'Support', '2E9D0BDC48B09E60', '' },
@@ -2042,7 +2042,7 @@ end
 KINDS[TYPES.rack].pack = function(key)
     local rt, dt = tables[TYPES.rack], tables[TYPES.deposit]
     if not rt or not dt then return nil end
-    local empty = string.rep(' ', 8)
+    local empty = string.rep('\0', 8)
     for _, at in pairs(rt.index) do
         local slots = api.read(rt.copies[1] + HEADER_BYTES + at, 512)
         local has, pack, other = false, nil, false
