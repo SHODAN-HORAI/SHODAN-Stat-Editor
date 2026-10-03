@@ -191,10 +191,11 @@ share the whole setup.
 - **Barrages** can use different shells for different rounds; the section names say which rounds
   a value belongs to. Long lists scroll: Up/Down follow the chosen stat, or use the buttons under
   the list.
-- **Your values win over attachments.** A weapon's magazine and heat values stay what you set,
-  whichever magazine, heatsink or canister is fitted; what you haven't changed (a magazine's
-  ergonomics, for example) still comes from the attachment. Changing a weapon's ergonomics, sway,
-  recoil or spread also cancels those of the attachments only that weapon uses (its magazines).
+- **Each magazine is edited on its own.** Weapons with several magazines or heatsinks list each
+  one in a section of its own (size, spare magazines, reload time, heat, ergonomics bonus);
+  changing one leaves the others as they are. A magazine some other weapons also use is shared
+  with them, and its section names them. Values saved by older versions for the whole weapon
+  carry over to its magazines.
 - **Magazines hold at most 2048 rounds.** The game caps a magazine there (a bigger one drops to
   2048 at the first shot), so the editor stops at 2048 and says so if you go past it.
 - **Custom muzzle brakes.** Seven weapons come with a muzzle brake of their own (Liberator
