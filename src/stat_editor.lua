@@ -1,8 +1,8 @@
 -- HD2-Addon: mods/shodan/stat_editor
 -- SHODAN Stat Editor v2.3.1 by SHODAN. Requires Bingus Shared Loader (API 1).
 local MOD = { global = 'ShodanStatEditor', title = 'SHODAN Stat Editor', version = '2.3.1', author = 'SHODAN', log = 'SHODANStatEditor.log' }
--- ammunition types: the game's names, by the text id of the item (its English text)
-MOD.ammo_names = {
+-- magazines, heatsinks and ammunition types: the game's names, by the text id of the item (its English text)
+MOD.item_names = {
     [0x046FF548] = '5.5x50mm Ripper',
     [0x06E60303] = '15x100mm Toxic',
     [0x0877EA60] = '15x100mm Plasma',
@@ -17,9 +17,11 @@ MOD.ammo_names = {
     [0x236506A1] = '9x20mm Hollow Point',
     [0x2602D227] = '15x100mm Fragmentation',
     [0x26A396C1] = '10g Magnum Triball',
+    [0x2C1CE01E] = 'Drum Magazine',
     [0x3262E42D] = '5.5x50mm Explosive',
     [0x3A6AE678] = '8x60mm Penetrator',
     [0x3AF98635] = '15x100mm Emp-Rounds',
+    [0x3C5AB61B] = 'Standard Drum',
     [0x3DD3FF6C] = '12g Buckshot',
     [0x40239E59] = '5.5x50mm Self Propelled',
     [0x46B0DA4A] = '12x25mm Explosive',
@@ -39,6 +41,7 @@ MOD.ammo_names = {
     [0x6A4F4733] = '9x70mm Super Uranium Core',
     [0x6A6A555F] = '9x20mm Plasma',
     [0x70157916] = '12g Magnum',
+    [0x72349E32] = 'Standard Plasma Container',
     [0x7496CC66] = '10g Tri-Ball',
     [0x76321A6C] = '8x60mm High Velocity',
     [0x7AB0ACAD] = '8x60mm Devastator',
@@ -47,27 +50,34 @@ MOD.ammo_names = {
     [0x7DF3409F] = '9x70mm Penetrator',
     [0x82820B4B] = '9x20mm Thermite',
     [0x8800F269] = '15x100mm High Explosive',
+    [0x887E442D] = 'Extended Magazine',
     [0x8E597A62] = '15x100mm Thermite',
     [0x8E74AA13] = '12g Bugshot',
     [0x92D110A0] = '12x25mm Thermite',
     [0x9321CA5B] = '9x20mm Explosive',
     [0x94BE8BEA] = '10g Bugshot',
     [0xA2D4A5F4] = '10g Liberty Fire',
+    [0xA35ECACF] = 'Standard Heatsink',
     [0xA4083CFB] = '8x60mm Liberty Fire',
     [0xA44CF329] = '9x70mm High Velocity',
     [0xA56C7CF7] = '13x40mm Full Metal Jacket',
+    [0xAC5E247D] = 'High Dissipation Heatsink',
     [0xB0D2442D] = '5.5x50mm High Velocity',
     [0xB71928D4] = '12g Magnum Triball',
     [0xB923E3F9] = '8x60mm Sniper Armour Piercing',
     [0xBBF12281] = '12x25mm Toxic',
     [0xBF670968] = '13x40mm Penetrator',
     [0xC3A21061] = '10g Scatter Shot',
+    [0xC3AF3F47] = 'High Capacity Heatsink',
     [0xC5C01BAE] = '8x60mm Airburst',
     [0xC5C1096B] = '12g Liberty Fire',
     [0xC6259AE0] = '8x60mm Super Uranium Core',
     [0xC711E6A8] = '8x60mm Full Metal Jacket',
+    [0xC71D0E97] = 'Larger Plasma Container',
     [0xCDDF65D0] = '13x40mm Hollow Point',
     [0xCF73C4BE] = '12x25mm High Velocity',
+    [0xCFD94DAD] = 'Short Magazine',
+    [0xD01F84B4] = 'Rapid Heatsink',
     [0xD1FA60F1] = '9x70mm Sniper Armour Piercing',
     [0xD9499EE2] = '13x40mm Magnum',
     [0xDEFDAB88] = '10g Birdshot',
@@ -83,6 +93,45 @@ MOD.ammo_names = {
     [0xFA10DBC2] = '12g Tri-Ball',
     [0xFA6A7DA3] = '12g Scatter Shot',
     [0xFB7A777E] = '9x20mm High Velocity',
+}
+-- reload times (s) of the weapons whose reload record says 0 (play the animation at its own length), by hash
+MOD.reload_seconds = {
+    ['02CD7321CD8445F5'] = 2.5,
+    ['05D8D8C073B9D502'] = 2.5,
+    ['0F83639AB8C86165'] = 3.5,
+    ['14D5D4506056C7A4'] = 2.7,
+    ['1A437158E1B8D2A1'] = 2.0,
+    ['30061F91AF477F5E'] = 3.4,
+    ['39AB99895147A3BF'] = 4.0,
+    ['3C86E871923F3970'] = 2.9,
+    ['3F92BA65EF65CCA9'] = 2.35,
+    ['416D053372C4E433'] = 2.4,
+    ['4D58C77087B774C5'] = 1.5,
+    ['4DBD74F49C8FFC13'] = 3.15,
+    ['4FB0F8C02F55C82B'] = 3.25,
+    ['6CFCC7F8801A0266'] = 3.75,
+    ['7B06196E90154C88'] = 2.0,
+    ['84354339522C932D'] = 3.0,
+    ['8645F167B3C813A2'] = 2.25,
+    ['88F61AFFF48AC8A4'] = 4.0,
+    ['94BD931B5FB4EE95'] = 3.55,
+    ['A6A735ACCB4A327F'] = 5.9,
+    ['A8A91EB54892B6B2'] = 3.75,
+    ['A955C4EA6F6D4203'] = 3.33,
+    ['AA69A60D74A3EC54'] = 1.9,
+    ['B6AFF2195568767F'] = 4.67,
+    ['BC29613666DF696B'] = 3.0,
+    ['CC786F6491FE7E65'] = 4.9,
+    ['CDF28BE026BB7D84'] = 4.2,
+    ['CE063AA33D95A812'] = 3.33,
+    ['CF8934FF6567A42D'] = 2.0,
+    ['DBB6C961C59FADC1'] = 2.45,
+    ['E8D5F49AD7780E54'] = 5.15,
+    ['E91F569C2AD8AF01'] = 2.68,
+    ['EEA5E3CEF1E12C14'] = 2.5,
+    ['F49227A0630A3F7F'] = 3.33,
+    ['F992CE97577C8A7F'] = 3.58,
+    ['FB3A19078694708A'] = 2.5,
 }
 -- vehicle parts (damage zones): their names, by hash
 MOD.vehicle_parts = {
@@ -1272,7 +1321,7 @@ local function default_of(f)
 end
 
 -- Writes every copy of the table; read back, or rolled back.
-local function write_field(f, value, plain)
+local function write_field(f, value)
     local entry = tables[f.kind]
     if not entry then return false, 'table not found' end
     if read_field(f) == nil then return false, 'current value implausible' end
@@ -1287,15 +1336,6 @@ local function write_field(f, value, plain)
             return false, 'write failed at ' .. hex(at)
         end
         done[#done + 1] = { at, before }
-    end
-    -- its copies (the other attachments of its line, the weapon's own record) take the value; the
-    -- game's value puts each back to its own
-    if not plain and f.mirrors then
-        local own = value == defaults[f.key]
-        for _, m in pairs(f.mirrors) do
-            local d = default_of(m)
-            if d ~= nil then write_field(m, own and d or (m.neutral or value), true) end
-        end
     end
     return true
 end
@@ -1416,6 +1456,22 @@ KINDS[TYPES.items].MODS = {
     { 16, 'spread_v', 'Spread multiplier (vertical)', 0, 50, 0.05, 0.25 },
 }
 
+-- An attachment's stat modifier rows on `entry` (`mods`: type -> where its value is in the deltas), ids
+-- `pre` .. stat. A multiplier's 'Alt' twin (the next type: recoil, climb and spread have one) moves with it.
+KINDS[TYPES.items].mod_rows = function(entry, section, pre, mods)
+    for _, m in ipairs(KINDS[TYPES.items].MODS) do
+        local offset = mods[m[1]]
+        if offset then
+            local f = field_at(TYPES.deltas, offset, 'f32', 1000)
+            f.signed = m[4] < 0
+            local parts = { { id = pre .. m[2], field = f } }
+            local alt = m[1] >= 2 and mods[m[1] + 1]
+            if alt then parts[2] = { id = pre .. m[2] .. '_alt', field = field_at(TYPES.deltas, alt, 'f32', 1000) } end
+            add_row(entry, section, pre .. m[2], m[3], 'f32', parts, m[4], m[5], m[6], m[7])
+        end
+    end
+end
+
 -- The projectile a weapon's default attachments give its fire mode (+0), when they set one (the P-2
 -- Peacemaker's and P-19 Redeemer's ammo type): component 321, offset 0, 4 bytes; the last slot wins.
 -- Also returns where that value sits in the deltas (payload offset).
@@ -1448,11 +1504,15 @@ KINDS[TYPES.custom].projectile = function(key)
     return out, out_at
 end
 
--- A weapon's attachments set magazine and heat values of their own over the weapon's (its slot 5 item:
--- magazine, heatsink, canister) and modify its stats. For the weapon entity `key`: 'component:offset' ->
--- { lead = the default attachment's value (payload offset in the deltas; nil: it sets none), copies =
--- that value in every attachment of the line }, and mods = type -> the stat modifiers of the attachments
--- only its line uses (its slot 5 line).
+-- A weapon's magazine attachments (its slot 5 line: magazines, heatsinks, canisters) set magazine,
+-- reload and heat values of their own over the weapon's, and modify its stats. For the weapon entity
+-- `key`: { items = the line's attachments, the one it comes with first: { id, name, default (true for
+-- that one), words ('component:offset' -> payload offset in the deltas of each value it sets), mods
+-- (type -> its stat modifiers) } }. The weapon's line: the items listed with its default one.
+-- Weapons whose other magazines are a line of their own: weapon -> that line's name. The AR-59
+-- Suppressor comes with the Liberator's Extended; its Short and Drum are 'whisper' ones.
+KINDS[TYPES.custom].LINES = { [hash_key('708EA298C82093D0')] = 'whisper rifle 5,5x50mm.' }
+
 local function attachments(key)
     local cache = KINDS[TYPES.custom].cache
     if cache[key] ~= nil then return cache[key] end
@@ -1465,25 +1525,22 @@ local function attachments(key)
         local kind = peek4(base + slot * 8)
         if kind then fitted[kind] = peek4(base + slot * 8 + 4) end
     end
-    local out, t, mine = { mods = {} }, spec.find(fitted[5])
-    local function add(mods)
-        for type, value in pairs(mods) do
-            out.mods[type] = out.mods[type] or {}
-            out.mods[type][#out.mods[type] + 1] = value
-        end
-    end
+    local out, t, mine = { items = {} }, spec.find(fitted[5])
+    local also = KINDS[TYPES.custom].LINES[key]
     for _, r in ipairs(t and t.order or {}) do
-        if t.lines[r] == t.lines[mine] then
+        local listed = also and (r == mine or t.names[r]:sub(1, #also) == also) or (not also and t.lines[r] == t.lines[mine])
+        if listed then
             local words = spec.words(t, r)
-            for word, data in pairs(words) do
-                if not word:find('^236:') then
-                    local link = out[word] or { copies = {} }
-                    out[word] = link
-                    link.copies[#link.copies + 1] = data
-                    if r == mine then link.lead = data end
-                end
+            local mods, any = spec.mods(words), false
+            for word in pairs(words) do
+                if word:find('^236:') then words[word] = nil else any = true end
             end
-            add(spec.mods(words))
+            if any or next(mods) then
+                local top = t.copies[1] + HEADER_BYTES
+                local item = { id = peek4(top + r + 8) or 0, name = MOD.item_names[peek4(top + r + 16) or 0] or t.labels[r],
+                               default = r == mine, words = words, mods = mods }
+                table.insert(out.items, item.default and 1 or #out.items + 1, item)
+            end
         end
     end
     cache[key] = out
@@ -1493,7 +1550,7 @@ end
 -- The Attachments tab: every optic, underbarrel and muzzle with an ergonomics, sway, recoil or spread modifier,
 -- as an entry of its own (they apply to every weapon fitted with it). A Custom muzzle brake is one weapon's
 -- own (the Penetrator's, the Adjudicator's, ...): named after the weapon that comes with it (no designation).
--- Ammunition types (slot 6, and 7: a weapon's alternate load) take the game's names (MOD.ammo_names, by the
+-- Ammunition types (slot 6, and 7: a weapon's alternate load) take the game's names (MOD.item_names, by the
 -- item's text id at +16), else their own ('Shotgun 10g. Buckshot' -> '10g Buckshot').
 KINDS[TYPES.items].build = function()
     for k = #weapons, 1, -1 do
@@ -1525,7 +1582,7 @@ KINDS[TYPES.items].build = function()
             local own = t.names[r]:find('custom') and owner[id]
             local name = own and ('Muzzle brake (' .. own:gsub('^%S*%d%S*%s+', '') .. ')') or t.labels[r]
             if slot == 6 or slot == 7 then
-                name = MOD.ammo_names[peek4(top + r + 16) or 0]
+                name = MOD.item_names[peek4(top + r + 16) or 0]
                        or t.labels[r]:gsub(' [Aa]lternate$', ''):gsub('^%a[%a%-]* ', ''):gsub('%. ', ' ', 1)
                 if slot == 7 then name = name .. ' (alternate)' end
             end
@@ -1662,26 +1719,17 @@ local function resolve_gun(weapon, key)
         local entry = tables[kind]
         return entry and entry.index[key]
     end
-    -- a magazine / heat value an attachment of the weapon's line also sets: the default attachment's
-    -- copy leads (else the weapon's own), and every other copy follows an edit
+    -- its magazine attachments, each with rows of its own (KINDS[TYPES.items].item_rows); a magazine /
+    -- reload / heat value of the weapon's own record ('component:offset') has a row while one of them
+    -- leaves it to the record (or it has none)
     local ok, links = pcall(attachments, key)
     if not ok then log('attachments of ' .. weapon.name .. ': ' .. tostring(links)) end
-    links = ok and weapon.key == key and links
-    local function linked(kind, at, offset, storage, limit)
-        local own = field_at(kind, at + offset, storage, limit)
-        local link = links and links[(kind == T_MAGAZINE and 5 or kind == TYPES.reload and 113 or 266) .. ':' .. offset]
-        if not link then return own end
-        local lead = link.lead and field_at(TYPES.deltas, link.lead, storage, limit) or own
-        lead.mirrors = lead.mirrors or {}
-        for _, o in ipairs(link.copies) do
-            local f = field_at(TYPES.deltas, o, storage, limit)
-            if f ~= lead then lead.mirrors[f.key] = f end
+    local items = ok and weapon.key == key and links and links.items or {}
+    local function kept(word)
+        for _, item in ipairs(items) do
+            if not item.words[word] then return true end
         end
-        if own ~= lead then lead.mirrors[own.key] = own end
-        for _, f in pairs(lead.mirrors) do
-            if f.users[#f.users] ~= weapon then f.users[#f.users + 1] = weapon end
-        end
-        return lead
+        return #items == 0
     end
     -- the projectile it fires: the rounds record's (+64), else its default ammo type's (an attachment
     -- delta on the fire mode's +0, put there when the weapon spawns: Peacemaker, Redeemer), else the fire
@@ -1893,17 +1941,102 @@ local function resolve_gun(weapon, key)
             add_row(weapon, 'Fire', id, label, 'f32', { part(id, T_FIRE, fire + rate.offset, 'f32', 100000) }, 1, 6000, 10, 50)
         end
     end
-    local magazine = record(T_MAGAZINE)
-    if magazine then
-        local function mag(id, label, offset, min, max, big)
-            add_row(weapon, 'Ammo', id, label, 'u32', { { id = id, field = linked(T_MAGAZINE, magazine, offset, 'u32', 100000) } },
-                    min, max, 1, big)
-        end
-        mag('capacity', 'Magazine size', 136, 1, 9999, 10)
-        mag('mags_start', 'Starting magazines', 140, 0, 999, 5)
-        mag('mags_supply', 'Magazines from supply', 144, 0, 999, 5)
-        mag('mags_max', 'Max spare magazines', 148, 0, 999, 5)
+    local magazine, heat = record(T_MAGAZINE), record(T_HEAT)
+    local reload = (magazine or rounds or heat) and record(TYPES.reload)
+    -- heat weapons (lasers, Quasar): +84/+88/+92 heatsinks, +96 overheat threshold, +100 heat it
+    -- recovers to after an overheat, +116/+120 heat per shot / second, +128 cooling per second,
+    -- +140 cooling per second while overheated, +144 (byte) overheat needs a new heatsink
+    local sinks = heat and read_field(field_at(T_HEAT, heat + 144, 'u32', 4294967295))
+    sinks = sinks and sinks % 256 ~= 0
+    local function item_section(item)
+        return #items == 1 and 'Ammo' or item.name   -- (the one it comes with first)
     end
+    -- The magazine (`ammo`), else the reload and heat rows of the weapon's own record (`item` nil), or of
+    -- one of its magazine attachments: the values it sets, ids 'item<id>_<stat>', in a section of its own.
+    -- `hidden`: the record's ids whose rows its attachments took over (id -> 'component:offset').
+    local hidden = {}
+    local function stock(item, ammo)
+        local pre = item and string.format('item%08X_', item.id) or ''
+        -- the field a row edits (nil: no row); `base`: where a value is read from (the attachment's, else the
+        -- record's; the record's rows read the attachment it comes with)
+        local function get(id, word, kind, offset, storage, limit)
+            if item then return item.words[word] and field_at(TYPES.deltas, item.words[word], storage, limit) end
+            if kept(word) then return field_at(kind, offset, storage, limit) end
+            hidden[id] = word
+        end
+        local function base(word, kind, offset, storage, limit)
+            local from = item or (items[1] and items[1].default and items[1])
+            local at = from and from.words[word]
+            return at and field_at(TYPES.deltas, at, storage, limit) or field_at(kind, offset, storage, limit)
+        end
+        local function row(section, id, label, storage, f, min, max, small, big)
+            if not f then return nil end
+            return add_row(weapon, item and item_section(item) or section, pre .. id, label, storage,
+                           { { id = pre .. id, field = f } }, min, max, small, big)
+        end
+        if ammo then
+            for _, m in ipairs(magazine and { { 'capacity', 'Magazine size', 136, 1, 9999, 10 },
+                                              { 'mags_start', 'Starting magazines', 140, 0, 999, 5 },
+                                              { 'mags_supply', 'Magazines from supply', 144, 0, 999, 5 },
+                                              { 'mags_max', 'Max spare magazines', 148, 0, 999, 5 } } or {}) do
+                row('Ammo', m[1], m[2], 'u32', get(m[1], '5:' .. m[3], T_MAGAZINE, magazine + m[3], 'u32', 100000), m[4], m[5], 1, m[6])
+            end
+            return
+        end
+        -- reload time: the weapon's own (+56), or its magazine's (an attachment sets it over the weapon's 0).
+        -- The game scales the reload animation to it; 0: the animation's own length, which the tables do
+        -- not hold: shown as that length where it is known (MOD.reload_seconds, row.zero)
+        local rf = reload and get('reload_time', '113:56', TYPES.reload, reload + 56, 'f32', 1000)
+        local rt = rf and default_of(rf)
+        local known = rt == 0 and not item and MOD.reload_seconds[weapon.hash]
+        if rt and rt >= 0 and rt < 1000 then
+            local r = row('Ammo', 'reload_time', (rt > 0 or known) and 'Reload time (s)' or 'Reload time (s; 0 = animation length)',
+                          'f32', rf, 0, 60, 0.1, 0.5)
+            if r and known then r.zero = known end
+        end
+        if not heat then return end
+        local function hf(id, offset) return get(id, '266:' .. offset, T_HEAT, heat + offset, 'f32', 1000000) end
+        local function hb(offset) return base('266:' .. offset, T_HEAT, heat + offset, 'f32', 1000000) end
+        if sinks then
+            for _, k in ipairs({ { 'heatsinks_start', 'Starting heatsinks', 84 }, { 'heatsinks_supply', 'Heatsinks from supply', 88 },
+                                 { 'heatsinks_max', 'Max spare heatsinks', 92 } }) do
+                row('Ammo', k[1], k[2], 'u32', get(k[1], '266:' .. k[3], T_HEAT, heat + k[3], 'u32', 100000), 0, 999, 1, 5)
+            end
+        end
+        row('Heat', 'heat_capacity', 'Overheat threshold', 'f32', hf('heat_capacity', 96), 0, 100000, 1, 10)
+        for _, g in ipairs({ { 'heat_shot', 'Heat per shot', 116 }, { 'heat_second', 'Heat per second firing', 120 } }) do
+            local v = read_field(hb(g[3]))
+            if v and v > 0 then row('Heat', g[1], g[2], 'f32', hf(g[1], g[3]), 0, 100000, 0.1, 1) end
+        end
+        -- cool-down times: the heat to shed over the cooling rate; setting a time sets the rate
+        local capacity, recover = hb(96), hb(100)
+        local function span(recovered, read)
+            local c, r = read(capacity), recovered and read(recover) or 0
+            return c and r and c - r
+        end
+        local function cool(id, label, offset, recovered)
+            local s = span(recovered, read_field)
+            local r = s and s > 0 and row('Heat', id, label, 'f32', hf(id, offset), 0.1, 3600, 0.5, 5)
+            if not r then return end
+            r.span = function() return span(recovered, read_field) end
+            r.span_default = function() return span(recovered, default_of) end
+        end
+        cool('heat_cool', 'Cool-down time, full heat (s)', 128, false)
+        if not sinks then cool('heat_cool_overheated', 'Cool-down time after overheat (s)', 140, true) end
+        -- wind-up (Sickles, Scythe, Quasar...): +148 the charge it needs to fire, +152 the charge gained
+        -- per second holding the trigger, +156 lost per second once let go; times: that charge over the rate
+        local needed = hb(148)
+        local function wind(id, label, offset)
+            local c = read_field(needed)
+            local r = c and c > 0 and row('Wind-up', id, label, 'f32', hf(id, offset), 0.01, 3600, 0.05, 0.25)
+            if not r then return end
+            r.span = function() return read_field(needed) end
+            r.span_default = function() return default_of(needed) end
+        end
+        wind('windup', 'Wind-up time (s)', 152)
+        wind('winddown', 'Wind-down time, released (s)', 156)
+    end
+    stock(nil, true)
     if rounds then
         add_row(weapon, 'Ammo', 'rounds_capacity', 'Rounds loaded', 'f32',
                 { part('rounds_capacity', T_ROUNDS, rounds + 72, 'f32', 100000) }, 1, 999, 1, 5)
@@ -1922,70 +2055,8 @@ local function resolve_gun(weapon, key)
                     { part('reload_below', T_ROUNDS, rounds + 96, 'f32', 100000) }, 1, 999, 1, 5)
         end
     end
-    -- reload time: the weapon's own (+56), or its magazine's (an attachment sets it over the weapon's 0).
-    -- The game scales the reload animation to it; 0: the animation's own length (no scaling).
-    local reload = (magazine or rounds or record(T_HEAT)) and record(TYPES.reload)
-    local rf = reload and linked(TYPES.reload, reload, 56, 'f32', 1000)
-    local rt = rf and default_of(rf)
-    if rt and rt >= 0 and rt < 1000 then
-        add_row(weapon, 'Ammo', 'reload_time', rt > 0 and 'Reload time (s)' or 'Reload time (s; 0: as animated)', 'f32',
-                { { id = 'reload_time', field = rf } }, 0, 60, 0.1, 0.5)
-    end
-    -- heat weapons (lasers, Quasar): +84/+88/+92 heatsinks, +96 overheat threshold, +100 heat it
-    -- recovers to after an overheat, +116/+120 heat per shot / second, +128 cooling per second,
-    -- +140 cooling per second while overheated, +144 (byte) overheat needs a new heatsink
-    local heat = record(T_HEAT)
+    stock(nil, false)
     if heat then
-        local function hf(offset) return linked(T_HEAT, heat, offset, 'f32', 1000000) end
-        local reload = read_field(field_at(T_HEAT, heat + 144, 'u32', 4294967295))
-        reload = reload and reload % 256 ~= 0
-        if reload then
-            local function sink(id, label, offset)
-                add_row(weapon, 'Ammo', id, label, 'u32', { { id = id, field = linked(T_HEAT, heat, offset, 'u32', 100000) } }, 0, 999, 1, 5)
-            end
-            sink('heatsinks_start', 'Starting heatsinks', 84)
-            sink('heatsinks_supply', 'Heatsinks from supply', 88)
-            sink('heatsinks_max', 'Max spare heatsinks', 92)
-        end
-        local function h(id, label, offset, small, big)
-            add_row(weapon, 'Heat', id, label, 'f32', { { id = id, field = hf(offset) } }, 0, 100000, small, big)
-        end
-        h('heat_capacity', 'Overheat threshold', 96, 1, 10)
-        for _, g in ipairs({ { 'heat_shot', 'Heat per shot', 116 }, { 'heat_second', 'Heat per second firing', 120 } }) do
-            local v = read_field(hf(g[3]))
-            if v and v > 0 then h(g[1], g[2], g[3], 0.1, 1) end
-        end
-        -- cool-down times: the heat to shed over the cooling rate; setting a time sets the rate
-        local capacity, recover = hf(96), hf(100)
-        local function span(recovered)
-            local c, r = read_field(capacity), recovered and read_field(recover) or 0
-            return c and r and c - r
-        end
-        local function span_default(recovered)
-            local c, r = default_of(capacity), recovered and default_of(recover) or 0
-            return c and r and c - r
-        end
-        local function cool(id, label, offset, recovered)
-            local s = span(recovered)
-            if not s or s <= 0 then return end
-            local row = add_row(weapon, 'Heat', id, label, 'f32', { { id = id, field = hf(offset) } }, 0.1, 3600, 0.5, 5)
-            row.span = function() return span(recovered) end
-            row.span_default = function() return span_default(recovered) end
-        end
-        cool('heat_cool', 'Cool-down time, full heat (s)', 128, false)
-        if not reload then cool('heat_cool_overheated', 'Cool-down time after overheat (s)', 140, true) end
-        -- wind-up (Sickles, Scythe, Quasar...): +148 the charge it needs to fire, +152 the charge gained
-        -- per second holding the trigger, +156 lost per second once let go; times: that charge over the rate
-        local needed = hf(148)
-        local function wind(id, label, offset)
-            local c = read_field(needed)
-            if not c or c <= 0 then return end
-            local row = add_row(weapon, 'Wind-up', id, label, 'f32', { { id = id, field = hf(offset) } }, 0.01, 3600, 0.05, 0.25)
-            row.span = function() return read_field(needed) end
-            row.span_default = function() return default_of(needed) end
-        end
-        wind('windup', 'Wind-up time (s)', 152)
-        wind('winddown', 'Wind-down time, released (s)', 156)
         -- heat levels (+0: 3 of 24 bytes: +0 heat it starts at, +4 projectile fired from there on, +20
         -- status effect put on the shooter: its damage row, status row +44). The LAS-17 Double-Edge
         -- Sickle's damage ramp and self-damage; below the first level it fires the fire mode's projectile.
@@ -2023,28 +2094,30 @@ local function resolve_gun(weapon, key)
             end
         end
     end
+    -- each magazine attachment: its magazine, reload and heat values, then its stat modifiers (ergonomics
+    -- bonus, ...); its rows change only that attachment (and every weapon that can fit it)
+    for _, item in ipairs(items) do
+        stock(item, true)
+        stock(item, false)
+        KINDS[TYPES.items].mod_rows(weapon, item_section(item), string.format('item%08X_', item.id), item.mods)
+    end
+    -- a value saved under a row its attachments took over ('capacity': once every magazine's) goes to theirs
+    for id, word in pairs(hidden) do
+        weapon.legacy = weapon.legacy or {}
+        weapon.legacy[id] = {}
+        for _, item in ipairs(items) do
+            if item.words[word] then weapon.legacy[id][#weapon.legacy[id] + 1] = string.format('item%08X_', item.id) .. id end
+        end
+    end
     local data = record(T_WEAPON)
     if data then
         local function w(id, offset) return part(id, T_WEAPON, data + offset, 'f32', 100000) end
-        -- the modifiers of the attachments only its line uses follow an edit (ergonomics to 0, the rest to 1)
-        local function follow(p, types, neutral)
-            for _, type in ipairs(types) do
-                for _, offset in ipairs(links and links.mods[type] or {}) do
-                    local m = field_at(TYPES.deltas, offset, 'f32', 1000)
-                    m.signed, m.neutral = type == 0, neutral
-                    p.field.mirrors = p.field.mirrors or {}
-                    p.field.mirrors[m.key] = m
-                    if m.users[#m.users] ~= weapon then m.users[#m.users + 1] = weapon end
-                end
-            end
-            return p
-        end
-        add_row(weapon, 'Handling', 'recoil_h', 'Recoil (horizontal)', 'f32', { follow(w('recoil_dh', 0), { 2, 10 }, 1), w('recoil_ch', 28) }, 0, 2000, 1, 5)
-        add_row(weapon, 'Handling', 'recoil_v', 'Recoil (vertical)', 'f32', { follow(w('recoil_dv', 4), { 4, 12 }, 1), w('recoil_cv', 32) }, 0, 2000, 1, 5)
-        add_row(weapon, 'Handling', 'spread_h', 'Spread (horizontal)', 'f32', { follow(w('spread_h', 84), { 14 }, 1) }, 0, 5000, 1, 10)
-        add_row(weapon, 'Handling', 'spread_v', 'Spread (vertical)', 'f32', { follow(w('spread_v', 88), { 16 }, 1) }, 0, 5000, 1, 10)
-        add_row(weapon, 'Handling', 'sway', 'Sway multiplier', 'f32', { follow(w('sway', 104), { 1 }, 1) }, 0, 100, 0.1, 0.5)
-        add_row(weapon, 'Handling', 'ergonomics', 'Ergonomics', 'f32', { follow(w('ergonomics', 356), { 0 }, 0) }, 0, 1000, 1, 5)
+        add_row(weapon, 'Handling', 'recoil_h', 'Recoil (horizontal)', 'f32', { w('recoil_dh', 0), w('recoil_ch', 28) }, 0, 2000, 1, 5)
+        add_row(weapon, 'Handling', 'recoil_v', 'Recoil (vertical)', 'f32', { w('recoil_dv', 4), w('recoil_cv', 32) }, 0, 2000, 1, 5)
+        add_row(weapon, 'Handling', 'spread_h', 'Spread (horizontal)', 'f32', { w('spread_h', 84) }, 0, 5000, 1, 10)
+        add_row(weapon, 'Handling', 'spread_v', 'Spread (vertical)', 'f32', { w('spread_v', 88) }, 0, 5000, 1, 10)
+        add_row(weapon, 'Handling', 'sway', 'Sway multiplier', 'f32', { w('sway', 104) }, 0, 100, 0.1, 0.5)
+        add_row(weapon, 'Handling', 'ergonomics', 'Ergonomics', 'f32', { w('ergonomics', 356) }, 0, 1000, 1, 5)
     end
     if weapon.key == key and weapon.slot == 'Support' then
         local pack = KINDS[TYPES.rack].pack(key)
@@ -2729,7 +2802,7 @@ local function resolve_throwable(entry, placed)
 end
 
 local function resolve(weapon)
-    weapon.rows, weapon.by_id, weapon.aliases, weapon.backpack, weapon.mines = {}, {}, nil, nil, nil
+    weapon.rows, weapon.by_id, weapon.aliases, weapon.backpack, weapon.mines, weapon.legacy = {}, {}, nil, nil, nil, nil
     if weapon.slot == 'Throwables' then resolve_throwable(weapon); return end
     -- a support weapon you place (the C4 Pack): the backpack that shares its loadout package (its
     -- charges), the charge (health, throw distance) and its explosion
@@ -2745,18 +2818,7 @@ local function resolve(weapon)
     if weapon.passive then KINDS[TYPES.passive].resolve(weapon); return end
     if weapon.stratagem then resolve_stratagem(weapon); return end
     if weapon.attachment then
-        for _, m in ipairs(KINDS[TYPES.items].MODS) do
-            local offset = weapon.attachment.mods[m[1]]
-            if offset then
-                local f = field_at(TYPES.deltas, offset, 'f32', 1000)
-                f.signed = m[4] < 0
-                local parts = { { id = m[2], field = f } }
-                -- its 'Alt' twin (the next type: recoil, climb and spread have one) moves with it
-                local alt = m[1] >= 2 and weapon.attachment.mods[m[1] + 1]
-                if alt then parts[2] = { id = m[2] .. '_alt', field = field_at(TYPES.deltas, alt, 'f32', 1000) } end
-                add_row(weapon, 'Attachment', m[2], m[3], 'f32', parts, m[4], m[5], m[6], m[7])
-            end
-        end
+        KINDS[TYPES.items].mod_rows(weapon, 'Attachment', '', weapon.attachment.mods)
         return
     end
     -- sentries and emplacements (listed as weapons on the Stratagems tab): their body, then their gun
@@ -2887,6 +2949,7 @@ local function row_value(row, default)
         if v == nil then return nil end
         sum = sum + v
     end
+    if row.zero and sum == 0 then return row.zero end   -- 0 stands for that (a reload played as animated)
     return sum / #row.parts
 end
 
@@ -3015,6 +3078,15 @@ local function unless_default(value, default)
     return value
 end
 
+-- The parts a saved id names: its own, else (an id saved before the weapon's magazine attachments had
+-- rows of their own: 'capacity', once every magazine's) each of theirs. nil: none.
+function MOD.parts_of(weapon, id)
+    if weapon.by_id[id] then return { weapon.by_id[id] } end
+    local out = {}
+    for _, listed in ipairs(weapon.legacy and weapon.legacy[id] or {}) do out[#out + 1] = weapon.by_id[listed] end
+    return out[1] and out or nil
+end
+
 local pending = {}      -- config values not applied yet (tables still being written)
 
 -- Applies pending values until the deadline (the rest wait for the next call); true when the
@@ -3025,17 +3097,25 @@ local function apply_config(deadline)
     while apply_at <= #pending do
         local o = pending[apply_at]
         local weapon = by_hash[o.hash]
-        local p = weapon and weapon.by_id[o.id]
+        local parts = weapon and MOD.parts_of(weapon, o.id)
         local keep = false
         if not weapon then
             log('config: unknown weapon ' .. o.hash); state.refused = state.refused + 1
-        elseif not p then
+        elseif not parts then
             log('config: ' .. weapon.name .. ' has no stat ' .. o.id); state.refused = state.refused + 1
         else
-            default_of(p.field)
-            local ok, why = write_field(p.field, o.value)
+            local ok, why = true, nil
+            for _, p in ipairs(parts) do
+                default_of(p.field)
+                local done, failed = write_field(p.field, o.value)
+                ok, why = ok and done, why or failed
+            end
             if ok then
                 state.applied = state.applied + 1
+                if parts[1].id ~= o.id then   -- saved under an old id: kept under the attachments' own from now on
+                    set_override(weapon, { id = o.id }, nil)
+                    for _, p in ipairs(parts) do set_override(weapon, p, unless_default(o.value, default_of(p.field))) end
+                end
             else
                 o.tries = (o.tries or 0) + 1
                 keep = o.tries < 30
@@ -3502,7 +3582,8 @@ local function change(row, delta_sign, big, exact)
         default_of(p.field)
         local new = target
         if row.span then new = row.span() / target
-        elseif #row.parts > 1 then new = (current > 0) and v * target / current or target end
+        elseif #row.parts > 1 then new = (current > 0) and v * target / current or target
+        elseif row.zero and math.abs(target - row.zero) < 1e-4 and defaults[p.field.key] == 0 then new = 0 end
         local ok, why = write_field(p.field, new)
         local d = defaults[p.field.key]
         if ok then
@@ -3760,7 +3841,11 @@ do
         local want, aliases = {}, weapon.aliases or {}
         for _, v in ipairs(values) do
             local id = aliases[v.id] or v.id
-            if want[id] == nil or id == v.id then want[id] = v.value end
+            local parts = MOD.parts_of(weapon, id)
+            for _, p in ipairs(parts and parts[1].id ~= id and parts or {}) do   -- an old id: each attachment's
+                if want[p.id] == nil then want[p.id] = v.value end
+            end
+            if not (parts and parts[1].id ~= id) and (want[id] == nil or id == v.id) then want[id] = v.value end
         end
         local refused = 0
         for _, row in ipairs(weapon.rows) do
@@ -3879,9 +3964,9 @@ do
         local refused = 0
         for _, o in ipairs(preset.values) do
             local weapon = by_hash[o.hash]
-            local p = weapon and weapon.by_id[o.id]
+            local parts = weapon and MOD.parts_of(weapon, o.id)
             local ok, why = false, weapon and ('no stat ' .. o.id) or ('unknown weapon ' .. o.hash)
-            if p then
+            for _, p in ipairs(parts or {}) do
                 local d = default_of(p.field)
                 ok, why = write_field(p.field, o.value)
                 if ok then set_override(weapon, p, unless_default(o.value, d)) end
@@ -3933,6 +4018,7 @@ local function draw(width, height)
     local ox, oy = settings.side == 'left' and 30 * s or width - (W + 30) * s, (height - H * s) / 2
     local gui = ui.gui
     local regions = {}
+    local shared_overlay = nil   -- set while the cursor is on a cut-short 'shared with' list
     local ink_font, ink_material = font.font, font.material
 
     local function color(r, g, b, a) return Color(a or 255, r, g, b) end
@@ -3951,30 +4037,34 @@ local function draw(width, height)
         step('Gui.rect')
         Gui.rect(gui, Vector3(ox + x * s, height - oy - (y + h) * s, z or 951), Vector2(w * s, h * s), c)
     end
-    local function text(value, x, y, size, c, limit, align_right)
+    -- a text's width on screen at a (scaled) size; measured once per text, size and font (the panel redraws often)
+    local function width(value, size)
+        local key = value .. '|' .. size
+        local measure = ui.measured[key]
+        if not measure then
+            step('Gui.text_extents')
+            local ok, lo, hi = pcall(Gui.text_extents, gui, value, ink_font, size)
+            if ok and lo and hi then
+                local a, b = vx(lo), vx(hi)
+                if a and b and b > a then measure = b - a end
+            end
+            measure = measure or #value * size * 0.5
+            if ui.measures > 5000 then ui.measured, ui.measures = {}, 0 end
+            ui.measured[key], ui.measures = measure, ui.measures + 1
+        end
+        return measure
+    end
+    local function text(value, x, y, size, c, limit, align_right, z)
         if value == nil or value == '' or not ink_font then return end
         size = size * s
         local px = ox + x * s
         if limit or align_right then
-            -- widths are measured once per text, size and font (the panel redraws often)
-            local key = value .. '|' .. size
-            local measure = ui.measured[key]
-            if not measure then
-                step('Gui.text_extents')
-                local ok, lo, hi = pcall(Gui.text_extents, gui, value, ink_font, size)
-                if ok and lo and hi then
-                    local a, b = vx(lo), vx(hi)
-                    if a and b and b > a then measure = b - a end
-                end
-                measure = measure or #value * size * 0.5
-                if ui.measures > 5000 then ui.measured, ui.measures = {}, 0 end
-                ui.measured[key], ui.measures = measure, ui.measures + 1
-            end
+            local measure = width(value, size)
             if limit and measure > limit * s then size = size * limit * s / measure; measure = limit * s end
             if align_right then px = px - measure end
         end
         step('Gui.text')
-        Gui.text(gui, value, ink_font, size, ink_material, Vector3(px, height - oy - y * s - size * 0.8, 953), c or WHITE)
+        Gui.text(gui, value, ink_font, size, ink_material, Vector3(px, height - oy - y * s - size * 0.8, z or 953), c or WHITE)
     end
     local function outline(x, y, w, h, c)
         rect(x, y, w, 2, c, 952); rect(x, y + h - 2, w, 2, c, 952)
@@ -4270,14 +4360,26 @@ local function draw(width, height)
                     section = row.section
                     local note, others = row.note or '', shared_with(weapon, row)
                     if type(note) == 'function' then note, others = note(others), {} end
-                    if note == '' and #others > 0 then
-                        note = 'shared with ' .. table.concat(others, ', ', 1, math.min(3, #others)) ..
-                               (#others > 3 and (' +' .. (#others - 3)) or '')
-                    end
-                    text(section:upper(), x0, y + 4, 15, MUTED)
                     -- the note after the section's name (long ones: 'PARTIAL CHARGE EXPLOSION')
                     local nx = math.max(110, #section * 10 + 14)
-                    if note ~= '' then text(note, x0 + nx, y + 4, 14, WARN, W - x0 - 20 - nx) end
+                    local room, shown = W - x0 - 20 - nx, 0
+                    if note == '' and #others > 0 then
+                        -- as many names (up to 3) as fit at full size, then '+N' (one name at least)
+                        for k = math.min(3, #others), 1, -1 do
+                            shown = k
+                            note = 'shared with ' .. table.concat(others, ', ', 1, k) ..
+                                   (#others > k and (' +' .. (#others - k)) or '')
+                            if k == 1 or not ink_font or width(note, 14 * s) <= room * s then break end
+                        end
+                    end
+                    text(section:upper(), x0, y + 4, 15, MUTED)
+                    if note ~= '' then text(note, x0 + nx, y + 4, 14, WARN, room) end
+                    -- a list cut short: hovering it shows every name
+                    if #others > shown then   -- (a note of its own lists none)
+                        local key = 'shared_' .. n
+                        region(key, x0 + nx, y, W - x0 - 20 - nx, 22)
+                        if ui.hover == key then shared_overlay = { names = others, y = y + 24, x = x0 + nx } end
+                    end
                     y = y + 24
                 end
                 local value, default = row_value(row), row_value(row, true)
@@ -4377,6 +4479,33 @@ local function draw(width, height)
     else
         text('PgUp/PgDn change weapon, Del resets, Ctrl+1-5 loads a weapon preset, Ctrl+Shift+1-5 saves one; ' .. #overrides ..
              ' value(s) changed.', 18, H - 34, 14, MUTED, W - 150)
+    end
+    -- every entry a hovered 'shared with' list names, in columns, over the rows below it (above, near the bottom)
+    if shared_overlay then
+        local names = {}
+        for k, name in ipairs(shared_overlay.names) do names[k] = name end
+        table.sort(names, function(a, b) return a:lower() < b:lower() end)
+        local col_w, pitch = 230, 20
+        local cols = math.min(4, math.max(1, math.ceil(#names / 12)))
+        local rows = math.min(math.ceil(#names / cols), math.floor((H - 160) / pitch))
+        local shown = math.min(#names, cols * rows)
+        if shown < #names then shown = shown - 1 end
+        local w, h = cols * col_w + 24, rows * pitch + 46
+        local x = math.max(16, math.min(shared_overlay.x, W - 16 - w))
+        local y = shared_overlay.y
+        if y + h > H - 70 then y = math.max(56, shared_overlay.y - 24 - h - 4) end
+        rect(x, y, w, h, color(8, 11, 15), 958)
+        rect(x, y, w, 2, GOLD, 959); rect(x, y + h - 2, w, 2, GOLD, 959)
+        rect(x, y, 2, h, GOLD, 959); rect(x + w - 2, y, 2, h, GOLD, 959)
+        text('Also changes (' .. #names .. '):', x + 12, y + 10, 15, MUTED, w - 24, false, 960)
+        for k = 1, shown do
+            local c, r = math.floor((k - 1) / rows), (k - 1) % rows
+            text(names[k], x + 12 + c * col_w, y + 36 + r * pitch, 15, WHITE, col_w - 12, false, 960)
+        end
+        if shown < #names then
+            text('+' .. (#names - shown) .. ' more', x + 12 + (cols - 1) * col_w, y + 36 + (rows - 1) * pitch, 15, DIM,
+                 col_w - 12, false, 960)
+        end
     end
     return regions
 end
