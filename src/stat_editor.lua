@@ -1975,11 +1975,14 @@ local function resolve_gun(weapon, key)
                            { { id = pre .. id, field = f } }, min, max, small, big)
         end
         if ammo then
-            for _, m in ipairs(magazine and { { 'capacity', 'Magazine size', 136, 1, 9999, 10 },
+            -- the game keeps at most 2048 rounds in a magazine (more drops to 2048 at the first shot): rows stop
+            -- there, and going past it says why (row.limit)
+            for _, m in ipairs(magazine and { { 'capacity', 'Magazine size', 136, 1, 2048, 10 },
                                               { 'mags_start', 'Starting magazines', 140, 0, 999, 5 },
                                               { 'mags_supply', 'Magazines from supply', 144, 0, 999, 5 },
                                               { 'mags_max', 'Max spare magazines', 148, 0, 999, 5 } } or {}) do
-                row('Ammo', m[1], m[2], 'u32', get(m[1], '5:' .. m[3], T_MAGAZINE, magazine + m[3], 'u32', 100000), m[4], m[5], 1, m[6])
+                local r = row('Ammo', m[1], m[2], 'u32', get(m[1], '5:' .. m[3], T_MAGAZINE, magazine + m[3], 'u32', 100000), m[4], m[5], 1, m[6])
+                if r and m[1] == 'capacity' then r.limit = 'The game holds at most 2048 rounds in a magazine.' end
             end
             return
         end
@@ -3575,6 +3578,9 @@ local function change(row, delta_sign, big, exact)
     local target = exact or current + delta_sign * step_of(row, current, big)
     if row.storage == 'u32' then target = math.floor(target + 0.5)
     else target = math.floor(target * 10000 + 0.5) / 10000 end
+    if row.limit and delta_sign > 0 and current >= row.max then
+        ui.message = { text = row.limit, till = api.now() + 4 }
+    end
     target = math.max(row.min, math.min(row.max, target))
     if target == current then return end
     for _, p in ipairs(row.parts) do
@@ -3620,6 +3626,7 @@ local function finish_value(keep)
     if target ~= rounded then
         local text = string.format('%s can be %s to %s: set to %s.', row.label, fmt(row.min, row.storage),
                                    fmt(row.max, row.storage), fmt(target, row.storage))
+        if row.limit and rounded > row.max then text = row.limit .. ' Set to ' .. fmt(target, row.storage) .. '.' end
         ui.message = { text = text, till = api.now() + 4 }
     end
 end

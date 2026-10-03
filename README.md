@@ -195,6 +195,8 @@ share the whole setup.
   whichever magazine, heatsink or canister is fitted; what you haven't changed (a magazine's
   ergonomics, for example) still comes from the attachment. Changing a weapon's ergonomics, sway,
   recoil or spread also cancels those of the attachments only that weapon uses (its magazines).
+- **Magazines hold at most 2048 rounds.** The game caps a magazine there (a bigger one drops to
+  2048 at the first shot), so the editor stops at 2048 and says so if you go past it.
 - **Custom muzzle brakes.** Seven weapons come with a muzzle brake of their own (Liberator
   Penetrator, Pacifier, Coyote, Adjudicator, Tenderizer, Hyena, Diligence Counter Sniper). Each is
   an entry on the Attachments tab, named after its weapon ("Muzzle brake (Liberator Penetrator)").
