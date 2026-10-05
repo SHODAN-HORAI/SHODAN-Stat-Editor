@@ -1916,6 +1916,34 @@ local function resolve_gun(weapon, key)
         projectile_rows(srow, 'm2_', 'Second mode', 'Second mode explosion')
         explosion_rows()
     end
+    -- its second ammo type and tracer rounds (KINDS[T_ROUNDS].extra): their direct hit (a tracer's
+    -- is the round's own: not listed again), projectile and explosions, ids 'a2_' / 't_' .. stat
+    local extra = weapon.key == key and prow and KINDS[T_ROUNDS].extra(rounds, record(T_MAGAZINE), projectile)
+    for _, shot in ipairs(extra or {}) do
+        if shot.prow then
+            local id = read_field(field_at(T_PROJECTILE, shot.prow + 60, 'u32', 100000))
+            local qrow = id and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
+            local from = #weapon.rows + 1
+            if qrow and qrow ~= drow then
+                damage_rows(weapon, shot.name, shot.prefix, qrow)
+                status_rows(weapon, shot.name, shot.prefix, qrow, 'hit')
+            end
+            projectile_rows(shot.prow, shot.prefix, shot.name, shot.name .. ' explosion')
+            -- a status's shared rows (its own section) after the shot's, not between them
+            local own, shared = {}, {}
+            for k = from, #weapon.rows do
+                local r = weapon.rows[k]
+                if r.section == shot.name then own[#own + 1] = r else shared[#shared + 1] = r end
+                weapon.rows[k] = nil
+            end
+            for _, r in ipairs(own) do weapon.rows[#weapon.rows + 1] = r end
+            for _, r in ipairs(shared) do weapon.rows[#weapon.rows + 1] = r end
+            if qrow == drow and weapon.rows[from] then
+                weapon.rows[from].note = 'damage: the same as the other rounds (Damage above)'
+            end
+            explosion_rows()
+        end
+    end
     -- the charge: its stages' times, the overcharge limit, and the multipliers it puts on the shot
     if charge then
         local function cf(offset) return field_at(TYPES.charge, charge + offset, 'f32', 100000) end
@@ -2146,7 +2174,7 @@ local function resolve_gun(weapon, key)
         local pack = KINDS[TYPES.rack].pack(key)
         if pack then KINDS[TYPES.jumppack].backpack(weapon, pack, true) end
     end
-    if weapon.key == key then KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire) end
+    if weapon.key == key then KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire, extra) end
 end
 
 -- ---------------------------------------------------------------- stratagems
@@ -2856,13 +2884,54 @@ local function resolve(weapon)
     resolve_gun(weapon, weapon.key)
 end
 
+-- The shots a weapon fires besides its projectile, read as the game had them: a second ammo type
+-- (rounds +68 when not +64's: the SG-20 Halt's stun rounds, toggled in game; named for a stun it
+-- applies) and a patterned magazine's other rounds (magazine +0 type 1, +4: 32 projectiles fired in
+-- turn: the MG-43's and Bullet Storm's tracers, the machine gun sentries'). { id, prow, name, prefix,
+-- field (the second ammo type's) or slots (the pattern's fields, every round's) }, nil when none.
+KINDS[T_ROUNDS].extra = function(rounds, magazine, projectile)
+    local list = {}
+    local function prow_of(id) return id and id > 0 and tables[T_PROJECTILE] and tables[T_PROJECTILE].index[id] end
+    local f = rounds and field_at(T_ROUNDS, rounds + 68, 'u32', 100000)
+    local alt = f and default_of(f)
+    if prow_of(alt) and alt ~= projectile then
+        local did = read_field(field_at(T_PROJECTILE, prow_of(alt) + 60, 'u32', 100000))
+        local drow = did and tables[T_DAMAGE] and tables[T_DAMAGE].index[did]
+        local stun = nil
+        for i = 0, 3 do
+            local kind = drow and read_field(field_at(T_DAMAGE, drow + 44 + i * 8, 'u32', 100000))
+            stun = stun or (kind and KINDS[T_STATUS].stuns[kind])
+        end
+        list[#list + 1] = { id = alt, prow = prow_of(alt), name = stun and 'Stun rounds' or 'Second ammo', prefix = 'a2_', field = f }
+    end
+    if magazine and default_of(field_at(T_MAGAZINE, magazine, 'u32', 100000)) == 1 then
+        local slots, other = {}, nil
+        for k = 0, 31 do
+            local slot = field_at(T_MAGAZINE, magazine + 4 + k * 4, 'u32', 100000)
+            local id = default_of(slot)
+            if id and id > 0 then
+                slots[#slots + 1] = slot
+                if id ~= projectile then other = other or id end
+            end
+        end
+        if prow_of(other) then
+            list[#list + 1] = { id = other, prow = prow_of(other), name = 'Tracer rounds', prefix = 't_', slots = slots }
+        elseif #slots > 0 then
+            list[#list + 1] = { slots = slots }   -- every round its projectile: only the swap writes them
+        end
+    end
+    return #list > 0 and list or nil
+end
+
 -- Projectile swap (the last row of a weapon that fires projectiles): one row writing every field the
 -- weapon's projectile comes from (its rounds record, ammo type, fire mode, charge stages) with another
 -- weapon's projectile. The stat rows above stay the weapon's own projectile's. Choices:
 -- KINDS[T_PROJECTILE].choices, every listed weapon's own projectiles by name (built after resolving).
 -- Weapons with a second firing mode (the "programmable ammo" weapon function: the Autocannon's flak,
--- the Recoilless Rifle's HE) fire the fire mode's +576 in it: a second swap row for that one.
-KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire)
+-- the Recoilless Rifle's HE) fire the fire mode's +576 in it: a second swap row for that one. `extra`
+-- (KINDS[T_ROUNDS].extra): a patterned magazine's rounds take the swapped projectile too (every one of
+-- them), a second ammo type has its own row.
+KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     if #sources == 0 or not (weapon.projectile or shots) then return end
     local main = nil
     for _, src in ipairs(sources) do
@@ -2873,6 +2942,11 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire)
     local parts = { { id = main.id, field = main.field } }
     for _, src in ipairs(sources) do
         if src ~= main then parts[#parts + 1] = { id = src.id, field = src.field } end
+    end
+    local ammo = nil
+    for _, shot in ipairs(extra or {}) do
+        for k, slot in ipairs(shot.slots or {}) do parts[#parts + 1] = { id = 'proj_mag' .. k, field = slot } end
+        if shot.field then ammo = shot end
     end
     local function swap(id, label, row_parts)
         local row = add_row(weapon, 'Projectile swap', id, label, 'u32', row_parts, 1, 100000, 1, 10)
@@ -2895,6 +2969,10 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire)
     else
         second = nil
     end
+    if ammo then
+        local id = 'projectile_' .. ammo.prefix:sub(1, -2)
+        row = swap(id, ammo.name .. ' fire (id)', { { id = id, field = ammo.field } })
+    end
     -- under the last row: what a swap changes and what it keeps (drawn below it, `after_h` units)
     row.after = { "Swapping makes the shot the chosen weapon's, your edits to it included: damage,",
                   'armor penetration, forces, velocity, drag, gravity, pellets and explosions. Kept: this',
@@ -2906,6 +2984,7 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire)
             label = shots and (weapon.name .. ' (' .. shot.name:lower() .. ')') or weapon.name }
     end
     if second then weapon.own_shots[#weapon.own_shots + 1] = { id = second, label = weapon.name .. ' (second mode)' } end
+    if ammo then weapon.own_shots[#weapon.own_shots + 1] = { id = ammo.id, label = weapon.name .. ' (' .. ammo.name:lower() .. ')' } end
 end
 
 -- The choices: every own projectile once (the first weapon's name, by name), in name order.
