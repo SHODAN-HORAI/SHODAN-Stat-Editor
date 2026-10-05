@@ -431,6 +431,7 @@ local PAGE_READONLY, PAGE_READWRITE = 0x02, 0x04
 local state = {
     title = MOD.title, version = MOD.version, phase = 'starting', status = 'starting',
     frame = 0, tables = 0, weapons = 0, applied = 0, refused = 0, ui_errors = 0,
+    writes = 0,   -- goes up on every value this mod writes: other mods editing the same tables can watch it
 }
 rawset(_G, MOD.global, state)
 
@@ -1053,7 +1054,9 @@ local KINDS = {
     -- Hammer's; no settings table links it, the game sets it off from the strike itself)
     [T_MELEE] = { name = 'melee weapon', stride = 192, keyed = true, explosions = { ['5F3EC9BDA2BD8553'] = 19 } },
     -- names: the status effects that deal damage, by type (the game's debug names Fire, Gas)
-    [T_STATUS] = { name = 'status effect', stride = 152, tail = true, names = { [5] = 'Burning', [32] = 'Heavy burning', [42] = 'Gas', [43] = 'Gas' } },
+    [T_STATUS] = { name = 'status effect', stride = 152, tail = true, names = { [5] = 'Burning', [32] = 'Heavy burning', [42] = 'Gas', [43] = 'Gas' },
+                   -- stuns deal no damage (no damage row of their own); the Illuminate one (41) no weapon applies
+                   stuns = { [37] = 'Stun (small)', [38] = 'Stun (medium)', [39] = 'Stun (large)', [40] = 'Stun (massive)' } },
     [TYPES.arc_weapon] = { name = 'arc weapon', stride = 80, keyed = true },
     [TYPES.arc] = { name = 'arc', stride = 104 },
     [TYPES.health] = { name = 'health', stride = 22096, keyed = true,
@@ -1337,6 +1340,7 @@ local function write_field(f, value)
         end
         done[#done + 1] = { at, before }
     end
+    state.writes = state.writes + 1
     return true
 end
 
@@ -1666,8 +1670,8 @@ end
 -- Adds the rows of the gun whose entity hash is `key` (8 bytes) to `weapon` (a weapon, or a
 -- stratagem whose payload is a gun: sentries, emplacements).
 -- The status effects damage row `drow` applies that deal damage (fire from flamers, incendiary rounds
--- and grenades, gas): how much each hit applies (`per`: 'hit', 'blast'), then the status's damage row
--- and duration (every source of that status shares them). Ids: `prefix` .. 'status<type>_' .. stat.
+-- and grenades, gas) or stun: how much each hit applies (`per`: 'hit', 'blast'), then the status's damage
+-- row (none for a stun) and duration (every source of that status shares them). Ids: `prefix` .. 'status<type>_' .. stat.
 local function status_rows(entry, section, prefix, drow, per)
     for i = 0, 3 do
         local kind = read_field(field_at(T_DAMAGE, drow + 44 + i * 8, 'u32', 100000))
@@ -1675,14 +1679,16 @@ local function status_rows(entry, section, prefix, drow, per)
         local srow = tables[T_STATUS] and tables[T_STATUS].index[kind]
         local sid = srow and read_field(field_at(T_STATUS, srow + 44, 'u32', 100000))
         local qrow = sid and sid > 0 and tables[T_DAMAGE] and tables[T_DAMAGE].index[sid]
-        if qrow then
-            local name, key = KINDS[T_STATUS].names[kind] or ('Status ' .. kind), prefix .. 'status' .. kind
+        local stun = srow and not qrow and KINDS[T_STATUS].stuns[kind]
+        if qrow or stun then
+            local name, key = stun or KINDS[T_STATUS].names[kind] or ('Status ' .. kind), prefix .. 'status' .. kind
             add_row(entry, section, key .. '_strength', name .. ' applied per ' .. per, 'f32',
                     { part(key .. '_strength', T_DAMAGE, drow + 48 + i * 8, 'f32', 100000) }, 0, 1000, 0.1, 1)
-            local first = damage_rows(entry, name, key .. '_', qrow, name, 6)   -- no forces: a status has none
-            first.note = 'every ' .. name:lower() .. ' source shares these (other weapons, strikes, hazards, enemies)'
-            add_row(entry, name, key .. '_duration', name .. ' duration (s)', 'f32',
-                    { part(key .. '_duration', T_STATUS, srow + 40, 'f32', 100000) }, 0, 600, 0.5, 5)
+            local first = qrow and damage_rows(entry, name, key .. '_', qrow, name, 6)   -- no forces: a status has none
+            local duration = add_row(entry, name, key .. '_duration', name .. ' duration (s)', 'f32',
+                                     { part(key .. '_duration', T_STATUS, srow + 40, 'f32', 100000) }, 0, 600, 0.5, 5)
+            local by = qrow and '(other weapons, strikes, hazards, enemies)' or '(other weapons, grenades, strikes)'
+            ;(first or duration).note = 'every ' .. name:lower() .. ' source shares ' .. (qrow and 'these ' or 'this ') .. by
         end
     end
 end
@@ -1894,6 +1900,20 @@ local function resolve_gun(weapon, key)
         if before and weapon.rows[from] then
             weapon.rows[from].note = 'direct hit: see the ' .. before.name:lower() .. ' shot'
         end
+        explosion_rows()
+    end
+    -- the second firing mode's projectile (fire mode +576: the Autocannon's flak, the Recoilless Rifle's HE),
+    -- read as the game had it: its direct hit, projectile and explosions, ids 'm2_' .. stat
+    local second = fire and weapon.key == key and default_of(field_at(T_FIRE, fire + 576, 'u32', 100000))
+    local srow = second and second > 0 and tables[T_PROJECTILE] and tables[T_PROJECTILE].index[second]
+    if srow then
+        local id = read_field(field_at(T_PROJECTILE, srow + 60, 'u32', 100000))
+        local qrow = id and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
+        if qrow then
+            damage_rows(weapon, 'Second mode', 'm2_', qrow)
+            status_rows(weapon, 'Second mode', 'm2_', qrow, 'hit')
+        end
+        projectile_rows(srow, 'm2_', 'Second mode', 'Second mode explosion')
         explosion_rows()
     end
     -- the charge: its stages' times, the overcharge limit, and the multipliers it puts on the shot
@@ -2126,7 +2146,7 @@ local function resolve_gun(weapon, key)
         local pack = KINDS[TYPES.rack].pack(key)
         if pack then KINDS[TYPES.jumppack].backpack(weapon, pack, true) end
     end
-    if weapon.key == key then KINDS[T_PROJECTILE].swap_row(weapon, sources, shots) end
+    if weapon.key == key then KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire) end
 end
 
 -- ---------------------------------------------------------------- stratagems
@@ -2840,7 +2860,9 @@ end
 -- weapon's projectile comes from (its rounds record, ammo type, fire mode, charge stages) with another
 -- weapon's projectile. The stat rows above stay the weapon's own projectile's. Choices:
 -- KINDS[T_PROJECTILE].choices, every listed weapon's own projectiles by name (built after resolving).
-KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots)
+-- Weapons with a second firing mode (the "programmable ammo" weapon function: the Autocannon's flak,
+-- the Recoilless Rifle's HE) fire the fire mode's +576 in it: a second swap row for that one.
+KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire)
     if #sources == 0 or not (weapon.projectile or shots) then return end
     local main = nil
     for _, src in ipairs(sources) do
@@ -2852,26 +2874,38 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots)
     for _, src in ipairs(sources) do
         if src ~= main then parts[#parts + 1] = { id = src.id, field = src.field } end
     end
-    local row = add_row(weapon, 'Projectile swap', 'projectile', 'Projectile fired (id)', 'u32', parts, 1, 100000, 1, 10)
-    row.choice = true
-    -- under the row: what a swap changes and what it keeps (drawn below it, `after_h` units)
+    local function swap(id, label, row_parts)
+        local row = add_row(weapon, 'Projectile swap', id, label, 'u32', row_parts, 1, 100000, 1, 10)
+        row.choice = true
+        row.note = function(others)
+            local spec, now, own = KINDS[T_PROJECTILE], read_field(row_parts[1].field), default_of(row_parts[1].field)
+            local shot = spec.by_id and spec.by_id[now]
+            local text = now == own and "its own. - / + : fire another weapon's"
+                         or ('fires: ' .. (shot and shot.label or ('projectile ' .. tostring(now))) .. '. The rows above stay its own')
+            if #others > 0 then text = text .. '; ammo type shared with ' .. table.concat(others, ', ', 1, math.min(2, #others)) end
+            return text
+        end
+        return row
+    end
+    local row = swap('projectile', 'Projectile fired (id)', parts)
+    local alt = fire and field_at(T_FIRE, fire + 576, 'u32', 100000)
+    local second = alt and default_of(alt)
+    if second and second > 0 then
+        row = swap('projectile_2', 'Second mode fires (id)', { { id = 'projectile_2', field = alt } })
+    else
+        second = nil
+    end
+    -- under the last row: what a swap changes and what it keeps (drawn below it, `after_h` units)
     row.after = { "Swapping makes the shot the chosen weapon's, your edits to it included: damage,",
                   'armor penetration, forces, velocity, drag, gravity, pellets and explosions. Kept: this',
                   "weapon's fire rate, ammo, handling and heat. To tune the shot, edit the chosen weapon." }
     row.after_h = #row.after * 16 + 6
-    row.note = function(others)
-        local spec, now, own = KINDS[T_PROJECTILE], read_field(parts[1].field), default_of(parts[1].field)
-        local shot = spec.by_id and spec.by_id[now]
-        local text = now == own and "its own. - / + : fire another weapon's"
-                     or ('fires: ' .. (shot and shot.label or ('projectile ' .. tostring(now))) .. '. The rows above stay its own')
-        if #others > 0 then text = text .. '; ammo type shared with ' .. table.concat(others, ', ', 1, math.min(2, #others)) end
-        return text
-    end
     weapon.own_shots = {}
     for _, shot in ipairs(shots or { { id = weapon.projectile } }) do
         weapon.own_shots[#weapon.own_shots + 1] = { id = shot.id,
             label = shots and (weapon.name .. ' (' .. shot.name:lower() .. ')') or weapon.name }
     end
+    if second then weapon.own_shots[#weapon.own_shots + 1] = { id = second, label = weapon.name .. ' (second mode)' } end
 end
 
 -- The choices: every own projectile once (the first weapon's name, by name), in name order.
@@ -3090,6 +3124,14 @@ function MOD.parts_of(weapon, id)
     return out[1] and out or nil
 end
 
+-- For other mods: the game's own value of a stat, named as in config.txt (weapon hash, stat id), as
+-- read at startup before this mod wrote anything. nil: no such weapon / stat, or its table not found.
+function state.vanilla(hash, id)
+    local weapon = type(hash) == 'string' and by_hash[hash:upper()]
+    local p = weapon and type(id) == 'string' and weapon.by_id[id]
+    return p and default_of(p.field) or nil
+end
+
 local pending = {}      -- config values not applied yet (tables still being written)
 
 -- Applies pending values until the deadline (the rest wait for the next call); true when the
@@ -3168,8 +3210,29 @@ function state.build_some()
     set_status('preparing', 'resolving weapons and applying saved values')
 end
 
+-- Every field's game value, read before this mod writes any: otherwise a field's default is read
+-- when first needed, and holds another mod's value if one edited it first (an ammo mod's damage).
+-- Reset, "was" and changes off then go back to the game's own value. Fields already read keep theirs.
+function MOD.snapshot_defaults(progress, deadline)
+    if not progress.keys then
+        progress.keys, progress.read = {}, 1
+        for key in pairs(fields) do progress.keys[#progress.keys + 1] = key end
+    end
+    local keys = progress.keys
+    while progress.read <= #keys do
+        default_of(fields[keys[progress.read]])
+        progress.read = progress.read + 1
+        if progress.read % 256 == 0 and api.now() >= deadline then return false end
+    end
+    return true
+end
+
 local function prepare(deadline)
-    if not resolve_some(progress, deadline) then return end
+    if not progress.resolved then
+        if not resolve_some(progress, deadline) then return end
+        progress.resolved = true
+    end
+    if not MOD.snapshot_defaults(progress, deadline) then return end
     if api.now() >= deadline or not apply_config(deadline) then return end
     progress = nil
     local missing = {}
@@ -3815,13 +3878,21 @@ do
         log('presets: ' .. count .. ' weapon preset(s), ' .. full .. ' full preset(s)')
     end
 
-    -- Every value of the weapon that differs from the game's, part by part.
+    -- Every value of the weapon that differs from the game's, part by part: this mod's own value
+    -- for it, so a value another mod changed on top (an ammo type) is not saved into the preset.
     local function weapon_changes(weapon)
+        local mine = {}
+        for _, o in ipairs(overrides) do
+            local w = by_hash[o.hash]
+            local p = w and w.by_id[o.id]
+            if p then mine[p.field.key] = o.value end
+        end
         local out = {}
         for _, row in ipairs(weapon.rows) do
             for _, p in ipairs(row.parts) do
                 local v, d = read_field(p.field), default_of(p.field)
-                if v and d and math.abs(v - d) > 1e-4 then out[#out + 1] = { id = p.id, value = v } end
+                local own = mine[p.field.key]
+                if own and v and d and math.abs(v - d) > 1e-4 then out[#out + 1] = { id = p.id, value = own } end
             end
         end
         return out
