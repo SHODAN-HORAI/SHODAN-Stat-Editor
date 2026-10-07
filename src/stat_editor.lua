@@ -1844,11 +1844,13 @@ local function resolve_gun(weapon, key)
         drow = id and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
     end
     weapon.projectile, weapon.damage_row = prow and projectile or nil, nil
+    local main_from = #weapon.rows + 1   -- the shot's rows (direct hit, projectile, explosions): main_from..main_to
     if drow then
         weapon.damage_row = true
         damage_rows(weapon, 'Damage', '', drow)
     end
     if drow then status_rows(weapon, 'Damage', '', drow, 'hit') end
+    local damage_to = #weapon.rows
     if arow then
         add_row(weapon, 'Arc', 'arc_range', 'Range (m)', 'f32', { part('arc_range', TYPES.arc, arow + 8, 'f32', 100000) },
                 0, 1000, 1, 5)
@@ -1863,6 +1865,21 @@ local function resolve_gun(weapon, key)
         end
     end
     local blasts = {}
+    -- the ids of rows from..to, taken by `prefix` .. their id past `listed` (its prefix): another shot's
+    -- for the same memory (listed once), kept so saved values and presets that name them still apply
+    local function alias_rows(from, to, listed, prefix)
+        weapon.aliases = weapon.aliases or {}
+        for k = from, to do
+            for _, p in ipairs(weapon.rows[k].parts) do
+                if p.id:sub(1, #listed) == listed then
+                    local alias = prefix .. p.id:sub(#listed + 1)
+                    if not weapon.by_id[alias] then weapon.by_id[alias], weapon.aliases[alias] = p, p.id end
+                end
+            end
+        end
+    end
+    local exploded = {}   -- explosion row -> { from, to, prefix } once listed
+    local blast_hits = {}   -- an explosion's damage row -> { from, to, prefix, section } once listed
     -- a projectile's rows (ids `idp` .. stat) in `section`, and its explosions, to add after it: on
     -- impact (+144) and on expiry (+156, when another one) -> explosion row (+4 damage row, +16 inner,
     -- +20 outer, +24 shockwave radius), in `xsection` ('Explosion', or the shot's)
@@ -1889,17 +1906,34 @@ local function resolve_gun(weapon, key)
     local function explosion_rows()
         for _, blast in ipairs(blasts) do
             local xrow = tables[T_EXPLOSION] and tables[T_EXPLOSION].index[blast.id]
-            if xrow then
+            local before = xrow and exploded[xrow]
+            if before then   -- another shot's explosion too (the same one in game): listed once
+                alias_rows(before.from, before.to, before.prefix, blast.prefix)
+                local first = weapon.rows[before.from]
+                if first then first.note = first.note or ('explosion: also the ' .. blast.section:gsub(' ?[Ee]xplosion.*$', ''):lower() .. "'s") end
+            elseif xrow then
+                local from = #weapon.rows + 1
                 local id = blast.damage and read_field(field_at(T_EXPLOSION, xrow + 4, 'u32', 100000))
                 local qrow = id and id > 0 and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
-                if qrow then
+                local shared = qrow and blast_hits[qrow]
+                if shared then   -- another explosion's damage too (StA-X3 W.A.S.P.'s modes): listed once
+                    alias_rows(shared.from, shared.to, shared.prefix, blast.prefix .. '_')
+                elseif qrow then
                     damage_rows(weapon, blast.section, blast.prefix .. '_', qrow, 'Explosion')
+                    blast_hits[qrow] = { from = from, to = #weapon.rows, prefix = blast.prefix .. '_', section = blast.section }
                 end
+                local radii = #weapon.rows + 1
                 for _, r in ipairs({ { 'inner', 'Inner radius (m)', 16 }, { 'outer', 'Outer radius (m)', 20 },
                                      { 'shockwave', 'Shockwave radius (m)', 24 } }) do
                     local rid = blast.prefix .. '_' .. r[1]
                     add_row(weapon, blast.section, rid, r[2], 'f32', { part(rid, T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
                 end
+                if shared and weapon.rows[radii] then
+                    weapon.rows[radii].note = 'damage: the same as the ' .. shared.section:lower() .. "'s (above)"
+                    local first = weapon.rows[shared.from]
+                    if first then first.note = first.note or ('also the ' .. blast.section:lower() .. "'s damage") end
+                end
+                exploded[xrow] = { from = from, to = #weapon.rows, prefix = blast.prefix }
             end
         end
         blasts = {}
@@ -1909,6 +1943,7 @@ local function resolve_gun(weapon, key)
     local strike = melee and weapon.key == key and KINDS[T_MELEE].explosions[weapon.hash]
     if strike then blasts[#blasts + 1] = { id = strike, prefix = 'blast', section = 'Explosion', damage = true } end
     explosion_rows()
+    local main_to = #weapon.rows
     -- each shot of a charge weapon: its direct hit and projectile, then its explosion. A direct hit a
     -- later shot shares with an earlier one (Loyalist, Purifier: one damage row) is listed once, under
     -- the earlier shot; the later shot's ids for it stay as aliases (weapon.aliases: id -> listed id),
@@ -1947,14 +1982,26 @@ local function resolve_gun(weapon, key)
     -- read as the game had it: its direct hit, projectile and explosions, ids 'm2_' .. stat
     local second = fire and weapon.key == key and default_of(field_at(T_FIRE, fire + 576, 'u32', 100000))
     local srow = second and second > 0 and tables[T_PROJECTILE] and tables[T_PROJECTILE].index[second]
-    if srow then
+    -- The same projectile as the first mode's (StA-X3 W.A.S.P.'s artillery mode): not listed again; a
+    -- direct hit or explosion the two share: listed once (the 'm2_' ids stay as aliases).
+    if srow and srow == prow then
+        alias_rows(main_from, main_to, '', 'm2_')
+        local first = weapon.rows[main_from]
+        if first then first.note = first.note or "also the second firing mode's shot (the same projectile)" end
+    elseif srow then
         local id = read_field(field_at(T_PROJECTILE, srow + 60, 'u32', 100000))
         local qrow = id and tables[T_DAMAGE] and tables[T_DAMAGE].index[id]
-        if qrow then
+        local from = #weapon.rows + 1
+        if qrow and qrow == drow then
+            alias_rows(main_from, damage_to, '', 'm2_')
+        elseif qrow then
             damage_rows(weapon, 'Second mode', 'm2_', qrow)
             status_rows(weapon, 'Second mode', 'm2_', qrow, 'hit')
         end
         projectile_rows(srow, 'm2_', 'Second mode', 'Second mode explosion')
+        if qrow and qrow == drow and weapon.rows[from] then
+            weapon.rows[from].note = "direct hit: the same as the first mode's (Damage above)"
+        end
         explosion_rows()
     end
     -- its second ammo type and tracer rounds (KINDS[T_ROUNDS].extra): their direct hit (a tracer's
