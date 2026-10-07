@@ -1031,7 +1031,8 @@ local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, 
                 vehicle = 0xEAEB2B0D, mount = 0x3845B1E0, shield = 0x5154DB66,
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
-                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B }
+                thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B,
+                seeking = 0xBF3A6789 }
 local KINDS = {
     [T_WEAPON] = { name = 'weapon', stride = 1232, keyed = true },
     [T_MAGAZINE] = { name = 'magazine', stride = 160, keyed = true },
@@ -1123,6 +1124,12 @@ KINDS[TYPES.bombard] = { name = 'bombardment', stride = 192, keyed = true }
 -- Eagles (EagleComponentData): +16 payload (2 strafe, 4 rocket pods, 5 bombs), +20 drop pattern (fixes the
 -- bomb count; not offered), +40 fire duration (guns, rockets), +44 time between bombs, +108 run length (m)
 KINDS[TYPES.eagle] = { name = 'eagle', stride = 152, keyed = true }
+-- Seeking missiles (SeekingMissileComponentData; the MS-11 Solo Silo's missile): +12 guidance on after (s),
+-- +28 guidance lost past this angle (deg), +56 / +60 movement / warhead on after (s; the silo's -1: by
+-- its script, not offered), +64 max lifetime (s),
+-- +68 launch, +72 minimum, +76 cruise speed, +80 acceleration, +88 / +92 turn speed at cruise / slowest.
+-- Records of 272 bytes (FileDiver's layout ends at 252; 264 also fits the table, read off by 8 bytes).
+KINDS[TYPES.seeking] = { name = 'seeking missile', stride = 272, keyed = true }
 -- the tables the panel waits for (stratagem groups are taken as they come)
 local KIND_ORDER = { T_WEAPON, T_MAGAZINE, T_ROUNDS, T_FIRE, T_PROJECTILE, T_DAMAGE, T_BEAM_WEAPON, T_BEAM,
                      T_EXPLOSION, T_ORBITAL, T_HEAT, T_SPRAY, T_STATUS, T_MELEE, TYPES.arc_weapon, TYPES.arc,
@@ -2961,6 +2968,49 @@ local function resolve_throwable(entry, placed)
     explosion(id, 'blast_', 'Explosion', true)
 end
 
+-- The MS-11 Solo Silo (its entry is the missile, an explosive you place): the silo that holds it (the
+-- hellpod rack carrying the missile's entity), its health (+0), armor (+280), regeneration per second (+4)
+-- (its rack spawns 2 payloads, rack +556: not offered as a missile count), then the
+-- missile's health and flight (SeekingMissileComponentData). Its ids stay 'charge_' for the missile's
+-- health (saved before it had its own section). False: not a seeking missile.
+KINDS[TYPES.seeking].silo_rows = function(weapon)
+    local st = tables[TYPES.seeking]
+    local seek = st and st.index[weapon.key]
+    local rt, silo, rack = tables[TYPES.rack], nil, nil
+    for holder, at in pairs(rt and rt.index or {}) do
+        local slots = api.read(rt.copies[1] + HEADER_BYTES + at, 512)
+        for k = 0, slots and #slots == 512 and 7 or -1 do
+            if slots:sub(k * 64 + 1, k * 64 + 8) == weapon.key then silo, rack = holder, at end
+        end
+    end
+    local ht = tables[TYPES.health]
+    local body = silo and ht and ht.index[silo]
+    if not (seek or body) then return false end
+    if body then
+        add_row(weapon, 'Silo', 'silo_health', 'Health', 'u32', { part('silo_health', TYPES.health, body, 'u32', 10000000) },
+                0, 1000000, 50, 500)
+        add_row(weapon, 'Silo', 'silo_armor', 'Armor', 'u32', { part('silo_armor', TYPES.health, body + 280, 'u32', 100) }, 0, 10, 1, 1)
+        add_row(weapon, 'Silo', 'silo_regen', 'Regeneration (health/s)', 'f32',
+                { part('silo_regen', TYPES.health, body + 4, 'f32', 1000000) }, 0, 10000, 1, 10)
+    end
+    unit_rows(weapon, weapon.key, 'Missile', 'charge_')
+    for _, r in ipairs(seek and {
+        { 'launch_speed', 'Launch speed (m/s)', 68, 2000, 5, 25 },
+        { 'cruise_speed', 'Cruise speed (m/s)', 76, 2000, 5, 25 },
+        { 'min_speed', 'Minimum speed (m/s)', 72, 2000, 5, 25 },
+        { 'acceleration', 'Acceleration (m/s2)', 80, 10000, 10, 50 },
+        { 'turn_cruise', 'Turn speed at cruise', 88, 100, 0.1, 1 },
+        { 'turn_slow', 'Turn speed at slowest', 92, 100, 0.1, 1 },
+        { 'lost_angle', 'Loses its target past (deg)', 28, 180, 1, 10 },
+        { 'lifetime', 'Max flight time (s)', 64, 600, 1, 5 },
+        { 'guidance_after', 'Guidance on after (s)', 12, 60, 0.1, 0.5 },
+    } or {}) do
+        local id = 'missile_' .. r[1]
+        add_row(weapon, 'Missile flight', id, r[2], 'f32', { part(id, TYPES.seeking, seek + r[3], 'f32', 1000000) }, 0, r[4], r[5], r[6])
+    end
+    return true
+end
+
 local function resolve(weapon)
     weapon.rows, weapon.by_id, weapon.aliases, weapon.backpack, weapon.mines, weapon.legacy = {}, {}, nil, nil, nil, nil
     weapon.swaps = nil
@@ -2972,7 +3022,7 @@ local function resolve(weapon)
         for _, k in ipairs(KINDS[TYPES.package].kin(weapon.key)) do
             if dt and dt.index[k] then KINDS[TYPES.jumppack].backpack(weapon, k) end
         end
-        unit_rows(weapon, weapon.key, 'Charge', 'charge_')
+        if not KINDS[TYPES.seeking].silo_rows(weapon) then unit_rows(weapon, weapon.key, 'Charge', 'charge_') end
         resolve_throwable(weapon, true)
         return
     end
