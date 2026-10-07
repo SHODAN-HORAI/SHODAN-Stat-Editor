@@ -2945,6 +2945,7 @@ end
 
 local function resolve(weapon)
     weapon.rows, weapon.by_id, weapon.aliases, weapon.backpack, weapon.mines, weapon.legacy = {}, {}, nil, nil, nil, nil
+    weapon.swaps = nil
     if weapon.slot == 'Throwables' then resolve_throwable(weapon); return end
     -- a support weapon you place (the C4 Pack): the backpack that shares its loadout package (its
     -- charges), the charge (health, throw distance) and its explosion
@@ -3042,6 +3043,8 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     local function swap(id, label, row_parts)
         local row = add_row(weapon, 'Projectile swap', id, label, 'u32', row_parts, 1, 100000, 1, 10)
         row.choice = true
+        weapon.swaps = weapon.swaps or {}
+        weapon.swaps[#weapon.swaps + 1] = row
         row.note = function(others)
             local spec, now, own = KINDS[T_PROJECTILE], read_field(row_parts[1].field), default_of(row_parts[1].field)
             local shot = spec.by_id and spec.by_id[now]
@@ -3073,11 +3076,13 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     row.after_h = #row.after * 16 + 6
     weapon.own_shots = {}
     for _, shot in ipairs(shots or { { id = weapon.projectile } }) do
-        weapon.own_shots[#weapon.own_shots + 1] = { id = shot.id,
+        weapon.own_shots[#weapon.own_shots + 1] = { id = shot.id, key = weapon.key,
             label = shots and (weapon.name .. ' (' .. shot.name:lower() .. ')') or weapon.name }
     end
-    if second then weapon.own_shots[#weapon.own_shots + 1] = { id = second, label = weapon.name .. ' (second mode)' } end
-    if ammo then weapon.own_shots[#weapon.own_shots + 1] = { id = ammo.id, label = weapon.name .. ' (' .. ammo.name:lower() .. ')' } end
+    if second then weapon.own_shots[#weapon.own_shots + 1] = { id = second, key = weapon.key, label = weapon.name .. ' (second mode)' } end
+    if ammo then
+        weapon.own_shots[#weapon.own_shots + 1] = { id = ammo.id, key = weapon.key, label = weapon.name .. ' (' .. ammo.name:lower() .. ')' }
+    end
 end
 
 -- The choices: every own projectile once (the first weapon's name, by name), in name order.
@@ -5499,6 +5504,103 @@ end
 local hotkey_was_down = false
 local next_retry, next_flush = 0, 0
 
+-- A swapped projectile's assets. A weapon's effects (its projectiles' trails among them) are in its loadout
+-- package (LoadoutPackage +8: the package id, the hash of packages/generated/loadout/<item>), which the game
+-- loads only while someone carries the weapon: a projectile swapped from a weapon nobody carries flies
+-- without its trail (hits and explosions are loaded anyway). Each weapon a Projectile swap row fires from
+-- gets its package loaded: one reference through game.dll's RefcountedPackageSystem request (the call the
+-- game makes for a loadout), once per package per session and never released (fired projectiles use the
+-- assets without holding one). The request function, its instance and the reference map's shape are
+-- HD2Runtime's research (SkyeShade, docs/asset-loading.md); the function's code bytes are checked before
+-- the first call, and a game build where they differ turns this off (logged): swaps still work, untrailed.
+-- One local (the main chunk is at Lua's 200): settings, state (.off: why it is off; .call and .instance
+-- once checked) and the functions below.
+local packages = { held = {}, count = 0, next_check = 0, NO_ID = string.rep('\0', 8),
+    request_rva = 19915600, instance_rva = 55037616,   -- game.dll: the request function, the global holding the instance
+    proof =
+        '4585c00f8475010000415641574883ec3848895c24504c8bfa48896c24584c8bf1488974246048897c24304c89642428' ..
+        '4c8d25b9244d024c896c24204c8d2d89254d02418be866660f1f840000000000418b560833c0498b37458b46184c0faf' ..
+        'c6448d4aff85d27459498b0e0f1f40008bd84903d84923d948c1e3044803d94839330f84f7000000ffc03bc272e24d8b' ..
+        '5e104c8bd133c0660f1f8400000000008bd84903d84923d948c1e3044903da488b0b493bcb740d483bce7408ffc03bc2' ..
+        '72de33db48893348c7430801000000488b15cade01024c8d05b38b0001488b7b08498bcc4c8bce488d4216493bc5480f' ..
+        '42caba1600000048890da2de0102e8cdf41eff4c8b0596de0102488d0db71bfc00ffc04c8bcf4863d04903d04889157d' ..
+        'de0102488d15f63ffc00e8819e430048837b08017514488b057b7e0202488bce488b5010ff92f00200004983c7084883' ..
+        'ed010f85f8feffff4c8b6c24204c8b642428488b7c2430488b742460488b6c2458488b5c24504883c438415f415ec348',
+    budget = 64, fill = 0.75,                  -- packages held at most; the reference map kept below 75 % full
+}
+function packages.unhex(hex) return (hex:gsub('%x%x', function(b) return string.char(tonumber(b, 16)) end)) end
+function packages.u64(bytes, at)
+    local lo, hi = 0, 0
+    for k = 4, 1, -1 do lo = lo * 256 + bytes:byte(at + k); hi = hi * 256 + bytes:byte(at + 4 + k) end
+    return lo + hi * 4294967296
+end
+
+-- The package system's reference map: its capacity and entries (16 bytes each, the package id first).
+function packages.package_map()
+    local header = api.read(packages.instance, 16)
+    if not header or #header ~= 16 then return nil end
+    local capacity = header:byte(9) + header:byte(10) * 256 + header:byte(11) * 65536 + header:byte(12) * 16777216
+    if capacity < 16 or capacity > 65536 or capacity % 2 ~= 0 or packages.u64(header, 0) == 0 then return nil end
+    return capacity, packages.u64(header, 0)
+end
+
+-- The checked request call, or nil (packages.off says why when it is off for the session).
+function packages.package_loader()
+    if packages.call or packages.off then return packages.call end
+    local ok, why = pcall(function()
+        pcall(ffi.cdef, 'void *GetModuleHandleA(const char *name);')
+        local handle = ffi.load('kernel32').GetModuleHandleA('game.dll')
+        local dll = handle ~= nil and tonumber(ffi.cast('uintptr_t', handle))
+        if not dll then return 'game.dll not found' end
+        local want = packages.unhex(packages.proof)
+        if api.read(dll + packages.request_rva, #want) ~= want then return 'another game build (the request function differs)' end
+        local slot = api.read(dll + packages.instance_rva, 8)
+        local instance = slot and #slot == 8 and packages.u64(slot, 0)
+        if not instance or instance < 65536 then return 'wait' end
+        packages.instance = instance
+        if not packages.package_map() then packages.instance = nil; return 'the package map differs' end
+        packages.call = ffi.cast('void (*)(void *, const uint64_t *, uint32_t)', ffi.cast('void *', dll + packages.request_rva))
+    end)
+    if not ok then why = tostring(why) end
+    if why and why ~= 'wait' then packages.off = why; log('packages: off: ' .. why) end
+    return packages.call
+end
+
+-- Loads the loadout package of the entity `key` (a weapon a swap fires from) once; `label` for the log.
+function packages.require_package(key, label)
+    local t = tables[TYPES.package]
+    local at = t and t.index[key]
+    local id = at and api.read(t.copies[1] + HEADER_BYTES + at + 8, 8)
+    if not id or #id ~= 8 or id == packages.NO_ID or packages.held[id] or packages.count >= packages.budget then return end
+    local call = packages.package_loader()
+    if not call then return end
+    local capacity, first = packages.package_map()
+    local entries = capacity and api.read(first, capacity * 16)
+    if not entries or #entries ~= capacity * 16 then return end
+    local used = 0
+    for k = 0, capacity - 1 do
+        if entries:sub(k * 16 + 1, k * 16 + 8) ~= packages.NO_ID then used = used + 1 end
+    end
+    if used >= capacity * packages.fill then log("packages: the game's package map is too full to load " .. label); return end
+    local ids = ffi.new('uint64_t[1]')
+    ffi.copy(ids, id, 8)
+    call(ffi.cast('void *', packages.instance), ids, 1)
+    packages.held[id], packages.count = label, packages.count + 1
+    log('packages: loading the assets of ' .. label .. ' (' .. id:reverse():gsub('.', function(c) return string.format('%02X', c:byte()) end) .. ')')
+end
+
+-- Every second: the weapons the Projectile swap rows fire from (another weapon's projectile) get their assets.
+function packages.swap_assets()
+    local by_id = KINDS[T_PROJECTILE].by_id or {}
+    for _, weapon in ipairs(weapons) do
+        for _, row in ipairs(weapon.swaps or {}) do
+            local now = read_field(row.parts[1].field)
+            local shot = now and now ~= default_of(row.parts[1].field) and by_id[now]
+            if shot and shot.key and shot.key ~= weapon.key then packages.require_package(shot.key, shot.label) end
+        end
+    end
+end
+
 local function tick()
     state.frame = state.frame + 1
     local now = api.now()
@@ -5514,6 +5616,11 @@ local function tick()
             end
         end
         if config_dirty_at and now >= config_dirty_at then save_config() end
+        if now >= packages.next_check and not packages.off then
+            packages.next_check = now + 1
+            local ok, why = pcall(packages.swap_assets)
+            if not ok then packages.off = tostring(why); log('packages: off: ' .. packages.off) end
+        end
     end
 
     -- hotkey: one key-state read per frame; the window check only while the key is down
