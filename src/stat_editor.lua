@@ -1928,6 +1928,24 @@ local function resolve_gun(weapon, key)
                     local rid = blast.prefix .. '_' .. r[1]
                     add_row(weapon, blast.section, rid, r[2], 'f32', { part(rid, T_EXPLOSION, xrow + r[3], 'f32', 100000) }, 0, 200, 0.1, 1)
                 end
+                -- the arc it makes (explosion +120 arc type -> arc row: +8 range, +28 chain length, +32 chain
+                -- split, +36 damage row), as a throwable's: the GL-52 De-Escalator's grenade
+                local arc = tables[TYPES.arc] and tables[TYPES.arc].index[read_field(field_at(T_EXPLOSION, xrow + 120, 'u32', 100000)) or -1]
+                if arc then
+                    local section, pre = blast.section == 'Explosion' and 'Arc' or (blast.section .. ' arc'), blast.prefix .. '_arc_'
+                    add_row(weapon, section, pre .. 'range', 'Range (m)', 'f32', { part(pre .. 'range', TYPES.arc, arc + 8, 'f32', 100000) },
+                            0, 1000, 1, 5)
+                    add_row(weapon, section, pre .. 'chain', 'Chain length', 'u32', { part(pre .. 'chain', TYPES.arc, arc + 28, 'u32', 1000) },
+                            0, 20, 1, 1)
+                    add_row(weapon, section, pre .. 'split', 'Chain split', 'u32', { part(pre .. 'split', TYPES.arc, arc + 32, 'u32', 1000) },
+                            0, 20, 1, 1)
+                    local aid = read_field(field_at(TYPES.arc, arc + 36, 'u32', 100000))
+                    local arow = aid and tables[T_DAMAGE] and tables[T_DAMAGE].index[aid]
+                    if arow then
+                        damage_rows(weapon, section, pre, arow, 'Arc')
+                        status_rows(weapon, section, pre, arow, 'hit')
+                    end
+                end
                 if shared and weapon.rows[radii] then
                     weapon.rows[radii].note = 'damage: the same as the ' .. shared.section:lower() .. "'s (above)"
                     local first = weapon.rows[shared.from]
