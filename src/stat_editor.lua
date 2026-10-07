@@ -1367,6 +1367,7 @@ local function add_row(weapon, section, id, label, storage, parts, min, max, sma
     weapon.rows[#weapon.rows + 1] = row
     for _, part in ipairs(parts) do
         weapon.by_id[part.id] = part
+        part.row = part.row or row
         part.field.users[#part.field.users + 1] = weapon
     end
     return row
@@ -1506,6 +1507,38 @@ KINDS[TYPES.custom].projectile = function(key)
         end
     end
     return out, out_at
+end
+
+-- Where a weapon's default attachments set its rounds feeds' projectiles (the SG-20 Halt's ammo type
+-- and alternate ammo type, the SG-8 Punisher's and P-4 Senator's ammo type): a 4-byte delta at offset
+-- 64 or 68 that holds the rounds record's own value there (`own`: offset -> projectile id), on any
+-- component. Returns offset -> where each sits in the deltas (payload offset); the last slot wins.
+KINDS[TYPES.custom].feeds = function(key, own)
+    local custom, spec, deltas, at = tables[TYPES.custom], KINDS[TYPES.items], tables[TYPES.deltas], KINDS[TYPES.deltas].layout
+    local row = custom and deltas and at and custom.index[key]
+    local out = {}
+    if not row then return out end
+    local base, d = custom.copies[1] + HEADER_BYTES + row, deltas.copies[1] + HEADER_BYTES
+    for s = 0, 8 do
+        local t, r = spec.find(peek4(base + s * 8 + 4))
+        local slot = t and deltas.index[api.read(t.copies[1] + HEADER_BYTES + r + 32, 8) or '']
+        if slot then
+            local count, first = peek4(d + at[1] + slot * 8) or 0, peek4(d + at[1] + slot * 8 + 4) or 0
+            for c = first, first + count - 1 do
+                local comp = peek4(d + at[2] + c * 12)
+                local fd, nd = peek4(d + at[2] + c * 12 + 4) or 0, peek4(d + at[2] + c * 12 + 8) or 0
+                for x = fd, fd + nd - 1 do
+                    local offset, size = peek4(d + at[3] + x * 12) or 0, peek4(d + at[3] + x * 12 + 4) or 0
+                    local data = at[4] + (peek4(d + at[3] + x * 12 + 8) or 0)
+                    for w = 0, size - 4, 4 do
+                        local value = peek4(d + data + w)
+                        if own[offset + w] and value == own[offset + w] then out[offset + w] = data + w end
+                    end
+                end
+            end
+        end
+    end
+    return out
 end
 
 -- A weapon's magazine attachments (its slot 5 line: magazines, heatsinks, canisters) set magazine,
@@ -1751,10 +1784,18 @@ local function resolve_gun(weapon, key)
     local projectile = nil
     local rounds, fire = record(T_ROUNDS), record(T_FIRE)
     if rounds then projectile = source('proj_rounds', T_ROUNDS, rounds + 64) end
+    local feed2 = nil
     if weapon.key == key then
         local _, at = KINDS[TYPES.custom].projectile(key)
         local own = at and source('proj_ammo', TYPES.deltas, at)
         if (projectile == nil or projectile == 0) and own and own > 0 then projectile = own end
+        -- its ammo types (attachments) set the rounds feeds when it spawns: the swap writes them too
+        if rounds then
+            local alt = default_of(field_at(T_ROUNDS, rounds + 68, 'u32', 100000))
+            local feeds = KINDS[TYPES.custom].feeds(key, { [64] = projectile, [68] = alt })
+            if feeds[64] then source('proj_ammo_feed1', TYPES.deltas, feeds[64]) end
+            feed2 = feeds[68] and field_at(TYPES.deltas, feeds[68], 'u32', 100000)
+        end
     end
     if fire then
         -- (also when it names none: its ammo type does, and the fire mode then takes the swapped one)
@@ -1919,6 +1960,9 @@ local function resolve_gun(weapon, key)
     -- its second ammo type and tracer rounds (KINDS[T_ROUNDS].extra): their direct hit (a tracer's
     -- is the round's own: not listed again), projectile and explosions, ids 'a2_' / 't_' .. stat
     local extra = weapon.key == key and prow and KINDS[T_ROUNDS].extra(rounds, record(T_MAGAZINE), projectile)
+    for _, shot in ipairs(extra or {}) do
+        if shot.field then shot.delta = feed2 end
+    end
     for _, shot in ipairs(extra or {}) do
         if shot.prow then
             local id = read_field(field_at(T_PROJECTILE, shot.prow + 60, 'u32', 100000))
@@ -2971,7 +3015,9 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     end
     if ammo then
         local id = 'projectile_' .. ammo.prefix:sub(1, -2)
-        row = swap(id, ammo.name .. ' fire (id)', { { id = id, field = ammo.field } })
+        local row_parts = { { id = id, field = ammo.field } }
+        if ammo.delta then row_parts[2] = { id = id .. '_ammo', field = ammo.delta } end
+        row = swap(id, ammo.name .. ' fire (id)', row_parts)
     end
     -- under the last row: what a swap changes and what it keeps (drawn below it, `after_h` units)
     row.after = { "Swapping makes the shot the chosen weapon's, your edits to it included: damage,",
@@ -3194,10 +3240,14 @@ local function unless_default(value, default)
     return value
 end
 
--- The parts a saved id names: its own, else (an id saved before the weapon's magazine attachments had
--- rows of their own: 'capacity', once every magazine's) each of theirs. nil: none.
+-- The parts a saved id names: its own (a swap row's first: the whole row's, all one value, so a field
+-- the row gained later follows a value saved without it: the SG-20 Halt's ammo types), else (an id saved
+-- before the weapon's magazine attachments had rows of their own: 'capacity', once every magazine's)
+-- each of theirs. nil: none.
 function MOD.parts_of(weapon, id)
-    if weapon.by_id[id] then return { weapon.by_id[id] } end
+    local own = weapon.by_id[id]
+    if own and own.row and own.row.choice and own.row.parts[1] == own then return own.row.parts end
+    if own then return { own } end
     local out = {}
     for _, listed in ipairs(weapon.legacy and weapon.legacy[id] or {}) do out[#out + 1] = weapon.by_id[listed] end
     return out[1] and out or nil
@@ -4003,6 +4053,12 @@ do
                 if want[p.id] == nil then want[p.id] = v.value end
             end
             if not (parts and parts[1].id ~= id) and (want[id] == nil or id == v.id) then want[id] = v.value end
+        end
+        for _, row in ipairs(weapon.rows) do   -- a swap row: parts the preset does not name follow its first
+            local first = row.choice and want[row.parts[1].id]
+            for k = 2, first and #row.parts or 0 do
+                if want[row.parts[k].id] == nil then want[row.parts[k].id] = first end
+            end
         end
         local refused = 0
         for _, row in ipairs(weapon.rows) do
