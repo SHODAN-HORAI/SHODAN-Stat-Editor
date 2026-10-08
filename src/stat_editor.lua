@@ -205,7 +205,7 @@ local WEAPONS = {
     { 'LAS-13 Trident', 'Primary', '3C86E871923F3970', '' },
     { 'LAS-16 Sickle', 'Primary', '8645F167B3C813A2', '' },
     { 'LAS-17 Double-Edge Sickle', 'Primary', '295BEB26DC4F8FF1', '' },
-    { 'LAS-22 Shear', 'Primary', '7E3145A5BAA4B948', 'Not released yet: a laser in the game files, built on the Scythe.' },
+    { 'LAS-22 Shear', 'Primary', '7E3145A5BAA4B948', 'Not offered by the game: a laser built on the Scythe. Settings: Unlock LAS-22 Shear.' },
     { 'LAS-5 Scythe', 'Primary', '27EE1ED8F6FB6356', 'The Scythe you carry.' },
     { 'M7S SMG', 'Primary', 'BE70EE0D8D44028E', '' },
     { 'M90A Shotgun', 'Primary', '90DDC374F4E3D756', '' },
@@ -3263,6 +3263,8 @@ settings.UNLOCKS = {
       model = { 0xBDE1F253, 0x4280300D }, template = { 0x05E4E5C2, 0xDB6E44A2 } },   -- template: P-2 Peacemaker
     { id = 'caltrops', name = 'G-11 Caltrops', config = 'unlock_caltrops',
       model = { 0x2968DEBA, 0x6D6C2F09 }, template = { 0x4CE9EAB7, 0x85A79B7B } },   -- template: G-6 Frag
+    { id = 'shear', name = 'LAS-22 Shear', config = 'unlock_shear',   -- its key checked; template: the LAS-5 Scythe's key
+      model = { 0x7E3145A5, 0xBAA4B948 }, key = 0x7DE53646, template_key = 0xE673DCC8, class = 1 },
 }
 settings.unlocks = {}
 
