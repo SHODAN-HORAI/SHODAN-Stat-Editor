@@ -325,6 +325,7 @@ local WEAPONS = {
     { 'E/MG-101 HMG Emplacement', 'Stratagems', '0E977C49DB7604F9', 'Emplacement: its cooldown, its body, then its weapon.' },
     { 'G-10 Incendiary', 'Throwables', '04653AB33F3FFB44', '' },
     { 'G-109 Urchin', 'Throwables', '3FA94F58F596BC0B', '' },
+    { 'G-11 Caltrops', 'Throwables', '2968DEBA6D6C2F09', '' },
     { 'G-12 High Explosive', 'Throwables', '6B11FC757618C57E', '' },
     { 'G-123 Thermite', 'Throwables', 'C5C05FCB5747C799', '' },
     { 'G-13 Incendiary Impact', 'Throwables', 'EB725C39FC38B87C', '' },
@@ -3260,6 +3261,8 @@ settings.UNLOCKS = {
       strat = 135, key = 0xA9A97CD7, record = 0xDA0600D7 },
     { id = 'ombudsman', name = 'P-41 Ombudsman', config = 'unlock_ombudsman',
       model = { 0xBDE1F253, 0x4280300D }, template = { 0x05E4E5C2, 0xDB6E44A2 } },   -- template: P-2 Peacemaker
+    { id = 'caltrops', name = 'G-11 Caltrops', config = 'unlock_caltrops',
+      model = { 0x2968DEBA, 0x6D6C2F09 }, template = { 0x4CE9EAB7, 0x85A79B7B } },   -- template: G-6 Frag
 }
 settings.unlocks = {}
 
