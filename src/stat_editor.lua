@@ -3250,6 +3250,9 @@ local settings = { changes = true, block_input = true, size = 80, side = 'right'
                    GITHUB = 'https://github.com/SHODAN-HORAI/SHODAN-Stat-Editor',
                    RANGE = { size = { 50, 100 }, opacity = { 10, 100 } } }
 
+-- incinerator: the M-104 Incinerator FRV can be picked in the stratagem list (settings.unlock, below)
+settings.incinerator = false
+
 local function config_path()
     local dir = data_dir('StatEditor')
     return dir and dir .. '/config.txt'
@@ -3281,7 +3284,8 @@ local function save_config()
     for _, line in ipairs({ 'changes ' .. onoff(settings.changes), 'block_input ' .. onoff(settings.block_input),
                             'panel_size ' .. settings.size, 'panel_side ' .. settings.side,
                             'panel_opacity ' .. settings.opacity,
-                            'remember ' .. onoff(settings.remember) }) do
+                            'remember ' .. onoff(settings.remember),
+                            'incinerator_frv ' .. onoff(settings.incinerator) }) do
         lines[#lines + 1] = line
     end
     if settings.remember and settings.last_tab then lines[#lines + 1] = 'last_tab ' .. settings.last_tab end
@@ -3310,6 +3314,9 @@ local function load_config()
         local name, value = line:match('^%s*([%a_]+)%s+(%S+)%s*$')
         if name == 'changes' or name == 'block_input' or name == 'remember' then
             settings[name] = value ~= 'off'
+            known = true
+        elseif name == 'incinerator_frv' then
+            settings.incinerator = value == 'on'   -- (local test builds saved 'off' / 'gunner' / 'supply')
             known = true
         elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
             settings.set_percent(name:sub(7), MOD.parse_number(value))
@@ -4622,6 +4629,14 @@ local function draw(width, height)
         choice('Panel side', 'side', { { 'left', 'Left' }, { 'right', 'Right' } }, settings.side)
         percent('Background opacity', 'opacity')
         choice('Remember last tab and weapon', 'remember', ONOFF, onoff(settings.remember))
+        choice('Unlock Incinerator FRV', 'incinerator', ONOFF, onoff(settings.incinerator))
+        local unlock = settings.unlock.status
+        text(not settings.incinerator and 'Off: the M-104 Incinerator FRV is not in the stratagem list.'
+             or unlock == 'on' and 'On: pick the M-104 Incinerator FRV in the stratagem list.'
+             or ('On: ' .. unlock .. '.'),
+             x0 + 16, y - 6, 14, settings.incinerator and unlock ~= 'on' and not unlock:find('^waiting') and WARN or MUTED,
+             W - x0 - 40)
+        y = y + 14
         local sure_reset = ui.confirm and ui.confirm.kind == 'reset_all'
         button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, #overrides > 0, sure_reset)
         text('Resets all values from the current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
@@ -4878,6 +4893,8 @@ local function click(key)
         if name == 'bind' then ui.binding = not ui.binding or nil
         elseif name == 'changes' then settings.set_changes(value == 'on')
         elseif name == 'block_input' or name == 'remember' then settings[name] = value == 'on'
+        elseif name == 'incinerator' then
+            settings.incinerator, settings.unlock.next_check = value == 'on', 0
         elseif (name == 'size' or name == 'opacity') and (value == 'up' or value == 'down') then
             local v = settings[name]
             settings.set_percent(name, value == 'up' and math.floor(v / 5) * 5 + 5 or math.ceil(v / 5) * 5 - 5)
@@ -5669,6 +5686,149 @@ function packages.swap_assets()
     end
 end
 
+-- The M-104 Incinerator FRV in the stratagem list (settings.incinerator). It has a stratagem of its own
+-- (0xA9A97CD7, on the Mechas tab) that the game keeps out of the loadout with two flags: bit 0x02 of byte
+-- +0x80 of its block in game.dll's stratagem list (entry 135 of the pointer array the function at
+-- LIST_RVA loads with a LEA) and its row's status in the game's item registry (the root behind the MOV at
+-- REGISTRY_MOV; rows of 184 bytes: +0 index, +4 record key, +8 key, +12 type (10 stratagem), +20 status
+-- 0/1 locked, 2/4 available; maps of 24 bytes: index, record key, key; a count and a ready gate). The
+-- code bytes are checked once (another build turns this off), the row's identity before every write;
+-- off puts back only what this changed, while it is still ours. Checked every 2 s (the game can rebuild
+-- the registry between the menu and the ship).
+settings.unlock = { next_check = 0, status = 'off', changed = {},
+    STRAT = 135, KEY = 0xA9A97CD7, RECORD = 0xDA0600D7,
+    LIST_RVA = 0x136FC20, LIST_LEA = 0x136FC37, REGISTRY_MOV = 0x136FDF0,
+    LIST_CODE = '\72\137\92\36\8\72\139\217\133\210\117',
+    COUNT = 0x1CE0, ROWS = 0x1CE4, MAPS = 0xB9CE4, GATE = 0xDDCF8, ROW = 184, MAP = 24, MOST = 4096 }
+do
+    local U = settings.unlock
+    local function at32(at)
+        local b = api.read(at, 4)
+        return b and #b == 4 and u32(b, 0) or nil
+    end
+    local function ptr(at)
+        local b = api.read(at, 8)
+        return b and #b == 8 and u32(b, 0) + u32(b, 4) * 4294967296 or nil
+    end
+    -- the address a 7-byte RIP-relative instruction at `at` refers to, and its bytes
+    local function target(at)
+        local b = api.read(at, 7)
+        if not b or #b ~= 7 then return nil end
+        local d = u32(b, 3)
+        if d >= 0x80000000 then d = d - 0x100000000 end
+        return at + 7 + d, b
+    end
+
+    -- game.dll's stratagem pointer array and the registry's slot, once (U.list / U.slot)
+    function U.anchors()
+        if U.list then return true end
+        local handle = ffi.load('kernel32').GetModuleHandleA('game.dll')
+        if handle == nil then return nil, 'game.dll not found' end
+        local base = tonumber(ffi.cast('uintptr_t', handle))
+        if api.read(base + U.LIST_RVA, #U.LIST_CODE) ~= U.LIST_CODE then return nil, 'unavailable: another game build' end
+        local list, lea = target(base + U.LIST_LEA)
+        local m = lea and lea:byte(3)
+        if not list or lea:byte(2) ~= 0x8D or (lea:byte(1) ~= 0x48 and lea:byte(1) ~= 0x4C) or m % 8 ~= 5 or m >= 64 then
+            return nil, 'unavailable: another game build'
+        end
+        local slot, mov = target(base + U.REGISTRY_MOV)
+        if not slot or mov:sub(1, 3) ~= '\72\139\5' then return nil, 'unavailable: another game build' end
+        U.list, U.slot = list, slot
+        return true
+    end
+
+    -- The flag byte's and the status's addresses (and the registry root), or nil and why. The row found
+    -- is kept while the registry's root and count stay the same.
+    function U.find()
+        local ok, why = U.anchors()
+        if not ok then return nil, why end
+        local block = ptr(U.list + 8 * U.STRAT)
+        local name = block and block >= 65536 and ptr(block + 0x10)
+        if not name or name < 65536 or not api.read(name, 1) then return nil, 'waiting for the stratagem list' end
+        local root = ptr(U.slot)
+        if not root or root < 65536 or at32(root + U.GATE) ~= 12 then return nil, 'waiting for the game\'s item list' end
+        local count = at32(root + U.COUNT)
+        if not count or count < 1 or count > U.MOST then return nil, 'waiting for the game\'s item list' end
+        local index = U.row and U.row.root == root and U.row.count == count and U.row.index
+        if not index then
+            local maps = api.read(root + U.MAPS, count * U.MAP)
+            if not maps or #maps ~= count * U.MAP then return nil, 'waiting for the game\'s item list' end
+            for k = 0, count - 1 do
+                if u32(maps, k * U.MAP + 4) == U.RECORD and u32(maps, k * U.MAP + 8) == U.KEY then
+                    if index then return nil, 'unavailable: listed twice in the game\'s item list' end
+                    index = u32(maps, k * U.MAP)
+                end
+            end
+            if not index or index >= count then return nil, 'unavailable: not in the game\'s item list' end
+        end
+        local row_at = root + U.ROWS + index * U.ROW
+        local row = api.read(row_at, 16)
+        if not row or #row ~= 16 or u32(row, 0) ~= index or u32(row, 4) ~= U.RECORD or u32(row, 8) ~= U.KEY
+            or u32(row, 12) ~= 10 then
+            U.row = nil
+            return nil, 'unavailable: its entry in the game\'s item list differs'
+        end
+        if not (U.row and U.row.index == index and U.row.root == root) then
+            local text = api.read(name, 64)
+            log(string.format('incinerator FRV: stratagem block %s (%s), item list %s: row %d of %d',
+                hex(block), text and text:match('^([%w%p ]*)') or '?', hex(root), index, count))
+        end
+        U.row = { root = root, count = count, index = index }
+        return block + 0x80, row_at + 20, root
+    end
+
+    -- put back what we changed, while it still holds our value
+    local function restore()
+        for _, c in ipairs(U.changed) do
+            if api.read(c[1], #c[3]) == c[3] then api.write(c[1], c[2]) end
+        end
+        if #U.changed > 0 then log('incinerator FRV: locked again (' .. #U.changed .. ' value(s) put back)') end
+    end
+
+    local function set(status)
+        if status ~= U.status then
+            U.status = status
+            ui.version = ui.version + 1
+            if status ~= 'on' and status ~= 'off' then log('incinerator FRV: ' .. status) end
+        end
+    end
+
+    function U.check()
+        if not settings.incinerator then
+            -- only while the registry is the one we changed (a rebuilt one holds the game's own values)
+            if #U.changed > 0 then
+                local _, _, root = U.find()
+                if root and root == U.changed.root then restore() end
+            end
+            U.changed = {}
+            return set('off')
+        end
+        local flag, status, root = U.find()
+        if not flag then return set(status) end
+        local byte, state = api.read(flag, 1), at32(status)
+        if not byte or #byte ~= 1 or not state then return set('unavailable: its flags cannot be read') end
+        if state ~= 0 and state ~= 1 and state ~= 2 and state ~= 4 then
+            return set('unavailable: unknown status ' .. state .. ' in the game\'s item list')
+        end
+        if U.changed.root ~= root then U.changed = { root = root } end
+        local b, writes = byte:byte(), {}
+        if math.floor(b / 2) % 2 == 0 then writes[#writes + 1] = { flag, byte, string.char(b + 2) } end
+        if state ~= 2 and state ~= 4 then writes[#writes + 1] = { status, u32_bytes(state), u32_bytes(2) } end
+        for k, w in ipairs(writes) do
+            if api.read(w[1], #w[2]) ~= w[2] or not api.write(w[1], w[3]) or api.read(w[1], #w[3]) ~= w[3] then
+                for j = k - 1, 1, -1 do api.write(writes[j][1], writes[j][2]) end
+                return set('unavailable: the game\'s memory could not be written')
+            end
+        end
+        for _, w in ipairs(writes) do U.changed[#U.changed + 1] = w end
+        if #writes > 0 then
+            log(string.format('incinerator FRV: unlocked (selectable bit %s, item status %d -> 2)',
+                math.floor(b / 2) % 2 == 0 and 'set' or 'already set', state))
+        end
+        set('on')
+    end
+end
+
 local function tick()
     state.frame = state.frame + 1
     local now = api.now()
@@ -5684,6 +5844,11 @@ local function tick()
             end
         end
         if config_dirty_at and now >= config_dirty_at then save_config() end
+        if now >= settings.unlock.next_check then
+            settings.unlock.next_check = now + 2
+            local ok, why = pcall(settings.unlock.check)
+            if not ok then settings.unlock.status = 'unavailable: ' .. tostring(why); log('incinerator FRV: ' .. tostring(why)) end
+        end
         if now >= packages.next_check and not packages.off then
             packages.next_check = now + 1
             local ok, why = pcall(packages.swap_assets)
