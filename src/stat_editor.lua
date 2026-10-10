@@ -3443,11 +3443,6 @@ local function load_config()
         if name == 'changes' or name == 'block_input' or name == 'remember' then
             settings[name] = value ~= 'off'
             known = true
-        elseif name then
-            for _, item in ipairs(settings.UNLOCKS) do
-                -- (local test builds saved incinerator_frv 'off' / 'gunner' / 'supply')
-                if name == item.config then settings.unlocks[item.id] = value == 'on'; known = true end
-            end
         elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
             settings.set_percent(name:sub(7), MOD.parse_number(value))
             known = true
@@ -3460,6 +3455,11 @@ local function load_config()
         elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
             settings.last_weapon = value:upper()
             known = true
+        elseif name then   -- last: any other name would stop here
+            for _, item in ipairs(settings.UNLOCKS) do
+                -- (local test builds saved incinerator_frv 'off' / 'gunner' / 'supply')
+                if name == item.config then settings.unlocks[item.id] = value == 'on'; known = true end
+            end
         end
         local hash, id, amount = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+(%S+)')
         local parsed = hash and MOD.parse_number(amount)
