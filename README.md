@@ -18,7 +18,6 @@ saved, and are applied again automatically every time the game starts. Keep setu
 | Damage | Damage, durable damage, armor penetration (direct, slight, large and extreme angle), demolition force, stagger force, push force (from the bullet, beam, flame, arc or melee strike) |
 | Projectile | Projectiles per shot, velocity, drag factor, penetration slowdown |
 | Explosion | Inner, outer and shockwave radius of the blast (grenade launchers and pistols, EATs, recoilless, Autocannon, Eruptor and every other weapon with explosive rounds); the Breaching Hammer's explosion also has its full damage set |
-| Grenade swap | Fire a selected throwable grenade from a grenade launcher in solo missions |
 | Arc | Range, chain length, chain split (Arc Thrower, Blitzer, K-9 Guard Dog, Tesla Tower) |
 | Burning / Gas | How much fire or gas each hit applies (flamethrowers, Coyote, Hyena, incendiary shotguns, lasers, EAT-700, gas weapons); burn / gas damage, armor penetration and duration |
 | Fire | Fire rate (every fire mode the weapon has) |
@@ -26,6 +25,7 @@ saved, and are applied again automatically every time the game starts. Keep setu
 | Handling | Recoil (horizontal, vertical), spread (horizontal, vertical), sway, ergonomics |
 | Heat | Overheat threshold, heat per shot / per second, cool-down time (lasers, Quasar Cannon), heatsinks |
 | Projectile swap | The projectile the weapon fires: pick another weapon's (by name, or type its id) |
+| Grenade swap | Fire a throwable grenade, Dynamite or a throwable mine from a grenade launcher or pistol, the One-Two's launcher or the Grenadier Battlement (solo missions) |
 
 Beam weapons (Scythe, Dagger, Trident, Laser Cannon, Meltagun) get their damage from their beam,
 flame weapons (Flamethrower, Torcher, Crisper, Cremator, Sterilizer) from their spray, arc weapons
@@ -40,6 +40,11 @@ enemies' fire included. To make one weapon burn harder, raise its own values.
 sets the cooling rate, so raising the overheat threshold also lengthens it. The Quasar Cannon's
 recharge is its "cool-down time after overheat".
 
+**Grenade swap**: pick the grenade by name with - / +; 0 is the launcher's own round. The
+grenade's assets load first, so the choice applies a second or two later. Ammo, fire rate and
+handling stay the launcher's; edit the grenade itself on the Throwables tab. A grenade choice
+takes priority over Projectile swap.
+
 **Throwables**: all 23 grenades, knives, throwable mines and the shield, on the Throwables tab
 
 | Section | Stats |
@@ -48,34 +53,6 @@ recharge is its "cool-down time after overheat".
 | Explosion | The full damage set above, inner / outer / shockwave radius, and the burning or gas it applies (incendiary and gas grenades) |
 | Shrapnel | Pieces, their damage and velocity (G-6 Frag, TM-1 Lure Mine); the G-7 Pineapple's bomblets and their explosion |
 | Arc / Damage | The G-31 Arc's arc (range, chain length, split, damage); the K-2 Throwing Knife's hit |
-
-### Fire throwable grenades from launchers
-
-On a launcher's page, use **Grenade swap → Grenade fired (choice)** to select a
-grenade by name. **0**, **R**, or **Del** restores normal projectile firing.
-A grenade choice takes priority over Projectile swap. Launcher ammunition,
-fire rate and handling remain its own; edit the grenade on **Throwables** to
-change its stats. Choices are saved in settings and presets.
-
-Hosts: GL-15 Evictor, GL-21, GL-28 Belt-Fed, GL-52 De-Escalator, GP-20 Ultimatum,
-GP-31 Grenade Pistol, the One-Two's underbarrel launcher and Grenadier Battlement.
-Choices include explosive throwable grenades, Dynamite and both throwable mines;
-Throwing Knife and Shield are excluded. Missing donors are omitted automatically.
-
-The optional Bingus throwable service releases and activates newly spawned
-grenades using their aimed orientation, position, owner and weapon speed. Assets
-must finish loading before a selection applies. The service supports solo missions
-only and checks native layouts against the supported game build.
-
-To package this feature, check out the loader's throwable-service branch and use:
-
-```powershell
-python tools/build_grenade_addon.py --loader ../BingusSharedLoader
-```
-
-This includes the optional service as an explicitly required Lua resource; the
-standard loader archive stays unchanged. Run the editor regression tests with
-`uv run --with lupa python -m unittest discover -s tests -v`.
 
 **Stratagems**
 
@@ -250,9 +227,8 @@ match, which is usually enough to find the cause.
 
 - **Bingus Shared Loader** by CowboyBingus, which runs the mod.
 - **HD2Runtime** by Skyeshade, whose weapon and stratagem catalogs name the weapons and map
-  every strike to its projectiles, blasts and damage.
-  Uses code / research from [HD2Runtime by SkyeShade](https://github.com/SkyeShade/HD2Runtime)
-  for package residency and the optional throwable service's entity and unit layouts.
+  every strike to its projectiles, blasts and damage, and whose research locates package loading
+  and the live entity and unit layouts that Grenade swap uses.
 - **[Filediver](https://github.com/xypwn/filediver)** and the **[helldivers.io](https://helldivers.io/)**
   data dump by shalzuth, for the game's data layouts and the armor passives.
 - The **[Helldivers 2 wiki](https://helldivers.wiki.gg/)**, whose passive descriptions name every
