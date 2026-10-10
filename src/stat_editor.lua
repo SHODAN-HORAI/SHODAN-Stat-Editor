@@ -1936,9 +1936,9 @@ local function resolve_gun(weapon, key)
     if arow then
         add_row(weapon, 'Arc', 'arc_range', 'Range (m)', 'f32', { part('arc_range', TYPES.arc, arow + 8, 'f32', 100000) },
                 0, 1000, 1, 5)
-        add_row(weapon, 'Arc', 'arc_chain', 'Chain length', 'u32', { part('arc_chain', TYPES.arc, arow + 28, 'u32', 1000) },
+        add_row(weapon, 'Arc', 'arc_chain', 'Chain length', 'u32', { MOD.solo(part('arc_chain', TYPES.arc, arow + 28, 'u32', 1000)) },
                 0, 20, 1, 1)
-        add_row(weapon, 'Arc', 'arc_split', 'Chain split', 'u32', { part('arc_split', TYPES.arc, arow + 32, 'u32', 1000) },
+        add_row(weapon, 'Arc', 'arc_split', 'Chain split', 'u32', { MOD.solo(part('arc_split', TYPES.arc, arow + 32, 'u32', 1000)) },
                 0, 20, 1, 1)
         local rate = read_field(field_at(TYPES.arc_weapon, arc + 4, 'f32', 100000))
         if rate and rate > 0 then
@@ -2017,9 +2017,9 @@ local function resolve_gun(weapon, key)
                     local section, pre = blast.section == 'Explosion' and 'Arc' or (blast.section .. ' arc'), blast.prefix .. '_arc_'
                     add_row(weapon, section, pre .. 'range', 'Range (m)', 'f32', { part(pre .. 'range', TYPES.arc, arc + 8, 'f32', 100000) },
                             0, 1000, 1, 5)
-                    add_row(weapon, section, pre .. 'chain', 'Chain length', 'u32', { part(pre .. 'chain', TYPES.arc, arc + 28, 'u32', 1000) },
+                    add_row(weapon, section, pre .. 'chain', 'Chain length', 'u32', { MOD.solo(part(pre .. 'chain', TYPES.arc, arc + 28, 'u32', 1000)) },
                             0, 20, 1, 1)
-                    add_row(weapon, section, pre .. 'split', 'Chain split', 'u32', { part(pre .. 'split', TYPES.arc, arc + 32, 'u32', 1000) },
+                    add_row(weapon, section, pre .. 'split', 'Chain split', 'u32', { MOD.solo(part(pre .. 'split', TYPES.arc, arc + 32, 'u32', 1000)) },
                             0, 20, 1, 1)
                     local aid = read_field(field_at(TYPES.arc, arc + 36, 'u32', 100000))
                     local arow = aid and tables[T_DAMAGE] and tables[T_DAMAGE].index[aid]
@@ -2162,7 +2162,8 @@ local function resolve_gun(weapon, key)
                 for k, at in ipairs({ { '_min', ', min charge' }, { '_max', ', overcharge' } }) do
                     local id = 'mul_' .. m[1] .. at[1]
                     add_row(weapon, 'Charge', id, m[2] .. ' multiplier' .. at[2], 'f32',
-                            { part(id, TYPES.charge, charge + m[3] + (k - 1) * 4, 'f32', 100000) }, 0, 100, 0.05, 0.25)
+                            { (m.arc and MOD.solo or MOD.same)(part(id, TYPES.charge, charge + m[3] + (k - 1) * 4, 'f32', 100000)) },
+                            0, 100, 0.05, 0.25)
                 end
             end
         end
@@ -3015,8 +3016,8 @@ local function resolve_throwable(entry, placed)
         local arc = tables[TYPES.arc] and tables[TYPES.arc].index[read_field(field_at(T_EXPLOSION, xrow + 120, 'u32', 100000)) or -1]
         if arc then
             add_row(entry, 'Arc', 'arc_range', 'Range (m)', 'f32', { part('arc_range', TYPES.arc, arc + 8, 'f32', 100000) }, 0, 1000, 1, 5)
-            add_row(entry, 'Arc', 'arc_chain', 'Chain length', 'u32', { part('arc_chain', TYPES.arc, arc + 28, 'u32', 1000) }, 0, 20, 1, 1)
-            add_row(entry, 'Arc', 'arc_split', 'Chain split', 'u32', { part('arc_split', TYPES.arc, arc + 32, 'u32', 1000) }, 0, 20, 1, 1)
+            add_row(entry, 'Arc', 'arc_chain', 'Chain length', 'u32', { MOD.solo(part('arc_chain', TYPES.arc, arc + 28, 'u32', 1000)) }, 0, 20, 1, 1)
+            add_row(entry, 'Arc', 'arc_split', 'Chain split', 'u32', { MOD.solo(part('arc_split', TYPES.arc, arc + 32, 'u32', 1000)) }, 0, 20, 1, 1)
             local q = damage(read_field(field_at(TYPES.arc, arc + 36, 'u32', 100000)))
             if q then damage_rows(entry, 'Arc', 'arc_', q, 'Arc') end
         end
@@ -3359,7 +3360,7 @@ local config_dirty_at = nil
 -- mouse input while the panel is open; size: panel height, % of the screen's; side: 'left' / 'right';
 -- opacity: background, %; remember: reopen on the last tab / weapon.
 local settings = { changes = true, block_input = true, size = 80, side = 'right', opacity = 90,
-                   remember = true, last_tab = nil, last_weapon = nil,
+                   remember = true, arc_mp = true, last_tab = nil, last_weapon = nil,
                    GITHUB = 'https://github.com/SHODAN-HORAI/SHODAN-Stat-Editor',
                    RANGE = { size = { 50, 100 }, opacity = { 10, 100 } } }
 
@@ -3410,7 +3411,8 @@ local function save_config()
     for _, line in ipairs({ 'changes ' .. onoff(settings.changes), 'block_input ' .. onoff(settings.block_input),
                             'panel_size ' .. settings.size, 'panel_side ' .. settings.side,
                             'panel_opacity ' .. settings.opacity,
-                            'remember ' .. onoff(settings.remember) }) do
+                            'remember ' .. onoff(settings.remember),
+                            'arc_chains_multiplayer ' .. onoff(settings.arc_mp) }) do
         lines[#lines + 1] = line
     end
     for _, item in ipairs(settings.UNLOCKS) do lines[#lines + 1] = item.config .. ' ' .. onoff(settings.unlocks[item.id]) end
@@ -3463,6 +3465,9 @@ local function load_config()
         local parsed = hash and MOD.parse_number(amount)
         if parsed then
             overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = parsed }
+        elseif name == 'arc_chains_multiplayer' then
+            settings.arc_mp = value == 'on'
+            known = true
             count = count + 1
             known = true
         end
@@ -4888,6 +4893,14 @@ local function draw(width, height)
         end
         -- rows get closer together when there are too many to fit at full spacing; past 22 units
         -- apart the list scrolls (Up/Down follow the chosen row; buttons below page through it)
+        choice('Arc chain edits in multiplayer', 'arc_mp', ONOFF, onoff(settings.arc_mp))
+        local arc = settings.arc
+        text('(untested) ' .. (arc.state:find('^unavailable') and ('Arc chains: player count ' .. arc.state .. '; your values stay.')
+             or arc.paused and "Other players are in your game: arc chain length / split use the game's values."
+             or settings.arc_mp and 'On: your arc chain length / split apply with other players too (arcs can stay on screen).'
+             or "Off: with other players, arc chain length / split use the game's values (else arcs can stay on screen)."),
+             x0 + 16, y - 6, 14, arc.paused and WARN or MUTED, W - x0 - 40)
+        y = y + 14
         local sections, below = 0, 0
         for n, row in ipairs(weapon.rows) do
             if n == 1 or row.section ~= weapon.rows[n - 1].section then sections = sections + 1 end
@@ -5157,6 +5170,7 @@ local function click(key)
     elseif kind == 'scroll' and weapon then
         local page = math.max(1, (ui.last_visible or ui.scroll) - ui.scroll)
         ui.scroll = math.max(1, math.min(#weapon.rows, ui.scroll + (arg == 'down' and page or -page)))
+        elseif name == 'arc_mp' then settings.arc_mp, settings.arc.next_check = value == 'on', 0
     elseif weapon and tonumber(arg) and weapon.rows[tonumber(arg)] then
         local row = weapon.rows[tonumber(arg)]
         ui.row = tonumber(arg)
@@ -6592,6 +6606,81 @@ local function tick()
             state.ui_errors = state.ui_errors + 1
             ui.errors = ui.errors + 1
             log('panel error: ' .. tostring(why))
+-- Arc chains with other players (issue #41): chain length / split (and the charge's arc multipliers)
+-- are this PC's only; another player's game arcs with the game's values, and the arcs neither agrees on
+-- stay on screen. Unless settings.arc_mp, while the game lists more than one player these fields hold
+-- the game's values (checked every second), and get yours back once you are alone. Player count: the
+-- player manager +0x84 (HD2Runtime 0.30.3 event natives, game build F5FEE03DCFDB), its slot taken from
+-- the MOV at GLOBAL_MOV and the count's offset proven by its read 10 bytes on.
+settings.arc = { next_check = 0, paused = false, state = 'solo',
+    GLOBAL_MOV = 0x62C71A, COUNT_CODE = '\68\139\145\132\0\0\0', COUNT = 0x84, MOST = 4 }
+function MOD.solo(p) p.field.solo = true; return p end
+function MOD.same(p) return p end
+(function()
+    local A = settings.arc
+    -- players in the game now, or nil and why (another game build: never known)
+    function A.players()
+        if A.slot == nil then
+            A.slot = false
+            local handle = ffi.load('kernel32').GetModuleHandleA('game.dll')
+            if handle == nil then return nil, 'game.dll not found' end
+            local at = tonumber(ffi.cast('uintptr_t', handle)) + A.GLOBAL_MOV
+            local b = api.read(at, 10 + #A.COUNT_CODE)   -- the MOV (7 bytes), 3 more, then the count's read
+            if b and #b == 10 + #A.COUNT_CODE and b:sub(1, 3) == '\72\139\13' and b:sub(11) == A.COUNT_CODE then
+                local d = u32(b, 3)
+                if d >= 0x80000000 then d = d - 0x100000000 end
+                A.slot = at + 7 + d
+            end
+        end
+        if not A.slot then return nil, 'unavailable: another game build' end
+        local p = api.read(A.slot, 8)
+        local manager = p and #p == 8 and u32(p, 0) + u32(p, 4) * 4294967296
+        local c = manager and manager >= 65536 and api.read(manager + A.COUNT, 4)
+        local count = c and #c == 4 and u32(c, 0)
+        if not count or count > A.MOST then return 0 end   -- no session yet
+        return count
+    end
+    -- every changed solo field: { field, your value }
+    local function changed()
+        local out = {}
+        for _, o in ipairs(overrides) do
+            local w = by_hash[o.hash]
+            local p = w and w.by_id[o.id]
+            if p and p.field.solo then out[#out + 1] = { p.field, o.value } end
+        end
+        return out
+    end
+    function A.check()
+        local count, why = A.players()
+        local others = count and count > 1
+        A.state = why or (others and (count .. ' players') or 'solo')
+        local hold = others and settings.changes and not settings.arc_mp
+        if hold then
+            local held = 0
+            for _, c in ipairs(changed()) do
+                local d = default_of(c[1])
+                if d ~= nil and read_field(c[1]) ~= d and write_field(c[1], d) then held = held + 1 end
+            end
+            if not A.paused then log('arc chains: ' .. count .. ' players, the game\'s values (' .. held .. ' field(s))')
+            elseif held > 0 then
+                ui.message = { text = 'Arc chains use the game\'s values while other players are in your game (see Settings).',
+                               till = api.now() + 5 }
+            end
+            A.paused = true
+        elseif A.paused then
+            A.paused = false
+            local n = 0
+            if settings.changes then
+                for _, c in ipairs(changed()) do
+                    if write_field(c[1], c[2]) then n = n + 1 end
+                end
+            end
+            log('arc chains: ' .. (others and 'allowed with other players' or 'solo') .. ', your values back (' .. n .. ' field(s))')
+        end
+        return A.paused
+    end
+end)()
+
             pcall(clear_gui)
             if ui.errors >= 5 then
                 open_panel(false)
@@ -6613,6 +6702,11 @@ local ok, failure = pcall(function()
     api = build_api()
     local cell = ffi.new('float[1]')
     f32_bytes = function(value)
+        if now >= settings.arc.next_check then
+            settings.arc.next_check = now + 1
+            local ok, why = pcall(settings.arc.check)
+            if not ok then log('arc chains: ' .. tostring(why)) end
+        end
         cell[0] = value
         return ffi.string(cell, 4)
     end
