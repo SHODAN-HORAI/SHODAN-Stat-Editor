@@ -1314,6 +1314,9 @@ end
 local function read_field(f)
     local entry = tables[f.kind]
     if not entry then return nil end
+    if f.storage == 'grenade' then
+        return KINDS[TYPES.throwable].read_entity(api.read(entry.copies[1] + HEADER_BYTES + f.offset, 8))
+    end
     local bits = peek4(entry.copies[1] + HEADER_BYTES + f.offset)
     if not bits then return nil end
     local value = bits
@@ -1323,6 +1326,7 @@ local function read_field(f)
 end
 
 local function encode(f, value)
+    if f.storage == 'grenade' then return KINDS[TYPES.throwable].entity_bytes(value) end
     if f.storage == 'f32' then return f32_bytes(value) end
     return u32_bytes(math.floor(value + 0.5))
 end
@@ -1340,14 +1344,25 @@ local function write_field(f, value)
     default_of(f)
     if f.most and value > f.most then value = f.most end
     local bytes, done = encode(f, value), {}
+    if not bytes then return false, 'unknown grenade selection' end
+    if f.storage == 'grenade' and value ~= 0 then
+        local ok, why = KINDS[TYPES.throwable].ensure_launch()
+        if not ok then return false, why end
+        ok, why = KINDS[TYPES.throwable].ensure_assets(value)
+        if not ok then return false, why end
+    end
     for _, block in ipairs(entry.copies) do
         local at = block + HEADER_BYTES + f.offset
-        local before = api.read(at, 4)
-        if not before or not api.write(at, bytes) or api.read(at, 4) ~= bytes then
+        local before = api.read(at, #bytes)
+        if not before then
+            for _, undo in ipairs(done) do api.write(undo[1], undo[2]) end
+            return false, 'read failed at ' .. hex(at)
+        end
+        done[#done + 1] = { at, before }
+        if not api.write(at, bytes) or api.read(at, #bytes) ~= bytes then
             for _, undo in ipairs(done) do api.write(undo[1], undo[2]) end
             return false, 'write failed at ' .. hex(at)
         end
-        done[#done + 1] = { at, before }
     end
     state.writes = state.writes + 1
     return true
@@ -1368,6 +1383,60 @@ for _, w in ipairs(WEAPONS) do
                      rows = {}, by_id = {} }
     weapons[#weapons + 1] = weapon
     by_hash[w[3]] = weapon
+end
+
+-- Stable saved selector IDs. Append new entries; never reorder. These are entities,
+-- not ProjectileType IDs. Knife and shield are not grenade donors.
+KINDS[TYPES.throwable].grenade_hashes = {
+    '04653AB33F3FFB44', '3FA94F58F596BC0B', '6B11FC757618C57E', 'C5C05FCB5747C799',
+    'EB725C39FC38B87C', '03F31CAF3A7D8F4E', '7686544F539BB9B7', '0080869506299773',
+    '5DE8FD02A05B4B0A', 'DB922A7AFC42894B', '0416984F4922757B', '46333FC9E3D4BD34',
+    '2D398D1EC35E0838', '4CE9EAB785A79B7B', '8E325C933E55BF62', '075B19B068FB1045',
+    '5C14F27759DD3BE0', 'DAB81B0D80B511C7', 'EE4C107B941AB7F4', '14368DC8784220B0',
+    'A20683199DFC19E8',
+}
+KINDS[TYPES.throwable].grenade_hosts = {
+    ['02CD7321CD8445F5'] = true, -- One-Two underbarrel
+    ['006E44327BB953FE'] = true, -- Evictor
+    ['9EB160830321BFD6'] = true, -- Ultimatum
+    ['52E4334E6A128CAF'] = true, -- Grenade Pistol
+    ['02EECD0B1FA49630'] = true, -- GL-21
+    ['88C2D09AD85A7C9F'] = true, -- Belt-Fed GL
+    ['FE3B29B2CFA63F9B'] = true, -- De-Escalator
+    ['1D5943301A29C940'] = true, -- Grenadier Battlement
+}
+
+KINDS[TYPES.throwable].prepare_grenades = function()
+    local spec = KINDS[TYPES.throwable]
+    spec.choices, spec.by_id, spec.by_entity = { { id = 0, label = 'Normal projectile' } }, {}, {}
+    for id, hash in ipairs(spec.grenade_hashes) do
+        local w = by_hash[hash]
+        if w and tables[TYPES.throwable] and tables[TYPES.throwable].index[w.key]
+           and tables[TYPES.explosive] and tables[TYPES.explosive].index[w.key] then
+            local shot = { id = id, key = w.key, label = w.name }
+            spec.by_id[id], spec.by_entity[w.key] = shot, id
+            spec.choices[#spec.choices + 1] = shot
+        end
+    end
+end
+
+KINDS[TYPES.throwable].read_entity = function(bytes)
+    if bytes == string.rep('\0', 8) then return 0 end
+    return bytes and KINDS[TYPES.throwable].by_entity and KINDS[TYPES.throwable].by_entity[bytes]
+end
+
+KINDS[TYPES.throwable].entity_bytes = function(id)
+    if id == 0 then return string.rep('\0', 8) end
+    local shot = KINDS[TYPES.throwable].by_id and KINDS[TYPES.throwable].by_id[id]
+    return shot and shot.key
+end
+
+KINDS[TYPES.throwable].step = function(id, n)
+    local list = KINDS[TYPES.throwable].choices or {}
+    for at, shot in ipairs(list) do
+        if shot.id == id then return list[math.max(1, math.min(#list, at + n))].id end
+    end
+    return id
 end
 
 local function add_row(weapon, section, id, label, storage, parts, min, max, small, big)
@@ -2292,7 +2361,10 @@ local function resolve_gun(weapon, key)
         local pack = KINDS[TYPES.rack].pack(key)
         if pack then KINDS[TYPES.jumppack].backpack(weapon, pack, true) end
     end
-    if weapon.key == key then KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire, extra) end
+    if weapon.key == key then
+        KINDS[T_PROJECTILE].swap_row(weapon, sources, shots, fire, extra)
+        KINDS[TYPES.throwable].grenade_row(weapon, fire)
+    end
 end
 
 -- ---------------------------------------------------------------- stratagems
@@ -3016,6 +3088,7 @@ end
 local function resolve(weapon)
     weapon.rows, weapon.by_id, weapon.aliases, weapon.backpack, weapon.mines, weapon.legacy = {}, {}, nil, nil, nil, nil
     weapon.swaps = nil
+    weapon.grenade_swap = nil
     if weapon.slot == 'Throwables' then resolve_throwable(weapon); return end
     -- a support weapon you place (the C4 Pack): the backpack that shares its loadout package (its
     -- charges), the charge (health, throw distance) and its explosion
@@ -3176,11 +3249,40 @@ KINDS[T_PROJECTILE].step = function(id, n)
     return list[math.max(1, math.min(#list, at + n))].id
 end
 
+-- ProjectileWeaponComponent +40 is a full 64-bit entity reference. Keep both
+-- halves together through read/write/reset/presets; a Lua number cannot hold the hash.
+-- Use the grenade entity and native release/activation lifecycle. Special grenade
+-- behaviors still require gameplay validation; reference writes alone are insufficient.
+KINDS[TYPES.throwable].grenade_row = function(weapon, fire)
+    local spec = KINDS[TYPES.throwable]
+    if not fire or not spec.grenade_hosts[weapon.hash] then return end
+    local f = field_at(T_FIRE, fire + 40, 'grenade', #spec.grenade_hashes)
+    if default_of(f) == nil then
+        log('grenade swap: unknown original entity on ' .. weapon.name)
+        return
+    end
+    local row = add_row(weapon, 'Grenade swap', 'grenade', 'Grenade fired (choice)', 'u32',
+                        { { id = 'grenade', field = f } }, 0, #spec.grenade_hashes, 1, 10)
+    row.choice = 'grenade'
+    weapon.grenade_swap = row
+    row.note = function()
+        local id = f.pending_value or read_field(f)
+        local shot = spec.by_id[id]
+        return (f.pending_value and 'loading: ' or 'fires: ') .. (shot and shot.label or 'normal projectile')
+    end
+    row.after = { '0 = normal projectile; - / + selects a throwable grenade by name above.',
+                  'Grenade selection takes priority over Projectile swap. Fire rate, ammo and handling stay.',
+                  'Edit the grenade on Throwables to tune it. Assets load before selection applies.',
+                  'Throwable launching is supported in solo missions only.' }
+    row.after_h = #row.after * 16 + 6
+end
+
 -- Resolves weapons from `next` on until the deadline; true once all are done.
 local function resolve_some(progress, deadline)
     if progress.next == 1 then
         for _, f in pairs(fields) do f.users = {} end
         KINDS[TYPES.custom].cache = {}
+        KINDS[TYPES.throwable].prepare_grenades()
     end
     while progress.next <= #weapons do
         resolve(weapons[progress.next])
@@ -3225,6 +3327,9 @@ end
 -- A row's value (the mean of its parts); default = true: the game's own value instead.
 local function row_value(row, default)
     local get = default and default_of or read_field
+    if row.choice == 'grenade' and not default and row.parts[1].field.pending_value ~= nil then
+        return row.parts[1].field.pending_value
+    end
     if row.choice then return get(row.parts[1].field) end
     if row.span then return as_time((default and row.span_default or row.span)(), get(row.parts[1].field)) end
     local sum = 0
@@ -3375,6 +3480,7 @@ local function set_override(weapon, p, value)
     end
     if value ~= nil then kept[#kept + 1] = { hash = weapon.hash, id = p.id, value = value } end
     overrides = kept
+    if p.field and p.field.storage == 'grenade' then MOD.queue_grenade(weapon, p, value) end
     mark_config_dirty()
 end
 
@@ -3406,11 +3512,33 @@ function state.vanilla(hash, id)
 end
 
 local pending = {}      -- config values not applied yet (tables still being written)
+local apply_at = 1
+
+-- Reuse the saved-value retry queue while a grenade's package loads. New selections,
+-- reset and presets cancel older requests for the same field, including shared hosts.
+function MOD.queue_grenade(weapon, p, value)
+    apply_at = 1
+    for n = #pending, 1, -1 do
+        local o = pending[n]
+        local other = by_hash[o.hash]
+        local op = other and other.by_id[o.id]
+        if op and op.field == p.field then table.remove(pending, n) end
+    end
+    p.field.pending_value = nil
+    if settings.changes and value ~= nil and KINDS[TYPES.throwable].entity_bytes(value)
+       and read_field(p.field) ~= value then
+        p.field.pending_value = value
+        pending[#pending + 1] = { hash = weapon.hash, id = p.id, value = value }
+    end
+end
+
+function MOD.clear_grenade_pending()
+    for _, f in pairs(fields) do if f.storage == 'grenade' then f.pending_value = nil end end
+end
 
 -- Applies pending values until the deadline (the rest wait for the next call); true when the
 -- whole list was gone through once. Values that could not be written yet are tried again
 -- later (the table may still be filling), up to 30 times.
-local apply_at = 1
 local function apply_config(deadline)
     while apply_at <= #pending do
         local o = pending[apply_at]
@@ -3429,6 +3557,9 @@ local function apply_config(deadline)
                 ok, why = ok and done, why or failed
             end
             if ok then
+                for _, p in ipairs(parts) do
+                    if p.field.storage == 'grenade' then p.field.pending_value = nil end
+                end
                 state.applied = state.applied + 1
                 if parts[1].id ~= o.id then   -- saved under an old id: kept under the attachments' own from now on
                     set_override(weapon, { id = o.id }, nil)
@@ -3437,7 +3568,15 @@ local function apply_config(deadline)
             else
                 o.tries = (o.tries or 0) + 1
                 keep = o.tries < 30
+                if keep then
+                    for _, p in ipairs(parts) do
+                        if p.field.storage == 'grenade' then p.field.pending_value = o.value end
+                    end
+                end
                 if not keep then
+                    for _, p in ipairs(parts) do
+                        if p.field.storage == 'grenade' then p.field.pending_value = nil end
+                    end
                     log('config: ' .. weapon.name .. ' ' .. o.id .. ' not applied: ' .. why); state.refused = state.refused + 1
                 end
             end
@@ -3895,6 +4034,22 @@ local function change(row, delta_sign, big, exact)
         return
     end
     if row.choice then
+        if row.choice == 'grenade' then
+            local spec = KINDS[TYPES.throwable]
+            local target = exact and math.floor(exact + 0.5) or spec.step(current, delta_sign * (big and 10 or 1))
+            if not spec.entity_bytes(target) then
+                ui.message = { text = 'No grenade choice ' .. tostring(target) .. ' in this game build.', till = api.now() + 4 }
+                return
+            end
+            local p = row.parts[1]
+            local ok, why = write_field(p.field, target)
+            if ok or why == 'grenade assets loading' then
+                set_override(weapon, p, unless_default(target, default_of(p.field)))
+            end
+            if not ok then ui.message = { text = why, till = api.now() + 4 } end
+            ui.version = ui.version + 1
+            return
+        end
         -- a projectile swap: the next / previous weapon's projectile (++ / --: 10 on), or a typed id
         local target = exact and math.floor(exact + 0.5) or KINDS[T_PROJECTILE].step(current, delta_sign * (big and 10 or 1))
         if not (tables[T_PROJECTILE] and tables[T_PROJECTILE].index[target]) then
@@ -3981,6 +4136,11 @@ local function reset_weapon(weapon)
 end
 
 local function reset_all()
+    apply_at = 1
+    MOD.clear_grenade_pending()
+    for n = #pending, 1, -1 do
+        if pending[n].id == 'grenade' then table.remove(pending, n) end
+    end
     for _, o in ipairs(overrides) do
         local weapon = by_hash[o.hash]
         local p = weapon and weapon.by_id[o.id]
@@ -3997,10 +4157,16 @@ function settings.set_changes(on)
     settings.changes = on
     if on then
         pending, apply_at = {}, 1
-        for _, o in ipairs(overrides) do pending[#pending + 1] = { hash = o.hash, id = o.id, value = o.value } end
+        for _, o in ipairs(overrides) do
+            pending[#pending + 1] = { hash = o.hash, id = o.id, value = o.value }
+            local w = by_hash[o.hash]
+            local p = w and w.by_id[o.id]
+            if p and p.field.storage == 'grenade' then p.field.pending_value = o.value end
+        end
         log('settings: changes on (' .. #pending .. ' value(s) applied again)')
     else
         pending = {}
+        MOD.clear_grenade_pending()
         for _, o in ipairs(overrides) do
             local weapon = by_hash[o.hash]
             local p = weapon and weapon.by_id[o.id]
@@ -4212,11 +4378,15 @@ do
                 if target == nil then target = d end
                 want[p.id] = nil
                 local current = read_field(p.field)
+                local accepted = true
                 if target ~= nil and current ~= nil and math.abs(current - target) > 1e-6 then
                     local ok, why = write_field(p.field, target)
-                    if not ok then refused = refused + 1; log('preset refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
+                    accepted = ok or (p.field.storage == 'grenade' and why == 'grenade assets loading')
+                    if not accepted then refused = refused + 1; log('preset refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why) end
                 end
-                if target ~= nil then set_override(weapon, p, unless_default(target, d)) end
+                if target ~= nil and (accepted or p.field.storage ~= 'grenade') then
+                    set_override(weapon, p, unless_default(target, d))
+                end
             end
         end
         for id in pairs(want) do refused = refused + 1; log('preset: ' .. weapon.name .. ' has no stat ' .. id) end
@@ -5678,22 +5848,141 @@ function packages.require_package(key, label)
     local t = tables[TYPES.package]
     local at = t and t.index[key]
     local id = at and api.read(t.copies[1] + HEADER_BYTES + at + 8, 8)
-    if not id or #id ~= 8 or id == packages.NO_ID or packages.held[id] or packages.count >= packages.budget then return end
+    if not id or #id ~= 8 or id == packages.NO_ID then return nil, 'grenade loadout package not found' end
+    if packages.held[id] then return id end
+    if packages.count >= packages.budget then return nil, 'package budget reached; restart the game' end
     local call = packages.package_loader()
-    if not call then return end
+    if not call then return nil, packages.off or 'grenade assets loading' end
     local capacity, first = packages.package_map()
     local entries = capacity and api.read(first, capacity * 16)
-    if not entries or #entries ~= capacity * 16 then return end
+    if not entries or #entries ~= capacity * 16 then return nil, 'package map unreadable' end
     local used = 0
     for k = 0, capacity - 1 do
         if entries:sub(k * 16 + 1, k * 16 + 8) ~= packages.NO_ID then used = used + 1 end
     end
-    if used >= capacity * packages.fill then log("packages: the game's package map is too full to load " .. label); return end
+    if used >= capacity * packages.fill then
+        log("packages: the game's package map is too full to load " .. label)
+        return nil, 'package map too full'
+    end
     local ids = ffi.new('uint64_t[1]')
     ffi.copy(ids, id, 8)
     call(ffi.cast('void *', packages.instance), ids, 1)
     packages.held[id], packages.count = label, packages.count + 1
     log('packages: loading the assets of ' .. label .. ' (' .. id:reverse():gsub('.', function(c) return string.format('%02X', c:byte()) end) .. ')')
+    return id
+end
+
+-- HD2Runtime's package-residency layout, for the same pinned game build as the
+-- request call above. Read engine state; holding a reference alone does not mean
+-- an asynchronous load finished. No engine calls are made by this check.
+packages.engine = {
+    manager_rva = 27329032, has_loaded_rva = 3281712, find_package_rva = 6347392,
+    has_loaded_proof = '4883ec28488b05cdee6e01488bd1488b8800040000488b8908020000e82fc72e004c8bc84885c0750733c04883c428c3458b411833c04585c074164d8b492090498b14c1837a1c0475dfffc0413bc072efb8010000004883c428c3cccccccccc',
+    find_package_proof = '48895c2408488974241048897c24188bb9800000004533d285ff7440488bb1880000000f1f4000660f1f8400000000004a8b1cd633c0448b4b184585c974154c8b5b204d8b04c3493950107421ffc041',
+}
+
+function packages.resident(id)
+    local engine = packages.engine
+    local function bytes(at, n)
+        local data = api.read(at, n)
+        assert(data and #data == n, 'package residency unreadable')
+        return data
+    end
+    local function pointer(at)
+        local p = packages.u64(bytes(at, 8), 0)
+        assert(p >= 65536, 'package manager not ready')
+        return p
+    end
+    if not engine.base then
+        local handle = ffi.load('kernel32').GetModuleHandleA(nil)
+        local exe = handle ~= nil and tonumber(ffi.cast('uintptr_t', handle))
+        assert(exe, 'game executable not found')
+        for _, proof in ipairs({ { engine.has_loaded_rva, engine.has_loaded_proof },
+                                  { engine.find_package_rva, engine.find_package_proof } }) do
+            local want = packages.unhex(proof[2])
+            assert(bytes(exe + proof[1], #want) == want, 'another game build (package residency differs)')
+        end
+        engine.base = exe
+    end
+    local manager = pointer(pointer(engine.base + engine.manager_rva) + 1024)
+    local resources = pointer(manager + 520)
+    local count = u32(bytes(resources + 128, 4), 0)
+    assert(count <= 8192, 'package list bounds changed')
+    if count == 0 then return false end
+    local list = bytes(pointer(resources + 136), count * 8)
+    for n = 0, count - 1 do
+        local package = packages.u64(list, n * 8)
+        if bytes(package + 16, 8) == id then
+            local parts = u32(bytes(package + 24, 4), 0)
+            if parts == 0 then return false end
+            assert(parts <= 64, 'package part bounds changed')
+            local array = bytes(pointer(package + 32), parts * 8)
+            for k = 0, parts - 1 do
+                if u32(bytes(packages.u64(array, k * 8) + 28, 4), 0) ~= 4 then return false end
+            end
+            return true
+        end
+    end
+    return false
+end
+
+KINDS[TYPES.throwable].ensure_assets = function(value)
+    local shot = KINDS[TYPES.throwable].by_id[value]
+    if not shot then return false, 'unknown grenade selection' end
+    local ok, ready, why = pcall(function()
+        local id, reason = packages.require_package(shot.key, shot.label)
+        if not id then return false, reason end
+        if not packages.resident(id) then return false, 'grenade assets loading' end
+        return true
+    end)
+    if not ok then return false, 'grenade assets unavailable: ' .. tostring(ready) end
+    return ready, why
+end
+
+-- The optional loader service runs on ordinary Lua updates. Existing objects
+-- are baselined and never released retroactively.
+KINDS[TYPES.throwable].ensure_launch = function()
+    local spec = KINDS[TYPES.throwable]
+    if spec.launch_off then return false, spec.launch_off end
+    if spec.launch then return true end
+    local ok, why = pcall(function()
+        local helper = require('mods/cowboybingus/throwable_launch')
+        assert(type(helper) == 'table' and helper.version == 1, 'throwable loader service missing')
+        local kernel = ffi.load('kernel32')
+        local game = tonumber(ffi.cast('uintptr_t', kernel.GetModuleHandleA('game.dll')))
+        local exe = tonumber(ffi.cast('uintptr_t', kernel.GetModuleHandleA(nil)))
+        assert(game and game > 65536 and exe and exe > 65536, 'game modules unavailable')
+        local launch = helper.new(api, game, exe)
+        local proven, reason = launch.prove()
+        assert(proven, reason)
+        local donors = {}
+        for _, hash in ipairs(spec.grenade_hashes) do donors[hash] = true end
+        spec.launch_donors = donors
+        launch.step(spec.grenade_hosts, donors)
+        spec.launch = launch
+        log('grenades: Lua launch service ready (solo missions)')
+    end)
+    if not ok then
+        spec.launch_off = 'grenade launch unavailable: ' .. tostring(why)
+        log(spec.launch_off)
+        return false, spec.launch_off
+    end
+    return true
+end
+
+KINDS[TYPES.throwable].update_launch = function()
+    local spec = KINDS[TYPES.throwable]
+    if not spec.launch or spec.launch_off then return end
+    local before = spec.launch.released
+    local ok, why = pcall(spec.launch.step, spec.grenade_hosts, spec.launch_donors)
+    if not ok then
+        spec.launch_off = 'grenade launch stopped: ' .. tostring(why)
+        log(spec.launch_off)
+    elseif spec.launch.released ~= before then
+        local shot = spec.launch.last
+        log('grenades: released ' .. shot.id .. ' from ' .. shot.source .. ' (' .. shot.hash ..
+            ', speed ' .. shot.speed .. ', total ' .. spec.launch.released .. ')')
+    end
 end
 
 -- Every second: the weapons the Projectile swap rows fire from (another weapon's projectile) get their assets.
@@ -5956,6 +6245,7 @@ local function tick()
     elseif state.phase == 'preparing' then
         prepare(now + FRAME_BUDGET)
     elseif state.phase == 'ready' then
+        KINDS[TYPES.throwable].update_launch()
         if #pending > 0 and now >= next_retry then
             if apply_config(now + FRAME_BUDGET) then
                 next_retry = now + 2
