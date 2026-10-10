@@ -1034,7 +1034,7 @@ local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, 
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
                 thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B,
-                seeking = 0xBF3A6789 }
+                seeking = 0xBF3A6789, windup = 0x84CE7EEE }
 local KINDS = {
     [T_WEAPON] = { name = 'weapon', stride = 1232, keyed = true },
     [T_MAGAZINE] = { name = 'magazine', stride = 160, keyed = true },
@@ -1113,6 +1113,9 @@ KINDS[TYPES.package] = { name = 'loadout package', stride = 32, keyed = true }
 -- WeaponReloadComponentData: +56 reload time (s); 0 on weapons whose magazine attachment sets it
 -- (attachment component 113)
 KINDS[TYPES.reload] = { name = 'reload', stride = 80, keyed = true }
+-- WeaponWindUpComponentData (the M-1000 Maxigun, the G-16 Gatling): +0 wind-up seconds, +4 wind-down
+-- seconds (HD2Runtime 0.24 research)
+KINDS[TYPES.windup] = { name = 'wind-up', stride = 36, keyed = true }
 -- minefields: the pod a minefield stratagem drops (ThrowerComponentData: 2 formations of 376 bytes, the
 -- first throws the mines), the mines' own settings (MinefieldComponentData) and fixed fields
 -- (MineSpawnerComponentData)
@@ -1317,6 +1320,11 @@ local function read_field(f)
     if f.storage == 'grenade' then
         return KINDS[TYPES.throwable].read_entity(api.read(entry.copies[1] + HEADER_BYTES + f.offset, 8))
     end
+    if f.storage == 'flag' then   -- a bool byte
+        local b = api.read(entry.copies[1] + HEADER_BYTES + f.offset, 1)
+        b = b and b:byte()
+        return b and b <= 1 and b or nil
+    end
     local bits = peek4(entry.copies[1] + HEADER_BYTES + f.offset)
     if not bits then return nil end
     local value = bits
@@ -1328,6 +1336,7 @@ end
 local function encode(f, value)
     if f.storage == 'grenade' then return KINDS[TYPES.throwable].entity_bytes(value) end
     if f.storage == 'f32' then return f32_bytes(value) end
+    if f.storage == 'flag' then return value >= 0.5 and string.char(1) or string.char(0) end
     return u32_bytes(math.floor(value + 0.5))
 end
 
@@ -2362,6 +2371,7 @@ local function resolve_gun(weapon, key)
         add_row(weapon, 'Handling', 'spread_v', 'Spread (vertical)', 'f32', { w('spread_v', 88) }, 0, 5000, 1, 10)
         add_row(weapon, 'Handling', 'sway', 'Sway multiplier', 'f32', { w('sway', 104) }, 0, 100, 0.1, 0.5)
         add_row(weapon, 'Handling', 'ergonomics', 'Ergonomics', 'f32', { w('ergonomics', 356) }, 0, 1000, 1, 5)
+        MOD.spin_rows(weapon, data, record(TYPES.windup))
     end
     if weapon.key == key and weapon.slot == 'Support' then
         local pack = KINDS[TYPES.rack].pack(key)
@@ -3081,6 +3091,15 @@ local function resolve_throwable(entry, placed)
     if has and (mode == 0 or mode == 3) and fuse and fuse > 0 then
         add_row(entry, 'Throwable', 'fuse', 'Fuse time (s)', 'f32', { part('fuse', TYPES.explosive, ex + 12, 'f32', 100000) }, 0, 60, 0.1, 1)
     end
+    -- a burning throwable (the Thermite): once the fuse is out, a timed status effect (+252: its effects
+    -- from +256, lifetime +292) burns, then it explodes; it is removed +16 after going off (the burn +
+    -- 0.25 s), so that follows the burn time
+    if has and mode == 3 and (read_field(field_at(TYPES.explosive, ex + 256, 'u32', 100000)) or 0) > 0 then
+        local burn = add_row(entry, 'Throwable', 'burn', 'Burn time (s)', 'f32',
+                             { part('burn', TYPES.explosive, ex + 292, 'f32', 100000),
+                               part('burn_removal', TYPES.explosive, ex + 16, 'f32', 100000) }, 0.1, 120, 0.5, 2)
+        burn.lead = true
+    end
     explosion(id, 'blast_', 'Explosion', true)
 end
 
@@ -3559,6 +3578,20 @@ function MOD.keep_times(weapon, keep)
             if d and math.abs(new - d) < 1e-4 then new = d end
             if write_field(p.field, new) then set_override(weapon, p, unless_default(new, d)) end
         end
+    end
+end
+
+-- Wind-up weapons (the Maxigun): its wind-up / wind-down times (`spin`: its WeaponWindUp record), and
+-- WeaponData +387 (`data`: its record), set on the Maxigun alone: it stops you while you fire (HD2Runtime 0.30)
+function MOD.spin_rows(weapon, data, spin)
+    if spin then
+        for _, t in ipairs({ { 'spin_up', 'Wind-up time (s)', 0 }, { 'spin_down', 'Wind-down time (s)', 4 } }) do
+            add_row(weapon, 'Wind-up', t[1], t[2], 'f32', { part(t[1], TYPES.windup, spin + t[3], 'f32', 3600) }, 0.01, 60, 0.05, 0.25)
+        end
+    end
+    local still = part('stationary', T_WEAPON, data + 387, 'flag', 1)
+    if default_of(still.field) == 1 then
+        add_row(weapon, 'Handling', 'stationary', 'Stops you while firing', 'flag', { still }, 0, 1, 1, 1)
     end
 end
 
@@ -4077,6 +4110,7 @@ end
 
 local function fmt(v, storage)
     if v == nil then return '?' end
+    if storage == 'flag' then return v >= 0.5 and 'On' or 'Off' end
     if storage == 'u32' then return tostring(math.floor(v + 0.5)) end
     if math.abs(v - math.floor(v + 0.5)) < 1e-4 then return tostring(math.floor(v + 0.5)) end
     if math.abs(v) < 1 then return (string.format('%.3f', v):gsub('0+$', '')) end
