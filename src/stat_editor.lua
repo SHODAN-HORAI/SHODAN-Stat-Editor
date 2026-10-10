@@ -1341,6 +1341,7 @@ local function write_field(f, value)
     local entry = tables[f.kind]
     if not entry then return false, 'table not found' end
     if read_field(f) == nil then return false, 'current value implausible' end
+    if type(value) == 'number' and not MOD.parse_number(value) then return false, 'not a finite number' end
     default_of(f)
     if f.most and value > f.most then value = f.most end
     local bytes, done = encode(f, value), {}
@@ -2698,9 +2699,12 @@ KINDS[TYPES.shield].rows = function(entry, hex)
 end
 
 -- A backpack's rows, by the entity its hellpod carries (`key`, 8 bytes):
---   jump / hover pack: recharge +0 (RechargeComponentData); launch force +0, takeoff duration +24, forward
---     share of the launch +32, landing thrust force +36 / duration +40, mid-air steering +60, hover
---     duration +156 (-1: does not hover; the Hover Pack's 6 s). A pack reads them when it is called in.
+--   jump / hover pack: recharge +0 (RechargeComponentData); +156 > 0: hovers (6 s climb gate; -1 on jump
+--     packs). Each pack gets only the fields its flight code reads (HD2Runtime 0.30.3 research): the Jump
+--     Pack its launch force +0 (x (1 - t^2) over the launch duration +24), forward share of it +32, the
+--     boost after it (duration +40; its force +36 is capped by the game at 2.5 x speed per second, so not
+--     offered) and mid-air steering +60; the Hover Pack (skips the launch) its hover speed +176, fuel
+--     rates +200 / +204, climb speed (+196 with +180), climb acceleration +168 and climb time limit +156
 --   Warp Pack: explosion +56 (set off by an unsafe warp), warp distance +120, reach up +128 / down +132,
 --     heat: safe below +140, unsafe above +144, per warp +148, cooling per second +152; injuries of an
 --     unsafe warp: 12 of 24 bytes from +160 (+0 body part, +4 damage): head, 2 arms, 2 legs
@@ -2729,13 +2733,46 @@ KINDS[TYPES.jumppack].backpack = function(entry, key, ammo)
         local hover = (read_field(field_at(TYPES.jumppack, jump + 156, 'f32', 1000000)) or -1) > 0
         local section = hover and 'Hover pack' or 'Jump pack'
         if recharge then r(section, 'bp_recharge', 'Recharge time (s)', TYPES.recharge, recharge, 'f32', 600, 0.5, 2) end
-        r(section, 'bp_launch', 'Launch force', TYPES.jumppack, jump, 'f32', 1000, 1, 5)
-        r(section, 'bp_takeoff', 'Takeoff duration (s)', TYPES.jumppack, jump + 24, 'f32', 10, 0.05, 0.25)
-        r(section, 'bp_forward', 'Forward share of the launch (0-1)', TYPES.jumppack, jump + 32, 'f32', 1, 0.05, 0.1)
-        r(section, 'bp_landing', 'Landing thrust force', TYPES.jumppack, jump + 36, 'f32', 1000, 1, 5)
-        r(section, 'bp_landing_time', 'Landing thrust duration (s)', TYPES.jumppack, jump + 40, 'f32', 10, 0.05, 0.25)
-        r(section, 'bp_steer', 'Mid-air steering speed', TYPES.jumppack, jump + 60, 'f32', 100, 0.5, 2)
-        if hover then r(section, 'bp_hover', 'Hover duration (s)', TYPES.jumppack, jump + 156, 'f32', 120, 0.5, 2) end
+        if not hover then
+            r(section, 'bp_launch', 'Launch force', TYPES.jumppack, jump, 'f32', 1000, 1, 5)
+            r(section, 'bp_takeoff', 'Launch duration (s)', TYPES.jumppack, jump + 24, 'f32', 5, 0.05, 0.25)
+            r(section, 'bp_forward', 'Forward share of the launch (0-1)', TYPES.jumppack, jump + 32, 'f32', 1, 0.05, 0.1)
+            r(section, 'bp_landing_time', 'Boost after the launch (s)', TYPES.jumppack, jump + 40, 'f32', 10, 0.05, 0.25)
+            r(section, 'bp_steer', 'Mid-air steering force', TYPES.jumppack, jump + 60, 'f32', 200, 0.5, 2)
+        end
+        -- hover fuel is the recharge meter: each second hovering adds 1 + a fuel rate (+200 holding height,
+        -- +204 at 8 m/s vertical speed) seconds to it, and the pack cuts out once it is full; times: the
+        -- recharge time over 1 + that rate, kept when the recharge time changes (+156 only gates climbing)
+        local tank = recharge and hover and field_at(TYPES.recharge, recharge, 'f32', 1000000)
+        if tank then
+            local keeps = {}
+            local function fuel(id, label, offset)
+                local p = part(id, TYPES.jumppack, jump + offset, 'f32', 1000000)
+                p.field.signed = true
+                local row = add_row(entry, section, id, label, 'f32', { p }, 0.1, 3600, 0.5, 2)
+                row.span, row.span_default = function() return read_field(tank) end, function() return default_of(tank) end
+                row.rate_plus = 1
+                keeps[#keeps + 1] = row
+            end
+            fuel('bp_hover_fuel', 'Hover time, holding height (s)', 200)
+            fuel('bp_climb_fuel', 'Hover time, full-speed climb (s)', 204)
+            for _, row in ipairs(entry.rows) do
+                if row.id == 'bp_recharge' then row.keeps = keeps end
+            end
+        end
+        if hover then
+            r(section, 'bp_hover_speed', 'Hover speed (m/s)', TYPES.jumppack, jump + 176, 'f32', 50, 0.5, 2)
+            -- climbing: the speed nears the end of the vertical speed range +196 (the acceleration +168 fades to
+            -- +172 = 0 there; the climb target +180 sits above it), so the row shows +196 and scales +180 with it
+            local climb = add_row(entry, section, 'bp_climb_speed', 'Climb speed (m/s)', 'f32',
+                { part('bp_climb_speed', TYPES.jumppack, jump + 196, 'f32', 1000000),
+                  part('bp_climb_target', TYPES.jumppack, jump + 180, 'f32', 1000000) }, 0.5, 50, 0.5, 2)
+            climb.lead = true
+            r(section, 'bp_climb_accel', 'Climb acceleration', TYPES.jumppack, jump + 168, 'f32', 200, 0.5, 2)
+            -- +156 > 0 marks a hover pack, so it stays above 0
+            add_row(entry, section, 'bp_climb_time', 'Climb time limit (s)', 'f32',
+                { part('bp_climb_time', TYPES.jumppack, jump + 156, 'f32', 1000000) }, 0.5, 600, 0.5, 2)
+        end
     end
     local warp = at(TYPES.warp)
     if warp then
@@ -3337,8 +3374,11 @@ local function row_value(row, default)
     if row.choice == 'grenade' and not default and row.parts[1].field.pending_value ~= nil then
         return row.parts[1].field.pending_value
     end
-    if row.choice then return get(row.parts[1].field) end
-    if row.span then return as_time((default and row.span_default or row.span)(), get(row.parts[1].field)) end
+    if row.choice or row.lead then return get(row.parts[1].field) end   -- lead: the others scale with it
+    if row.span then
+        local rate = get(row.parts[1].field)
+        return as_time((default and row.span_default or row.span)(), rate and rate + (row.rate_plus or 0))
+    end
     local sum = 0
     for _, p in ipairs(row.parts) do
         local v = get(p.field)
@@ -3443,6 +3483,9 @@ local function load_config()
         if name == 'changes' or name == 'block_input' or name == 'remember' then
             settings[name] = value ~= 'off'
             known = true
+        elseif name == 'arc_chains_multiplayer' then
+            settings.arc_mp = value == 'on'
+            known = true
         elseif (name == 'panel_size' or name == 'panel_opacity') and MOD.parse_number(value) then
             settings.set_percent(name:sub(7), MOD.parse_number(value))
             known = true
@@ -3465,9 +3508,6 @@ local function load_config()
         local parsed = hash and MOD.parse_number(amount)
         if parsed then
             overrides[#overrides + 1] = { hash = hash:upper(), id = id, value = parsed }
-        elseif name == 'arc_chains_multiplayer' then
-            settings.arc_mp = value == 'on'
-            known = true
             count = count + 1
             known = true
         end
@@ -3499,6 +3539,27 @@ end
 local function unless_default(value, default)
     if default ~= nil and math.abs(value - default) < 1e-4 then return nil end
     return value
+end
+
+-- A row whose value is the span of time rows (row.keeps: the Hover Pack's recharge time, its fuel):
+-- their times before it changes, then (keep_times) their rates rewritten so the times stay.
+function MOD.times_of(row)
+    if not row.keeps then return nil end
+    local times = {}
+    for n, k in ipairs(row.keeps) do times[n] = row_value(k) end
+    return { rows = row.keeps, times = times }
+end
+
+function MOD.keep_times(weapon, keep)
+    if not keep then return end
+    for n, k in ipairs(keep.rows) do
+        local span, p = k.span(), k.parts[1]
+        if keep.times[n] and keep.times[n] > 0 and span and span > 0 then   -- (no time to keep at 0)
+            local new, d = span / keep.times[n] - (k.rate_plus or 0), default_of(p.field)
+            if d and math.abs(new - d) < 1e-4 then new = d end
+            if write_field(p.field, new) then set_override(weapon, p, unless_default(new, d)) end
+        end
+    end
 end
 
 -- The parts a saved id names: its own (a swap row's first: the whole row's, all one value, so a field
@@ -3926,8 +3987,11 @@ local function weapons_in(tab)
     return list
 end
 
+-- (a value saved for a stat the weapon has no row for, e.g. one an update removed, stays saved, not shown)
 local function modified(weapon)
-    for _, o in ipairs(overrides) do if o.hash == weapon.hash then return true end end
+    for _, o in ipairs(overrides) do
+        if o.hash == weapon.hash and MOD.parts_of(weapon, o.id) then return true end
+    end
     return false
 end
 
@@ -4103,11 +4167,16 @@ local function change(row, delta_sign, big, exact)
     end
     target = math.max(row.min, math.min(row.max, target))
     if target == current then return end
+    if row.span and not ((row.span() or 0) > 0) then   -- a time of nothing (the Hover Pack at recharge 0)
+        ui.message = { text = 'The recharge time is 0: set it above 0 first.', till = api.now() + 4 }
+        return
+    end
+    local keep = MOD.times_of(row)
     for _, p in ipairs(row.parts) do
         local v = read_field(p.field)
         default_of(p.field)
         local new = target
-        if row.span then new = row.span() / target
+        if row.span then new = row.span() / target - (row.rate_plus or 0)
         elseif #row.parts > 1 then new = (current > 0) and v * target / current or target
         elseif row.zero and math.abs(target - row.zero) < 1e-4 and defaults[p.field.key] == 0 then new = 0 end
         local ok, why = write_field(p.field, new)
@@ -4118,6 +4187,7 @@ local function change(row, delta_sign, big, exact)
             log('write refused: ' .. weapon.name .. ' ' .. p.id .. ': ' .. why)
         end
     end
+    MOD.keep_times(weapon, keep)
     ui.version = ui.version + 1
 end
 
@@ -4152,11 +4222,13 @@ local function finish_value(keep)
 end
 
 local function reset_row(weapon, row)
+    local keep = MOD.times_of(row)
     for _, p in ipairs(row.parts) do
         local d = default_of(p.field)
         if d ~= nil then write_field(p.field, d) end
         set_override(weapon, p, nil)
     end
+    MOD.keep_times(weapon, keep)
     ui.version = ui.version + 1
 end
 
@@ -4846,6 +4918,14 @@ local function draw(width, height)
         choice('Panel side', 'side', { { 'left', 'Left' }, { 'right', 'Right' } }, settings.side)
         percent('Background opacity', 'opacity')
         choice('Remember last tab and weapon', 'remember', ONOFF, onoff(settings.remember))
+        choice('Arc chain edits in multiplayer', 'arc_mp', ONOFF, onoff(settings.arc_mp))
+        local arc = settings.arc
+        text('(untested) ' .. (arc.state:find('^unavailable') and ('Arc chains: player count ' .. arc.state .. '; your values stay.')
+             or arc.paused and "Other players are in your game: arc chain length / split use the game's values."
+             or settings.arc_mp and 'On: your arc chain length / split apply with other players too (arcs can stay on screen).'
+             or "Off: with other players, arc chain length / split use the game's values (else arcs can stay on screen)."),
+             x0 + 16, y - 6, 14, arc.paused and WARN or MUTED, W - x0 - 40)
+        y = y + 14
         local notes, warn = {}, false
         for _, item in ipairs(settings.UNLOCKS) do
             choice('Unlock ' .. item.name, 'unlock_' .. item.id, ONOFF, onoff(settings.unlocks[item.id]))
@@ -4893,14 +4973,6 @@ local function draw(width, height)
         end
         -- rows get closer together when there are too many to fit at full spacing; past 22 units
         -- apart the list scrolls (Up/Down follow the chosen row; buttons below page through it)
-        choice('Arc chain edits in multiplayer', 'arc_mp', ONOFF, onoff(settings.arc_mp))
-        local arc = settings.arc
-        text('(untested) ' .. (arc.state:find('^unavailable') and ('Arc chains: player count ' .. arc.state .. '; your values stay.')
-             or arc.paused and "Other players are in your game: arc chain length / split use the game's values."
-             or settings.arc_mp and 'On: your arc chain length / split apply with other players too (arcs can stay on screen).'
-             or "Off: with other players, arc chain length / split use the game's values (else arcs can stay on screen)."),
-             x0 + 16, y - 6, 14, arc.paused and WARN or MUTED, W - x0 - 40)
-        y = y + 14
         local sections, below = 0, 0
         for n, row in ipairs(weapon.rows) do
             if n == 1 or row.section ~= weapon.rows[n - 1].section then sections = sections + 1 end
@@ -5123,6 +5195,7 @@ local function click(key)
         if name == 'bind' then ui.binding = not ui.binding or nil
         elseif name == 'changes' then settings.set_changes(value == 'on')
         elseif name == 'block_input' or name == 'remember' then settings[name] = value == 'on'
+        elseif name == 'arc_mp' then settings.arc_mp, settings.arc.next_check = value == 'on', 0
         elseif name:find('^unlock_') then
             settings.unlocks[name:sub(8)], settings.unlock.next_check = value == 'on', 0
         elseif (name == 'size' or name == 'opacity') and (value == 'up' or value == 'down') then
@@ -5170,7 +5243,6 @@ local function click(key)
     elseif kind == 'scroll' and weapon then
         local page = math.max(1, (ui.last_visible or ui.scroll) - ui.scroll)
         ui.scroll = math.max(1, math.min(#weapon.rows, ui.scroll + (arg == 'down' and page or -page)))
-        elseif name == 'arc_mp' then settings.arc_mp, settings.arc.next_check = value == 'on', 0
     elseif weapon and tonumber(arg) and weapon.rows[tonumber(arg)] then
         local row = weapon.rows[tonumber(arg)]
         ui.row = tonumber(arg)
@@ -6559,53 +6631,6 @@ settings.unlock = { next_check = 0, state = {}, changed = {},
     end
 end)()
 
-local function tick()
-    state.frame = state.frame + 1
-    local now = api.now()
-    if state.phase == 'building' then
-        state.build_some()
-    elseif state.phase == 'preparing' then
-        prepare(now + FRAME_BUDGET)
-    elseif state.phase == 'ready' then
-        KINDS[TYPES.throwable].update_launch()
-        if #pending > 0 and now >= next_retry then
-            if apply_config(now + FRAME_BUDGET) then
-                next_retry = now + 2
-                if #pending == 0 then log('all saved values applied (' .. state.applied .. ')') end
-            end
-        end
-        if config_dirty_at and now >= config_dirty_at then save_config() end
-        if now >= settings.unlock.next_check then
-            settings.unlock.next_check = now + 2
-            local ok, why = pcall(settings.unlock.check)
-            if not ok then log('unlock: ' .. tostring(why)) end
-        end
-        if now >= packages.next_check and not packages.off then
-            packages.next_check = now + 1
-            local ok, why = pcall(packages.swap_assets)
-            if not ok then packages.off = tostring(why); log('packages: off: ' .. packages.off) end
-        end
-    end
-
-    -- hotkey: one key-state read per frame; the window check only while the key is down
-    local vk = VK[hotkey_name] or VK.F8
-    local down = key_down(vk)
-    if ui.hotkey_hold then
-        if not down then ui.hotkey_hold = nil end   -- a new hotkey: wait until it is let go
-    elseif down and not hotkey_was_down and focused_window() then
-        open_panel(not ui.open)
-    end
-    hotkey_was_down = down
-    if not ui.open and cursor.raw.saved then pcall(cursor.give_input, now) end
-    if ui.open then
-        local ok, why = pcall(panel_frame, now)
-        if ui.close_request then ui.close_request = nil; open_panel(false) end
-        if ok then
-            ui.errors = 0
-        else
-            state.ui_errors = state.ui_errors + 1
-            ui.errors = ui.errors + 1
-            log('panel error: ' .. tostring(why))
 -- Arc chains with other players (issue #41): chain length / split (and the charge's arc multipliers)
 -- are this PC's only; another player's game arcs with the game's values, and the arcs neither agrees on
 -- stay on screen. Unless settings.arc_mp, while the game lists more than one player these fields hold
@@ -6681,6 +6706,58 @@ function MOD.same(p) return p end
     end
 end)()
 
+local function tick()
+    state.frame = state.frame + 1
+    local now = api.now()
+    if state.phase == 'building' then
+        state.build_some()
+    elseif state.phase == 'preparing' then
+        prepare(now + FRAME_BUDGET)
+    elseif state.phase == 'ready' then
+        KINDS[TYPES.throwable].update_launch()
+        if #pending > 0 and now >= next_retry then
+            if apply_config(now + FRAME_BUDGET) then
+                next_retry = now + 2
+                if #pending == 0 then log('all saved values applied (' .. state.applied .. ')') end
+            end
+        end
+        if config_dirty_at and now >= config_dirty_at then save_config() end
+        if now >= settings.unlock.next_check then
+            settings.unlock.next_check = now + 2
+            local ok, why = pcall(settings.unlock.check)
+            if not ok then log('unlock: ' .. tostring(why)) end
+        end
+        if now >= settings.arc.next_check then
+            settings.arc.next_check = now + 1
+            local ok, why = pcall(settings.arc.check)
+            if not ok then log('arc chains: ' .. tostring(why)) end
+        end
+        if now >= packages.next_check and not packages.off then
+            packages.next_check = now + 1
+            local ok, why = pcall(packages.swap_assets)
+            if not ok then packages.off = tostring(why); log('packages: off: ' .. packages.off) end
+        end
+    end
+
+    -- hotkey: one key-state read per frame; the window check only while the key is down
+    local vk = VK[hotkey_name] or VK.F8
+    local down = key_down(vk)
+    if ui.hotkey_hold then
+        if not down then ui.hotkey_hold = nil end   -- a new hotkey: wait until it is let go
+    elseif down and not hotkey_was_down and focused_window() then
+        open_panel(not ui.open)
+    end
+    hotkey_was_down = down
+    if not ui.open and cursor.raw.saved then pcall(cursor.give_input, now) end
+    if ui.open then
+        local ok, why = pcall(panel_frame, now)
+        if ui.close_request then ui.close_request = nil; open_panel(false) end
+        if ok then
+            ui.errors = 0
+        else
+            state.ui_errors = state.ui_errors + 1
+            ui.errors = ui.errors + 1
+            log('panel error: ' .. tostring(why))
             pcall(clear_gui)
             if ui.errors >= 5 then
                 open_panel(false)
@@ -6702,11 +6779,6 @@ local ok, failure = pcall(function()
     api = build_api()
     local cell = ffi.new('float[1]')
     f32_bytes = function(value)
-        if now >= settings.arc.next_check then
-            settings.arc.next_check = now + 1
-            local ok, why = pcall(settings.arc.check)
-            if not ok then log('arc chains: ' .. tostring(why)) end
-        end
         cell[0] = value
         return ffi.string(cell, 4)
     end
