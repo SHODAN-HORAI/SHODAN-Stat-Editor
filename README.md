@@ -66,7 +66,7 @@ takes priority over Projectile swap.
 | Guard Dogs (AR-23, Rover, Dog Breath, Hot Dog, K-9) | The drone's health, spotting range and target search interval, and the gun it carries, stat for stat like a weapon |
 | Sentries and emplacements (all ten sentries, HMG and Anti-Tank Emplacements, Grenadier Battlement) | Cooldown, health, spotting range, target search interval, turret turn speed, and their weapon stat for stat (the Tesla Tower's arc included) |
 | Anti-Personnel, Anti-Tank, Gas and Incendiary Minefields | Panels and mines per panel (lower only), arming time, throw velocity and spread; the mines' trigger and chain reaction delays, their explosion's damage and radii |
-| LIFT-850 Jump Pack, LIFT-860 Hover Pack | Recharge time, launch force, takeoff duration, forward share of the launch, landing thrust force and duration, mid-air steering; the Hover Pack's hover duration |
+| LIFT-850 Jump Pack, LIFT-860 Hover Pack | Recharge time; Jump Pack: launch force and duration, forward share of the launch, boost after the launch, mid-air steering; Hover Pack: hover time, hover speed, climb speed, acceleration and time limit |
 | LIFT-182 Warp Pack | Warp distance, reach up / down, heat per warp, cooling, safe and unsafe heat, the damage an unsafe warp does to you and its explosion |
 | Supply Pack, Portable Hellbomb, Guard Dogs; the ammo backpacks of the Autocannon, Recoilless Rifle, Spear, W.A.S.P., Airburst, Maxigun, Cremator and Belt-Fed GL (on the weapon's page) | Backpack charges: capacity, at the start, from resupply |
 
