@@ -1034,7 +1034,7 @@ local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, 
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
                 thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B,
-                seeking = 0xBF3A6789, windup = 0x84CE7EEE }
+                seeking = 0xBF3A6789, windup = 0x84CE7EEE, laser = 0x32528174 }
 local KINDS = {
     [T_WEAPON] = { name = 'weapon', stride = 1232, keyed = true },
     [T_MAGAZINE] = { name = 'magazine', stride = 160, keyed = true },
@@ -1135,6 +1135,7 @@ KINDS[TYPES.eagle] = { name = 'eagle', stride = 152, keyed = true }
 -- +68 launch, +72 minimum, +76 cruise speed, +80 acceleration, +88 / +92 turn speed at cruise / slowest.
 -- Records of 272 bytes (FileDiver's layout ends at 252; 264 also fits the table, read off by 8 bytes).
 KINDS[TYPES.seeking] = { name = 'seeking missile', stride = 272, keyed = true }
+KINDS[TYPES.laser] = { name = 'laser designator', stride = 64, keyed = true }
 -- the tables the panel waits for (stratagem groups are taken as they come)
 local KIND_ORDER = { T_WEAPON, T_MAGAZINE, T_ROUNDS, T_FIRE, T_PROJECTILE, T_DAMAGE, T_BEAM_WEAPON, T_BEAM,
                      T_EXPLOSION, T_ORBITAL, T_HEAT, T_SPRAY, T_STATUS, T_MELEE, TYPES.arc_weapon, TYPES.arc,
@@ -1982,9 +1983,13 @@ local function resolve_gun(weapon, key)
         end
         add_row(weapon, section, idp .. 'pellets', 'Projectiles per shot', 'u32',
                 { part(idp .. 'pellets', T_PROJECTILE, p + 28, 'u32', 1000) }, 1, 100, 1, 5)
-        proj('velocity', 'Velocity (m/s)', 32, 100000, 10, 100)
-        proj('drag', 'Drag factor', 40, 100, 0.05, 0.5)
-        proj('gravity', 'Gravity factor', 44, 100, 0.05, 0.5)
+        if idp == '' and weapon.missile then
+            KINDS[TYPES.seeking].flight(weapon, weapon.missile, KINDS[TYPES.seeking].steered(weapon))
+        else
+            proj('velocity', 'Velocity (m/s)', 32, 100000, 10, 100)
+            proj('drag', 'Drag factor', 40, 100, 0.05, 0.5)
+            proj('gravity', 'Gravity factor', 44, 100, 0.05, 0.5)
+        end
         proj('pen_slowdown', 'Penetration slowdown', 64, 100, 0.05, 0.25)
         local impact = read_field(field_at(T_PROJECTILE, p + 144, 'u32', 100000))
         local expiry = read_field(field_at(T_PROJECTILE, p + 156, 'u32', 100000))
@@ -2048,6 +2053,7 @@ local function resolve_gun(weapon, key)
         end
         blasts = {}
     end
+    weapon.missile = fire and KINDS[TYPES.seeking].fired(fire)
     if prow then projectile_rows(prow, '', 'Projectile', 'Explosion') end
     -- a melee strike's explosion (Breaching Hammer), with its damage row (explosion +4)
     local strike = melee and weapon.key == key and KINDS[T_MELEE].explosions[weapon.hash]
@@ -3147,6 +3153,44 @@ local function resolve_throwable(entry, placed)
     explosion(id, 'blast_', 'Explosion', true)
 end
 
+-- A missile's flight rows (`seek`: its SeekingMissile record), ids 'missile_' .. stat; `steered` false:
+-- without the steering rows (turn speeds, target lost angle, guidance delay).
+KINDS[TYPES.seeking].flight = function(weapon, seek, steered)
+    for _, r in ipairs({
+        { 'launch_speed', 'Launch speed (m/s)', 68, 2000, 5, 25 },
+        { 'cruise_speed', 'Cruise speed (m/s)', 76, 2000, 5, 25 },
+        { 'min_speed', 'Minimum speed (m/s)', 72, 2000, 5, 25 },
+        { 'acceleration', 'Acceleration (m/s2)', 80, 10000, 10, 50 },
+        { 'turn_cruise', 'Turn speed at cruise', 88, 100, 0.1, 1, true },
+        { 'turn_slow', 'Turn speed at slowest', 92, 100, 0.1, 1, true },
+        { 'lost_angle', 'Loses its target past (deg)', 28, 180, 1, 10, true },
+        { 'lifetime', 'Max flight time (s)', 64, 600, 1, 5 },
+        { 'guidance_after', 'Guidance on after (s)', 12, 60, 0.1, 0.5, true },
+    }) do
+        local id = 'missile_' .. r[1]
+        if steered ~= false or not r[7] then
+            add_row(weapon, 'Missile flight', id, r[2], 'f32', { part(id, TYPES.seeking, seek + r[3], 'f32', 1000000) }, 0, r[4], r[5], r[6])
+        end
+    end
+end
+
+-- A weapon that fires a missile: its fire mode's projectile entity (+40: spawned instead of a projectile;
+-- the Patriot's rockets, Spear, Commando, W.A.S.P., Warrant...) with a SeekingMissile record: that record,
+-- whose speeds it flies at (the projectile's velocity, drag and gravity are not used).
+KINDS[TYPES.seeking].fired = function(fire)
+    local ft, st = tables[T_FIRE], tables[TYPES.seeking]
+    local entity = ft and st and api.read(ft.copies[1] + HEADER_BYTES + fire + 40, 8)
+    return entity and #entity == 8 and st.index[entity] or nil
+end
+
+-- Whether a weapon steers its missile: a lock-on missile does; one that follows the aim (+0: 1) only
+-- with the weapon's laser designator (the Commando's; the Patriot's rockets fly straight).
+KINDS[TYPES.seeking].steered = function(weapon)
+    local st, lt = tables[TYPES.seeking], tables[TYPES.laser]
+    local mode = api.read(st.copies[1] + HEADER_BYTES + weapon.missile, 4)
+    return mode ~= string.char(1, 0, 0, 0) or not lt or lt.index[weapon.key] ~= nil
+end
+
 -- The MS-11 Solo Silo (its entry is the missile, an explosive you place): the silo that holds it (the
 -- hellpod rack carrying the missile's entity), its health (+0), armor (+280), regeneration per second (+4)
 -- (its rack spawns 2 payloads, rack +556: not offered as a missile count), then the
@@ -3173,20 +3217,7 @@ KINDS[TYPES.seeking].silo_rows = function(weapon)
                 { part('silo_regen', TYPES.health, body + 4, 'f32', 1000000) }, 0, 10000, 1, 10)
     end
     unit_rows(weapon, weapon.key, 'Missile', 'charge_')
-    for _, r in ipairs(seek and {
-        { 'launch_speed', 'Launch speed (m/s)', 68, 2000, 5, 25 },
-        { 'cruise_speed', 'Cruise speed (m/s)', 76, 2000, 5, 25 },
-        { 'min_speed', 'Minimum speed (m/s)', 72, 2000, 5, 25 },
-        { 'acceleration', 'Acceleration (m/s2)', 80, 10000, 10, 50 },
-        { 'turn_cruise', 'Turn speed at cruise', 88, 100, 0.1, 1 },
-        { 'turn_slow', 'Turn speed at slowest', 92, 100, 0.1, 1 },
-        { 'lost_angle', 'Loses its target past (deg)', 28, 180, 1, 10 },
-        { 'lifetime', 'Max flight time (s)', 64, 600, 1, 5 },
-        { 'guidance_after', 'Guidance on after (s)', 12, 60, 0.1, 0.5 },
-    } or {}) do
-        local id = 'missile_' .. r[1]
-        add_row(weapon, 'Missile flight', id, r[2], 'f32', { part(id, TYPES.seeking, seek + r[3], 'f32', 1000000) }, 0, r[4], r[5], r[6])
-    end
+    if seek then KINDS[TYPES.seeking].flight(weapon, seek) end
     return true
 end
 
