@@ -3452,6 +3452,14 @@ settings.UNLOCKS = {
       model = { 0x7E3145A5, 0xBAA4B948 }, key = 0x7DE53646, template_key = 0xE673DCC8, class = 1 },
 }
 settings.unlocks = {}
+-- one switch for them all (Settings: "Unlock unused items"): on while any is (old configs saved each)
+function settings.unlock_any()
+    for _, item in ipairs(settings.UNLOCKS) do if settings.unlocks[item.id] then return true end end
+    return false
+end
+function settings.unlock_all(on)
+    for _, item in ipairs(settings.UNLOCKS) do settings.unlocks[item.id] = on end
+end
 
 local function config_path()
     local dir = data_dir('StatEditor')
@@ -3488,7 +3496,7 @@ local function save_config()
                             'arc_chains_multiplayer ' .. onoff(settings.arc_mp) }) do
         lines[#lines + 1] = line
     end
-    for _, item in ipairs(settings.UNLOCKS) do lines[#lines + 1] = item.config .. ' ' .. onoff(settings.unlocks[item.id]) end
+    lines[#lines + 1] = 'unlock_unused ' .. onoff(settings.unlock_any())
     if settings.remember and settings.last_tab then lines[#lines + 1] = 'last_tab ' .. settings.last_tab end
     if settings.remember and settings.last_weapon then lines[#lines + 1] = 'last_weapon ' .. settings.last_weapon end
     for _, o in ipairs(overrides) do
@@ -3531,10 +3539,17 @@ local function load_config()
         elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
             settings.last_weapon = value:upper()
             known = true
+        elseif name == 'unlock_unused' then
+            settings.unlock_all(value == 'on')
+            known = true
         elseif name then   -- last: any other name would stop here
             for _, item in ipairs(settings.UNLOCKS) do
-                -- (local test builds saved incinerator_frv 'off' / 'gunner' / 'supply')
-                if name == item.config then settings.unlocks[item.id] = value == 'on'; known = true end
+                -- one line per item before the single switch: any on turns them all on (local test builds
+                -- saved incinerator_frv 'off' / 'gunner' / 'supply')
+                if name == item.config then
+                    if value == 'on' then settings.unlock_all(true) end
+                    known = true
+                end
             end
         end
         local hash, id, amount = line:match('^%s*(%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x%x)%s+([%w_]+)%s+(%S+)')
@@ -4975,18 +4990,20 @@ local function draw(width, height)
              x0 + 16, y - 6, 14, arc.paused and WARN or MUTED, W - x0 - 40)
         y = y + 14
         local notes, warn = {}, false
+        choice('Unlock unused items', 'unlock_all', ONOFF, onoff(settings.unlock_any()))
+        local names = {}
         for _, item in ipairs(settings.UNLOCKS) do
-            choice('Unlock ' .. item.name, 'unlock_' .. item.id, ONOFF, onoff(settings.unlocks[item.id]))
+            names[#names + 1] = item.name
             local state = settings.unlock.state[item.id] or 'off'
             if state ~= 'on' and state ~= 'off' then
                 notes[#notes + 1] = item.name .. ': ' .. state
                 warn = warn or state:find('^unavailable') ~= nil
             end
         end
-        text(#notes > 0 and table.concat(notes, '; ') .. '.'
-             or 'Items in the game files the game does not offer. On: in your armory / stratagem list.',
-             x0 + 16, y - 6, 14, warn and WARN or MUTED, W - x0 - 40)
-        y = y + 14
+        text(table.concat(names, ', ') .. ': in the game files, not offered by it.', x0 + 16, y - 6, 14, MUTED, W - x0 - 40)
+        text(#notes > 0 and table.concat(notes, '; ') .. '.' or 'On: in your armory / stratagem list.',
+             x0 + 16, y + 12, 14, warn and WARN or MUTED, W - x0 - 40)
+        y = y + 32
         local sure_reset = ui.confirm and ui.confirm.kind == 'reset_all'
         button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, #overrides > 0, sure_reset)
         text('Resets all values from the current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
@@ -5244,6 +5261,8 @@ local function click(key)
         elseif name == 'changes' then settings.set_changes(value == 'on')
         elseif name == 'block_input' or name == 'remember' then settings[name] = value == 'on'
         elseif name == 'arc_mp' then settings.arc_mp, settings.arc.next_check = value == 'on', 0
+        elseif name == 'unlock_all' then
+            settings.unlock_all(value == 'on'); settings.unlock.next_check = 0
         elseif name:find('^unlock_') then
             settings.unlocks[name:sub(8)], settings.unlock.next_check = value == 'on', 0
         elseif (name == 'size' or name == 'opacity') and (value == 'up' or value == 'down') then
