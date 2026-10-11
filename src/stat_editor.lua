@@ -2225,12 +2225,19 @@ local function resolve_gun(weapon, key)
                            { { id = pre .. id, field = f } }, min, max, small, big)
         end
         if ammo then
+            -- a vehicle's gun that has no spare magazines and holds none (the exosuits' arms, the Incinerator
+            -- FRV's flamer) never reloads: spare magazines would start a reload the game does not finish
+            -- (issue #31: a crash once the animation ends), so it has neither those rows nor a reload time
+            if weapon.mounted and magazine and not item then
+                weapon.sealed = default_of(field_at(T_MAGAZINE, magazine + 140, 'u32', 100000)) == 0
+                                and default_of(field_at(T_MAGAZINE, magazine + 148, 'u32', 100000)) == 0
+            end
             -- the game keeps at most 2048 rounds in a magazine (more drops to 2048 at the first shot): rows stop
             -- there, and going past it says why (row.limit)
             for _, m in ipairs(magazine and { { 'capacity', 'Magazine size', 136, 1, 2048, 10 },
-                                              { 'mags_start', 'Starting magazines', 140, 0, 999, 5 },
-                                              { 'mags_supply', 'Magazines from supply', 144, 0, 999, 5 },
-                                              { 'mags_max', 'Max spare magazines', 148, 0, 999, 5 } } or {}) do
+                                              not weapon.sealed and { 'mags_start', 'Starting magazines', 140, 0, 999, 5 } or nil,
+                                              not weapon.sealed and { 'mags_supply', 'Magazines from supply', 144, 0, 999, 5 } or nil,
+                                              not weapon.sealed and { 'mags_max', 'Max spare magazines', 148, 0, 999, 5 } or nil } or {}) do
                 local r = row('Ammo', m[1], m[2], 'u32', get(m[1], '5:' .. m[3], T_MAGAZINE, magazine + m[3], 'u32', 100000), m[4], m[5], 1, m[6])
                 if r and m[1] == 'capacity' then r.limit = 'The game holds at most 2048 rounds in a magazine.' end
             end
@@ -2242,7 +2249,7 @@ local function resolve_gun(weapon, key)
         local rf = reload and get('reload_time', '113:56', TYPES.reload, reload + 56, 'f32', 1000)
         local rt = rf and default_of(rf)
         local known = rt == 0 and not item and MOD.reload_seconds[weapon.hash]
-        if rt and rt >= 0 and rt < 1000 then
+        if rt and rt >= 0 and rt < 1000 and not weapon.sealed then
             local r = row('Ammo', 'reload_time', (rt > 0 or known) and 'Reload time (s)' or 'Reload time (s; 0 = animation length)',
                           'f32', rf, 0, 60, 0.1, 0.5)
             if r and known then r.zero = known end
