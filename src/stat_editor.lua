@@ -2473,6 +2473,35 @@ local function pretty(debug_name)
     return (family or 'other'):lower(), rest
 end
 
+-- Several vehicles of a kind in a loadout (Settings, on by default): a stratagem's flags (StratagemInfo +260)
+-- carry its vehicle kind, 0x00100000 exosuit, 0x00200000 FRV, 0x00400000 tank, and the loadout takes one
+-- stratagem of each kind; on clears those bits (in memory), off puts them back. `original`: by stratagem
+-- id, the flags as the game had them (kept across rescans).
+MOD.vehicles = { on = true, original = {}, defs = {}, BITS = 1048576 }
+function MOD.vehicles.collect(defs)
+    local V = MOD.vehicles
+    V.defs = {}
+    for id, def in pairs(defs) do
+        local flags = V.original[id] or peek4(def.at + 260)
+        if flags and math.floor(flags / V.BITS) % 8 ~= 0 then
+            V.original[id] = flags
+            V.defs[#V.defs + 1] = { kind = def.kind, off = def.off, flags = flags }
+        end
+    end
+    V.apply()
+end
+function MOD.vehicles.apply()
+    local V = MOD.vehicles
+    for _, d in ipairs(V.defs) do
+        local want = V.on and d.flags - (math.floor(d.flags / V.BITS) % 8) * V.BITS or d.flags
+        local t = tables[d.kind]
+        for _, copy in ipairs(t and t.copies or {}) do
+            local at = copy + HEADER_BYTES + d.off + 260
+            if peek4(at) ~= want then api.write(at, u32_bytes(want)) end
+        end
+    end
+end
+
 local function build_stratagems()
     for k = #weapons, 1, -1 do
         if weapons[k].stratagem or weapons[k].mounted then by_hash[weapons[k].hash] = nil; table.remove(weapons, k) end
@@ -2515,6 +2544,7 @@ local function build_stratagems()
             if not defs[id] then defs[id] = { kind = group, off = off, at = entry.copies[1] + HEADER_BYTES + off } end
         end
     end
+    MOD.vehicles.collect(defs)
     local list, known = {}, {}
     local function add(id, name, family, payloads, nodes, def)
         local keys = {}
@@ -3497,6 +3527,7 @@ local function save_config()
         lines[#lines + 1] = line
     end
     lines[#lines + 1] = 'unlock_unused ' .. onoff(settings.unlock_any())
+    lines[#lines + 1] = 'several_vehicles ' .. onoff(MOD.vehicles.on)
     if settings.remember and settings.last_tab then lines[#lines + 1] = 'last_tab ' .. settings.last_tab end
     if settings.remember and settings.last_weapon then lines[#lines + 1] = 'last_weapon ' .. settings.last_weapon end
     for _, o in ipairs(overrides) do
@@ -3538,6 +3569,9 @@ local function load_config()
             known = true
         elseif name == 'last_weapon' and value:find('^%x+$') and #value == 16 then
             settings.last_weapon = value:upper()
+            known = true
+        elseif name == 'several_vehicles' then
+            MOD.vehicles.on = value ~= 'off'; MOD.vehicles.apply()
             known = true
         elseif name == 'unlock_unused' then
             settings.unlock_all(value == 'on')
@@ -4990,6 +5024,9 @@ local function draw(width, height)
              x0 + 16, y - 6, 14, arc.paused and WARN or MUTED, W - x0 - 40)
         y = y + 14
         local notes, warn = {}, false
+        choice('Several vehicles of a kind', 'vehicles', ONOFF, onoff(MOD.vehicles.on))
+        text('On: a loadout can take more than one exosuit, FRV or tank.', x0 + 16, y - 6, 14, MUTED, W - x0 - 40)
+        y = y + 14
         choice('Unlock unused items', 'unlock_all', ONOFF, onoff(settings.unlock_any()))
         local names = {}
         for _, item in ipairs(settings.UNLOCKS) do
@@ -5261,6 +5298,8 @@ local function click(key)
         elseif name == 'changes' then settings.set_changes(value == 'on')
         elseif name == 'block_input' or name == 'remember' then settings[name] = value == 'on'
         elseif name == 'arc_mp' then settings.arc_mp, settings.arc.next_check = value == 'on', 0
+        elseif name == 'vehicles' then
+            MOD.vehicles.on = value == 'on'; MOD.vehicles.apply()
         elseif name == 'unlock_all' then
             settings.unlock_all(value == 'on'); settings.unlock.next_check = 0
         elseif name:find('^unlock_') then

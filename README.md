@@ -151,6 +151,7 @@ The **Settings** button at the bottom right of the panel opens its options:
   and come back when you turn it on.
 - **Panel size**, **side** and **background opacity**.
 - **Remember last tab and weapon**.
+- **Several vehicles of a kind**: on by default; a loadout can take more than one exosuit, FRV or tank.
 - **Unlock unused items**: adds items that are in the game files but the game doesn't offer: the
   M-104 Incinerator FRV (stratagem list), the P-41 Ombudsman, G-11 Caltrops and LAS-22 Shear (armory).
 - **Reset all values**: every change of the current setup back to the game's values (asks
