@@ -2254,6 +2254,13 @@ local function resolve_gun(weapon, key)
                           'f32', rf, 0, 60, 0.1, 0.5)
             if r and known then r.zero = known end
         end
+        -- +1: you can move while reloading; off on the weapons that hold you still (the Autocannon, MG-43...):
+        -- a row there only (not on vehicle guns: you are not walking)
+        if reload and not item and not weapon.mounted
+           and default_of(field_at(TYPES.reload, reload + 1, 'flag', 1)) == 0 then
+            add_row(weapon, 'Ammo', 'reload_move', 'Move while reloading', 'flag',
+                    { part('reload_move', TYPES.reload, reload + 1, 'flag', 1) }, 0, 1, 1, 1)
+        end
         if not heat then return end
         local function hf(id, offset) return get(id, '266:' .. offset, T_HEAT, heat + offset, 'f32', 1000000) end
         local function hb(offset) return base('266:' .. offset, T_HEAT, heat + offset, 'f32', 1000000) end
