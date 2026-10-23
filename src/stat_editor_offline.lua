@@ -412,6 +412,8 @@ MOD.langs = {
     fonts = { { font = '160f67c841834f8d', atlas = '808957ab8b672904' }, { font = 'e01b1c60bb279a7c', atlas = '1a87fa21dafbd90e' } },
     exact = {
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '“+ 新建预设”（或 Insert 键）会把当前修改存为一组，接着你可以为它命名。',
+      ['(Not Used) Additional Strafing Runs'] = '（未使用）额外机枪扫射',
+      ['(Not Used) Air-TO-Air Missles'] = '（未使用）空对空导弹',
       ['+ Add passive'] = '+ 添加被动',
       ['+ Armor rating'] = '护甲值',
       ['+ Ergonomics'] = '人机工效',
@@ -621,6 +623,7 @@ MOD.langs = {
       ['Alternate ammunition'] = '另一种弹药',
       ['Amendment'] = '修正',
       ['Ammo'] = '弹药',
+      ['Ammo Cache'] = '弹药储备箱',
       ['Ammo at the start'] = '初始弹药',
       ['Ammo capacity'] = '弹药容量',
       ['Ammo carried'] = '携带弹药',
@@ -633,7 +636,9 @@ MOD.langs = {
       ['Antenna'] = '天线',
       ['Anti-Air Missile'] = '防空导弹',
       ['Anti-Materiel Rifle'] = '反器材步枪',
+      ['Anti-Personnel Mine Deployer'] = '反步兵布雷器',
       ['Anti-Tank Emplacement'] = '反坦克炮台',
+      ['Anti-Tank Mine Deployer'] = '反坦克布雷器',
       ['Anti-Tank Seeker'] = '反坦克追踪者',
       ['Apex'] = '尖峰',
       ['Apply my changes'] = '应用我的修改',
@@ -707,6 +712,8 @@ MOD.langs = {
       ['Breaker Incendiary'] = '高燃“破裂者”',
       ['Breaker Spray&Pray'] = '千发百中“破裂者”',
       ['Breakthrough Exosuit'] = '“突破”外骨骼装甲',
+      ['Bug Plug'] = '虫穴封堵装置',
+      ['Bug Thumper'] = '虫群震动诱饵',
       ['Bullet Storm'] = '子弹风暴',
       ['Burn time (s)'] = '燃烧时间(秒)',
       ['Burning'] = '燃烧',
@@ -728,9 +735,13 @@ MOD.langs = {
       ['CQC-73 Entrenchment Tool'] = 'CQC-73 堑壕工具',
       ['CQC-9 Defoliation Tool'] = 'CQC-9 除叶工具',
       ['Calibre (mm)'] = '口径(毫米)',
+      ['Call IN Destroyer'] = '呼叫驱逐舰',
       ['Caltrops'] = '铁蒺藜',
       ['Camera shake radius (m)'] = '镜头震动半径(米)',
       ['Cancel'] = '取消',
+      ['Cargo Container'] = '货运集装箱',
+      ['Carpet Bombing Run'] = '地毯式轰炸',
+      ['Carry Data'] = '运送数据',
       ['Censor'] = '审查官',
       ['Chain length'] = '连锁长度',
       ['Chain reaction delay (s)'] = '连锁延迟(秒)',
@@ -756,6 +767,8 @@ MOD.langs = {
       ['Cluster Bomb'] = '集束炸弹',
       ['Combat Hatchet'] = '战斗短柄斧',
       ['Combat Scope 4x'] = '4倍战斗瞄准镜',
+      ['Combat Walker'] = '战斗步行机甲',
+      ['Combat Walker Breacher'] = '爆破型战斗机甲',
       ['Commando'] = '突击兵',
       ['Concealment when still, crouched / prone'] = '静止蹲伏或卧倒时的隐蔽',
       ['Concussive Padding (Grenadier)'] = '防震内衬（掷弹兵型）',
@@ -780,6 +793,7 @@ MOD.langs = {
       ['Crouched sprint speed (m/s)'] = '蹲伏冲刺速度(米/秒)',
       ['Crouched walk speed (m/s)'] = '蹲伏步行速度(米/秒)',
       ['Cruise speed (m/s)'] = '巡航速度(米/秒)',
+      ['Cyborg Carry Data'] = '运送生化人数据',
       ['DAMAGE'] = '伤害',
       ['DBS-2 Double Freedom'] = 'DBS-2 双重自由',
       ['DEPLOYER'] = '部署舱',
@@ -788,6 +802,8 @@ MOD.langs = {
       ['Damage'] = '伤害',
       ['Damage tick (s)'] = '伤害间隔(秒)',
       ['Damage to you'] = '对你造成的伤害',
+      ['Dark Fluid Backpack'] = '暗液背包',
+      ['Data Jack'] = '数据接口',
       ['De-Escalator'] = '缓和使者',
       ['Deadeye'] = '鹰眼',
       ['Defender'] = '防卫者',
@@ -800,17 +816,21 @@ MOD.langs = {
       ['Diligence'] = '勤勉',
       ['Diligence Counter Sniper'] = '反狙击“勤勉”',
       ['Direct hit'] = '直击',
+      ['Directional Energy Shield'] = '定向能量护盾',
       ['Directional Shield'] = '定向护盾',
+      ['Displacement Backpack'] = '传送背包',
       ['Dive cost (share of stamina)'] = '飞扑消耗(体力占比)',
       ['Dominator'] = '主宰',
       ['Double Freedom'] = '双重自由',
       ['Double-Edge Sickle'] = '双刃镰刀',
       ['Down'] = '下移',
       ['Drag factor'] = '阻力系数',
+      ['Drilling Charge'] = '钻探炸药',
       ['Driver gun'] = '驾驶员机枪',
       ['Drone'] = '无人机',
       ['Drum Magazine'] = '弹鼓',
       ['Dune Walker Sniper Scope 10x'] = '10倍狙击瞄准镜',
+      ['Duo Sniper Scope 10x'] = '“杜奥”10倍狙击瞄准镜',
       ['Durable damage'] = '耐久伤害',
       ['Durable ratio (0-1)'] = '耐伤比例(0-1)',
       ['Duration (s)'] = '持续时间(秒)',
@@ -835,6 +855,7 @@ MOD.langs = {
       ['Eagle 500kg Bomb'] = '“飞鹰”500kg炸弹',
       ['Eagle Airstrike'] = '“飞鹰”空袭',
       ['Eagle Cluster Bomb'] = '“飞鹰”集束炸弹',
+      ['Eagle Fly BY'] = '飞鹰低空通场',
       ['Eagle Gas Airstrike'] = '“飞鹰”毒气空袭',
       ['Eagle Napalm Airstrike'] = '“飞鹰”凝固汽油弹空袭',
       ['Eagle Smoke Strike'] = '“飞鹰”烟雾攻击',
@@ -844,8 +865,10 @@ MOD.langs = {
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = '在“投掷物”页编辑该手雷即可调整。资源加载完成后选择才会生效。',
       ['Electrical Conduit'] = '电路导管',
       ['Emancipator Exosuit'] = '“解放者”外骨骼装甲',
+      ['Emergency Extraction Beacon'] = '紧急撤离信标',
       ['Emplacement'] = '炮台',
       ['Emplacement: its cooldown, its body, then its weapon.'] = '炮台：依次为冷却时间、本体、武器。',
+      ['Emplacements'] = '部署设施',
       ['Enemy detection range'] = '敌人侦测范围',
       ['Engineering Kit'] = '工程包',
       ['Entrenchment Tool'] = '堑壕工具',
@@ -860,6 +883,7 @@ MOD.langs = {
       ['Every passive is in already.'] = '所有被动都已添加。',
       ['Evictor'] = '驱逐者',
       ['Expendable Anti-Tank'] = '消耗性反坦克武器',
+      ['Expendable Anti-Tank (Booster)'] = '消耗性反坦克武器（增强配备）',
       ['Expendable Napalm'] = '消耗性凝固汽油弹',
       ['Expiry explosion (id)'] = '存续结束时爆炸（编号）',
       ['Explodes after death (s)'] = '死亡后爆炸（秒）',
@@ -872,6 +896,8 @@ MOD.langs = {
       ['Extra Padding'] = '额外垫料',
       ['Extra stratagem'] = '额外战略配备',
       ['Extra stratagem (choice)'] = '额外战略配备（选择）',
+      ['Extraction'] = '撤离',
+      ['Extraction Beacon'] = '撤离信标',
       ['FAF-14 Spear'] = 'FAF-14 飞矛',
       ['FIRE'] = '开火',
       ['FLAM-40 Flamethrower'] = 'FLAM-40 火焰喷射器',
@@ -941,12 +967,14 @@ MOD.langs = {
       ['Gallant'] = '英勇无畏',
       ['Gas'] = '毒气',
       ['Gas (Sterilizer)'] = '毒气（灭菌器）',
+      ['Gas Mine Deployer'] = '毒气布雷器',
       ['Gas Mortar Sentry'] = '毒气迫击哨戒炮',
       ['Gas confusion'] = '毒气混乱',
       ['Gas confusion (Sterilizer)'] = '毒气混乱（灭菌器）',
       ['Gas damage taken'] = '受到毒气伤害',
       ['Gatling Sentry'] = '加特林哨戒炮',
       ['Generator'] = '发电机',
+      ['Generator Pack'] = '护盾生成背包',
       ['Giga Grenade'] = '千兆级榴弹',
       ['GitHub'] = 'GitHub',
       ['GitHub link copied.'] = '已复制 GitHub 链接。',
@@ -960,6 +988,10 @@ MOD.langs = {
       ['Grenade swap stopped (see the log); launchers fire their own projectiles again.'] = '已停止榴弹替换（详见日志）；发射器恢复使用自身弹丸。',
       ['Grenadier Battlement'] = '掷弹兵防卫墙',
       ['Ground All-Terrain Extraction Rig (GATER)'] = '地面全地形采集钻机（GATER）',
+      ['Guard Dog (Drone)'] = '护卫犬无人机',
+      ['Guard Dog (Drone) Stun'] = '电击护卫犬无人机',
+      ['Guard Dog Flamethrower (Drone)'] = '火焰护卫犬无人机',
+      ['Guard Dog Gas Projector (Drone)'] = '毒气护卫犬无人机',
       ['Guidance on after (s)'] = '导引启动延迟(秒)',
       ['Gun'] = '枪械',
       ['Gunner FRV'] = '炮手快速侦察载具',
@@ -979,6 +1011,7 @@ MOD.langs = {
       ['Heatsinks from supply'] = '补给获得的散热器数',
       ['Heavy Machine Gun'] = '重机枪',
       ['Heavy burning'] = '重度燃烧',
+      ['Hellbomb'] = '地狱火炸弹',
       ['Helldiver'] = '绝地潜兵',
       ['Helldivers 2 is running: close it first.'] = '《绝地潜兵 2》正在运行：请先关闭游戏。',
       ['Helldivers 2 is running: close it, then Install.'] = '《绝地潜兵 2》正在运行：请先关闭游戏，再点击“写入游戏”。',
@@ -999,14 +1032,17 @@ MOD.langs = {
       ['Hover speed (m/s)'] = '悬停速度(米/秒)',
       ['Hover time, full-speed climb (s)'] = '悬停时间：全速爬升(秒)',
       ['Hover time, holding height (s)'] = '悬停时间：保持高度(秒)',
+      ['Hoverpack Backpack'] = '悬浮背包',
       ['How far away the jet starts its run. With its speed, it sets how long the Eagle takes to arrive.'] = '飞鹰开始攻击航线时距目标的距离，与飞行速度共同决定抵达时间。',
       ['Hyena'] = '鬣狗',
+      ['Immediate Extraction Beacon'] = '立即撤离信标',
       ['Immolation'] = '焚身',
       ['Impact'] = '冲击弹',
       ['Impact damage taken'] = '受到冲击伤害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Incendiary'] = '燃烧弹',
       ['Incendiary Impact'] = '燃烧冲击弹',
+      ['Incendiary Mine Deployer'] = '燃烧布雷器',
       ['Incinerator FRV'] = '炽灼型快速侦察载具',
       ['Inflammable'] = '阻燃',
       ['Injures you above heat (%)'] = '超过此热量会灼伤(%)',
@@ -1016,16 +1052,20 @@ MOD.langs = {
       ['Installing: writing the files...'] = '写入中：正在写入文件…',
       ['Integrated Explosives'] = '集成炸药',
       ['Interface language'] = '界面语言',
+      ['Ion Scope 4x'] = '4倍离子瞄准镜',
       ['Iron Sights'] = '机械瞄具',
+      ['Iron Sights Long'] = '长型机械瞄具',
       ['It doesn\'t take a loadout slot, but the HUD\'s stratagem list can fill up.'] = '不占配装栏位，但可能占满屏幕上的战略配备列表。',
       ['Its effects are added to every armor with this passive.'] = '其效果会添加到拥有此被动的所有护甲上。',
       ['Its stats above apply.'] = '上方的数值生效。',
       ['JAR-5 Dominator'] = 'JAR-5 主宰',
+      ['Jammed Pinata'] = '受干扰的彩罐',
       ['Jog speed (m/s)'] = '慢跑速度(米/秒)',
       ['Jogging empties it in (s)'] = '慢跑耗尽用时(秒)',
       ['Jump Pack'] = '喷射背包',
       ['Jump cost (share of stamina)'] = '跳跃消耗(体力占比)',
       ['Jump pack'] = '喷射背包',
+      ['Jumppack Backpack'] = '喷射背包',
       ['K-2 Throwing Knife'] = 'K-2 飞刀',
       ['Kinetic Displacement Mitigation'] = '动能位移减缓',
       ['Knight'] = '骑士',
@@ -1051,6 +1091,7 @@ MOD.langs = {
       ['Larger Plasma Container'] = '扩容等离子弹药匣',
       ['Laser'] = '激光',
       ['Laser Cannon'] = '激光大炮',
+      ['Laser Rifle (Drone)'] = '激光步枪无人机',
       ['Laser Sentry'] = '激光哨戒炮',
       ['Laser Sight'] = '激光瞄准器',
       ['Laser Sight Flashlight'] = '激光瞄准器带照明',
@@ -1123,6 +1164,7 @@ MOD.langs = {
       ['Machete'] = '砍刀',
       ['Machine Gun'] = '机枪',
       ['Machine Gun Sentry'] = '哨戒机枪',
+      ['Machinegun'] = '机枪',
       ['Made by SHODAN'] = '作者 SHODAN',
       ['Maelstrom'] = '风暴漩涡',
       ['Magazine size'] = '弹匣容量',
@@ -1139,6 +1181,7 @@ MOD.langs = {
       ['Maxigun'] = '重装机枪',
       ['Mechas'] = '载具',
       ['Med-Kit'] = '急救包',
+      ['Medic Backpack'] = '医疗背包',
       ['Medium Plasma Bolt'] = '中型等离子弹',
       ['Melee damage'] = '近战伤害',
       ['Melta Mine'] = '热熔地雷',
@@ -1154,7 +1197,10 @@ MOD.langs = {
       ['Missile'] = '导弹',
       ['Missile Pistol'] = '制导手枪',
       ['Missile flight'] = '导弹飞行',
+      ['Missions'] = '任务',
+      ['Missions clan station'] = '空间站任务',
       ['Mist'] = '迷雾',
+      ['Mobile Comms Relay'] = '移动通信中继器',
       ['Mortar Sentry'] = '迫击哨戒炮',
       ['Move while reloading'] = '换弹时可移动',
       ['Movement'] = '移动',
@@ -1181,6 +1227,7 @@ MOD.langs = {
       ['Off: its stats above are left out; only the passives below apply.'] = '关闭：上方的数值不生效；只有下方的被动生效。',
       ['Off: the game\'s values everywhere; your '] = '关闭：全局使用游戏数值，你的',
       ['Off: with other players, arc chain length / split use the game\'s values (else arcs can stay on screen).'] = '关闭：多人对局时电弧连锁长度 / 分裂使用游戏数值（否则电弧可留在屏幕上）。',
+      ['Oil Rig Extract'] = '石油钻井采集装置',
       ['Ombudsman'] = '巡察者',
       ['On'] = '开',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = '开启：单次配装可携带多台 外骨骼装甲、FRV 或坦克。',
@@ -1200,9 +1247,11 @@ MOD.langs = {
       ['Orbital 120mm HE Barrage'] = '轨道120mm高爆弹火力网',
       ['Orbital 380mm HE Barrage'] = '轨道380mm高爆弹火力网',
       ['Orbital Airburst Strike'] = '轨道空爆攻击',
+      ['Orbital Confetti'] = '轨道彩纸礼花',
       ['Orbital EMS Strike'] = '轨道电磁冲击波攻击',
       ['Orbital Gas Strike'] = '轨道毒气攻击',
       ['Orbital Gatling Barrage'] = '轨道加特林火力网',
+      ['Orbital Illumination Flare'] = '轨道照明弹',
       ['Orbital Laser'] = '轨道激光炮',
       ['Orbital Napalm Barrage'] = '轨道凝固汽油弹火力网',
       ['Orbital Precision Strike'] = '轨道精准攻击',
@@ -1211,6 +1260,7 @@ MOD.langs = {
       ['Orbital Walking Barrage'] = '轨道游走火力网',
       ['Orbital beam'] = '轨道光束',
       ['Orbital strike.'] = '轨道打击。',
+      ['Other'] = '其他',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = '你的对局中存在其他玩家：电弧连锁长度 / 分裂将使用游戏数值。',
       ['Outer radius (m)'] = '外半径(米)',
       ['Overcharge limit (s)'] = '过载上限(秒)',
@@ -1258,9 +1308,11 @@ MOD.langs = {
       ['Plasma Pistol. Canister Extended'] = '等离子手枪：扩容弹药罐',
       ['Plasma Pistol. Canister Pistol'] = '等离子手枪：标准弹药罐',
       ['Point of interest range'] = '兴趣点探测范围',
+      ['Poison Drill'] = '毒剂钻探装置',
       ['Portable Hellbomb'] = '便携式地狱火炸弹',
       ['Position scatter (m)'] = '布雷位置随机偏移（米）',
       ['Presets'] = '预设',
+      ['President rewards'] = '总统奖励',
       ['Press a key (Esc cancels)'] = '请按一个键(Esc 取消)',
       ['Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.'] = '请按下用于打开 / 关闭面板的按键：F1-F12、Insert、Home、End、Pause 或 Scroll Lock。Esc 取消。',
       ['Primary'] = '主武器',
@@ -1271,6 +1323,7 @@ MOD.langs = {
       ['Projectile swap'] = '弹种交换',
       ['Projectiles per shot'] = '每次射击弹丸数',
       ['Prone speed (m/s)'] = '匍匐速度(米/秒)',
+      ['Prospecting Drill'] = '勘探钻机',
       ['Punisher'] = '制裁者',
       ['Punisher Plasma'] = '等离子“制裁者”',
       ['Purifier'] = '净化者',
@@ -1303,6 +1356,8 @@ MOD.langs = {
       ['Railgun'] = '磁轨炮',
       ['Railgun Round'] = '磁轨炮弹',
       ['Railgun Stun Round'] = '磁轨炮眩晕弹',
+      ['Raise Flag'] = '升旗',
+      ['Raise Flag NO Clear Area'] = '升旗（无需清理区域）',
       ['Range'] = '射程',
       ['Range (m)'] = '射程(米)',
       ['Rapid Heatsink'] = '快速散热器',
@@ -1331,11 +1386,13 @@ MOD.langs = {
       ['Regeneration (health/s)'] = '再生(生命/秒)',
       ['Regeneration delay after damage (s)'] = '受伤后再生延迟（秒）',
       ['Reinforced Epaulettes'] = '强化肩章',
+      ['Reinforcement Beacon'] = '增援信标',
       ['Releases'] = '正式版',
       ['Reload allowed below (rounds)'] = '允许装填的剩余弹数上限',
       ['Reload time (s)'] = '装填时间（秒）',
       ['Reload time (s; 0 = animation length)'] = '装填时间（秒；0 = 动画时长）',
       ['Remember last tab and weapon'] = '记住上次的页签与武器',
+      ['Remote Explosives'] = '遥控炸药',
       ['Remove'] = '移除',
       ['Rename'] = '重命名',
       ['Reprimand'] = '训斥',
@@ -1426,7 +1483,10 @@ MOD.langs = {
       ['Save current changes here'] = '在此保存当前修改',
       ['Scorcher'] = '焦土',
       ['Scout'] = '侦察',
+      ['Scrambler'] = '扰频器',
       ['Scythe'] = '长柄镰',
+      ['Seaf Gun'] = 'SEAF 火炮',
+      ['Seaf Squad'] = 'SEAF 小队',
       ['Search radius (m)'] = '搜索半径(米)',
       ['Search weapons and stratagems'] = '搜索武器与战略配备',
       ['Second ammo'] = '第二弹种',
@@ -1438,6 +1498,7 @@ MOD.langs = {
       ['Secondary recoil'] = '副武器后坐力',
       ['Secondary reload speed'] = '副武器装填速度',
       ['Seeker'] = '寻踪者',
+      ['Seismic Probe'] = '地震探针',
       ['Senator'] = '参议员',
       ['Sentry'] = '哨戒炮',
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次为冷却时间、本体、武器。',
@@ -1451,11 +1512,13 @@ MOD.langs = {
       ['Shells per salvo'] = '每次齐射弹数',
       ['Shield'] = '盾雷',
       ['Shield Generator Pack'] = '防护罩生成包',
+      ['Shield Generator Relay'] = '防护罩生成中继器',
       ['Shield capacity'] = '护盾容量',
       ['Shield emitter'] = '护盾发生器',
       ['Ship upgrades that make support weapons and sentries launch at once skip it (tested).'] = '让支援武器和哨戒炮立即发射的舰船升级会跳过此倒计时（已由作者测试）。',
       ['Shockwave radius (m)'] = '冲击波半径(米)',
       ['Short Magazine'] = '短弹匣',
+      ['Shoulder Mounted Camera'] = '肩载摄像机',
       ['Shrapnel'] = '破片',
       ['Shrapnel blast radius'] = '破片爆炸半径',
       ['Shrapnel direct hit'] = '破片直击',
@@ -1467,6 +1530,7 @@ MOD.langs = {
       ['Siege-Ready'] = '蓄势出击',
       ['Sightliner'] = '视界者',
       ['Silo'] = '发射井',
+      ['Simo Iron Sights'] = '“西莫”机械瞄具',
       ['Slide speed / duration'] = '滑行速度 / 持续时间',
       ['Slugger'] = '重炮手',
       ['Small Plasma Bolt'] = '小型等离子弹',
@@ -1475,10 +1539,12 @@ MOD.langs = {
       ['Sniper Scope 10x'] = '10倍狙击瞄准镜',
       ['Sniper Scope 10x Helghast'] = '10倍狙击瞄准镜',
       ['Solo Silo'] = '单兵导弹发射井',
+      ['Sos Beacon'] = '求救信标',
       ['Spear'] = '飞矛',
       ['Speargun'] = '矛枪',
       ['Speed until it has fired (m/s)'] = '开火前飞行速度（米/秒）',
       ['Speed while aiming (m/s)'] = '瞄准时速度(米/秒)',
+      ['Spire Sterilizer'] = '尖塔灭菌器',
       ['Spotting range (m)'] = '索敌距离(米)',
       ['Spread (horizontal)'] = '散布(水平)',
       ['Spread (vertical)'] = '散布(垂直)',
@@ -1522,6 +1588,7 @@ MOD.langs = {
       ['Stun rounds'] = '眩晕弹',
       ['Stun rounds fire (id)'] = '眩晕弹发射的弹丸（编号）',
       ['Supplementary Adrenaline'] = '肾上腺素补充剂',
+      ['Supply Backpack'] = '补给背包',
       ['Supply FRV'] = '补给型快速侦察载具',
       ['Supply Pack'] = '补给背包',
       ['Support'] = '支援武器',
@@ -1534,6 +1601,7 @@ MOD.langs = {
       ['Sway multiplier'] = '晃动系数',
       ['Sweeper'] = '扫荡者',
       ['Swim speed (m/s)'] = '游泳速度(米/秒)',
+      ['TCS 03 Thumper'] = 'TCS 03 震动装置',
       ['TD-110 Maelstrom'] = 'TD-110 风暴漩涡',
       ['TD-220 Bastion MK XVI'] = 'TD-220 堡垒MK XVI',
       ['TED-63 Dynamite'] = 'TED-63 炸药',
@@ -1542,8 +1610,13 @@ MOD.langs = {
       ['TX-41 Sterilizer'] = 'TX-41 灭菌器',
       ['Tabs shown'] = '显示的标签页',
       ['Talon'] = '猛爪',
+      ['Tank'] = '坦克',
+      ['Tank Reload AT'] = '坦克反坦克弹补给',
+      ['Tank Reload Canister'] = '坦克霰弹补给',
+      ['Tank Reload HE'] = '坦克高爆弹补给',
       ['Target search interval, max (s)'] = '索敌间隔，最大（秒）',
       ['Target search interval, min (s)'] = '索敌间隔，最小（秒）',
+      ['Team weapons'] = '小队武器',
       ['Tenderizer'] = '肉锤',
       ['Tesla Tower'] = '特斯拉塔',
       ['Tested releases only.'] = '仅限经过测试的正式版。',
@@ -1570,7 +1643,7 @@ MOD.langs = {
       ['The one you carry. The CQC-20 Breaching Hammer is listed under Support.'] = '你携带的那一把。CQC-20 破拆锤列在“支援武器”下。',
       ['The one you carry. The CQC-72 support version is listed under Support.'] = '你携带的那一把。CQC-72 支援版本列在“支援武器”下。',
       ['The pistol you carry. The One-Two\'s launcher is listed under the One-Two.'] = '你携带的手枪。“幺二”的发射器列在“幺二”下。',
-      ['The recharge time is 0: set it above 0 first.'] = '重新装填时间为 0：请先设为大于 0 的值。',
+      ['The recharge time is 0: set it above 0 first.'] = '充能时间为 0：请先设为大于 0 的值。',
       ['The rifle you carry. The grenade launcher is listed separately.'] = '你携带的步枪。榴弹发射器单独列出。',
       ['The rifle you carry. The underbarrel shotgun is listed separately.'] = '你携带的步枪。下挂霰弹枪单独列出。',
       ['The support hammer delivered by hellpod. The game data files it next to the Machete.'] = '由空投舱投送的支援锤。游戏数据将它列在砍刀旁边。',
@@ -1595,11 +1668,13 @@ MOD.langs = {
       ['Trigger delay (s)'] = '触发延迟(秒)',
       ['True Grit'] = '坚韧不拔',
       ['Tube Reddot 2x'] = '2倍红点瞄准镜',
+      ['Tube Reddot 2x Legacy'] = '旧式2倍管状红点瞄准镜',
       ['Turn speed at cruise'] = '巡航转向速率',
       ['Turn speed at slowest'] = '最慢转向速率',
       ['Turn speed, horizontal (deg/s)'] = '转向速度，水平（度/秒）',
       ['Turn speed, vertical (deg/s)'] = '转向速度，垂直（度/秒）',
       ['Turret'] = '炮塔',
+      ['Tutorial Reinforcement Beacon'] = '教学增援信标',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = '输入预设名称：Enter 确认，Esc 取消。',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = '输入百分比(%d-%d)：回车确认，Esc 取消。',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = '输入数值：回车确认，Esc 取消。超出范围的数值会取最接近的合法值。',
@@ -1611,6 +1686,9 @@ MOD.langs = {
       ['Underbarrel'] = '下挂',
       ['Unflinching'] = '毫不畏缩',
       ['Unlock unused items'] = '解锁未使用物品',
+      ['Unnamed explosion'] = '未命名爆炸',
+      ['Unnamed projectile'] = '未命名弹丸',
+      ['Unnamed status effect'] = '未命名状态效果',
       ['Unsafe warp: damage to you'] = '不安全跃迁：对你造成的伤害',
       ['Unsafe warp: explosion'] = '不安全跃迁：爆炸',
       ['Up'] = '上移',
@@ -1618,6 +1696,7 @@ MOD.langs = {
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = '上下键选择，回车读取，Insert 新建，Shift+Insert 存入当前预设，F2 重命名，Del 删除。',
       ['Update channel'] = '更新渠道',
       ['Updates'] = '更新',
+      ['Upload Discovery'] = '上传发现',
       ['Urchin'] = '海胆',
       ['Uses per mission'] = '每次任务使用次数',
       ['Uses per rearm'] = '每次重新武装后的可用次数',
@@ -1640,6 +1719,7 @@ MOD.langs = {
       ['WIND-UP'] = '转管加速',
       ['Walk / run speed'] = '行走 / 奔跑速度',
       ['Walk speed (m/s)'] = '步行速度(米/秒)',
+      ['Walking Barrage Smoke'] = '移动弹幕烟雾',
       ['Walking backwards (multiplier)'] = '后退行走(倍率)',
       ['Walking speed (m/s)'] = '弹幕推进速度（米/秒）',
       ['Warp Pack'] = '传送背包',
@@ -1654,6 +1734,7 @@ MOD.langs = {
       ['Your changes are off: turn them on in Settings to edit.'] = '你的改动当前处于关闭状态：请在设置里开启后再编辑。',
       ['Your changes are off: turn them on in Settings to load a preset'] = '你的修改已关闭：请在设置中开启后再读取预设',
       ['Your values are not in the game yet: close the game, then Install.'] = '修改尚未写入游戏：请先关闭游戏，再点击“写入游戏”。',
+      ['[Tutorial] Extraction'] = '【教学】撤离',
       ['a settings table moved; scanning again'] = '设置数据表已移动，正在重新扫描',
       ['a table moved; scanning again'] = '数据表已移动，正在重新扫描',
       ['also in your loadout when you bring this one'] = '携带此战略配备时也会一并获得',
@@ -2663,7 +2744,7 @@ MOD.langs = {
       ['the one you carry. the cqc-72 support version is listed under support.'] = '你携带的那一把。CQC-72 支援版本列在“支援武器”下。',
       ['the one-two\'s underbarrel launcher, not the rifle. fires the gp-31\'s grenade.'] = '“幺二”的下挂发射器，不是步枪本身。发射 GP-31 的榴弹。',
       ['the pistol you carry. the one-two\'s launcher is listed under the one-two.'] = '你携带的手枪。“幺二”的发射器列在“幺二”下。',
-      ['the recharge time is 0: set it above 0 first.'] = '重新装填时间为 0：请先设为大于 0 的值。',
+      ['the recharge time is 0: set it above 0 first.'] = '充能时间为 0：请先设为大于 0 的值。',
       ['the rifle you carry. the grenade launcher is listed separately.'] = '你携带的步枪。榴弹发射器单独列出。',
       ['the rifle you carry. the underbarrel shotgun is listed separately.'] = '你携带的步枪。下挂霰弹枪单独列出。',
       ['the scythe you carry.'] = '你携带的“长柄镰”。',
@@ -2731,6 +2812,9 @@ MOD.langs = {
       ['your changes are off: turn them on in settings to edit.'] = '你的改动当前处于关闭状态：请在设置里开启后再编辑。',
     },
     patterns = {
+      { '^Unnamed: (.-)mm; (.-)/(.-) damage$', '未命名：%1毫米，伤害%2/%3' },
+      { '^Unnamed: (.-)m blast$', '未命名：半径%1米' },
+      { '^Unnamed: (.-)s effect$', '未命名：持续%1秒' },
       { '^(.-) SHRAPNEL$', '%1破片' },
       { '^(.-) EXPLOSION ID$', '%1爆炸编号' },
       { '^projectile (%d+) %(not in this game build%)$', '弹丸 %1（当前游戏版本中不存在）' },
@@ -2894,6 +2978,19 @@ MOD.langs = {
       { '^(.+) multiplier$', '%1倍率' },
       { '^stages (.+)$', '阶段 %1' },
       { '^status (%d+)$', '状态 %1' },
+      { '^BACKPACK%.%s*(.+)$', '背包：%1' },
+      { '^CONSUMABLES%.%s*(.+)$', '消耗品：%1' },
+      { '^EMPLACEMENTS%.%s*(.+)$', '部署设施：%1' },
+      { '^MISSIONS%.%s*(.+)$', '任务：%1' },
+      { '^MISSIONS CLAN STATION%.%s*(.+)$', '空间站任务：%1' },
+      { '^PRESIDENT REWARDS%.%s*(.+)$', '总统奖励：%1' },
+      { '^TEAM WEAPONS%.%s*(.+)$', '小队武器：%1' },
+      { '^TANK%.%s*(.+)$', '坦克：%1' },
+      { '^ORBITAL%.%s*(.+)$', '轨道：%1' },
+      { '^EAGLE%.%s*(.+)$', '飞鹰：%1' },
+      { '^STATUS EFFECTS %((.+)%)$', '状态效果（%1）' },
+      { '^STATUS (%d+)$', '状态 %1' },
+      { '^SHODAN Stat Editor v([%d%.]+)$', 'SHODAN 数值编辑器 v%1' },
     },
     prefix = {
       { 'PgUp/PgDn change weapon, Del resets, Ctrl+1-5 loads a weapon preset, Ctrl+Shift+1-5 saves one; ', 'PgUp/PgDn 切换武器，Del 重置，Ctrl+1-5 读取武器预设，Ctrl+Shift+1-5 保存预设；' },
@@ -11164,6 +11261,7 @@ function MOD.records.name(kind, id)
     local u = MOD.records.users()
     if kind == T_PROJECTILE then return MOD.round_names and MOD.round_names[id] or (u.shots[id] or {})[1]
     elseif kind == T_EXPLOSION then return (u.blasts[id] or {})[1] or u.rounds[id] end
+    if state.lang and state.lang() == 'zh-Hans' and MOD.status.by[id] then return MOD.status.by[id].name end
     return KINDS[T_STATUS].names[id] or KINDS[T_STATUS].stuns[id]
 end
 -- A choice's label in a note: '#12 · 10g Sabot' (the name in the panel's language), 'none (no explosion)'.
@@ -11257,9 +11355,33 @@ function MOD.records.rows(page)
         num(name, 'duration', name .. ' duration (s)', 40, 'f32', 600, 0.5, 5)
     end
 end
+-- An unnamed record still needs something readable beside its number. Use the loaded
+-- values as a description, without claiming to know which weapon or effect it belongs to.
+function MOD.records.unnamed(page)
+    local function value(id)
+        local part = page.by_id[id]
+        local v = part and default_of(part.field)
+        return v and v == v and math.abs(v) < math.huge and v or nil
+    end
+    if page.kind == T_PROJECTILE then
+        local calibre, damage, durable = value('calibre'), value('damage'), value('durable')
+        if calibre and damage and durable then
+            return string.format('Unnamed: %gmm; %g/%g damage', calibre, damage, durable)
+        end
+        return 'Unnamed projectile'
+    elseif page.kind == T_EXPLOSION then
+        local outer = value('outer')
+        if outer then return string.format('Unnamed: %gm blast', outer) end
+        return 'Unnamed explosion'
+    end
+    local duration = value('duration')
+    return duration and string.format('Unnamed: %gs effect', duration) or 'Unnamed status effect'
+end
+
 -- A record page's title and note: 'Projectile #12 · 10g Sabot', 'Fired by: ...'.
 function MOD.records.title(page)
     local name = MOD.records.name(page.kind, page.id)
+    if not name and state.lang and state.lang() == 'zh-Hans' then name = MOD.records.unnamed(page) end
     page.name = MOD.records.WORD[page.kind] .. ' #' .. page.id .. (name and (' · ' .. name) or '')
     local u = MOD.records.users()
     local users = page.kind == T_PROJECTILE and u.shots[page.id] or page.kind == T_EXPLOSION and u.blasts[page.id]
@@ -11452,8 +11574,8 @@ do
     local tr_cache, tr_count = {}, 0
     local function translate(v, depth)
         local l = LANG[settings.lang]
-        if not l or depth > 3 then return v end
-        local t = l.exact[v] or l.lower[v] or l.upper[v]
+        if not l or depth > (settings.lang == 'zh-Hans' and 6 or 3) then return v end
+        local t = l.exact[v] or l.lower[v] or l.upper[v] or (settings.lang == 'zh-Hans' and l.lower[v:lower()])
         if t then return t end
         if v:sub(1, 2) == '* ' and l.exact[v:sub(3)] then return '* ' .. l.exact[v:sub(3)] end
         for _, p in ipairs(l.patterns) do
@@ -13656,7 +13778,11 @@ local function click(key)
             if settings.hidden[value] then settings.hidden[value] = nil
             elseif on > 1 then settings.hidden[value] = true end
             if settings.hidden[ui.tab] then ui.tab, ui.page = settings.shown_tabs()[1], 1 end
-        elseif name == 'lang' and (value == 'en' or settings.LANGS[value]) then settings.lang = value end
+        elseif name == 'lang' and (value == 'en' or settings.LANGS[value]) then
+            local chinese = settings.lang == 'zh-Hans' or value == 'zh-Hans'
+            settings.lang = value
+            if chinese then MOD.records.refresh() end
+        end
         if name ~= 'bind' then mark_config_dirty(); ui.version = ui.version + 1 end
     elseif kind == 'link' then
         local log_file = (data_dir('Logs') or '') .. '/' .. MOD.log
