@@ -1242,6 +1242,7 @@ MOD.langs = {
       ['Alpha Commander'] = '阿尔法指挥官',
       ['Also includes'] = '同时包含',
       ['Alternate ammunition'] = '另一种弹药',
+      ['Always bring it'] = '始终携带',
       ['Amendment'] = '修正',
       ['Ammo'] = '弹药',
       ['Ammo Cache'] = '弹药储备箱',
@@ -1296,6 +1297,7 @@ MOD.langs = {
       ['Assault'] = '突击',
       ['Assault Raider'] = '特攻奇袭者',
       ['Assault Rifle'] = '突击步枪',
+      ['At most 4 across all stratagems: more can crash the game at deployment.'] = '所有战备合计最多 4 个：更多可能在部署时导致游戏崩溃。',
       ['Attachment'] = '配件',
       ['Attachments'] = '配件',
       ['Attack animation speed (x)'] = '攻击动画速度 (x)',
@@ -1984,6 +1986,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到冲击伤害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺虫',
+      ['In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.'] = '每次任务都会携带，与配装无关，不占配装栏位。安装后生效。',
       ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = '在主武器栏中打空后不会丢弃：会留在手中，直到你拾取其他武器。',
       ['In-game text'] = '游戏内文本',
       ['Incendiary'] = '燃烧弹',
@@ -2442,6 +2445,7 @@ MOD.langs = {
       ['Projectile explosion id'] = '弹丸爆炸编号',
       ['Projectile fired (id)'] = '发射的弹丸(编号)',
       ['Projectile swap'] = '弹种交换',
+      ['Projectile swap shares those 4, so weapons it loads leave fewer here.'] = '弹药替换共用这 4 个名额，它加载的武器会占用名额。',
       ['Projectiles per shot'] = '每次射击弹丸数',
       ['Prone speed (m/s)'] = '匍匐速度(米/秒)',
       ['Prospecting Drill'] = '勘探钻机',
@@ -5121,6 +5125,7 @@ MOD.langs = {
       ['Alpha Commander'] = '阿爾法蟲族指揮官',
       ['Also includes'] = '同時包含',
       ['Alternate ammunition'] = '另一種彈藥',
+      ['Always bring it'] = '始終攜帶',
       ['Amendment'] = '修正',
       ['Ammo'] = '彈藥',
       ['Ammo Cache'] = '彈藥儲備箱',
@@ -5175,6 +5180,7 @@ MOD.langs = {
       ['Assault'] = '突擊',
       ['Assault Raider'] = '特攻襲擊者',
       ['Assault Rifle'] = '突擊步槍',
+      ['At most 4 across all stratagems: more can crash the game at deployment.'] = '所有戰備合計最多 4 個：更多可能在部署時導致遊戲崩潰。',
       ['Attachment'] = '配件',
       ['Attachments'] = '配件',
       ['Attack animation speed (x)'] = '攻擊動畫速度 (x)',
@@ -5863,6 +5869,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到衝擊傷害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺蟲',
+      ['In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.'] = '每次任務都會攜帶，與配裝無關，不佔配裝欄位。安裝後生效。',
       ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = '在主武器欄中打空後不會丟棄：會留在手中，直到你拾取其他武器。',
       ['In-game text'] = '遊戲內文字',
       ['Incendiary'] = '燃燒彈',
@@ -6321,6 +6328,7 @@ MOD.langs = {
       ['Projectile explosion id'] = '射彈爆炸編號',
       ['Projectile fired (id)'] = '發射的射彈(編號)',
       ['Projectile swap'] = '彈種交換',
+      ['Projectile swap shares those 4, so weapons it loads leave fewer here.'] = '彈藥替換共用這 4 個名額，它載入的武器會佔用名額。',
       ['Projectiles per shot'] = '每次射擊射彈數',
       ['Prone speed (m/s)'] = '匍匐速度(米/秒)',
       ['Prospecting Drill'] = '勘探鑽機',
@@ -8998,6 +9006,7 @@ MOD.langs = {
       ['Alpha Commander'] = 'Альфа-командир',
       ['Also includes'] = 'Также включает',
       ['Alternate ammunition'] = 'Альтернативные боеприпасы',
+      ['Always bring it'] = 'Брать всегда',
       ['Amendment'] = 'Поправка',
       ['Ammo'] = 'Боеприпасы',
       ['Ammo at the start'] = 'Боеприпасы в начале',
@@ -9048,6 +9057,7 @@ MOD.langs = {
       ['Assault'] = 'штурм',
       ['Assault Raider'] = 'Налетчик-штурмовик',
       ['Assault Rifle'] = 'Штурмовая винтовка',
+      ['At most 4 across all stratagems: more can crash the game at deployment.'] = 'Не более 4 на все стратагемы: больше может вызвать вылет при высадке.',
       ['Attachment'] = 'Модуль',
       ['Attachments'] = 'Модули',
       ['Attack animation speed (x)'] = 'Скорость анимации атак (x)',
@@ -9699,6 +9709,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Получаемый урон от ударов',
       ['Impact explosion (id)'] = 'Взрыв при попадании (ID)',
       ['Impaler'] = 'Пронзатель',
+      ['In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.'] = 'В каждой миссии, при любом снаряжении. Не занимает слот. Применяется при установке.',
       ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'В основном слоте не выбрасывается, когда пусто: остаётся в руках, пока не подберёте другое оружие.',
       ['In-game text'] = 'Текст в игре',
       ['Incendiary'] = '«Зажигательная»',
@@ -10140,6 +10151,7 @@ MOD.langs = {
       ['Projectile explosion id'] = 'Взрыв снаряда: ID',
       ['Projectile fired (id)'] = 'Выпускаемый снаряд (id)',
       ['Projectile swap'] = 'Замена снаряда',
+      ['Projectile swap shares those 4, so weapons it loads leave fewer here.'] = 'Замена снаряда делит эти 4 места, поэтому загруженное ею оружие оставляет меньше мест здесь.',
       ['Projectiles per shot'] = 'Снарядов за выстрел',
       ['Prone speed (m/s)'] = 'Скорость ползком (м/с)',
       ['Punisher'] = '«Каратель»',
@@ -12106,6 +12118,7 @@ MOD.langs = {
       ['Alpha Commander'] = 'Comandante alfa',
       ['Also includes'] = 'También incluye',
       ['Alternate ammunition'] = 'Munición alternativa',
+      ['Always bring it'] = 'Llevar siempre',
       ['Amendment'] = 'Enmienda',
       ['Ammo'] = 'Munición',
       ['Ammo at the start'] = 'Munición al inicio',
@@ -12156,6 +12169,7 @@ MOD.langs = {
       ['Assault'] = 'Asalto',
       ['Assault Raider'] = 'Asaltante ofensivo',
       ['Assault Rifle'] = 'Rifle de asalto',
+      ['At most 4 across all stratagems: more can crash the game at deployment.'] = 'Máximo 4 entre todas las estratagemas: más puede cerrar el juego al desplegar.',
       ['Attachment'] = 'Accesorio',
       ['Attachments'] = 'Accesorios',
       ['Attack animation speed (x)'] = 'Velocidad de animación de ataque (x)',
@@ -12794,6 +12808,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Daño de impacto recibido',
       ['Impact explosion (id)'] = 'Explosión al impactar (id)',
       ['Impaler'] = 'Empalador',
+      ['In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.'] = 'En cada misión, sea cual sea tu equipamiento. No ocupa espacio. Se aplica al instalar.',
       ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'En el espacio principal no se tira al vaciarse: se queda en tus manos hasta que recojas otra arma.',
       ['In-game text'] = 'Texto en el juego',
       ['Incendiary'] = 'Incendiaria',
@@ -13217,6 +13232,7 @@ MOD.langs = {
       ['Projectile explosion id'] = 'Id de explosión del proyectil',
       ['Projectile fired (id)'] = 'Proyectil disparado (id)',
       ['Projectile swap'] = 'Cambio de proyectil',
+      ['Projectile swap shares those 4, so weapons it loads leave fewer here.'] = 'El cambio de proyectil comparte esos 4, así que las armas que carga dejan menos aquí.',
       ['Projectiles per shot'] = 'Proyectiles por disparo',
       ['Prone speed (m/s)'] = 'Velocidad cuerpo a tierra (m/s)',
       ['Punisher'] = 'Castigadora',
@@ -15132,6 +15148,7 @@ MOD.langs = {
       ['Alpha Commander'] = 'Comandante Alfa',
       ['Also includes'] = 'Também inclui',
       ['Alternate ammunition'] = 'Munição alternativa',
+      ['Always bring it'] = 'Levar sempre',
       ['Amendment'] = 'Emenda',
       ['Ammo'] = 'Munição',
       ['Ammo at the start'] = 'Munição no início',
@@ -15182,6 +15199,7 @@ MOD.langs = {
       ['Assault'] = 'Assalto',
       ['Assault Raider'] = 'Invasor avançado',
       ['Assault Rifle'] = 'Rifle de Assalto',
+      ['At most 4 across all stratagems: more can crash the game at deployment.'] = 'No máximo 4 entre todos os estratagemas: mais pode travar o jogo ao descer.',
       ['Attachment'] = 'Acessório',
       ['Attachments'] = 'Acessórios',
       ['Attack animation speed (x)'] = 'Velocidade da animação de ataque (x)',
@@ -15820,6 +15838,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Dano de impacto recebido',
       ['Impact explosion (id)'] = 'Explosão de impacto (id)',
       ['Impaler'] = 'Empalador',
+      ['In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.'] = 'Em toda missão, seja qual for seu equipamento. Não ocupa espaço. Vale ao instalar.',
       ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'No espaço principal não é descartada ao esvaziar: fica nas suas mãos até você pegar outra arma.',
       ['In-game text'] = 'Texto no jogo',
       ['Incendiary'] = 'Incendiária',
@@ -16243,6 +16262,7 @@ MOD.langs = {
       ['Projectile explosion id'] = 'Id da explosão do projétil',
       ['Projectile fired (id)'] = 'Projétil disparado (id)',
       ['Projectile swap'] = 'Troca de projétil',
+      ['Projectile swap shares those 4, so weapons it loads leave fewer here.'] = 'A troca de projétil divide esses 4, então as armas que ela carrega deixam menos aqui.',
       ['Projectiles per shot'] = 'Projéteis por disparo',
       ['Prone speed (m/s)'] = 'Velocidade deitado (m/s)',
       ['Punisher'] = 'Justiceiro',
@@ -22118,6 +22138,51 @@ function MOD.code.current(def)
 end
 -- In every mission: a code that clashes with theirs is refused. Clashes with what a loadout can hold are
 -- pointed out; the mission, tutorial and unused ones are not checked.
+-- Always bring it: hung on the end of the chains of Reinforcement, SOS and Resupply (MOD.donors), which are in every
+-- mission. Eagles are left out: their +200 is Eagle Rearm, which holds no page to walk past.
+function MOD.extra.always_row(entry, def)
+    local lead = { id = 'always', field = field_at(def.kind, 'always' .. def.off, 'virtual', 1) }
+    lead.field.default, lead.field.always = 0, def
+    def.page = entry.name
+    add_row(entry, 'Extra stratagem', 'always', 'Always bring it', 'flag', { lead }, 0, 1, 1, 1).tip = {
+        'In every mission, whatever your loadout. It takes no loadout slot. Applies on Install.',
+        'At most 4 across all stratagems: more can crash the game at deployment.',
+        'Projectile swap shares those 4, so weapons it loads leave fewer here.' }
+end
+function MOD.extra.always_undo(set)
+    for _, l in ipairs(MOD.extra.links or {}) do set(l[1], l[2], 200, l[3]) end
+    MOD.extra.links = {}
+end
+-- tails: the ends of the always-loaded chains; taken: how many of the 4 Projectile swap already holds
+function MOD.extra.always_apply(tails, set, taken)
+    local tail, list, seen, left = tails[#tails], {}, {}, {}
+    if not tail then return left end
+    for _, f in pairs(fields) do if f.always and read_field(f) == 1 then list[#list + 1] = f.always end end
+    table.sort(list, function(a, b) return a.at < b.at end)
+    local _, by_type = MOD.extra.choices()
+    for k, def in ipairs(list) do
+        local kind = peek4(def.at)
+        if k > 4 - taken then
+            log('always bring: no room for stratagem ' .. tostring(kind))
+            left[#left + 1] = def.page
+        elseif not seen[kind] then   -- (already reached through another one's Extra stratagem: a second link would loop)
+            if k > 1 then
+                MOD.extra.links[#MOD.extra.links + 1] = { tail[1], tail[2], read_field(field_at(tail[1], tail[2] + 200, 'u32', 4294967295)) }
+            end
+            set(tail[1], tail[2], 200, kind)
+            local last = def
+            while true do
+                seen[peek4(last.at)] = true
+                local after = by_type[peek4(last.at + 200)]
+                if not after or seen[peek4(after.def.at)] then break end
+                last = after.def
+            end
+            tail = { last.kind, last.off }
+        end
+    end
+    return left
+end
+
 MOD.code.ALWAYS = { ['Reinforcement Beacon'] = true, ['Resupply'] = true, ['Sos Beacon'] = true }
 MOD.code.LOADOUT = { orbital = true, eagle = true, support = true, backpack = true, sentry = true, emplacements = true,
                      vehicles = true }
@@ -22193,7 +22258,10 @@ local function resolve_stratagem(entry)
         end
         MOD.code.row(entry, def)
         if s.family ~= 'eagle' then MOD.callin_rows(entry, { def }) end
-        if s.family ~= 'eagle' and MOD.extra.FAMILIES[s.family] then MOD.extra.row(entry, def) end
+        if s.family ~= 'eagle' and MOD.extra.FAMILIES[s.family] then
+            MOD.extra.row(entry, def)
+            MOD.extra.always_row(entry, def)
+        end
     end
     if s.family == 'eagle' and s.rearm then
         add_row(entry, 'Stratagem', 'rearm', 'Eagle rearm time (s)', 'f32',
@@ -23544,7 +23612,10 @@ local function resolve(weapon)
         if parts[1] then add_row(weapon, 'Stratagem', 'cooldown', 'Cooldown (s)', 'f32', parts, 0, 10000, 1, 10).show_first = true end
         if weapon.sentry_defs[1] then MOD.code.row(weapon, weapon.sentry_defs[1]) end
         if weapon.sentry_defs[1] then MOD.callin_rows(weapon, weapon.sentry_defs) end
-        if weapon.sentry_defs[1] then MOD.extra.row(weapon, weapon.sentry_defs[1]) end
+        if weapon.sentry_defs[1] then
+            MOD.extra.row(weapon, weapon.sentry_defs[1])
+            MOD.extra.always_row(weapon, weapon.sentry_defs[1])
+        end
         unit_rows(weapon, KINDS[TYPES.health].body(weapon.key) or weapon.key, weapon.name:find('^E/') and 'Emplacement' or 'Sentry', 'unit_')
         -- how long it stays once deployed (HellpodPayloadComponentData +4; SHODAN Offline Integration)
         local pt = tables[TYPES.payload]
@@ -29250,6 +29321,7 @@ function MOD.donors()
         set(group, at, 168, donor and donor[1])
         set(group, at, 172, donor and donor[2])
     end
+    MOD.extra.always_undo(set)
     -- A support weapon's first swap goes through its own stratagem, every other swap loads always.
     local own, own_list = {}, {}
     for pass = 1, 2 do
@@ -29321,7 +29393,11 @@ function MOD.donors()
             for k = 2, list and #list or 0 do set(list[k][1], list[k][2], 200, kind) end
         end
     end
-    return math.max(0, #want - used + #own_list - turn)
+    local left, shots = MOD.extra.always_apply(tails, set, links + turn), {}
+    for k = used + 1, #want do shots[#shots + 1] = want[k].name end
+    for k = turn + 1, #own_list do shots[#shots + 1] = own_list[k][1].name end
+    state.dropped = { shots = shots, stratagems = left }   -- (the host's warning lists them)
+    return #shots + #left
 end
 
 
