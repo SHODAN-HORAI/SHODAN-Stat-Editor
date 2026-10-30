@@ -129,7 +129,8 @@ local function main()
     if type(state.lang) == 'function' then shim.lang = state.lang end
 
     -- ------------------------------------------------------------ the host's bar (below the panel)
-    local bar = { hover = nil, message = nil, tone = MUTED, busy = nil, base = nil, buttons = {} }
+    local bar = { hover = nil, message = nil, tone = MUTED, busy = nil, base = nil, buttons = {}, dropped = 0, banner = nil }
+    local DROPPED = "Installed, but not every weapon's effects can load. Shots from the others may show no trail unless someone brings that weapon."
     local function layout()
         local s = shim.h / 1080
         local y0, y1 = 1038 * s, 1072 * s
@@ -152,6 +153,8 @@ local function main()
                 x = x + w + 12 * s
             end
         end
+        local last = bar.titles[#bar.titles]
+        bar.sign = { x0 = last.x1 + 12 * s, x1 = last.x1 + 44 * s, y0 = 9 * s, y1 = 39 * s }   -- the free space after the titles
         bar.s, bar.h = s, shim.h
     end
     layout()
@@ -202,7 +205,7 @@ local function main()
         if not bar.release then
             -- smaller where it would run into the titles (a longer translation)
             local last = bar.titles[#bar.titles]
-            local room, size = shim.w - 30 * s - (last and last.x1 + 16 * s or 0), 15 * s
+            local room, size = shim.w - 30 * s - (bar.dropped > 0 and bar.sign.x1 + 12 * s or last and last.x1 + 16 * s or 0), 15 * s
             while size > 10 * s and shim.text_width(t, size) > room do size = size - 0.5 * s end
             shim.text(t, shim.w - 30 * s - shim.text_width(t, size), 31 * s, size, MUTED)
         end
@@ -226,6 +229,27 @@ local function main()
         local limit = shim.w - 30 * s - x
         while size > 9 * s and shim.text_width(text, size) > limit do size = size - 0.5 end
         shim.text(text, x, 1055 * s + size * 0.35, size, tone)
+        -- the effects that did not fit: a warning sign for as long as that install stands (hover: the banner, gone when the mouse leaves)
+        if bar.dropped > 0 then
+            local sign = bar.sign
+            local h, c = math.floor(sign.y1 - sign.y0), WARN
+            for row = 0, h - 1 do
+                local half = (row + 1) / h * (sign.x1 - sign.x0) / 2
+                shim.fill((sign.x0 + sign.x1) / 2 - half, sign.y0 + row, (sign.x0 + sign.x1) / 2 + half, sign.y0 + row + 1, c)
+            end
+            shim.flush()
+            local size = 20 * s
+            shim.text('!', (sign.x0 + sign.x1 - shim.text_width('!', size, true)) / 2, sign.y1 - 4 * s, size, BACK, true)
+        end
+        -- over the top strip, so a click here never lands on the panel
+        if bar.banner then
+            shim.fill(0, 0, shim.w, 46 * s, { 255, 122, 60, 14 })
+            shim.fill(0, 46 * s - math.max(1, math.floor(2 * s + 0.5)), shim.w, 46 * s, WARN)
+            shim.flush()
+            local warning, size = tr(DROPPED), 19 * s
+            while size > 10 * s and shim.text_width(warning, size) > shim.w - 60 * s do size = size - 0.5 end
+            shim.text(warning, 30 * s, 23 * s + size * 0.35, size, WHITE)
+        end
     end
 
     local function paint()
@@ -252,6 +276,7 @@ local function main()
     local function install()
         if I.game_running() then say('Helldivers 2 is running: close it, then Install.', WARN); return end
         busy('Installing: finding what changed...')
+        local dropped = state.load_donors and state.load_donors() or 0
         local changes = D.diff()
         local stacked, why_not = D.armor_passives(changes, state.armor_passives and state.armor_passives(), log, state.one_line and state.one_line())
         if not stacked then
@@ -316,6 +341,8 @@ local function main()
             return
         end
         bar.base = state.writes
+        bar.dropped = dropped
+        if dropped > 0 then state.notify(DROPPED, 8, true) end
         log(string.format('installed: %d changed, %d back to the original', made, back))
         say(string.format('Installed (%d game files changed%s). Start the game to play with your values.', made,
             back > 0 and ', ' .. back .. ' back to the original' or ''), GOOD)
@@ -346,6 +373,7 @@ local function main()
         end
         for _, name in ipairs(why) do log('restore skipped ' .. name .. ': another tool changed it since') end
         bar.base = nil
+        bar.dropped, bar.banner = 0, nil
         log('restored the originals')
         say('The game\'s files are back as they were before this editor. Your values stay saved here (Install puts them in again).'
             .. (modded > 0 and string.format(' %d of them still hold another mod\'s changes: Steam\'s "Verify integrity of game files" puts back the game\'s own.', modded) or ''), GOOD)
@@ -396,6 +424,7 @@ local function main()
         if bar.h ~= shim.h then layout() end   -- moved onto another screen: sized for that one
         if state.phase == 'ready' and not said_ready then
             said_ready = true
+            if installed_count() > 0 and state.load_donors then bar.dropped = state.load_donors() end
             bar.base = installed_count() > 0 and state.writes or nil
             log(string.format('ready: %s weapons, %s values applied, %s refused', tostring(state.weapons),
                 tostring(state.applied), tostring(state.refused)))
@@ -439,6 +468,9 @@ local function main()
                 if x and x >= b.x0 and x < b.x1 and y >= b.y0 and y < b.y1 then hover = b.key end
             end
         end
+        bar.banner = bar.dropped > 0 and x ~= nil and (bar.banner and y < 46 * bar.s
+                     or x >= bar.sign.x0 and x < bar.sign.x1 and y >= bar.sign.y0 and y < bar.sign.y1)
+        if bar.banner then hover = 'banner' end   -- it covers the titles and the Update button
         bar.hover = hover
         local down = shim.focused() and shim.key_down(0x01)
         if down and not was_down then armed = hover end
@@ -452,7 +484,7 @@ local function main()
         was_down = down
         local text = status()
         local signature = table.concat({ shim.version, state.phase, tostring(state.status), tostring(hover), text,
-                                         shim.lang(), bar.release and bar.release.label or '' }, '|')
+                                         shim.lang(), bar.release and bar.release.label or '', bar.dropped, tostring(bar.banner) }, '|')
         if signature ~= painted then
             painted = signature
             paint()

@@ -1990,6 +1990,8 @@ MOD.langs = {
       ['Inner torso'] = '内躯干',
       ['Insides'] = '内部',
       ['Install into the game'] = '写入游戏',
+      ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = '安装后每个任务最多加载 6 把此类武器，无需携带。支援武器会自带其效果。',
+      ['Installed, but not every weapon\'s effects can load. Shots from the others may show no trail unless someone brings that weapon.'] = '已安装，但并非所有武器的效果都能加载。其余武器的射击可能没有尾迹，除非有人携带该武器。',
       ['Installing: finding what changed...'] = '写入中：正在查找改动…',
       ['Installing: writing the files...'] = '写入中：正在写入文件…',
       ['Integrated Explosives'] = '集成炸药',
@@ -2340,7 +2342,6 @@ MOD.langs = {
       ['Orbital strike.'] = '轨道打击。',
       ['Other'] = '其他',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = '你的对局中存在其他玩家：电弧连锁长度 / 分裂将使用游戏数值。',
-      ['Otherwise the shot still works but may fly without its trail.'] = '否则射击仍然有效，但可能没有尾迹。',
       ['Outcast'] = '流放者',
       ['Outer radius (m)'] = '外半径(米)',
       ['Outpost garrison size (x)'] = '前哨驻军规模 (x)',
@@ -2386,6 +2387,7 @@ MOD.langs = {
       ['Partial charge shot'] = '部分蓄力射击',
       ['Passive'] = '被动',
       ['Passive text'] = '被动文本',
+      ['Past that, the trail needs someone in the mission to bring that weapon.'] = '超出此数量后，只有任务中有人携带该武器才会显示尾迹。',
       ['Path start (0 to 1)'] = '路径起点（0 到 1）',
       ['Patriot Exosuit'] = '“爱国者”外骨骼装甲',
       ['Patrol frequency (x)'] = '巡逻频率 (x)',
@@ -2957,7 +2959,6 @@ MOD.langs = {
       ['The flamethrower you carry.'] = '你携带的火焰喷射器。',
       ['The game holds at most 1023 rounds in a backpack.'] = '游戏中一个背包最多容纳 1023 发。',
       ['The game holds at most 2048 rounds in a magazine.'] = '游戏中一个弹匣最多容纳 2048 发。',
-      ['The game only loads them when someone in the mission brings that weapon.'] = '只有任务中有人携带该武器时，游戏才会加载它们。',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = '游戏将该武器视为单手武器。双手武器会因此破坏腰射动画。',
       ['The game\'s own files are already in place.'] = '当前已是游戏原始文件。',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = '已恢复游戏原始文件。你的数值仍保存在此，点击“写入游戏”可再次写入。',
@@ -5851,6 +5852,8 @@ MOD.langs = {
       ['Inner torso'] = '內軀幹',
       ['Insides'] = '內部',
       ['Install into the game'] = '寫入遊戲',
+      ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = '安裝後每個任務最多載入 6 把此類武器，無需攜帶。支援武器會自帶其效果。',
+      ['Installed, but not every weapon\'s effects can load. Shots from the others may show no trail unless someone brings that weapon.'] = '已安裝，但並非所有武器的效果都能載入。其餘武器的射擊可能沒有尾跡，除非有人攜帶該武器。',
       ['Installing: finding what changed...'] = '寫入中：正在查詢改動…',
       ['Installing: writing the files...'] = '寫入中：正在寫入檔案…',
       ['Integrated Explosives'] = '整合型炸藥',
@@ -6201,7 +6204,6 @@ MOD.langs = {
       ['Orbital strike.'] = '軌道打擊。',
       ['Other'] = '其他',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = '你的對局中存在其他玩家：電弧連鎖長度 / 分裂將使用遊戲數值。',
-      ['Otherwise the shot still works but may fly without its trail.'] = '否則射擊仍然有效，但可能沒有尾跡。',
       ['Outcast'] = '流放者',
       ['Outer radius (m)'] = '外半徑(米)',
       ['Outpost garrison size (x)'] = '前哨駐軍規模 (x)',
@@ -6247,6 +6249,7 @@ MOD.langs = {
       ['Partial charge shot'] = '部分蓄力射擊',
       ['Passive'] = '被動',
       ['Passive text'] = '被動文字',
+      ['Past that, the trail needs someone in the mission to bring that weapon.'] = '超出此數量後，只有任務中有人攜帶該武器才會顯示尾跡。',
       ['Path start (0 to 1)'] = '路徑起點（0 到 1）',
       ['Patriot Exosuit'] = '愛國者外骨骼裝甲',
       ['Patrol frequency (x)'] = '巡邏頻率 (x)',
@@ -6818,7 +6821,6 @@ MOD.langs = {
       ['The flamethrower you carry.'] = '你攜帶的火焰噴射器。',
       ['The game holds at most 1023 rounds in a backpack.'] = '遊戲中一個背包最多容納 1023 發。',
       ['The game holds at most 2048 rounds in a magazine.'] = '遊戲中一個彈匣最多容納 2048 發。',
-      ['The game only loads them when someone in the mission brings that weapon.'] = '只有任務中有人攜帶該武器時，遊戲才會載入它們。',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = '遊戲將該武器視為單手武器。雙手武器會因此破壞腰射動畫。',
       ['The game\'s own files are already in place.'] = '當前已是遊戲原始檔案。',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = '已恢復遊戲原始檔案。你的數值仍儲存在此，點選「寫入遊戲」可再次寫入。',
@@ -9668,6 +9670,8 @@ MOD.langs = {
       ['Inner torso'] = 'Внутренний торс',
       ['Insides'] = 'Внутренности',
       ['Install into the game'] = 'Установить в игру',
+      ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'Установка загружает до 6 таких видов оружия в каждую миссию, так что брать их не нужно. Оружие поддержки приносит своё сам.',
+      ['Installed, but not every weapon\'s effects can load. Shots from the others may show no trail unless someone brings that weapon.'] = 'Установлено, но эффекты загрузятся не у всего оружия. Выстрелы остального могут остаться без следа, если никто не возьмёт это оружие.',
       ['Installing: finding what changed...'] = 'Установка: поиск изменений...',
       ['Installing: writing the files...'] = 'Установка: запись файлов...',
       ['Integrated Explosives'] = 'Встроенная взрывчатка',
@@ -10004,7 +10008,6 @@ MOD.langs = {
       ['Orbital beam'] = 'Орбитальный луч',
       ['Orbital strike.'] = 'Орбитальный удар.',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = 'В вашей игре другие игроки: длина и разветвление цепи дуги берутся из игры.',
-      ['Otherwise the shot still works but may fly without its trail.'] = 'Иначе выстрел работает, но может лететь без следа.',
       ['Outcast'] = 'изгой',
       ['Outer radius (m)'] = 'Внешний радиус (м)',
       ['Outpost garrison size (x)'] = 'Размер гарнизона аванпоста (x)',
@@ -10050,6 +10053,7 @@ MOD.langs = {
       ['Partial charge shot'] = 'Выстрел с частичным зарядом',
       ['Passive'] = 'Пассивный эффект',
       ['Passive text'] = 'Текст пассивки',
+      ['Past that, the trail needs someone in the mission to bring that weapon.'] = 'Сверх этого след появится, только если кто-то в миссии возьмёт это оружие.',
       ['Path start (0 to 1)'] = 'Начало пути (от 0 до 1)',
       ['Patriot Exosuit'] = 'Экзокостюм «Патриот»',
       ['Patrol frequency (x)'] = 'Частота патрулей (x)',
@@ -10589,7 +10593,6 @@ MOD.langs = {
       ['The flamethrower you carry.'] = 'Огнемет, который вы носите.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'Игра вмещает в рюкзак не более 1023 патронов.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'Игра вмещает в магазин не более 2048 патронов.',
-      ['The game only loads them when someone in the mission brings that weapon.'] = 'Игра загружает их, только если кто-то на задании взял это оружие.',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = 'Игра считает оружие одноручным. У двуручного оружия ломает анимации стрельбы от бедра.',
       ['The game\'s own files are already in place.'] = 'Исходные файлы игры уже на месте.',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = 'Исходные файлы игры возвращены. Ваши значения сохранены здесь («Установить в игру» вернёт их в игру).',
@@ -12745,6 +12748,8 @@ MOD.langs = {
       ['Inner torso'] = 'Torso interior',
       ['Insides'] = 'Interior',
       ['Install into the game'] = 'Instalar en el juego',
+      ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'Instalar carga hasta 6 armas de este tipo en todas las misiones, así que nadie necesita llevarlas. Un arma de apoyo trae las suyas.',
+      ['Installed, but not every weapon\'s effects can load. Shots from the others may show no trail unless someone brings that weapon.'] = 'Instalado, pero no se pueden cargar los efectos de todas las armas. Los disparos de las demás pueden no tener estela a menos que alguien lleve esa arma.',
       ['Installing: finding what changed...'] = 'Instalando: buscando qué cambió...',
       ['Installing: writing the files...'] = 'Instalando: escribiendo los archivos...',
       ['Integrated Explosives'] = 'Explosivos Integrados',
@@ -13065,7 +13070,6 @@ MOD.langs = {
       ['Orbital beam'] = 'Rayo orbital',
       ['Orbital strike.'] = 'Ataque orbital.',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = 'Hay otros jugadores en tu partida: la longitud / división de las cadenas de arco usan los valores del juego.',
-      ['Otherwise the shot still works but may fly without its trail.'] = 'Si no, el disparo funciona igual pero puede volar sin su estela.',
       ['Outcast'] = 'Paria',
       ['Outer radius (m)'] = 'Radio exterior (m)',
       ['Outpost garrison size (x)'] = 'Guarnición de avanzadas (x)',
@@ -13110,6 +13114,7 @@ MOD.langs = {
       ['Partial charge explosion'] = 'Explosión con carga parcial',
       ['Partial charge shot'] = 'Disparo con carga parcial',
       ['Passive text'] = 'Texto de pasiva',
+      ['Past that, the trail needs someone in the mission to bring that weapon.'] = 'Por encima de eso, la estela necesita que alguien en la misión lleve esa arma.',
       ['Path start (0 to 1)'] = 'Inicio del recorrido (0 a 1)',
       ['Patriot Exosuit'] = 'Exotraje Patriota',
       ['Patrol frequency (x)'] = 'Frecuencia de patrullas (x)',
@@ -13633,7 +13638,6 @@ MOD.langs = {
       ['The flamethrower you carry.'] = 'El lanzallamas que llevas.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'El juego permite como máximo 1023 rondas en una mochila.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'El juego permite como máximo 2048 rondas en un cargador.',
-      ['The game only loads them when someone in the mission brings that weapon.'] = 'El juego solo los carga cuando alguien en la misión lleva esa arma.',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = 'El juego trata el arma como de una mano. En armas de dos manos rompe las animaciones de disparo desde la cadera.',
       ['The game\'s own files are already in place.'] = 'Los archivos originales del juego ya están en su lugar.',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = 'Los archivos originales del juego están de vuelta. Tus valores siguen guardados aquí (Instalar los vuelve a poner).',
@@ -15753,6 +15757,8 @@ MOD.langs = {
       ['Inner torso'] = 'Torso interno',
       ['Insides'] = 'Interior',
       ['Install into the game'] = 'Instalar no jogo',
+      ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'A instalação carrega até 6 armas desse tipo em todas as missões, então ninguém precisa levá-las. Uma arma de apoio traz as suas.',
+      ['Installed, but not every weapon\'s effects can load. Shots from the others may show no trail unless someone brings that weapon.'] = 'Instalado, mas os efeitos de nem todas as armas podem ser carregados. Os disparos das outras podem ficar sem rastro, a menos que alguém leve essa arma.',
       ['Installing: finding what changed...'] = 'Instalando: procurando o que mudou...',
       ['Installing: writing the files...'] = 'Instalando: gravando os arquivos...',
       ['Integrated Explosives'] = 'Explosivos Integrados',
@@ -16073,7 +16079,6 @@ MOD.langs = {
       ['Orbital beam'] = 'Raio orbital',
       ['Orbital strike.'] = 'Ataque orbital.',
       ['Other players are in your game: arc chain length / split use the game\'s values.'] = 'Há outros jogadores na sua partida: o comprimento / divisão das correntes de arco usam os valores do jogo.',
-      ['Otherwise the shot still works but may fly without its trail.'] = 'Senão o disparo funciona, mas pode voar sem o rastro.',
       ['Outcast'] = 'Pária',
       ['Outer radius (m)'] = 'Raio externo (m)',
       ['Outpost garrison size (x)'] = 'Guarnição dos postos (x)',
@@ -16118,6 +16123,7 @@ MOD.langs = {
       ['Partial charge explosion'] = 'Explosão com carga parcial',
       ['Partial charge shot'] = 'Disparo com carga parcial',
       ['Passive text'] = 'Texto do passivo',
+      ['Past that, the trail needs someone in the mission to bring that weapon.'] = 'Acima disso, o rastro precisa que alguém na missão leve essa arma.',
       ['Path start (0 to 1)'] = 'Início do percurso (0 a 1)',
       ['Patriot Exosuit'] = 'Exouniforme Patriota',
       ['Patrol frequency (x)'] = 'Frequência de patrulhas (x)',
@@ -16641,7 +16647,6 @@ MOD.langs = {
       ['The flamethrower you carry.'] = 'O lança-chamas que você carrega.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'O jogo permite no máximo 1023 munições numa mochila.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'O jogo permite no máximo 2048 munições num carregador.',
-      ['The game only loads them when someone in the mission brings that weapon.'] = 'O jogo só os carrega quando alguém na missão leva essa arma.',
       ['The game treats the weapon as one-handed. On two-handed weapons it breaks the hip-fire animations.'] = 'O jogo trata a arma como de uma mão. Em armas de duas mãos isso quebra as animações de disparo do quadril.',
       ['The game\'s own files are already in place.'] = 'Os arquivos originais do jogo já estão no lugar.',
       ['The game\'s own files are back. Your values stay saved here (Install puts them in again).'] = 'Os arquivos originais do jogo voltaram. Seus valores continuam salvos aqui (Instalar coloca de novo).',
@@ -23540,10 +23545,10 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     local function swap(id, label, row_parts)
         local row = add_row(weapon, 'Projectile swap', id, label, 'u32', row_parts, 1, 100000, 1, 10)
         row.choice = true
-        -- offline: no package loading (see `packages`), so the trail needs the source weapon carried
+        -- offline: Install loads the source weapon's package (MOD.donors), for a limited number of weapons
         row.tip = { "The shot's trail and other effects belong to the chosen weapon.",
-                    'The game only loads them when someone in the mission brings that weapon.',
-                    'Otherwise the shot still works but may fly without its trail.',
+                    'Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.',
+                    'Past that, the trail needs someone in the mission to bring that weapon.',
                     'Hits and explosions show either way.' }
         weapon.swaps = weapon.swaps or {}
         weapon.swaps[#weapon.swaps + 1] = row
@@ -24129,6 +24134,8 @@ do
             end
             return out
         end
+        state.load_donors = function() return MOD.donors() end
+        state.notify = function(...) MOD.notify(...) end
         -- stratagem type -> { arrow, ... }: every call-in code set here (hostdata.lua M.codes writes them)
         state.codes = function()
             local out = {}
@@ -25338,7 +25345,7 @@ local ui = { open = false, measured = {}, measures = 0, tab = 'Primary', page = 
              value = nil }   -- a value being typed: { n = row, weapon, text, fresh (the first key replaces it) }
 
 -- the status line, for code above the panel's
-function MOD.notify(text, seconds) ui.message = { text = text, till = api.now() + (seconds or 4) } end
+function MOD.notify(text, seconds, warning) ui.message = { text = text, till = api.now() + (seconds or 4), warning = warning } end
 local TABS = { 'Primary', 'Secondary', 'Support', 'Throwables', 'Stratagems', 'Mechas', 'Boosters', 'Attachments', 'Armors', 'Records' }
 -- the tabs Settings > Tabs shown leaves on
 function settings.shown_tabs()
@@ -27175,7 +27182,9 @@ local function draw(width, height)
     -- ('Back' alone is also a body part's name: the button's own text, 'Back (button)', in the translations)
     local back = settings.tr('Back (button)')
     button('settings', ui.settings and (back == 'Back (button)' and 'Back' or back) or 'Settings', W - 16 - 104, H - 54, 104, 34, true, ui.settings)
-    if ui.binding then
+    if ui.message and ui.message.warning then
+        -- alone in the footer (MOD.notify's warning)
+    elseif ui.binding then
         text('Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.',
              18, H - 56, 14, MUTED, W - 280)
     elseif ui.code then
@@ -27208,7 +27217,13 @@ local function draw(width, height)
         text('Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,',
              18, H - 56, 14, MUTED, W - 280)
     end
-    if ui.message then
+    if ui.message and ui.message.warning then   -- a sentence on each line, at the footer's size
+        local said = settings.tr(ui.message.text)
+        local cut = said:find('。', 1, true)
+        cut = cut and cut + 2 or said:find('. ', 1, true)
+        text(said:sub(1, cut), 18, H - 56, 14, WARN, W - 280)
+        text(said:sub(cut + 1):gsub('^ ', ''), 18, H - 34, 14, WARN, W - 280)
+    elseif ui.message then
         text(ui.message.text, 18, H - 34, 14, GOOD, W - 280)
     elseif presets_tab then
         text('Overwriting and deleting ask twice. Changes apply at once and are saved; ' .. #overrides ..
@@ -28975,6 +28990,109 @@ KINDS[TYPES.throwable].update_launch = function()
             tostring(shot.hash) .. ', speed ' .. tostring(shot.speed) .. ', total ' .. tostring(spec.launch.released) .. ')')
     end
 end
+
+-- Offline, run by Install: a stratagem's package (StratagemInfo +168) loads only when the stratagem is in the mission.
+-- Reinforcement and SOS Beacon always are, and have an empty package. +200 (additional_stratagem, how Eagles bring
+-- Eagle Rearm) adds another stratagem to the mission, and that one's +200 yet another (tested in game). So the hidden
+-- ones below hold one donor package each: hung in chains off Reinforcement, SOS and Resupply they load in every
+-- mission, hung off a support weapon's own stratagem (loadout +0 is its id) only when that weapon is brought (tested).
+-- Row gone with no use: uses 0, Clan Station origin, objective requirement, beacon call-in (all four together tested;
+-- which does it is not known). Four hidden ones hold with a full loadout and an Eagle; six and eight crash the game at
+-- deployment (probably a fixed number of stratagem rows), so those always loaded leave room for four support weapons.
+-- Only the ones holding a donor change. Returns how many donors did not fit.
+function MOD.donors()
+    local by_id, want, seen = KINDS[T_PROJECTILE].by_id or {}, {}, {}
+    local function find(id)
+        for _, group in ipairs(stratagem_groups) do
+            local at = tables[group].index[id]
+            if at then return group, at end
+        end
+    end
+    local function set(group, at, offset, value)
+        local f = field_at(group, at + offset, 'u32', 4294967295)
+        local limit = f.limit
+        f.limit = 4294967295   -- (the Uses row reads +80 with a lower one, and unused it holds 0xFFFFFFFF)
+        write_field(f, value or default_of(f))
+        f.limit = limit
+    end
+    local function hold(group, at, donor)
+        set(group, at, 168, donor and donor[1])
+        set(group, at, 172, donor and donor[2])
+    end
+    -- A support weapon's first swap goes through its own stratagem, every other swap loads always.
+    local own, own_list = {}, {}
+    for pass = 1, 2 do
+        for _, weapon in ipairs(weapons) do
+            local at = weapon.slot == 'Support' and weapon.key and tables[TYPES.loadout].index[weapon.key]
+            local id = at and read_field(field_at(TYPES.loadout, at, 'u32', 4294967295))
+            local group, record = nil, nil
+            if id then group, record = find(id) end
+            if pass == 1 and group then set(group, record, 200) end
+            for k, row in ipairs(weapon.swaps or {}) do
+                local now = read_field(row.parts[1].field)
+                local shot = now and now ~= default_of(row.parts[1].field) and by_id[now]
+                local key = shot and shot.key and shot.key ~= weapon.key and tables[TYPES.package].index[shot.key]
+                local lo = key and read_field(field_at(TYPES.package, key + 8, 'u32', 4294967295))
+                local hi = key and read_field(field_at(TYPES.package, key + 12, 'u32', 4294967295))
+                if lo and (lo ~= 0 or hi ~= 0) then
+                    local name, mine = lo .. ':' .. hi, group and k == 1
+                    if pass == 1 and not mine and not seen[name] then
+                        seen[name] = true
+                        want[#want + 1] = { lo, hi }
+                    elseif pass == 2 and mine and not seen[name] then
+                        if not own[name] then
+                            own[name] = { { lo, hi } }
+                            own_list[#own_list + 1] = own[name]
+                        end
+                        own[name][#own[name] + 1] = { group, record }
+                    end
+                end
+            end
+        end
+    end
+    local used, tails = 0, {}
+    for k, id in ipairs({ 2266266587, 3193487269, 867876502 }) do
+        local group, at = find(id)
+        if group then
+            set(group, at, 200)
+            tails[#tails + 1] = { group, at }
+            if k < 3 then
+                used = used + 1
+                hold(group, at, want[used])
+            end
+        end
+    end
+    local always, links, turn = 4 - math.min(4, #own_list), 0, 0
+    for _, id in ipairs({ 2663642538, 905054095, 101457192, 3702563421, 4264661046 }) do
+        local group, at = find(id)
+        if group and #tails > 0 then
+            local donor, list = nil, nil
+            if links < always and want[used + 1] then
+                used = used + 1
+                donor = want[used]
+            elseif own_list[turn + 1] then
+                turn = turn + 1
+                list = own_list[turn]
+                donor = list[1]
+            end
+            hold(group, at, donor)
+            set(group, at, 200)
+            for offset, value in pairs({ [40] = 0, [44] = 0, [72] = 0, [176] = 0, [180] = 0, [80] = 0, [112] = 2, [116] = 2, [124] = 19 }) do
+                set(group, at, offset, donor and value)
+            end
+            local kind = default_of(field_at(group, at, 'u32', 4294967295))
+            if donor and not list then
+                local tail = links % #tails + 1
+                links = links + 1
+                set(tails[tail][1], tails[tail][2], 200, kind)
+                tails[tail] = { group, at }
+            end
+            for k = 2, list and #list or 0 do set(list[k][1], list[k][2], 200, kind) end
+        end
+    end
+    return math.max(0, #want - used + #own_list - turn)
+end
+
 
 -- Every second: the weapons the Projectile swap rows fire from (another weapon's projectile) get their assets.
 function packages.swap_assets()

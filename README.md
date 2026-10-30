@@ -331,9 +331,12 @@ share the whole setup.
 - **SSEO changes the game's data files.** The changed files keep the checksum the game expects,
   and the originals are kept in `%LOCALAPPDATA%\SHODAN\StatEditor\originals` (Restore puts them
   back). Use it at your own risk, and keep to private games with friends if in doubt.
-- **Projectile swap** works offline, but a swapped projectile has its trail only if someone in
-  the mission carries the weapon it comes from. Arc chain length / split edits also apply with
-  other players.
+- **Projectile swap** loads the chosen weapon's trail and effects by itself, with no need to bring
+  that weapon, for up to 6 weapons per install. A support weapon's first swap loads only when that
+  weapon is brought, and takes one of those places. Past the limit, the weapons highest on the list
+  keep their effects and Install warns you; the other shots still work, but have their trail only
+  if someone in the mission brings the weapon they come from.
+  Arc chain length / split edits also apply with other players.
 - **One extra file.** Vehicle handling, exosuit movement, enemy animation speed and your names and
   descriptions go into one extra file in the game's `data` folder (`9ba626afa44a3aa3.patch_N`), which
   the game loads over its own files. Restore removes it.
