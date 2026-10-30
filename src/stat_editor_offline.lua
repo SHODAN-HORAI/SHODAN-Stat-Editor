@@ -27087,30 +27087,28 @@ local function draw(width, height)
         end
         -- the tabs: each on / off, wrapped under the label (one stays on)
         text('Tabs shown', x0, y + 6, 16, WHITE, 270)
-        local tx = 640
+        local tx = 520
         for _, tab in ipairs(TABS) do
             local w = math.max(#tab * 7 + 8, width(tab, 15) + 18)
-            if tx + w > W - 16 then tx, y = 640, y + 34 end
+            if tx + w > W - 16 then tx, y = 520, y + 34 end
             button('set:tab:' .. tab, tab, tx, y, w, 28, true, not settings.hidden[tab])
             tx = tx + w + 4
         end
-        y = y + 42
+        y = y + 52
         local sure_reset = ui.confirm and ui.confirm.kind == 'reset_all'
         button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, #overrides > 0, sure_reset)
+        button('restore_examples', 'Restore built-in presets', x0 + 196, y, 248, 28, true)
         text('Resets all values from the current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
-        y = y + 50
-        button('restore_examples', 'Restore built-in presets', x0, y, 248, 28, true)
-        text('Puts the built-in Enemy Editor presets back as they came. Your own presets stay.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
-        y = y + 50
-        y = y + 16
+        text('Puts the built-in Enemy Editor presets back as they came. Your own presets stay.', x0 + 16, y + 48, 14, MUTED, W - x0 - 40)
+        y = y + 90
         rect(x0, y, W - x0 - 16, 1, color(70, 82, 94), 951)
-        y = y + 14
+        y = y + 20
         text(MOD.title .. ' v' .. MOD.version, x0, y, 18, GOLD)
-        text('Made by SHODAN', x0, y + 30, 16, WHITE)
-        if not MOD.offline then text('Bingus Shared Loader by CowboyBingus', x0, y + 54, 16, MUTED) end
-        y = y + (MOD.offline and 68 or 92)
+        text('Made by SHODAN', W - 16, y + 2, 16, WHITE, 300, true)
+        if not MOD.offline then text('Bingus Shared Loader by CowboyBingus', x0, y + 26, 16, MUTED) end
+        y = y + (MOD.offline and 30 or 54)
         text('GitHub', x0, y + 6, 16, WHITE)
-        text(settings.GITHUB:gsub('^https://', ''), x0 + 90, y + 7, 15, MUTED, 340)
+        text(settings.GITHUB:gsub('^https://', ''), x0 + 68, y + 7, 15, MUTED, 340)
         button('link:github_open', 'Open', 800, y, 88, 28, true)
         button('link:github_copy', 'Copy', 896, y, 88, 28, true)
         y = y + 36
@@ -27120,7 +27118,7 @@ local function draw(width, height)
         button('link:log_copy', 'Copy', 800, y, 88, 28, true)
         button('link:log_open', 'Folder', 896, y, 88, 28, true)
         text(MOD.offline and (data_dir('StatEditor') or ''):gsub('/', '\\') or log_dir .. '\\' .. MOD.log,
-             x0, y + 36, 14, MUTED, W - x0 - 16)
+             x0 + 128, y + 7, 14, MUTED, 300)
     elseif presets_tab then
         -- drawn above
     elseif not weapon then
