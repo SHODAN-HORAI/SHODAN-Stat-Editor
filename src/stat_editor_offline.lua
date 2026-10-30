@@ -20485,6 +20485,12 @@ local function resolve_gun(weapon, key)
         if inf and default_of(inf[1].field) == 0 and (not inf[2] or default_of(inf[2].field) == 0) then
             add_row(weapon, 'Ammo', 'infinite_ammo', 'Infinite ammo', 'flag', inf, 0, 1, 1, 1).tip =
                 { 'The magazine never runs out. Flamethrowers: also set Ammo per puff to 0.' }
+            -- with the other Ammo rows, not under a second Ammo heading below Handling (issue #118)
+            local at = #weapon.rows
+            for k = #weapon.rows - 1, 1, -1 do
+                if weapon.rows[k].section == 'Ammo' then at = k + 1; break end
+            end
+            table.insert(weapon.rows, at, table.remove(weapon.rows))
         end
         -- the bayonet guns: the bayonet strike's damage row, which every bayonet shares
         local bayonet = MOD.BAYONET[weapon.name] and not weapon.mounted and MOD.melee_rows(weapon, 568, 'Bayonet melee', 'bayonet_')
