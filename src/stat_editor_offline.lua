@@ -22120,6 +22120,7 @@ function MOD.callin_rows(entry, defs)
     local parts = {}
     for k, def in ipairs(defs) do parts[k] = part(k == 1 and 'callin' or 'callin' .. k, def.kind, def.off + 84, 'f32', 100000) end
     local row = add_row(entry, 'Stratagem', 'callin', 'Countdown before delivery (s)', 'f32', parts, 0, 60, 0.5, 5)
+    row.show_first = true
     row.tip = { "The beacon's countdown before the delivery is sent.",
                 "A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.",
                 'Ship upgrades that make support weapons and sentries launch at once skip it (tested).' }
@@ -23485,7 +23486,7 @@ local function resolve(weapon)
         for k, def in ipairs(weapon.sentry_defs or {}) do
             parts[k] = part(k == 1 and 'cooldown' or 'cooldown' .. k, def.kind, def.off + 104, 'f32', 100000)
         end
-        if parts[1] then add_row(weapon, 'Stratagem', 'cooldown', 'Cooldown (s)', 'f32', parts, 0, 10000, 1, 10) end
+        if parts[1] then add_row(weapon, 'Stratagem', 'cooldown', 'Cooldown (s)', 'f32', parts, 0, 10000, 1, 10).show_first = true end
         if weapon.sentry_defs[1] then MOD.code.row(weapon, weapon.sentry_defs[1]) end
         if weapon.sentry_defs[1] then MOD.callin_rows(weapon, weapon.sentry_defs) end
         if weapon.sentry_defs[1] then MOD.extra.row(weapon, weapon.sentry_defs[1]) end
@@ -24091,6 +24092,8 @@ local function row_value(row, default)
         return row.parts[1].field.pending_value
     end
     if row.choice == 'holster' then return MOD.holster.value(row, default) end
+    -- the stratagem list's own row, not an average with a hidden same-named one (the Rocket Sentry's: 150 s against 45 s)
+    if row.show_first then return get(row.parts[1].field) end
     if row.choice == 'pod_twin' then return MOD.pod.value(row, default) end
     if row.drain then   -- shortcut: at a drain of 0 it shows the last time, though the part then never runs out
         local rate = get(row.drain.parts[1].field)
