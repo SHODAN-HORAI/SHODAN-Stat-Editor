@@ -227,11 +227,18 @@ local function main()
         end
         local text, tone = status()
         text = tr(text)
-        local x = 576 * s
+        local x = 626 * s
         local size = 14 * s
         local limit = shim.w - 30 * s - x
-        while size > 9 * s and shim.text_width(text, size) > limit do size = size - 0.5 end
-        shim.text(text, x, 1055 * s + size * 0.35, size, tone)
+        local first, second = text:match('^(.-%.) (.+)$')
+        if first and shim.text_width(text, size) > limit then   -- two sentences: a line each, at full size
+            while size > 9 * s and math.max(shim.text_width(first, size), shim.text_width(second, size)) > limit do size = size - 0.5 end
+            shim.text(first, x, 1046 * s + size * 0.35, size, tone)
+            shim.text(second, x, 1064 * s + size * 0.35, size, tone)
+        else
+            while size > 9 * s and shim.text_width(text, size) > limit do size = size - 0.5 end
+            shim.text(text, x, 1055 * s + size * 0.35, size, tone)
+        end
         -- the effects that did not fit: a warning sign for as long as that install stands (hover: the banner, gone when the mouse leaves)
         if bar.dropped > 0 then
             local sign = bar.sign
