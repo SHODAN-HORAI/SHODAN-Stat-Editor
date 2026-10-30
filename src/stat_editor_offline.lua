@@ -1363,6 +1363,7 @@ MOD.langs = {
       ['Bleed (experimental)'] = '流血（实验性）',
       ['Bleed-out drain (health/s)'] = '失血流失 (生命值/秒)',
       ['Bleed-out health'] = '流血状态生命值',
+      ['Bleed-out time (s)'] = '流血时间 (秒)',
       ['Blind (experimental)'] = '致盲（实验性）',
       ['Blitzer'] = '雷霆',
       ['Block game input while open'] = '打开时屏蔽游戏输入',
@@ -2093,7 +2094,6 @@ MOD.langs = {
       ['Left leg health'] = '左腿生命值',
       ['Left leg shield'] = '左腿护盾',
       ['Left legs'] = '左腿',
-      ['Left middle leg'] = '左中腿',
       ['Left middle wing'] = '左中翼',
       ['Left mirror'] = '左后视镜',
       ['Left pincer'] = '左钳',
@@ -2555,7 +2555,6 @@ MOD.langs = {
       ['Right leg health'] = '右腿生命值',
       ['Right leg shield'] = '右腿护盾',
       ['Right legs'] = '右腿',
-      ['Right middle leg'] = '右中腿',
       ['Right middle wing'] = '右中翼',
       ['Right mirror'] = '右后视镜',
       ['Right pincer'] = '右钳',
@@ -3123,6 +3122,7 @@ MOD.langs = {
       ['elite'] = '精英',
       ['enemies at 0 stay immune'] = '为 0 的敌人仍然免疫',
       ['every enemy with this attack shares it'] = '所有拥有此攻击的敌人共用',
+      ['extra health for this part, it does not run out by itself'] = '该部位的额外生命值，不会自行流失',
       ['fake'] = '伪装',
       ['fire mode'] = '射击模式',
       ['gloom'] = '幽暗',
@@ -3148,6 +3148,7 @@ MOD.langs = {
       ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = '你的火力对其瞄准的干扰强度；0：从不；越高：少量火力就能完全打乱其瞄准',
       ['how long it keeps after you once you break line of sight'] = '脱离视线后它继续追击你的时长',
       ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = '你脱离其视线后它继续追击你的时长；x1：与游戏相同，x2：两倍时长',
+      ['how long it lasts once its health is gone; this sets its bleed-out health, so it also takes more shots to finish'] = '生命值耗尽后还能持续多久；这会改变其流血状态生命值，所以也需要更多攻击才能打掉',
       ['how long its aim stays thrown off after your fire stops'] = '你停火后其瞄准保持混乱的时长',
       ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = '你停火后其瞄准保持混乱的时长；从不：瞄准永远不会恢复稳定',
       ['how many of the items on its rack come down in one pod'] = '一个舱里落下它架子上的几件物品',
@@ -5179,6 +5180,7 @@ MOD.langs = {
       ['Bleed (experimental)'] = '流血（實驗性）',
       ['Bleed-out drain (health/s)'] = '失血流失 (生命值/秒)',
       ['Bleed-out health'] = '流血狀態生命值',
+      ['Bleed-out time (s)'] = '流血時間 (秒)',
       ['Blind (experimental)'] = '致盲（實驗性）',
       ['Blitzer'] = '閃擊者',
       ['Block game input while open'] = '開啟時遮蔽遊戲輸入',
@@ -5909,7 +5911,6 @@ MOD.langs = {
       ['Left leg health'] = '左腿生命值',
       ['Left leg shield'] = '左腿護盾',
       ['Left legs'] = '左腿',
-      ['Left middle leg'] = '左中腿',
       ['Left middle wing'] = '左中翼',
       ['Left mirror'] = '左後視鏡',
       ['Left pincer'] = '左鉗',
@@ -6371,7 +6372,6 @@ MOD.langs = {
       ['Right leg health'] = '右腿生命值',
       ['Right leg shield'] = '右腿護盾',
       ['Right legs'] = '右腿',
-      ['Right middle leg'] = '右中腿',
       ['Right middle wing'] = '右中翼',
       ['Right mirror'] = '右後視鏡',
       ['Right pincer'] = '右鉗',
@@ -6939,6 +6939,7 @@ MOD.langs = {
       ['elite'] = '精英',
       ['enemies at 0 stay immune'] = '為 0 的敵人仍然免疫',
       ['every enemy with this attack shares it'] = '所有擁有此攻擊的敵人共用',
+      ['extra health for this part, it does not run out by itself'] = '該部位的額外生命值，不會自行流失',
       ['fake'] = '偽裝',
       ['fire mode'] = '射擊模式',
       ['gloom'] = '幽暗',
@@ -6964,6 +6965,7 @@ MOD.langs = {
       ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = '你的火力對其瞄準的干擾強度；0：從不；越高：少量火力就能完全打亂其瞄準',
       ['how long it keeps after you once you break line of sight'] = '脫離視線後它繼續追擊你的時長',
       ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = '你脫離其視線後它繼續追擊你的時長；x1：與遊戲相同，x2：兩倍時長',
+      ['how long it lasts once its health is gone; this sets its bleed-out health, so it also takes more shots to finish'] = '生命值耗盡後還能持續多久；這會改變其流血狀態生命值，所以也需要更多攻擊才能打掉',
       ['how long its aim stays thrown off after your fire stops'] = '你停火後其瞄準保持混亂的時長',
       ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = '你停火後其瞄準保持混亂的時長；從不：瞄準永遠不會恢復穩定',
       ['how many of the items on its rack come down in one pod'] = '一個艙裡落下它架子上的幾件物品',
@@ -8989,6 +8991,7 @@ MOD.langs = {
       ['Bleed (experimental)'] = 'Кровотечение (эксперимент.)',
       ['Bleed-out drain (health/s)'] = 'Убывание здоровья при кровотечении (здоровье/с)',
       ['Bleed-out health'] = 'Здоровье при истекании кровью',
+      ['Bleed-out time (s)'] = 'Время истекания кровью (с)',
       ['Blind (experimental)'] = 'Ослепление (эксперимент.)',
       ['Blitzer'] = '«Налетчик»',
       ['Block game input while open'] = 'Блокировать ввод в игре',
@@ -9676,7 +9679,6 @@ MOD.langs = {
       ['Left leg health'] = 'Здоровье левой ноги',
       ['Left leg shield'] = 'Щит левой ноги',
       ['Left legs'] = 'Левые ноги',
-      ['Left middle leg'] = 'Левая средняя нога',
       ['Left middle wing'] = 'Левое среднее крыло',
       ['Left mirror'] = 'Левое зеркало',
       ['Left pincer'] = 'Левая клешня',
@@ -10122,7 +10124,6 @@ MOD.langs = {
       ['Right leg health'] = 'Здоровье правой ноги',
       ['Right leg shield'] = 'Щит правой ноги',
       ['Right legs'] = 'Правые ноги',
-      ['Right middle leg'] = 'Правая средняя нога',
       ['Right middle wing'] = 'Правое среднее крыло',
       ['Right mirror'] = 'Правое зеркало',
       ['Right pincer'] = 'Правая клешня',
@@ -10643,6 +10644,7 @@ MOD.langs = {
       ['elite'] = 'элита',
       ['enemies at 0 stay immune'] = 'враги с 0 остаются невосприимчивыми',
       ['every enemy with this attack shares it'] = 'общее для всех врагов с этой атакой',
+      ['extra health for this part, it does not run out by itself'] = 'дополнительное здоровье этой части, само по себе не убывает',
       ['fake'] = 'ложный',
       ['gloom'] = 'Мгла',
       ['gunships, Dragonroaches, Leviathans and the like, where a planet has them'] = 'штурмовики, дракораканы, левиафаны и т. п., где они есть на планете',
@@ -10663,6 +10665,7 @@ MOD.langs = {
       ['how hard your fire throws off its aim; 0: never; higher: a little fire throws it off fully'] = 'насколько сильно ваш огонь сбивает его прицел; 0: никогда; больше: даже немного огня сбивает его полностью',
       ['how long it keeps after you once you break line of sight'] = 'как долго он преследует вас после потери из виду',
       ['how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long'] = 'как долго он продолжает охоту на вас после потери из виду; x1: как в игре, x2: вдвое дольше',
+      ['how long it lasts once its health is gone; this sets its bleed-out health, so it also takes more shots to finish'] = 'как долго она держится после потери здоровья; это меняет её здоровье при кровотечении, поэтому добить её тоже будет сложнее',
       ['how long its aim stays thrown off after your fire stops'] = 'как долго его прицел остаётся сбитым после того, как вы прекратили огонь',
       ['how long its aim stays thrown off after your fire stops; Never: it never steadies'] = 'как долго его прицел остаётся сбитым после того, как вы прекратили огонь; Никогда: он никогда не восстанавливается',
       ['how many of the items on its rack come down in one pod'] = 'сколько предметов с её стойки прилетает в одной капсуле',
@@ -22643,23 +22646,33 @@ function MOD.enemy.resolve(entry)
         "0: hits deal their normal damage, 1: their durable damage (the weapon's lower one)")
     for _, p in ipairs(parts('explosive', 388, 'f32', 100)) do p.field.unset = 1 end   -- (most: not set, normal damage)
     row('Health', 'explosive', 'Explosive damage taken (x)', 388, 'f32', 100, 100, 0.05, 0.25)
-    row('Health', 'bleed', 'Bleed-out health', 24, 'u32', 10000000, 1000000, 10, 100,
-        'what it has left once its health is gone, lost over time')
-    -- +28 the bleed-out health's change per second (negative: shown as the health lost)
-    for _, p in ipairs(parts('bleed_drain', 28, 'f32', 10000000)) do p.field.signed = true end
-    local drain = row('Health', 'bleed_drain', 'Bleed-out drain (health/s)', 28, 'f32', 10000000, 1000000, 1, 10,
-                      'how fast the bleed-out health runs out')
-    if drain then drain.scale = -1 end
+    local ht = tables[TYPES.health]
+    local top = ht.copies[1] + HEADER_BYTES
+    -- only where the game sets it (a million on a Hulk, which has none, did nothing in game)
+    if (peek4(top + members[1].at + 24) or 0) > 0 then
+        row('Health', 'bleed', 'Bleed-out health', 24, 'u32', 10000000, 1000000, 10, 100,
+            'what it has left once its health is gone, lost over time')
+        -- +28 the bleed-out health's change per second (negative: shown as the health lost)
+        for _, p in ipairs(parts('bleed_drain', 28, 'f32', 10000000)) do p.field.signed = true end
+        local drain = row('Health', 'bleed_drain', 'Bleed-out drain (health/s)', 28, 'f32', 10000000, 1000000, 1, 10,
+                          'how fast the bleed-out health runs out')
+        if drain then drain.scale = -1 end
+    end
+    -- +322 the part bleeds out at all (turning it on did nothing in game, Hulk arms; no rows without it)
+    local function bleeds(base)
+        return (peek4(top + members[1].at + base + 96) or 0) ~= 0
+               and math.floor((peek4(top + members[1].at + base + 320) or 0) / 65536) % 256 ~= 0
+    end
+    local any_bleeds = false
+    for z = 0, 37 do any_bleeds = any_bleeds or bleeds(MOD.enemy.ZONES + z * MOD.enemy.ZONE) end
     -- +36 the health lost per second by its body parts' bleed-out health (issue #91; positive, unlike +28)
-    row('Health', 'zone_drain', 'Body part bleed-out drain (health/s)', 36, 'f32', 10000000, 1000000, 1, 10,
+    local zone_drain = any_bleeds and row('Health', 'zone_drain', 'Body part bleed-out drain (health/s)', 36, 'f32', 10000000, 1000000, 1, 10,
         "how fast a body part's bleed-out health runs out")
     row('Health', 'regen', 'Regeneration (health/s)', 4, 'f32', 1000000, 100000, 1, 10)
     row('Health', 'regen_delay', 'Regeneration delay after damage (s)', 12, 'f32', 3600, 600, 0.1, 1)
     demolition()
     local names = {}
     for z, n in (entry.enemy.zones or ''):gmatch('(%d+)=([^;]*)') do names[tonumber(z)] = n end
-    local ht = tables[TYPES.health]
-    local top = ht.copies[1] + HEADER_BYTES
     local count = 0
     for z = 0, 37 do
         local base = MOD.enemy.ZONES + z * MOD.enemy.ZONE
@@ -22668,8 +22681,19 @@ function MOD.enemy.resolve(entry)
             local section = MOD.enemy.zone_name(names[z]) or ('Body part ' .. count)
             local id = 'zone' .. z
             row(section, id .. '_health', 'Health', base + 232, 'u32', 10000000, 1000000, 10, 100)
-            row(section, id .. '_bleed', 'Bleed-out health', base + 236, 'u32', 10000000, 1000000, 10, 100,
-                'what it has left once its health is gone, lost over time')
+            -- (where it does not bleed out, what the game sets is extra health: Hulk legs, 500 that never drains)
+            local drains = bleeds(base)
+            local bleed = (drains or (peek4(top + members[1].at + base + 236) or 0) > 0)
+                          and row(section, id .. '_bleed', 'Bleed-out health', base + 236, 'u32', 10000000, 1000000, 10, 100,
+                                  drains and 'what it has left once its health is gone, lost over time'
+                                         or 'extra health for this part, it does not run out by itself')
+            -- the game has one drain per enemy (+36), so a part's time (issue #119) is its bleed-out health over that:
+            -- this row shows the bleed-out health's parts in seconds
+            if drains and bleed and zone_drain and read_field(zone_drain.parts[1].field) > 0 then
+                local time = add_row(entry, section, id .. '_bleed_time', 'Bleed-out time (s)', 'f32', bleed.parts, 0, 3600, 0.1, 1)
+                time.lead, time.drain = bleed.lead, zone_drain
+                time.note = 'how long it lasts once its health is gone; this sets its bleed-out health, so it also takes more shots to finish'
+            end
             row(section, id .. '_armor', 'Armor', base + 216, 'u32', 100, 10, 1, 1)
             row(section, id .. '_durable', 'Durable ratio (0-1)', base + 204, 'f32', 1, 1, 0.05, 0.1)
             row(section, id .. '_explosive', 'Explosive damage taken (x)', base + 324, 'f32', 100, 100, 0.05, 0.25)
@@ -23757,6 +23781,10 @@ local function row_value(row, default)
     end
     if row.choice == 'holster' then return MOD.holster.value(row, default) end
     if row.choice == 'pod_twin' then return MOD.pod.value(row, default) end
+    if row.drain then   -- shortcut: at a drain of 0 it shows the last time, though the part then never runs out
+        local rate = get(row.drain.parts[1].field)
+        if rate and rate > 0 then row.scale = 1 / rate end
+    end
     if row.choice or row.lead then   -- lead: the others scale with it
         local v = get(row.parts[1].field)
         return (v and row.scale) and v * row.scale + 0 or v
