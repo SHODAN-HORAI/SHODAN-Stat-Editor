@@ -26221,10 +26221,10 @@ do
         local e = ui.editing
         if not e then return end
         if c == false then
-            e.text = e.fresh and '' or e.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '')
+            if e.fresh then e.text = '' else MOD.caret.back(e) end
         else
             if e.fresh then e.text = '' end
-            if #e.text + #c <= NAME_BYTES then e.text = e.text .. c end
+            if #e.text + #c <= NAME_BYTES then MOD.caret.add(e, c) end
         end
         e.fresh = false
         ui.version = ui.version + 1
@@ -26501,7 +26501,7 @@ local function draw(width, height)
             if e and e.n == chosen then
                 rect(x0 - 4, 88, 420, 34, color(20, 26, 34), 951)
                 outline(x0 - 4, 88, 420, 34, GOLD)
-                text(e.text .. '_', x0 + 4, 94, 20, e.fresh and MUTED or WHITE, 404)
+                text(MOD.caret.show(e), x0 + 4, 94, 20, e.fresh and MUTED or WHITE, 404)
                 button('name:ok', 'OK', x0 + 426, 88, 70, 34, true)
                 button('name:cancel', 'Cancel', x0 + 502, 88, 100, 34, true)
             else
@@ -26617,7 +26617,7 @@ local function draw(width, height)
         if ui.search.text == '' and not active then
             text(MOD.enemy.on and 'Search enemies' or 'Search weapons and stratagems', 24, sy + 7, 15, DIM, 214)
         else
-            text(ui.search.text .. (active and '_' or ''), 24, sy + 6, 16, WHITE, 214)
+            text(active and MOD.caret.show(ui.search) or ui.search.text, 24, sy + 6, 16, WHITE, 214)
         end
         region('search', 16, sy, 230, 30)
         button('search:clear', 'X', 252, sy, 38, 30, ui.search.text ~= '')
@@ -26669,7 +26669,7 @@ local function draw(width, height)
                 rect(680, y, 80, 28, typing and color(20, 26, 34) or color(40, 52, 64), 951)
                 outline(680, y, 80, 28, GOLD)
             end
-            text(typing and (ui.value.text .. '_') or (settings[key] .. '%'), 754, y + 6, 17, WHITE, 70, true)
+            text(typing and MOD.caret.show(ui.value) or (settings[key] .. '%'), 754, y + 6, 17, WHITE, 70, true)
             region('value:' .. key, 680, y, 80, 28)
             button('set:' .. key .. ':up', '>', 764, y, 36, 28, settings[key] < r[2])
             y = y + 36
@@ -26818,26 +26818,32 @@ local function draw(width, height)
         local rename = MOD.offline and MOD.rename.of(weapon)
         -- a Description box shows all of its text: value in rows that fit in room, | starts a new one
         local function wrapped(value, room)
-            local rows = {}
-            for para in (value .. '|'):gmatch('(.-)|') do
-                local line = ''
-                for word in para:gmatch('%S+') do
+            local rows, starts = {}, {}   -- starts: the bytes of value before each row
+            for at, para in (value .. '|'):gmatch('()(.-)|') do
+                local line, from = '', at - 1
+                for o, word in para:gmatch('()(%S+)') do
                     local long = line == '' and word or line .. ' ' .. word
                     if line ~= '' and width(long, 15 * s) > room * s then
-                        rows[#rows + 1], line = line, word
-                    else line = long end
+                        rows[#rows + 1], starts[#rows + 1] = line, from
+                        line, from = word, at + o - 2
+                    else
+                        if line == '' then from = at + o - 2 end
+                        line = long
+                    end
                 end
-                rows[#rows + 1] = line
+                rows[#rows + 1], starts[#rows + 1] = line, from
             end
-            return rows
+            return rows, starts
         end
         local desc_rows
         if rename and rename.desc[1] then
             local page = MOD.rename.page(weapon, 'desc')
             local typed = MOD.rename.texts[page.hash]
             local editing = ui.rename and ui.rename.weapon == page and ui.rename.field == 'desc' and ui.rename
-            desc_rows = wrapped(editing and editing.text .. '_' or typed and typed.desc or rename.game.desc or '', 954 - x0 - 150 - 16)
-            while #desc_rows > 7 do table.remove(desc_rows, editing and 1 or #desc_rows) end
+            local room = 954 - x0 - 150 - 16
+            if editing then desc_rows = MOD.caret.lay_out(editing, wrapped(editing.text, room))
+            else desc_rows = wrapped(typed and typed.desc or rename.game.desc or '', room) end
+            while #desc_rows > 7 do table.remove(desc_rows) end
         end
         local grown = desc_rows and (#desc_rows - 1) * 20 or 0
         if rename then bottom = bottom - 92 - grown end
@@ -26935,7 +26941,7 @@ local function draw(width, height)
                         outline(696, y, 88, bh, GOLD)
                     end
                     if typing then
-                        text(ui.value.text .. '_', 780, y + bh / 2 - 8, 17, WHITE, 84, true)
+                        text(MOD.caret.show(ui.value), 780, y + bh / 2 - 8, 17, WHITE, 84, true)
                     else
                         text(shown(value), 780, y + bh / 2 - 8, 17, ink, 84, true)
                     end
@@ -27009,7 +27015,10 @@ local function draw(width, height)
             rect(bx, ry, bw, h, editing and color(20, 26, 34) or hot and color(40, 52, 64) or color(28, 34, 42), 951)
             outline(bx, ry, bw, h, hot and GOLD or color(70, 82, 94))
             local value = editing and editing.text or typed or ids.game[on] or ''
-            if editing then value = fit(value .. '_', bw - 16, true) else value = fit(value, bw - 16) end
+            if editing then
+                local full = MOD.caret.show(editing)
+                value = fit(width(full, 15 * s) <= (bw - 16) * s and full or full:sub(1, MOD.caret.pos(editing) + 1), bw - 16, true)
+            else value = fit(value, bw - 16) end
             for k, row in ipairs(rows or { value }) do
                 text(row, bx + 8, ry + 6 + (k - 1) * 20, 15, typed and not editing and GOLD or WHITE)
             end
@@ -27588,6 +27597,73 @@ local function chars(text)
     return out
 end
 
+-- The cursor of a text being typed (presets, values, names and descriptions, search): e.at = bytes of e.text
+-- before it, nil at the end.
+MOD.caret = { CHAR = '[%z\1-\127\194-\244][\128-\191]*' }
+function MOD.caret.pos(e) return math.min(e.at or #e.text, #e.text) end
+function MOD.caret.show(e)
+    local at = MOD.caret.pos(e)
+    return e.text:sub(1, at) .. '_' .. e.text:sub(at + 1)
+end
+function MOD.caret.add(e, c)
+    local at = MOD.caret.pos(e)
+    e.text = e.text:sub(1, at) .. c .. e.text:sub(at + 1)
+    if e.at then e.at = at + #c end
+end
+function MOD.caret.back(e)
+    local at = MOD.caret.pos(e)
+    local before = e.text:sub(1, at):gsub(MOD.caret.CHAR .. '$', '')
+    e.text = before .. e.text:sub(at + 1)
+    if e.at then e.at = #before end
+end
+-- the row of the description the cursor is on, of the rows last drawn
+function MOD.caret.row(e)
+    local at = MOD.caret.pos(e)
+    for r = #e.starts, 2, -1 do if e.starts[r] <= at then return r end end
+    return 1
+end
+-- the wrapped rows of e, the cursor drawn in; at most 7, around the cursor
+function MOD.caret.lay_out(e, rows, starts)
+    e.starts, e.lens = starts, {}
+    for r, row in ipairs(rows) do e.lens[r] = #row end
+    local r = MOD.caret.row(e)
+    local col = MOD.caret.pos(e) - starts[r]
+    rows[r] = rows[r]:sub(1, col) .. string.rep(' ', col - #rows[r]) .. '_' .. rows[r]:sub(col + 1)
+    while #rows > 7 do
+        if r > 7 then table.remove(rows, 1); r = r - 1 else table.remove(rows) end
+    end
+    return rows
+end
+-- Left, Right, Home, End, Delete, and Up, Down in a description: true when the text changed
+function MOD.caret.keys(e, now)
+    local at, text = MOD.caret.pos(e), e.text
+    local function key(name) return pressed(name, now, 0.3, 0.03) end
+    local function moved(to)
+        e.at, e.fresh = math.max(0, math.min(to, #text)), false
+        ui.version = ui.version + 1   -- (the redraw check sees the text, not the cursor)
+    end
+    if key('Left') then moved(#(text:sub(1, at):gsub(MOD.caret.CHAR .. '$', ''))) end
+    if key('Right') then moved(at + #(text:match('^' .. MOD.caret.CHAR, at + 1) or '')) end
+    if key('Home') then moved(0) end
+    if key('End') then moved(#text) end
+    for name, step in pairs({ Up = -1, Down = 1 }) do
+        local r = e.starts and MOD.caret.row(e)
+        local to = r and e.starts[r + step]
+        if key(name) and to then
+            local n = to + math.min(at - e.starts[r], e.lens[r + step])
+            while (text:byte(n + 1) or 0) >= 128 and (text:byte(n + 1) or 0) < 192 do n = n + 1 end
+            moved(n)
+        end
+    end
+    if key('Delete') then
+        if e.fresh then e.text, e.fresh = '', false; return true end
+        at = MOD.caret.pos(e)
+        local c = text:match('^' .. MOD.caret.CHAR, at + 1)
+        if c then e.text = text:sub(1, at) .. text:sub(at + 1 + #c); return true end
+    end
+    return false
+end
+
 -- The characters typed since the last frame, or nil when the host cannot hand any over (the game's engine:
 -- there the keys themselves are read, below). Empty (never nil) when nothing was typed this frame.
 local function typed_chars()
@@ -27622,6 +27698,7 @@ local function keyboard(now)
         if pressed('Escape', now) then presets.finish_rename(false); return end
         if pressed('Enter', now) then presets.finish_rename(true); return end
         if pressed('Backspace', now) then presets.type_char(false) end
+        MOD.caret.keys(ui.editing, now)
         if poll then
             for _, vk in ipairs(TEXT_KEYS) do
                 if pressed('T' .. vk, now) then
@@ -27657,13 +27734,14 @@ local function keyboard(now)
         if pressed('Escape', now) then finish_value(false); return end
         if pressed('Enter', now) then finish_value(true); return end
         if pressed('Backspace', now) then
-            edit.text = edit.fresh and '' or edit.text:sub(1, -2)
+            if edit.fresh then edit.text = '' else MOD.caret.back(edit) end
             edit.fresh = false
         end
+        MOD.caret.keys(edit, now)
         local function add(c)
             if c:find('^[%d%.,%-]$') then
                 if edit.fresh then edit.text, edit.fresh = '', false end
-                if #edit.text < 16 then edit.text = edit.text .. c end
+                if #edit.text < 16 then MOD.caret.add(edit, c) end
             end
         end
         if poll then
@@ -27686,12 +27764,13 @@ local function keyboard(now)
                 ui.rename, ui.version = nil, ui.version + 1
                 return
             end
-            if #edit.text < MOD.rename.LIMIT.desc then edit.text = edit.text .. '|' end
+            if #edit.text < MOD.rename.LIMIT.desc then MOD.caret.add(edit, '|') end
         end
         -- held: about one character a frame (long descriptions)
-        if pressed('Backspace', now, 0.3, 0.015) then edit.text = edit.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '') end
+        if pressed('Backspace', now, 0.3, 0.015) then MOD.caret.back(edit) end
+        MOD.caret.keys(edit, now)
         local function add(c)
-            if #edit.text + #c <= MOD.rename.LIMIT[edit.field] then edit.text = edit.text .. c end
+            if #edit.text + #c <= MOD.rename.LIMIT[edit.field] then MOD.caret.add(edit, c) end
         end
         if poll then
             for _, vk in ipairs(TEXT_KEYS) do
@@ -27709,10 +27788,12 @@ local function keyboard(now)
         if pressed('Escape', now) then ui.search, ui.page = { text = '', active = false }, 1; return end
         if pressed('Enter', now) then search.active = false; return end
         if pressed('Backspace', now) then
-            search.text, ui.page = search.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', ''), 1
+            MOD.caret.back(search)
+            ui.page = 1
         end
+        if MOD.caret.keys(search, now) then ui.page = 1 end
         local function add(c)
-            if #search.text + #c <= 40 then search.text, ui.page = search.text .. c, 1 end
+            if #search.text + #c <= 40 then MOD.caret.add(search, c); ui.page = 1 end
             local egg = MOD.egg.WORDS[MOD.egg.hash(search.text:lower())]
             if egg and MOD.egg.unlock(search.text:lower()) then MOD.egg.play(egg[1], egg[2], egg.voice, egg.subs) end
         end
