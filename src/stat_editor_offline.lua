@@ -3004,6 +3004,7 @@ MOD.langs = {
       ['Thermite'] = '铝热弹',
       ['Thermite (experimental)'] = '铝热（实验性）',
       ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = '这些数值由所有刺刀共用：会同时改变 Constitution、Sweeper 和 Amendment。',
+      ['This code is shared, so changing it also changes:'] = '此代号为共用,修改后也会改变:',
       ['Throw range'] = '投掷距离',
       ['Throw spread (degrees)'] = '投掷散布(度)',
       ['Throw velocity, max (m/s)'] = '投掷速度上限(米/秒)',
@@ -6888,6 +6889,7 @@ MOD.langs = {
       ['Thermite'] = '鋁熱彈',
       ['Thermite (experimental)'] = '鋁熱（實驗性）',
       ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = '這些數值由所有刺刀共用：會同時改變 Constitution、Sweeper 和 Amendment。',
+      ['This code is shared, so changing it also changes:'] = '此代號為共用,修改後也會改變:',
       ['Throw range'] = '投擲距離',
       ['Throw spread (degrees)'] = '投擲散佈(度)',
       ['Throw velocity, max (m/s)'] = '投擲速度上限(米/秒)',
@@ -10682,6 +10684,7 @@ MOD.langs = {
       ['Thermite'] = '«Термитная»',
       ['Thermite (experimental)'] = 'Термит (эксперимент.)',
       ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Эти значения общие для ВСЕХ штыков: они меняют Constitution, Sweeper и Amendment сразу.',
+      ['This code is shared, so changing it also changes:'] = 'Этот код общий, поэтому его изменение затронет также:',
       ['Throw range'] = 'Дальность броска',
       ['Throw spread (degrees)'] = 'Разброс броска (град.)',
       ['Throw velocity, max (m/s)'] = 'Скорость броска, макс. (м/с)',
@@ -13749,6 +13752,7 @@ MOD.langs = {
       ['Thermite'] = 'Termita',
       ['Thermite (experimental)'] = 'Termita (experimental)',
       ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Estos valores los comparten TODAS las bayonetas: cambian la Constitution, la Sweeper y la Amendment a la vez.',
+      ['This code is shared, so changing it also changes:'] = 'Este código es compartido, así que cambiarlo también cambia:',
       ['Throw range'] = 'Alcance de lanzamiento',
       ['Throw spread (degrees)'] = 'Dispersión del lanzamiento (grados)',
       ['Throw velocity, max (m/s)'] = 'Velocidad de lanzamiento, máx. (m/s)',
@@ -16780,6 +16784,7 @@ MOD.langs = {
       ['Thermite'] = 'Termita',
       ['Thermite (experimental)'] = 'Termita (experimental)',
       ['These values are shared by ALL bayonets: they change the Constitution, Sweeper and Amendment at once.'] = 'Estes valores são compartilhados por TODAS as baionetas: mudam a Constitution, a Sweeper e a Amendment de uma vez.',
+      ['This code is shared, so changing it also changes:'] = 'Este código é compartilhado, então mudá-lo também muda:',
       ['Throw range'] = 'Alcance do arremesso',
       ['Throw spread (degrees)'] = 'Dispersão do arremesso (graus)',
       ['Throw velocity, max (m/s)'] = 'Velocidade do arremesso, máx. (m/s)',
@@ -24411,7 +24416,7 @@ end
 -- description), boosters (their ids below: no table holds them). The host has the game's English texts (SHODAN_PHYSICS.texts, by id); Install puts the typed ones
 -- into every language's strings files through the patch archive (offline/vehicles.lua). In config.txt:
 -- rename <page hash> name|desc <text> (| in a text: a new line; {H}: a # sign, which would start a comment)
-MOD.rename = { texts = {}, LIMIT = { name = 60, desc = 400 } }
+MOD.rename = { texts = {}, LIMIT = { name = 60, code = 20, desc = 400 } }
 
 local function save_config()
     config_dirty_at = nil
@@ -24489,7 +24494,7 @@ local function save_config()
     for hash in pairs(MOD.rename.texts) do renamed[#renamed + 1] = hash end
     table.sort(renamed)
     for _, hash in ipairs(renamed) do
-        for _, field in ipairs({ 'name', 'desc' }) do
+        for _, field in ipairs({ 'name', 'code', 'desc' }) do
             local v = MOD.rename.texts[hash][field]
             if v then lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. v:gsub('#', '{H}') end
         end
@@ -24603,7 +24608,7 @@ local function load_config()
             known = true
         end
         local rhash, field, typed = line:match('^%s*rename%s+(%x+)%s+(%a+)%s+(.-)%s*$')
-        if rhash and MOD.offline and (field == 'name' or field == 'desc') and typed ~= '' then
+        if rhash and MOD.offline and (field == 'name' or field == 'code' or field == 'desc') and typed ~= '' then
             local t = MOD.rename.texts[rhash:upper()] or {}
             t[field], MOD.rename.texts[rhash:upper()], known = typed:gsub('{H}', '#'), t, true
         end
@@ -24646,13 +24651,13 @@ function MOD.rename.of(w)
     local host = rawget(_G, 'SHODAN_PHYSICS')
     local texts = host and host.texts
     if not texts or not w then return nil end
-    local out = { name = {}, desc = {} }
+    local out = { name = {}, code = {}, desc = {} }
     local function add(list, id, caps) if id and texts[id] then list[#list + 1] = { id, caps } end end
     local t = w.key and tables[TYPES.encyclopedia]
     local e = t and t.index[w.key]
     if e then
         local at = t.copies[1] + HEADER_BYTES + e
-        add(out.name, peek4(at)); add(out.name, peek4(at + 8), true); add(out.desc, peek4(at + 20))
+        add(out.name, peek4(at)); add(out.name, peek4(at + 8), true); add(out.desc, peek4(at + 20)); add(out.code, peek4(at + 36))
     end
     local def = w.stratagem and w.stratagem.def
     if def then add(out.name, peek4(def.at + 44)); add(out.name, peek4(def.at + 40), true); add(out.desc, peek4(def.at + 48)) end
@@ -24670,7 +24675,8 @@ function MOD.rename.of(w)
     local a = w.attachment and w.attachment.texts or w.booster and MOD.boosters.TEXTS[w.booster[1]]
     if a then add(out.name, a[1]); add(out.name, a[2], true); add(out.desc, a[3]) end
     if #out.name == 0 then return nil end
-    out.game = { name = texts[out.name[1][1]], desc = out.desc[1] and texts[out.desc[1][1]]:gsub('\r?\n', '|') }
+    out.game = { name = texts[out.name[1][1]], code = out.code[1] and texts[out.code[1][1]],
+                 desc = out.desc[1] and texts[out.desc[1][1]]:gsub('\r?\n', '|') }
     if passive then
         -- every line, a gap between them: typed, each part goes to its line, so it keeps its own #BONUS value
         local lines = {}
@@ -24678,6 +24684,27 @@ function MOD.rename.of(w)
         out.game.desc, out.lines = out.desc[1] and table.concat(lines, '||'), true
     end
     return out
+end
+
+-- the other pages using the designation text `id` (a typed one changes them all)
+function MOD.rename.sharing(w, id)
+    if not MOD.rename.users then
+        local users, t = {}, tables[TYPES.encyclopedia]
+        for _, o in ipairs(weapons) do
+            local e = t and o.key and t.index[o.key]
+            local code = e and peek4(t.copies[1] + HEADER_BYTES + e + 36)
+            if code and code ~= 0 then
+                users[code] = users[code] or {}
+                table.insert(users[code], o)
+            end
+        end
+        MOD.rename.users = users
+    end
+    local names = {}
+    for _, o in ipairs(MOD.rename.users[id] or {}) do
+        if o ~= w and o ~= w.same then names[#names + 1] = o.name end
+    end
+    return names
 end
 
 -- the page and field a box edits: 'line<id>', on an armor's passive row, is that passive's description
@@ -24699,7 +24726,7 @@ function MOD.rename.map()
     local out = {}
     for hash, typed in pairs(MOD.rename.texts) do
         local ids = MOD.rename.of(by_hash[hash])
-        for _, field in ipairs(ids and { 'name', 'desc' } or {}) do
+        for _, field in ipairs(ids and { 'name', 'code', 'desc' } or {}) do
             local text = typed[field] and typed[field]:gsub('|', '\n')   -- (config.txt keeps a line per text)
             if text and field == 'desc' and ids.lines then
                 local parts = MOD.rename.parts(text)
@@ -26123,7 +26150,7 @@ local function reset_weapon(weapon)
     for _, row in ipairs(weapon.rows) do reset_row(weapon, row) end
     if weapon.armor then MOD.kits.set(weapon, nil) end
     local page = MOD.rename.page(weapon, 'name')
-    if MOD.rename.texts[page.hash] then MOD.rename.set(page, 'name', nil); MOD.rename.set(page, 'desc', nil) end
+    if MOD.rename.texts[page.hash] then MOD.rename.set(page, 'name', nil); MOD.rename.set(page, 'code', nil); MOD.rename.set(page, 'desc', nil) end
 end
 
 -- The Enemy Editor's values (enemy and spawning pages) or the Stat Editor's: presets of one leave the other's alone.
@@ -27423,7 +27450,7 @@ local function draw(width, height)
             local typed = MOD.rename.texts[page.hash]
             typed = typed and typed[on]
             local editing = ui.rename and ui.rename.weapon == page and ui.rename.field == on and ui.rename
-            local ok = on == 'name' or ids.desc[1] ~= nil
+            local ok = on == 'name' or ids[on][1] ~= nil
             local hot = editing or (ok and ui.hover == 'rename:' .. field)
             local h = rows and 8 + 20 * #rows or 28
             rect(bx, ry, bw, h, editing and color(20, 26, 34) or hot and color(40, 52, 64) or color(28, 34, 42), 951)
@@ -27437,7 +27464,16 @@ local function draw(width, height)
                 text(row, bx + 8, ry + 6 + (k - 1) * 20, 15, typed and not editing and GOLD or WHITE)
             end
             region('rename:' .. field, bx, ry, bw, h, ok)
-            button('rename_reset:' .. field, 'R', bx + bw + 4, ry, 26, 28, typed ~= nil)
+            if on == 'code' and hot then
+                local others = MOD.rename.sharing(page, ids.code[1][1])
+                if #others > 0 then
+                    local shown = table.concat(others, ', ', 1, math.min(#others, 4))
+                    tip_overlay = { lines = { 'This code is shared, so changing it also changes:',
+                                              #others > 4 and shown .. ' +' .. (#others - 4) or shown }, x = bx, y = ry + h + 2 }
+                end
+            end
+            local all = MOD.rename.texts[page.hash]
+            if on ~= 'code' then button('rename_reset:' .. field, 'R', bx + bw + 4, ry, 26, 28, typed ~= nil or (on == 'name' and all ~= nil and all.code ~= nil)) end
         end
         if stack_list then
             y = (scrolling and bottom + 36 or y) + 12
@@ -27472,7 +27508,9 @@ local function draw(width, height)
             for _, f in ipairs({ { 'name', 'Name' }, { 'desc', weapon.passive and 'Passive text' or 'Description' } }) do
                 text(f[2], x0, ry + 6, 16, WHITE, 140)
                 local rows = f[1] == 'desc' and desc_rows or nil
-                rename_box(f[1], x0 + 150, ry, 954 - x0 - 150, rows)
+                local bw, code = 954 - x0 - 150, f[1] == 'name' and rename.code[1]
+                if code then rename_box('code', x0 + 150, ry, 110) end   -- the designation, glued to the name: its R resets both
+                rename_box(f[1], x0 + 150 + (code and 110 or 0), ry, code and bw - 110 or bw, rows)
                 ry = ry + 34 + (rows and (#rows - 1) * 20 or 0)
             end
         end
@@ -27772,6 +27810,7 @@ local function click(key)
     elseif kind == 'rename_reset' and weapon then
         local page, field = MOD.rename.page(weapon, arg)
         MOD.rename.set(page, field, nil)
+        if field == 'name' then MOD.rename.set(page, 'code', nil) end
         ui.version = ui.version + 1
     elseif kind == 'stack_cancel' then ui.stack_pick = nil
     elseif kind == 'copy_pick' and weapon then ui.copy = { weapon = weapon, section = arg, chosen = {} }
