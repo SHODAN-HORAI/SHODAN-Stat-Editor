@@ -1667,6 +1667,7 @@ MOD.langs = {
       ['Eruptor'] = '爆裂铳',
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc 取消。HUD 也会显示新代码。',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = '一次调整所有 SEAF 士兵。在各自页面修改过的士兵保留其数值。',
+      ['Every armor set with this name.'] = '同名的所有护甲套装。',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = '拥有此被动的所有护甲也会获得它们的效果（在各自页面设置）。',
       ['Every change as soon as it is pushed, before testing: it may break.'] = '每项更改一经推送即更新，未经测试：可能出错。',
       ['Every commit'] = '每次提交',
@@ -2251,6 +2252,7 @@ MOD.langs = {
       ['Never'] = '从不',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
+      ['No passive.'] = '无被动。',
       ['No presets yet.'] = '还没有预设。',
       ['Noise'] = '噪音',
       ['None'] = '无',
@@ -2284,6 +2286,8 @@ MOD.langs = {
       ['One True Flag'] = '唯一真旗',
       ['One-Two'] = '幺二',
       ['One-handed'] = '单手持握',
+      ['Only this armor gets it.'] = '只有此护甲获得。',
+      ['Only this armor. Each passive\'s values are on its own page, below the armors.'] = '仅此护甲。每个被动的数值在护甲下方各自的页面中。',
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = '只在爆炸角为 360 时生效，且距离要大于射弹每帧的位移：',
       ['Open'] = '打开',
       ['Open / close key'] = '打开 / 关闭热键',
@@ -2338,6 +2342,7 @@ MOD.langs = {
       ['P-92 Warrant'] = 'P-92 法令',
       ['P/40-K Bolt Pistol'] = 'P/40-K 爆弹手枪',
       ['PASSIVE'] = '被动',
+      ['PASSIVES'] = '被动',
       ['PLAS-1 Scorcher'] = 'PLAS-1 焦土',
       ['PLAS-101 Purifier'] = 'PLAS-101 净化者',
       ['PLAS-15 Loyalist'] = 'PLAS-15 忠诚者',
@@ -2491,6 +2496,7 @@ MOD.langs = {
       ['Rename'] = '重命名',
       ['Reprimand'] = '训斥',
       ['Reset all values'] = '重置全部数值',
+      ['Reset armor'] = '重置护甲',
       ['Reset booster'] = '重置增强配备',
       ['Reset enemy'] = '重置敌人',
       ['Reset helldiver'] = '重置潜兵',
@@ -2902,6 +2908,7 @@ MOD.langs = {
       ['The Scythe you carry.'] = '你携带的“长柄镰”。',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = '“司炉者”的下挂火焰喷射器，不是冲锋枪本身。',
       ['The armor passives could not be stacked'] = '无法叠加护甲被动',
+      ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = '军械库显示第一个被动的名称，最多 3 个效果。全部生效。',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = '呼叫时输入的方向键：点击“录制”（或在此行按 Enter），然后',
       ['The beacon\'s countdown before the delivery is sent.'] = '信标启动后、开始投送前的倒计时。',
       ['The beacon\'s timer still counts down the usual time (tested).'] = '信标仍显示原本的倒计时（已由作者测试）。',
@@ -5472,6 +5479,7 @@ MOD.langs = {
       ['Eruptor'] = '噴發者',
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc 取消。HUD 也會顯示新程式碼。',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = '一次調整所有 SEAF 士兵。在各自頁面修改過計程車兵保留其數值。',
+      ['Every armor set with this name.'] = '同名的所有護甲套裝。',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = '擁有此被動的所有護甲也會獲得它們的效果（在各自頁面設定）。',
       ['Every change as soon as it is pushed, before testing: it may break.'] = '每項更改一經推送即更新，未經測試：可能出錯。',
       ['Every commit'] = '每次提交',
@@ -6056,6 +6064,7 @@ MOD.langs = {
       ['Never'] = '從不',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
+      ['No passive.'] = '無被動。',
       ['No presets yet.'] = '還沒有預設。',
       ['Noise'] = '噪音',
       ['None'] = '無',
@@ -6089,6 +6098,8 @@ MOD.langs = {
       ['One True Flag'] = '唯一真旗',
       ['One-Two'] = '雙響',
       ['One-handed'] = '單手持握',
+      ['Only this armor gets it.'] = '只有此護甲獲得。',
+      ['Only this armor. Each passive\'s values are on its own page, below the armors.'] = '僅此護甲。每個被動的數值在護甲下方各自的頁面中。',
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = '只在爆炸角為 360 時生效，且距離要大於射彈每幀的位移：',
       ['Open'] = '開啟',
       ['Open / close key'] = '開啟 / 關閉熱鍵',
@@ -6143,6 +6154,7 @@ MOD.langs = {
       ['P-92 Warrant'] = 'P-92 搜查令',
       ['P/40-K Bolt Pistol'] = 'P/40-K 爆彈手槍',
       ['PASSIVE'] = '被動',
+      ['PASSIVES'] = '被動',
       ['PLAS-1 Scorcher'] = 'PLAS-1 焦土',
       ['PLAS-101 Purifier'] = 'PLAS-101 淨化者',
       ['PLAS-15 Loyalist'] = 'PLAS-15 忠誠者',
@@ -6296,6 +6308,7 @@ MOD.langs = {
       ['Rename'] = '重新命名',
       ['Reprimand'] = '懲戒',
       ['Reset all values'] = '重置全部數值',
+      ['Reset armor'] = '重置護甲',
       ['Reset booster'] = '重置增強配備',
       ['Reset enemy'] = '重置敵人',
       ['Reset helldiver'] = '重置潛兵',
@@ -6707,6 +6720,7 @@ MOD.langs = {
       ['The Scythe you carry.'] = '你攜帶的「長柄鐮」。',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = '「司爐者」的下掛火焰噴射器，不是衝鋒槍本身。',
       ['The armor passives could not be stacked'] = '無法疊加護甲被動',
+      ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = '軍械庫顯示第一個被動的名稱，最多 3 個效果。全部生效。',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = '呼叫時輸入的方向鍵：點選「錄製」（或在此行按 Enter），然後',
       ['The beacon\'s countdown before the delivery is sent.'] = '信標啟動後、開始投送前的倒計時。',
       ['The beacon\'s timer still counts down the usual time (tested).'] = '信標仍顯示原本的倒計時（已由作者測試）。',
@@ -9253,6 +9267,7 @@ MOD.langs = {
       ['Eruptor'] = '«Извергатель»',
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc отменяет. HUD тоже показывает новый код.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Все солдаты SEAF сразу. Солдаты, изменённые на своей странице, сохраняют свои значения.',
+      ['Every armor set with this name.'] = 'Все комплекты с этим названием.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Вся броня с этим эффектом получает и их эффекты (настраиваются на их страницах).',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Каждое изменение сразу после публикации, без проверки: возможны ошибки.',
       ['Every commit'] = 'Каждый коммит',
@@ -9807,6 +9822,7 @@ MOD.langs = {
       ['Never'] = 'Никогда',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
+      ['No passive.'] = 'Нет пассивки.',
       ['No presets yet.'] = 'Пресетов пока нет.',
       ['Noise'] = 'Шум',
       ['None'] = 'Нет',
@@ -9839,6 +9855,8 @@ MOD.langs = {
       ['One True Flag'] = 'Один истинный флаг',
       ['One-Two'] = 'Двоечка',
       ['One-handed'] = 'Одной рукой',
+      ['Only this armor gets it.'] = 'Получит только эта броня.',
+      ['Only this armor. Each passive\'s values are on its own page, below the armors.'] = 'Только эта броня. Значения каждой пассивки на её странице, под бронёй.',
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Работает только при угле взрыва 360, и дистанция должна быть больше шага снаряда за кадр:',
       ['Open'] = 'Открыть',
       ['Open / close key'] = 'Клавиша открытия / закрытия',
@@ -9890,6 +9908,7 @@ MOD.langs = {
       ['P-92 Warrant'] = 'P-92 Ордер',
       ['P/40-K Bolt Pistol'] = 'P/40-K Болтострел',
       ['PASSIVE'] = 'ПАССИВНЫЙ ЭФФЕКТ',
+      ['PASSIVES'] = 'ПАССИВКИ',
       ['PLAS-1 Scorcher'] = 'PLAS-1 «Поджигатель»',
       ['PLAS-101 Purifier'] = 'PLAS-101 «Очиститель»',
       ['PLAS-15 Loyalist'] = 'PLAS-15 Верный',
@@ -10036,6 +10055,7 @@ MOD.langs = {
       ['Rename'] = 'Переимен.',
       ['Reprimand'] = 'Взыскание',
       ['Reset all values'] = 'Сбросить все значения',
+      ['Reset armor'] = 'Сбросить броню',
       ['Reset booster'] = 'Сбросить усиление',
       ['Reset enemy'] = 'Сбросить врага',
       ['Reset helldiver'] = 'Сбросить десантника',
@@ -10423,6 +10443,7 @@ MOD.langs = {
       ['The Scythe you carry.'] = '«Коса», которую вы носите.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'Подствольный огнемет «Топки», а не сам пистолет-пулемет.',
       ['The armor passives could not be stacked'] = 'Не удалось объединить пассивные эффекты брони',
+      ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'Арсенал показывает название первой пассивки и не больше 3 эффектов. Действуют все.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'Стрелки, которые вы вводите для вызова: нажмите «Запись» (или Enter на этой строке), затем введите',
       ['The beacon\'s countdown before the delivery is sent.'] = 'Отсчёт маяка до отправки доставки.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'Рюкзак с зарядом, сам заряд и его взрыв. Перезарядка: вкладка «Стратагемы».',
@@ -12286,6 +12307,7 @@ MOD.langs = {
       ['Eruptor'] = 'Eruptor',
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc cancela. El HUD también muestra el nuevo código.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Todos los soldados SEAF a la vez. Los soldados que editaste en su propia página conservan sus valores.',
+      ['Every armor set with this name.'] = 'Todo blindaje con este nombre.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Todos los blindajes con esta pasiva reciben sus efectos también (ajustados en sus propias páginas).',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Cada cambio en cuanto se sube, antes de probarlo: puede fallar.',
       ['Every commit'] = 'Cada commit',
@@ -12835,6 +12857,7 @@ MOD.langs = {
       ['Neck body'] = 'Cuerpo del cuello',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
+      ['No passive.'] = 'Sin pasivo.',
       ['No presets yet.'] = 'Aún no hay perfiles.',
       ['Noise'] = 'Ruido',
       ['None'] = 'Ninguno',
@@ -12865,6 +12888,8 @@ MOD.langs = {
       ['One True Flag'] = 'La única bandera',
       ['One-Two'] = 'Uno-Dos',
       ['One-handed'] = 'Una mano',
+      ['Only this armor gets it.'] = 'Solo este blindaje lo recibe.',
+      ['Only this armor. Each passive\'s values are on its own page, below the armors.'] = 'Solo este blindaje. Los valores de cada pasivo están en su propia página, debajo de los blindajes.',
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Solo funciona con el ángulo de explosión en 360, y la distancia tiene que ser mayor que un paso de la ronda:',
       ['Open'] = 'Abrir',
       ['Open / close key'] = 'Tecla de abrir / cerrar',
@@ -12916,6 +12941,7 @@ MOD.langs = {
       ['P-92 Warrant'] = 'P-92 Suboficial',
       ['P/40-K Bolt Pistol'] = 'P/40-K Pistola de cerrojo',
       ['PASSIVE'] = 'PASIVA',
+      ['PASSIVES'] = 'PASIVOS',
       ['PLAS-1 Scorcher'] = 'PLAS-1 Calcinador',
       ['PLAS-101 Purifier'] = 'PLAS-101 Purificador',
       ['PLAS-15 Loyalist'] = 'PLAS-15 Intransigente',
@@ -12932,7 +12958,6 @@ MOD.langs = {
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosión con carga parcial',
       ['Partial charge shot'] = 'Disparo con carga parcial',
-      ['Passive'] = 'Pasiva',
       ['Path start (0 to 1)'] = 'Inicio del recorrido (0 a 1)',
       ['Patriot Exosuit'] = 'Exotraje Patriota',
       ['Patrol frequency (x)'] = 'Frecuencia de patrullas (x)',
@@ -13061,6 +13086,7 @@ MOD.langs = {
       ['Rename'] = 'Renombrar',
       ['Reprimand'] = 'Reprimenda',
       ['Reset all values'] = 'Restablecer todos los valores',
+      ['Reset armor'] = 'Restablecer blindaje',
       ['Reset booster'] = 'Restablecer potenciador',
       ['Reset enemy'] = 'Restablecer enemigo',
       ['Reset helldiver'] = 'Restablecer helldiver',
@@ -13444,6 +13470,7 @@ MOD.langs = {
       ['The Scythe you carry.'] = 'El Scythe que llevas.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'El lanzallamas en cañón secundario del Stoker, no el subfusil en sí.',
       ['The armor passives could not be stacked'] = 'No se pudieron combinar las pasivas de blindaje',
+      ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'La armería muestra el nombre del primer pasivo y 3 efectos como máximo. Todos se aplican.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'Las flechas que ingresas para llamarla: haz clic en Grabar (o presiona Enter en esta fila), luego ingresa',
       ['The beacon\'s countdown before the delivery is sent.'] = 'La cuenta regresiva de la baliza antes de enviar la entrega.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'La mochila de cargas, la carga y su explosión. Tiempo de recarga: pestaña Estratagemas.',
@@ -15275,6 +15302,7 @@ MOD.langs = {
       ['Eruptor'] = 'Rompante',
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc cancela. O HUD também mostra o novo código.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Todos os soldados SEAF de uma vez. Soldados que você editou na própria página mantêm seus valores.',
+      ['Every armor set with this name.'] = 'Toda blindagem com este nome.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Todas as blindagens com esta passiva recebem os efeitos também (ajustados nas próprias páginas).',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Toda mudança assim que é enviada, antes de testar: pode quebrar.',
       ['Every commit'] = 'Todo commit',
@@ -15824,6 +15852,7 @@ MOD.langs = {
       ['Neck body'] = 'Corpo do pescoço',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
+      ['No passive.'] = 'Sem passiva.',
       ['No presets yet.'] = 'Ainda não há perfis.',
       ['Noise'] = 'Ruído',
       ['None'] = 'Nenhum',
@@ -15854,6 +15883,8 @@ MOD.langs = {
       ['One True Flag'] = 'A Bandeira Una',
       ['One-Two'] = 'Dois em Um',
       ['One-handed'] = 'Uma mão',
+      ['Only this armor gets it.'] = 'Só esta blindagem recebe.',
+      ['Only this armor. Each passive\'s values are on its own page, below the armors.'] = 'Só esta blindagem. Os valores de cada passiva estão na própria página, abaixo das blindagens.',
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Só funciona com o ângulo de explosão em 360, e a distância precisa ser maior que um passo da munição:',
       ['Open'] = 'Abrir',
       ['Open / close key'] = 'Tecla de abrir / fechar',
@@ -15905,6 +15936,7 @@ MOD.langs = {
       ['P-92 Warrant'] = 'P-92 Advertência',
       ['P/40-K Bolt Pistol'] = 'P/40-K Pistola Bolt',
       ['PASSIVE'] = 'PASSIVA',
+      ['PASSIVES'] = 'PASSIVAS',
       ['PLAS-1 Scorcher'] = 'PLAS-1 Escaldante',
       ['PLAS-101 Purifier'] = 'PLAS-101 Purificadora',
       ['PLAS-15 Loyalist'] = 'PLAS-15 Legalista',
@@ -15921,7 +15953,6 @@ MOD.langs = {
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosão com carga parcial',
       ['Partial charge shot'] = 'Disparo com carga parcial',
-      ['Passive'] = 'Passiva',
       ['Path start (0 to 1)'] = 'Início do percurso (0 a 1)',
       ['Patriot Exosuit'] = 'Exouniforme Patriota',
       ['Patrol frequency (x)'] = 'Frequência de patrulhas (x)',
@@ -16050,6 +16081,7 @@ MOD.langs = {
       ['Rename'] = 'Renomear',
       ['Reprimand'] = 'Repressora',
       ['Reset all values'] = 'Redefinir todos os valores',
+      ['Reset armor'] = 'Redefinir blindagem',
       ['Reset booster'] = 'Redefinir reforçador',
       ['Reset enemy'] = 'Redefinir inimigo',
       ['Reset helldiver'] = 'Redefinir helldiver',
@@ -16433,6 +16465,7 @@ MOD.langs = {
       ['The Scythe you carry.'] = 'A Scythe que você carrega.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'O lança-chamas acoplado do Stoker, não a submetralhadora em si.',
       ['The armor passives could not be stacked'] = 'Não foi possível combinar as passivas de blindagem',
+      ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'O arsenal mostra o nome da primeira passiva e no máximo 3 efeitos. Todos se aplicam.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'As setas que você digita para chamá-la: clique em Gravar (ou aperte Enter nesta linha), depois digite',
       ['The beacon\'s countdown before the delivery is sent.'] = 'A contagem regressiva do sinalizador antes de a entrega ser enviada.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'A mochila de cargas, a carga e a explosão dela. Tempo de recarga: aba Estratégias.',
@@ -18606,7 +18639,8 @@ KINDS[TYPES.hellpod] = { name = 'hellpod', stride = 104, keyed = true }
 KINDS[TYPES.payload] = { name = 'hellpod payload', stride = 12, keyed = true }
 -- EquipmentComponentData (232 bytes): +196 one-handed (bool byte). HelldiverCustomizationKit (one block per
 -- armor, helmet or cape): +16 name (text id), +40 kit type (0 armor), +48 body types (pointer, count; 24 bytes:
--- +8 pieces, pointer, count; 112 bytes: +8 slot (2 torso), +12 piece type, +16 weight 0 light / 1 medium / 2 heavy)
+-- +8 pieces, pointer, count; 112 bytes: +8 slot (2 torso), +12 piece type, +16 weight 0 light / 1 medium / 2 heavy),
+-- +28 passive id
 TYPES.equipment, TYPES.kit = 0x5357A825, 0xD9A55AA0
 KINDS[TYPES.equipment] = { name = 'equipment', stride = 232, keyed = true }
 KINDS[TYPES.kit] = { name = 'armor kit', stride = 1, groups = true, list = {} }
@@ -18624,7 +18658,7 @@ KINDS[TYPES.kit].parse = function(blob, stride, spec, address)
         if v and v >= #blob then v = v - address - HEADER_BYTES end
         return v and v >= 0 and v < #blob and v or nil
     end
-    local index = { name = u32(blob, 16), type = u32(blob, 40), pieces = {} }
+    local index = { name = u32(blob, 16), type = u32(blob, 40), passive = u32(blob, 28), pieces = {} }
     local bodies, count = at(48), u32(blob, 56)
     if not (index.name and index.type and count) or count > 8 then return nil, 'armor kit layout does not match this build' end
     if index.type ~= 0 or count == 0 then return index, 0 end
@@ -19465,11 +19499,12 @@ end
 
 -- Armor weight: one page on the Armors tab, a row per armor (every armor set of that name), its weight on every
 -- piece of it (the torso's shown); speed and stamina follow it (tested in game, issue #89).
-MOD.kits = { HASH = 'FFFFFFF900000001', NAMES = { [0] = 'Light', [1] = 'Medium', [2] = 'Heavy' } }
+MOD.kits = { HASH = 'FFFFFFF900000001', PAGE = 'FFFFFFF8%08X', MAX_PASSIVES = 14,
+             NAMES = { [0] = 'Light', [1] = 'Medium', [2] = 'Heavy' } }
 function MOD.kits.build()
-    local old = by_hash[MOD.kits.HASH]
-    for k = #weapons, 1, -1 do if weapons[k] == old then table.remove(weapons, k) end end
-    by_hash[MOD.kits.HASH] = nil
+    for k = #weapons, 1, -1 do
+        if weapons[k].kits then by_hash[weapons[k].hash] = nil; table.remove(weapons, k) end
+    end
     local any = false
     for _, group in ipairs(KINDS[TYPES.kit].list) do any = any or #tables[group].index.pieces > 0 end
     if not any then return end
@@ -19480,8 +19515,31 @@ function MOD.kits.build()
     local at = #weapons + 1
     for k, w in ipairs(weapons) do if w.slot == 'Armors' then at = k + (w.player and 1 or 0); break end end
     table.insert(weapons, at, by_hash[MOD.kits.HASH])
+    -- each armor its own page, between Armor weight and the passives
+    local by_name, order, last = MOD.kits.named()
+    for _, id in ipairs(order) do
+        if MOD.kit_names[id] ~= '' then
+            local hash = string.format(MOD.kits.PAGE, id)
+            -- a few armors' variants differ: the page starts from the passive most of them have (not none, if it can)
+            local seen, lead = {}, nil
+            for _, kit in ipairs(by_name[id]) do
+                local v = kit.index.passive
+                seen[v] = (seen[v] or 0) + 1
+                if not lead or (v ~= 0 and (lead == 0 or seen[v] > seen[lead])) then lead = v end
+            end
+            last = { name = MOD.kit_names[id], slot = 'Armors', hash = hash, key = hash_key(hash), rows = {}, by_id = {},
+                     kits = 'passive', armor = id, default = lead ~= 0 and { lead } or {},
+                     note = 'Every armor set with this name.' }
+            by_hash[hash] = last
+            at = at + 1
+            table.insert(weapons, at, last)
+        end
+    end
+    if last then last.last_armor = true end
+    MOD.kits.migrate()
 end
-function MOD.kits.resolve(entry)
+-- the armors in the game, by text id, and their ids by name
+function MOD.kits.named()
     local by_name, order = {}, {}
     for _, group in ipairs(KINDS[TYPES.kit].list) do
         local index = tables[group].index
@@ -19492,6 +19550,12 @@ function MOD.kits.resolve(entry)
     end
     local function name_of(id) return MOD.kit_names[id] end
     table.sort(order, function(a, b) return name_of(a):lower() < name_of(b):lower() end)
+    return by_name, order
+end
+function MOD.kits.resolve(entry)
+    if entry.kits == 'passive' then return end
+    local by_name, order = MOD.kits.named()
+    local function name_of(id) return MOD.kit_names[id] end
     local rows = { {}, {}, {} }
     for _, id in ipairs(order) do
         local row_id, parts, first = string.format('weight_%08X', id), {}, nil
@@ -23671,7 +23735,7 @@ local config_dirty_at = nil
 -- or the id of a translation: fixed by the build (a language's release, MOD.lang), not a choice; offline (every
 -- language built in) a choice, saved as 'lang'.
 local settings = { changes = true, block_input = true, size = 80, side = 'right', opacity = 90,
-                   arc_mp = true, updates = 'ask', update_channel = 'releases', stacks = {}, own_off = {}, hidden = {}, lang = MOD.lang or MOD.offline and rawget(_G, 'SHODAN_OFFLINE_LANG') or 'en',
+                   arc_mp = true, updates = 'ask', update_channel = 'releases', stacks = {}, own_off = {}, armor_passives = {}, hidden = {}, lang = MOD.lang or MOD.offline and rawget(_G, 'SHODAN_OFFLINE_LANG') or 'en',
                    last = { stat = {}, enemy = {} }, enemy_last = false,
                    GITHUB = 'https://github.com/SHODAN-HORAI/SHODAN-Stat-Editor',
                    RANGE = { size = { 50, 100 }, opacity = { 10, 100 } } }
@@ -23733,8 +23797,7 @@ do
         state.lang = function() return settings.lang end
         state.updates = function() return settings.updates end   -- the host's updater: 'ask' or 'auto'
         state.update_channel = function() return settings.update_channel end   -- 'releases' or 'commits'
-        state.stacks = function() return settings.stacks end   -- passive id -> { passive ids stacked on it }
-        state.own_off = function() return settings.own_off end -- passive id -> true: its own effects left out
+        state.armor_passives = function() return settings.armor_passives end   -- armor text id -> { passive ids }
         -- stratagem type -> { arrow, ... }: every call-in code set here (hostdata.lua M.codes writes them)
         state.codes = function()
             local out = {}
@@ -23827,7 +23890,18 @@ local function save_config()
     if MOD.offline then
         lines[#lines + 1] = 'updates ' .. settings.updates
         lines[#lines + 1] = 'update_channel ' .. settings.update_channel
-        -- passive_stack <passive id> <passive id>,<passive id>...: the passives stacked on it
+        -- armor_passive <armor text id> <passive id>,<passive id>... or none: the passives of that armor
+        local armors, PASSIVE_NAMES = {}, KINDS[TYPES.passive].NAMES
+        for id in pairs(settings.armor_passives) do armors[#armors + 1] = id end
+        table.sort(armors)
+        for _, id in ipairs(armors) do
+            local list, names = settings.armor_passives[id], {}
+            for k, other in ipairs(list) do names[k] = PASSIVE_NAMES[other] or ('Passive ' .. other) end
+            lines[#lines + 1] = string.format('armor_passive %08X %s   # %s: %s', id, #list > 0 and table.concat(list, ',') or 'none',
+                                              MOD.kit_names and MOD.kit_names[id] or '?', #list > 0 and table.concat(names, ', ') or 'none')
+        end
+        -- (older configs) passive_stack <passive id> <passive id>,<passive id>...: the passives stacked on it;
+        -- MOD.kits.migrate turns these and passive_own into armor_passive lines
         local ids, NAMES = {}, KINDS[TYPES.passive].NAMES
         for id in pairs(settings.stacks) do ids[#ids + 1] = id end
         table.sort(ids)
@@ -23902,6 +23976,15 @@ local function load_config()
             end
             settings.stacks[tonumber(target)] = #list > 0 and list or nil
             known = true
+        end
+        local armor, passives = line:match('^%s*armor_passive%s+(%x+)%s+([%a%d,]+)%s*$')
+        if armor and MOD.offline then
+            local list, seen = {}, {}
+            for id in passives:gmatch('%d+') do
+                id = tonumber(id)
+                if not seen[id] then seen[id], list[#list + 1] = true, id end
+            end
+            settings.armor_passives[tonumber(armor, 16)], known = list, true
         end
         local own = line:match('^%s*passive_own%s+(%d+)%s+off%s*$')
         if own and MOD.offline then settings.own_off[tonumber(own)], known = true, true end
@@ -23983,6 +24066,32 @@ local function load_config()
 end
 
 local function mark_config_dirty() config_dirty_at = api.now() + 0.75; MOD.enemy.refresh_due = true end
+
+-- an armor page's passives: its own list, or the game's
+function MOD.kits.list_of(page) return settings.armor_passives[page.armor] or page.default end
+-- list nil or the game's own: the armor goes back to the game's
+function MOD.kits.set(page, list)
+    if list and table.concat(list, ',') == table.concat(page.default, ',') then list = nil end
+    if settings.armor_passives[page.armor] == nil and list == nil then return end
+    settings.armor_passives[page.armor] = list
+    state.writes = state.writes + 1   -- (the host: changed since the last install)
+    mark_config_dirty()
+end
+-- older configs stacked passives on a passive: the same effects as a list on each armor that has it
+function MOD.kits.migrate()
+    if not next(settings.stacks) and not next(settings.own_off) then return end
+    for _, page in ipairs(weapons) do
+        local id = page.armor and page.default[1]
+        if id and (settings.stacks[id] or settings.own_off[id]) and not settings.armor_passives[page.armor] then
+            local list = settings.own_off[id] and {} or { id }
+            for _, other in ipairs(settings.stacks[id] or {}) do list[#list + 1] = other end
+            MOD.kits.set(page, list)
+        end
+    end
+    settings.stacks, settings.own_off = {}, {}
+    state.writes = state.writes + 1
+    mark_config_dirty()
+end
 
 -- a page's text ids ({ id, capitals } lists name and desc) and its game texts (game.name, game.desc), nil without
 function MOD.rename.of(w)
@@ -24891,14 +25000,13 @@ local function weapons_in(tab)
         return list
     end
     for _, weapon in ipairs(weapons) do
-        if #weapon.rows > 0 and not settings.hidden[weapon.slot] then
+        if (#weapon.rows > 0 or weapon.armor) and not settings.hidden[weapon.slot] then
             if words then
                 local name, all = weapon.name:lower(), true
                 for _, word in ipairs(words) do
                     if not name:find(word, 1, true) then all = false; break end
                 end
-                local t = edited and not edited[weapon.hash] and weapon.passive and tables[weapon.passive]   -- (stacked passives)
-                if edited and not edited[weapon.hash] and not (t and (settings.stacks[t.index.id] ~= nil or settings.own_off[t.index.id] ~= nil)) then
+                if edited and not edited[weapon.hash] and not settings.armor_passives[weapon.armor or 0] then
                     all = false
                 end
                 if all then list[#list + 1] = weapon end
@@ -24916,9 +25024,7 @@ local function modified(weapon)
         if o.hash == weapon.hash and MOD.parts_of(weapon, o.id) then return true end
     end
     if MOD.rename.texts[weapon.hash] then return true end   -- a typed name or description (offline)
-    -- an armor passive with passives stacked on it (offline)
-    local t = weapon.passive and tables[weapon.passive]
-    return t ~= nil and (settings.stacks[t.index.id] ~= nil or settings.own_off[t.index.id] ~= nil)
+    return settings.armor_passives[weapon.armor or 0] ~= nil   -- an armor with its own passives (offline)
 end
 
 -- Font: the game's UI font (the resource ids HD2 HUD Plus and DiverKit read from game.dll
@@ -25421,12 +25527,7 @@ end
 
 local function reset_weapon(weapon)
     for _, row in ipairs(weapon.rows) do reset_row(weapon, row) end
-    local t = weapon.passive and tables[weapon.passive]   -- an armor passive: its stacked passives go too
-    if t and (settings.stacks[t.index.id] or settings.own_off[t.index.id]) then
-        settings.stacks[t.index.id], settings.own_off[t.index.id] = nil, nil
-        state.writes = state.writes + 1
-        mark_config_dirty()
-    end
+    if weapon.armor then MOD.kits.set(weapon, nil) end
     if MOD.rename.texts[weapon.hash] then MOD.rename.set(weapon, 'name', nil); MOD.rename.set(weapon, 'desc', nil) end
 end
 
@@ -26064,7 +26165,7 @@ local function draw(width, height)
             tab_x = tab_x + w + 4
         end
     end
-    button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
+    button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or ui.weapon.armor and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
 
     -- a list's scroll bar (the weapon list, or the full presets): a thin track between the list and the
     -- line that parts the panel's halves, shown when the list is longer than LIST_ROWS
@@ -26204,8 +26305,8 @@ local function draw(width, height)
             text((changed and '* ' or '') .. settings.tr(weapon.name) .. id, 24, y + 4, 16, ink, searching and 226 or 302)
         end
         region(key, 16, y, 318, 25)
-        -- the Armors tab's own pages (Helldiver, Armor weight): a line parts them from the passives
-        if not searching and (weapon.player or weapon.kits) then rect(16, y + 24, 318, 2, MUTED, 952) end
+        -- the Armors tab's parts: Helldiver, Armor weight, the armors, the passives
+        if not searching and (weapon.player or weapon.kits == true or weapon.last_armor) then rect(16, y + 24, 318, 2, MUTED, 952) end
     end
     -- the Boosters tab: why only some boosters are there, under the list
     if ui.tab == 'Boosters' and not searching and not presets_tab and #list > 0 and #list <= LIST_ROWS - 5 then
@@ -26423,6 +26524,7 @@ local function draw(width, height)
         end
         -- this weapon's presets, under its stats
         local sy = H - 70 - 34
+        if not weapon.armor then   -- (no values of its own to keep)
         text('PRESETS', x0, sy + 8, 15, MUTED)
         for n = 1, presets.weapon_count do
             local saved = presets.weapon_preset(weapon, n)
@@ -26432,12 +26534,12 @@ local function draw(width, height)
         button('wpreset:save', 'Save', x0 + 316, sy, 90, 30, true)
         button('wpreset:load', 'Load', x0 + 412, sy, 90, 30, chosen ~= nil)
         button('wpreset:clear', 'Clear', x0 + 508, sy, 90, 30, chosen ~= nil)
+        end
         local bottom = H - 70 - 40
         local rename = MOD.offline and MOD.rename.of(weapon)
         if rename then bottom = bottom - 92 end
-        -- an armor passive (offline): the passives stacked on it, under its rows
-        local stack_id = MOD.offline and weapon.passive and tables[weapon.passive] and tables[weapon.passive].index.id
-        local stack_list = stack_id and (settings.stacks[stack_id] or {})
+        -- an armor (offline): its passives
+        local stack_list = MOD.offline and weapon.armor and MOD.kits.list_of(weapon)
         if stack_list then bottom = bottom - (36 + 34 * (#stack_list + 2)) end
         local pitch = math.floor((bottom - y - sections * 24 - below) / math.max(1, #weapon.rows))
         local scrolling = pitch < 22
@@ -26580,18 +26682,14 @@ local function draw(width, height)
         end
         if stack_list then
             y = (scrolling and bottom + 36 or y) + 12
-            text('ALSO INCLUDES', x0, y + 4, 15, MUTED)
-            text('Every armor with this passive gets their effects too (set on their own pages).',
+            text('PASSIVES', x0, y + 4, 15, MUTED)
+            text('Only this armor. Each passive\'s values are on its own page, below the armors.',
                  x0 + 150, y + 4, 14, MUTED, W - x0 - 170)
             y = y + 26
-            -- its own effects: on (the rows above) or off (only the passives below apply)
-            local own = not settings.own_off[stack_id]
-            text('Own effects', x0, y + 6, 16, WHITE, 140)
-            text(own and 'Its stats above apply.' or 'Off: its stats above are left out; only the passives below apply.',
-                 x0 + 150, y + 7, 14, own and MUTED or WARN, 800 - x0 - 160)
-            button('stack_own:on', 'On', 800, y, 88, 28, true, own)
-            button('stack_own:off', 'Off', 896, y, 88, 28, true, not own)
-            y = y + 34
+            if #stack_list == 0 then
+                text('No passive.', x0, y + 6, 16, WHITE, 420)
+                y = y + 34
+            end
             for _, id in ipairs(stack_list) do
                 local other = by_hash[string.format('FFFFFFFE%08X', id)]
                 text(other and other.name or ('Passive ' .. id), x0, y + 6, 16, WHITE, 420)
@@ -26599,7 +26697,11 @@ local function draw(width, height)
                 button('stack_del:' .. id, 'Remove', 896, y, 88, 28, true)
                 y = y + 34
             end
-            button('stack_pick', '+ Add passive', x0, y, 188, 28, true)
+            button('stack_pick', '+ Add passive', x0, y, 188, 28, #stack_list < MOD.kits.MAX_PASSIVES)
+            if #stack_list > 1 then
+                text('The armory shows the first passive\'s name and at most 3 effects. All of them apply.',
+                     x0, y + 40, 14, MUTED, W - x0 - 20)
+            end
         end
         if rename then   -- the in-game name and description, at the very bottom
             -- the part of value that fits in room (its end while typing)
@@ -26691,9 +26793,8 @@ local function draw(width, height)
     end
     -- the passives to stack on the chosen one: over its page, until one is chosen (Cancel / Esc: none)
     if ui.stack_pick and ui.stack_pick == weapon and not ui.settings then
-        local target = tables[weapon.passive] and tables[weapon.passive].index.id
-        local taken = { [target or -1] = true }
-        for _, id in ipairs(settings.stacks[target] or {}) do taken[id] = true end
+        local taken = {}
+        for _, id in ipairs(MOD.kits.list_of(weapon)) do taken[id] = true end
         local choices = {}
         for _, w in ipairs(weapons) do
             local t = w.passive and tables[w.passive]
@@ -26705,7 +26806,7 @@ local function draw(width, height)
         outline(x, y, w, h, GOLD, 959)
         region('stack_modal', x, y, w, h, false)
         text('Add a passive to ' .. weapon.name, x + 16, y + 14, 20, GOLD, w - 32, false, 960)
-        text('Its effects are added to every armor with this passive.', x + 16, y + 44, 14, MUTED, w - 32, false, 960)
+        text('Only this armor gets it.', x + 16, y + 44, 14, MUTED, w - 32, false, 960)
         local cols, bw = 3, math.floor((w - 32 - 16) / 3)
         for k, c in ipairs(choices) do
             local col, row = (k - 1) % cols, math.floor((k - 1) / cols)
@@ -26797,7 +26898,7 @@ function MOD.restore_last()
     ui.tab, ui.page, ui.search, ui.settings, ui.weapon = tabs[1], 1, { text = '', active = false }, false, nil
     for _, t in ipairs(tabs) do if t == last.tab then ui.tab = t end end
     local page = last.weapon and by_hash[last.weapon]
-    if page and page.slot == ui.tab and #page.rows > 0 and (page.enemy ~= nil) == MOD.enemy.on then
+    if page and page.slot == ui.tab and (#page.rows > 0 or page.armor) and (page.enemy ~= nil) == MOD.enemy.on then
         select_weapon(page)
     else
         select_weapon(weapons_in(ui.tab)[1])
@@ -26935,25 +27036,13 @@ local function click(key)
         if settings.changes then
             ui.message = { text = 'Copied ' .. n .. ' value(s) to ' .. #list .. ' vehicle(s).', till = api.now() + 4 }
         end
-    elseif kind == 'stack_own' and weapon and weapon.passive and tables[weapon.passive] then
-        local id = tables[weapon.passive].index.id
-        if (arg == 'off') ~= (settings.own_off[id] == true) then
-            settings.own_off[id] = arg == 'off' or nil
-            state.writes = state.writes + 1   -- (the host: changed since the last install)
-            mark_config_dirty()
-            log('passive own effects: ' .. weapon.name .. ' ' .. arg)
-        end
-    elseif (kind == 'stack_add' or kind == 'stack_del') and weapon and weapon.passive and tables[weapon.passive] then
-        local target, id = tables[weapon.passive].index.id, tonumber(arg)
-        local list, kept = settings.stacks[target] or {}, {}
-        for _, other in ipairs(list) do if other ~= id then kept[#kept + 1] = other end end
-        if kind == 'stack_add' and id ~= target then kept[#kept + 1] = id end
-        settings.stacks[target] = #kept > 0 and kept or nil
+    elseif (kind == 'stack_add' or kind == 'stack_del') and weapon and weapon.armor then
+        local id, kept = tonumber(arg), {}
+        for _, other in ipairs(MOD.kits.list_of(weapon)) do if other ~= id then kept[#kept + 1] = other end end
+        if kind == 'stack_add' then kept[#kept + 1] = id end
+        MOD.kits.set(weapon, kept)
         ui.stack_pick = nil
-        state.writes = state.writes + 1   -- (the host: changed since the last install)
-        mark_config_dirty()
-        local other = by_hash[string.format('FFFFFFFE%08X', id)]
-        log('passive stack: ' .. weapon.name .. (kind == 'stack_add' and ' + ' or ' - ') .. (other and other.name or id))
+        log('armor passives: ' .. weapon.name .. ': ' .. (#kept > 0 and table.concat(kept, ', ') or 'none'))
     elseif kind == 'stack_open' then
         local other = by_hash[string.format('FFFFFFFE%08X', tonumber(arg) or 0)]
         if other then select_weapon(other) end

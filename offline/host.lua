@@ -253,7 +253,7 @@ local function main()
         if I.game_running() then say('Helldivers 2 is running: close it, then Install.', WARN); return end
         busy('Installing: finding what changed...')
         local changes = D.diff()
-        local stacked, why_not = D.stack(changes, state.stacks and state.stacks(), log, state.own_off and state.own_off())
+        local stacked, why_not = D.armor_passives(changes, state.armor_passives and state.armor_passives(), log)
         if not stacked then
             for _, c in ipairs(changes) do G.free(c.plain) end
             bar.busy = nil
@@ -399,9 +399,8 @@ local function main()
             bar.base = installed_count() > 0 and state.writes or nil
             log(string.format('ready: %s weapons, %s values applied, %s refused', tostring(state.weapons),
                 tostring(state.applied), tostring(state.refused)))
-            local stacks = state.stacks and state.stacks() or {}
-            local own_off = state.own_off and state.own_off() or {}
-            if installed_count() == 0 and ((state.applied or 0) > 0 or next(stacks) or next(own_off)) then bar.base = -1 end
+            local armors = state.armor_passives and state.armor_passives() or {}
+            if installed_count() == 0 and ((state.applied or 0) > 0 or next(armors)) then bar.base = -1 end
             if I.game_running() then say('Helldivers 2 is running: you can edit, but close it before you Install.', WARN) end
             local updated = U.cleanup()
             if updated then say('Updated to ' .. updated .. '.', GOOD) end

@@ -1,7 +1,7 @@
 # SHODAN Stat Editor
 
 Change the stats of weapons, throwables, stratagems, mechas, boosters, attachments, armor passives and your
-helldiver in **Helldivers 2**, and transmog armor passives: stack any passives into one. The **Enemy Editor**
+helldiver in **Helldivers 2**, and transmog armor: give any armor up to 14 passives. The **Enemy Editor**
 changes every enemy, your SEAF allies and how they spawn, and keeps custom difficulties as presets. **SHODAN Stat Editor
 Offline** (SSEO) is a Windows program: pick a weapon, change its numbers, press **Install into the
 game**, and play. It writes your values into the game's own
@@ -120,18 +120,16 @@ Multipliers show as the game stores them: 1 is no change, 0.5 damage taken is 50
 
 ### Transmog
 
-Give an armor passive the effects of any other passives, as many as you like. On a passive's page
-(Armors tab), **Also includes** lists the passives stacked on it:
+Give any armor up to 14 passives, or none, so you can wear the look you want with
+the passives you want. Every armor has its own page on the Armors tab:
 
 - **+ Add passive** picks one from a list; **Remove** takes it off; **Open** goes to its page.
-- **Own effects**: **On** keeps the passive's own stats; **Off** leaves them out, so only the
-  passives listed below it apply. Off with Engineering Kit listed turns Med-Kit into Engineering
-  Kit on every Med-Kit armor.
-- A stacked passive brings every effect it has (Engineering Kit: its grenades and its recoil
-  reduction), at the values set on its own page.
-- Like every passive value, a transmog applies to every armor with that passive: the game does
-  not let one armor be changed alone.
-- **Reset passive** clears its stack and turns its own effects back on.
+- It changes only that armor, and every armor set with that name.
+- A passive brings every effect it has (Engineering Kit: its grenades and its recoil reduction), at
+  the values set on its own page. The passive pages are below the armors.
+- With several passives the armory shows the first one's name and at most 3 effects. All of them
+  apply. Two passives with the same effect count it once.
+- **Reset armor** puts its passive back to the game's.
 
 **Armor weight**: on the Armors tab, make any armor light, medium or heavy. Speed and stamina
 follow the weight you pick.
