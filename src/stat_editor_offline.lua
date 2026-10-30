@@ -2289,6 +2289,7 @@ MOD.langs = {
       ['Never'] = '从不',
       ['No bolt pull'] = '取消拉栓',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
+      ['No description'] = '无描述',
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
       ['No page in this editor uses this id.'] = '此编辑器中没有页面使用此 id。',
       ['No passive.'] = '无被动。',
@@ -6167,6 +6168,7 @@ MOD.langs = {
       ['Never'] = '從不',
       ['No bolt pull'] = '取消拉栓',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
+      ['No description'] = '無描述',
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
       ['No page in this editor uses this id.'] = '此編輯器中沒有頁面使用此 id。',
       ['No passive.'] = '無被動。',
@@ -9991,6 +9993,7 @@ MOD.langs = {
       ['Never'] = 'Никогда',
       ['No bolt pull'] = 'Без передёргивания затвора',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
+      ['No description'] = 'Без описания',
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
       ['No page in this editor uses this id.'] = 'Ни одна страница редактора не использует этот id.',
       ['No passive.'] = 'Нет пассивки.',
@@ -13071,6 +13074,7 @@ MOD.langs = {
       ['Neck body'] = 'Cuerpo del cuello',
       ['No bolt pull'] = 'Sin accionar el cerrojo',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
+      ['No description'] = 'Sin descripción',
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
       ['No page in this editor uses this id.'] = 'Ninguna página de este editor usa este id.',
       ['No passive.'] = 'Sin pasivo.',
@@ -16096,6 +16100,7 @@ MOD.langs = {
       ['Neck body'] = 'Corpo do pescoço',
       ['No bolt pull'] = 'Sem puxar o ferrolho',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
+      ['No description'] = 'Sem descrição',
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
       ['No page in this editor uses this id.'] = 'Nenhuma página deste editor usa este id.',
       ['No passive.'] = 'Sem passiva.',
@@ -26209,10 +26214,59 @@ do
             '# Lines: name <name>, then <weapon hash> <stat> <value> as in config.txt.',
             'name ' .. full_presets[n].name,
         }
+        if full_presets[n].desc then lines[#lines + 1] = 'desc ' .. full_presets[n].desc end
         for _, o in ipairs(full_presets[n].values) do
             lines[#lines + 1] = o.hash .. ' ' .. o.id .. ' ' .. number_text(o.value) .. named(o.hash)
         end
         write_lines(path, lines)
+    end
+
+    -- A preset file's lines as a preset, or nil when it was cleared.
+    function presets.parse(lines, numbers, n, file)
+        local preset = { name = 'Preset ' .. n, values = {} }
+        for i, line in ipairs(lines) do
+            if line:match('^%s*cleared') then return nil end
+            local name = line:match('^%s*name%s+(.-)%s*$')
+            local desc = line:match('^%s*desc%s+(.-)%s*$')
+            local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
+            local parsed = hash and MOD.parse_number(amount)
+            if name and name ~= '' then
+                preset.name = name:sub(1, NAME_BYTES)
+            elseif desc and desc ~= '' then
+                preset.desc = desc:sub(1, MOD.rename.LIMIT.desc)
+            elseif parsed then
+                preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
+            else
+                MOD.skipped(file, numbers[i], line)
+            end
+        end
+        return preset
+    end
+
+    -- Files someone sent you, put in StatEditor\import: each takes a free preset place, and the file goes once it
+    -- has one (no free place: it stays for the next start).
+    function presets.import()
+        local dir, ok, I = preset_file('import'), pcall(require, 'install')
+        if not (MOD.offline and dir and ok) then return end
+        I.mkdirs(dir)
+        for _, file in ipairs(I.list_files(dir, '*.txt')) do
+            local lines, numbers = read_lines(dir .. '/' .. file)
+            local enemy = lines and false
+            local raw = io.open(dir .. '/' .. file, 'rb')
+            if raw then enemy = (raw:read('*a') or ''):find('SHODAN Enemy Editor preset', 1, true) ~= nil; raw:close() end
+            local into, free = enemy and presets.enemy or presets.full, nil
+            for k = 1, FULL_PRESETS do if not into[k] then free = k; break end end
+            local preset = lines and free and presets.parse(lines, numbers, free, file)
+            if preset then
+                local was = MOD.enemy.on
+                MOD.enemy.on = enemy
+                into[free] = preset
+                save_full_preset(free)
+                MOD.enemy.on = was
+                os.remove(dir .. '/' .. file)
+                log('presets: imported ' .. file .. ' as "' .. preset.name .. '"')
+            end
+        end
     end
 
     local function load_presets()
@@ -26242,25 +26296,13 @@ do
         local into = enemy and presets.enemy or presets.full
         for n = 1, FULL_PRESETS do
             local lines, numbers = read_lines(full_preset_file(n, enemy))
-            local preset = lines and { name = 'Preset ' .. n, values = {} }
-            for i, line in ipairs(lines or {}) do
-                if line:match('^%s*cleared') then preset = nil; break end
-                local name = line:match('^%s*name%s+(.-)%s*$')
-                local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
-                local parsed = hash and MOD.parse_number(amount)
-                if name and name ~= '' then
-                    preset.name = name:sub(1, NAME_BYTES)
-                elseif parsed then
-                    preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
-                else
-                    MOD.skipped(presets.file_name(n, enemy), numbers[i], line)
-                end
-            end
+            local preset = lines and presets.parse(lines, numbers, n, presets.file_name(n, enemy))
             into[n] = preset
             if preset then full = full + 1 end
         end
         end
         log('presets: ' .. count .. ' weapon preset(s), ' .. full .. ' full preset(s)')
+        presets.import()
         -- the example difficulties, added once (deleted ones stay deleted)
         local marker = preset_file('enemy_examples.txt')
         local had = marker and io.open(marker, 'rb')
@@ -26414,7 +26456,9 @@ do
     -- Preset numbers in use, in order.
     local function full_order()
         local order = {}
-        for n = 1, FULL_PRESETS do if full_presets[n] then order[#order + 1] = n end end
+        for n = 1, FULL_PRESETS do
+            if full_presets[n] then order[#order + 1] = n end
+        end
         return order
     end
 
@@ -26432,8 +26476,10 @@ do
         end
     end
 
-    local function start_rename(n)
-        if full_presets[n] then ui.editing = { n = n, text = full_presets[n].name, fresh = true } end
+    -- field: nil the name, or 'desc' (nothing typed clears it)
+    local function start_rename(n, field)
+        local p = full_presets[n]
+        if p then ui.editing = { n = n, field = field, text = p[field or 'name'] or '', fresh = not field } end
         ui.version = ui.version + 1
     end
 
@@ -26444,6 +26490,11 @@ do
         ui.version = ui.version + 1
         if not (e and keep and full_presets[e.n]) then return end
         local name = e.text:gsub('[%c#]', ''):gsub('^%s+', ''):gsub('%s+$', '')
+        if e.field then
+            full_presets[e.n][e.field] = name ~= '' and name or nil
+            save_full_preset(e.n)
+            return
+        end
         if name == '' then say('Empty name: kept "' .. full_presets[e.n].name .. '"'); return end
         full_presets[e.n].name = name
         save_full_preset(e.n)
@@ -26458,7 +26509,7 @@ do
             if e.fresh then e.text = '' else MOD.caret.back(e) end
         else
             if e.fresh then e.text = '' end
-            if #e.text + #c <= NAME_BYTES then MOD.caret.add(e, c) end
+            if #e.text + #c <= (e.field and MOD.rename.LIMIT.desc or NAME_BYTES) then MOD.caret.add(e, c) end
         end
         e.fresh = false
         ui.version = ui.version + 1
@@ -26679,6 +26730,26 @@ local function draw(width, height)
     end
     button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or (ui.weapon.armor or ui.weapon.look) and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
 
+    -- a Description box shows all of its text: value in rows that fit in room, | starts a new one
+    local function wrapped(value, room)
+        local rows, starts = {}, {}   -- starts: the bytes of value before each row
+        for at, para in (value .. '|'):gmatch('()(.-)|') do
+            local line, from = '', at - 1
+            for o, word in para:gmatch('()(%S+)') do
+                local long = line == '' and word or line .. ' ' .. word
+                if line ~= '' and width(long, 15 * s) > room * s then
+                    rows[#rows + 1], starts[#rows + 1] = line, from
+                    line, from = word, at + o - 2
+                else
+                    if line == '' then from = at + o - 2 end
+                    line = long
+                end
+            end
+            rows[#rows + 1], starts[#rows + 1] = line, from
+        end
+        return rows, starts
+    end
+
     -- a list's scroll bar (the weapon list, or the full presets): a thin track between the list and the
     -- line that parts the panel's halves, shown when the list is longer than LIST_ROWS
     ui.lbar, ui.split_gx = nil, ox + 343 * s
@@ -26732,7 +26803,7 @@ local function draw(width, height)
             text('"+ New preset" (or Insert) saves your current changes as one; you name it next.', x0, 162, 16, MUTED, W - x0 - 20)
         else
             local e = ui.editing
-            if e and e.n == chosen then
+            if e and e.n == chosen and not e.field then
                 rect(x0 - 4, 88, 420, 34, color(20, 26, 34), 951)
                 outline(x0 - 4, 88, 420, 34, GOLD)
                 text(MOD.caret.show(e), x0 + 4, 94, 20, e.fresh and MUTED or WHITE, 404)
@@ -26747,11 +26818,23 @@ local function draw(width, height)
                    x0 + 110, 136, 250, 32, true, sure == 'save')
             button('fpreset:rename', 'Rename', x0 + 370, 136, 110, 32, true)
             button('fpreset:delete', sure == 'delete' and 'Sure?' or 'Delete', x0 + 490, 136, 110, 32, true, sure == 'delete')
+            -- the description, as the pages' Description box: grows with its text, click to type
+            local editing_desc, room = e and e.n == chosen and e.field == 'desc', W - 24 - x0 - 16
+            local rows = editing_desc and MOD.caret.lay_out(e, wrapped(e.text, room)) or wrapped(preset.desc or '', room)
+            while #rows > 7 do table.remove(rows) end
+            local box_h = 8 + 20 * #rows
+            local box_hot = editing_desc or ui.hover == 'fpreset:desc'
+            rect(x0, 178, W - 24 - x0, box_h, editing_desc and color(20, 26, 34) or box_hot and color(40, 52, 64) or color(28, 34, 42), 951)
+            outline(x0, 178, W - 24 - x0, box_h, box_hot and GOLD or color(70, 82, 94))
+            if not editing_desc and not preset.desc then rows = { 'No description' } end
+            for k, row in ipairs(rows) do text(row, x0 + 8, 184 + (k - 1) * 20, 15, (preset.desc or editing_desc) and WHITE or DIM) end
+            region('fpreset:desc', x0, 178, W - 24 - x0, box_h)
+            local below = 178 + box_h + 8
             text('Now changed: ' .. presets.current_count() .. ' value(s). Loading a preset replaces every current change' ..
                  (MOD.enemy.on and ' to enemies and spawning with it.' or ' with it.'),
-                 x0, 182, 15, MUTED, W - x0 - 20)
-            -- what it holds: weapon (or stratagem) and how many of its values
-            local y, names, counts = 212, {}, {}
+                 x0, below, 15, MUTED, W - x0 - 20)
+            -- what it holds: weapon (or stratagem) and how many of its values; click one for its rows
+            local y, names, counts = below + 28, {}, {}
             for _, o in ipairs(preset.values) do
                 if not counts[o.hash] then counts[o.hash] = 0; names[#names + 1] = o.hash end
                 counts[o.hash] = counts[o.hash] + 1
@@ -27050,25 +27133,6 @@ local function draw(width, height)
         end
         local bottom = H - 70 - 40
         local rename = MOD.offline and MOD.rename.of(weapon)
-        -- a Description box shows all of its text: value in rows that fit in room, | starts a new one
-        local function wrapped(value, room)
-            local rows, starts = {}, {}   -- starts: the bytes of value before each row
-            for at, para in (value .. '|'):gmatch('()(.-)|') do
-                local line, from = '', at - 1
-                for o, word in para:gmatch('()(%S+)') do
-                    local long = line == '' and word or line .. ' ' .. word
-                    if line ~= '' and width(long, 15 * s) > room * s then
-                        rows[#rows + 1], starts[#rows + 1] = line, from
-                        line, from = word, at + o - 2
-                    else
-                        if line == '' then from = at + o - 2 end
-                        line = long
-                    end
-                end
-                rows[#rows + 1], starts[#rows + 1] = line, from
-            end
-            return rows, starts
-        end
         local desc_rows
         if rename and rename.desc[1] then
             local page = MOD.rename.page(weapon, 'desc')
@@ -27322,7 +27386,8 @@ local function draw(width, height)
     elseif ui.settings then
         text('Settings are saved at once, in config.txt with your changes.', 18, H - 56, 14, MUTED, W - 280)
     elseif ui.editing then
-        text('Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.',
+        text(ui.editing.field and 'Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'
+             or 'Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.',
              18, H - 56, 14, MUTED, W - 280)
     elseif ui.rename then
         text('Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.',
@@ -27480,7 +27545,7 @@ local function click(key)
     local weapon = ui.weapon
     local kind, arg = key:match('^([%w_]+):?(.*)$')
     -- clicking anything else while naming keeps the name typed so far
-    if ui.editing and kind ~= 'name' then presets.finish_rename(true) end
+    if ui.editing and kind ~= 'name' and not (ui.editing.field and key == 'fpreset:desc') then presets.finish_rename(true) end
     if ui.search.active and kind ~= 'search' then ui.search.active = false end
     if ui.value and key ~= 'value:' .. ui.value.n then finish_value(true) end
     if ui.code and key ~= 'code:' .. ui.code.n then MOD.code.finish(false) end
@@ -27586,7 +27651,10 @@ local function click(key)
         elseif n and arg == 'load' then presets.load_full_preset(n)
         elseif n and arg == 'save' then presets.confirm('save', n)
         elseif n and arg == 'delete' then presets.confirm('delete', n)
-        elseif n and arg == 'rename' then presets.start_rename(n) end
+        elseif n and arg == 'rename' then presets.start_rename(n)
+        elseif n and arg == 'desc' and not ui.editing then presets.start_rename(n, 'desc') end
+    elseif kind == 'fopen' then ui.fopen = ui.fopen ~= arg and arg or nil
+    elseif kind == 'fscroll' then ui.fscroll = (ui.fscroll or 1) + (arg == 'down' and 10 or -10)
     elseif kind == 'stack_pick' and weapon then ui.stack_pick = weapon
     elseif kind == 'rename' and weapon and not ui.rename then
         local page, field = MOD.rename.page(weapon, arg)
@@ -27945,8 +28013,11 @@ local function keyboard(now)
     end
     if ui.editing then
         if pressed('Escape', now) then presets.finish_rename(false); return end
-        if pressed('Enter', now) then presets.finish_rename(true); return end
-        if pressed('Backspace', now) then presets.type_char(false) end
+        if pressed('Enter', now) then
+            if not (ui.editing.field and key_down(VK.Shift)) then presets.finish_rename(true); return end
+            presets.type_char('|')
+        end
+        if pressed('Backspace', now, 0.3, 0.015) then presets.type_char(false) end
         MOD.caret.keys(ui.editing, now)
         if poll then
             for _, vk in ipairs(TEXT_KEYS) do
