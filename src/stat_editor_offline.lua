@@ -1350,6 +1350,7 @@ MOD.langs = {
       ['Beam range (m)'] = '光束射程（米）',
       ['Beam stays after the shot (s)'] = '射击后光束持续 (秒)',
       ['Beamer'] = '光束器',
+      ['Beams per barrel'] = '每管光束数',
       ['Belt-Fed Grenade Launcher'] = '弹链式榴弹发射器',
       ['Berserker'] = '狂暴者',
       ['Better stratagem bounce'] = '改进战略配备弹跳',
@@ -2953,6 +2954,7 @@ MOD.langs = {
       ['The SMG you carry. Its underbarrel flamer is listed separately.'] = '你携带的冲锋枪。其下挂火焰喷射器单独列出。',
       ['The Scythe you carry.'] = '你携带的“长柄镰”。',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = '“司炉者”的下挂火焰喷射器，不是冲锋枪本身。',
+      ['The Trident shows 4 beams at its default of 2.'] = '三叉戟默认值为 2 时显示 4 道光束。',
       ['The armor passives could not be stacked'] = '无法叠加护甲被动',
       ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = '军械库显示第一个被动的名称，最多 3 个效果。全部生效。',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = '呼叫时输入的方向键：点击“录制”（或在此行按 Enter），然后',
@@ -5216,6 +5218,7 @@ MOD.langs = {
       ['Beam range (m)'] = '光束射程（米）',
       ['Beam stays after the shot (s)'] = '射擊後光束持續 (秒)',
       ['Beamer'] = '光束器',
+      ['Beams per barrel'] = '每管光束數',
       ['Belt-Fed Grenade Launcher'] = '彈鏈式榴彈發射器',
       ['Berserker'] = '狂暴者',
       ['Better stratagem bounce'] = '改進戰略配備彈跳',
@@ -6819,6 +6822,7 @@ MOD.langs = {
       ['The SMG you carry. Its underbarrel flamer is listed separately.'] = '你攜帶的衝鋒槍。其下掛火焰噴射器單獨列出。',
       ['The Scythe you carry.'] = '你攜帶的「長柄鐮」。',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = '「司爐者」的下掛火焰噴射器，不是衝鋒槍本身。',
+      ['The Trident shows 4 beams at its default of 2.'] = '三叉戟預設值為 2 時顯示 4 道光束。',
       ['The armor passives could not be stacked'] = '無法疊加護甲被動',
       ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = '軍械庫顯示第一個被動的名稱，最多 3 個效果。全部生效。',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = '呼叫時輸入的方向鍵：點選「錄製」（或在此行按 Enter），然後',
@@ -9076,6 +9080,7 @@ MOD.langs = {
       ['Beam range (m)'] = 'Дальность луча (м)',
       ['Beam stays after the shot (s)'] = 'Луч держится после выстрела (с)',
       ['Beamer'] = 'Излучатель',
+      ['Beams per barrel'] = 'Лучей на ствол',
       ['Belt-Fed Grenade Launcher'] = 'Ленточный гранатомет',
       ['Berserker'] = 'Берсерк',
       ['Better stratagem bounce'] = 'Улучшенный отскок стратагем',
@@ -10596,6 +10601,7 @@ MOD.langs = {
       ['The SMG you carry. Its underbarrel flamer is listed separately.'] = 'Пистолет-пулемет, который вы носите. Его подствольный огнемет указан отдельно.',
       ['The Scythe you carry.'] = '«Коса», которую вы носите.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'Подствольный огнемет «Топки», а не сам пистолет-пулемет.',
+      ['The Trident shows 4 beams at its default of 2.'] = 'Трезубец показывает 4 луча при значении 2 по умолчанию.',
       ['The armor passives could not be stacked'] = 'Не удалось объединить пассивные эффекты брони',
       ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'Арсенал показывает название первой пассивки и не больше 3 эффектов. Действуют все.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'Стрелки, которые вы вводите для вызова: нажмите «Запись» (или Enter на этой строке), затем введите',
@@ -12167,6 +12173,7 @@ MOD.langs = {
       ['Beam range (m)'] = 'Alcance del rayo (m)',
       ['Beam stays after the shot (s)'] = 'El rayo dura tras el disparo (s)',
       ['Beamer'] = 'Lanzarrayos',
+      ['Beams per barrel'] = 'Rayos por cañón',
       ['Belt-Fed Grenade Launcher'] = 'Lanzagranadas de cinta',
       ['Berserker'] = 'Frenético',
       ['Better stratagem bounce'] = 'Mejor rebote de estratagemas',
@@ -13645,6 +13652,7 @@ MOD.langs = {
       ['The SMG you carry. Its underbarrel flamer is listed separately.'] = 'El subfusil que llevas. Su lanzallamas en cañón secundario aparece aparte.',
       ['The Scythe you carry.'] = 'El Scythe que llevas.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'El lanzallamas en cañón secundario del Stoker, no el subfusil en sí.',
+      ['The Trident shows 4 beams at its default of 2.'] = 'El Trident muestra 4 rayos con su valor por defecto de 2.',
       ['The armor passives could not be stacked'] = 'No se pudieron combinar las pasivas de blindaje',
       ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'La armería muestra el nombre del primer pasivo y 3 efectos como máximo. Todos se aplican.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'Las flechas que ingresas para llamarla: haz clic en Grabar (o presiona Enter en esta fila), luego ingresa',
@@ -15180,6 +15188,7 @@ MOD.langs = {
       ['Beam range (m)'] = 'Alcance do feixe (m)',
       ['Beam stays after the shot (s)'] = 'O feixe dura após o tiro (s)',
       ['Beamer'] = 'Lança-raios',
+      ['Beams per barrel'] = 'Feixes por cano',
       ['Belt-Fed Grenade Launcher'] = 'Lança-granadas com Fita',
       ['Berserker'] = 'Berserker',
       ['Better stratagem bounce'] = 'Ricochete de estratégias melhor',
@@ -16658,6 +16667,7 @@ MOD.langs = {
       ['The SMG you carry. Its underbarrel flamer is listed separately.'] = 'A submetralhadora que você carrega. O lança-chamas acoplado aparece separado.',
       ['The Scythe you carry.'] = 'A Scythe que você carrega.',
       ['The Stoker\'s underbarrel flamer, not the SMG itself.'] = 'O lança-chamas acoplado do Stoker, não a submetralhadora em si.',
+      ['The Trident shows 4 beams at its default of 2.'] = 'O Trident mostra 4 feixes com o padrão de 2.',
       ['The armor passives could not be stacked'] = 'Não foi possível combinar as passivas de blindagem',
       ['The armory shows the first passive\'s name and at most 3 effects. All of them apply.'] = 'O arsenal mostra o nome da primeira passiva e no máximo 3 efeitos. Todos se aplicam.',
       ['The arrows you enter to call it in: click Record (or press Enter on this row), then enter'] = 'As setas que você digita para chamá-la: clique em Gravar (ou aperte Enter nesta linha), depois digite',
@@ -20264,6 +20274,14 @@ local function resolve_gun(weapon, key)
         add_row(weapon, 'Damage', 'beam_ticks', 'Damage ticks per minute', 'u32',
                 { part('beam_ticks', T_BEAM_WEAPON, beam + 104, 'u32', 6000) }, 1, 6000, 10, 60).note =
             'how often the beam deals its damage while it touches'
+    end
+    -- +108 / +112: 2 and 0.15 s on the Trident, 1 and 1.4 s on the Meltagun; the steady lasers (1 and 0) ignore both, tested
+    local beams = beam and default_of(field_at(T_BEAM_WEAPON, beam + 108, 'u32', 1000))
+    local stay = beam and default_of(field_at(T_BEAM_WEAPON, beam + 112, 'f32', 100000))
+    if beams and beams >= 1 and beams <= 16 and (beams > 1 or (stay or 0) > 0) then
+        add_row(weapon, 'Damage', 'beam_count', 'Beams per barrel', 'u32', { part('beam_count', T_BEAM_WEAPON, beam + 108, 'u32', 1000) }, 1, 12, 1, 1).tip =
+            { 'The Trident shows 4 beams at its default of 2.' }
+        add_row(weapon, 'Damage', 'beam_stay', 'Beam stays after the shot (s)', 'f32', { part('beam_stay', T_BEAM_WEAPON, beam + 112, 'f32', 100000) }, 0, 10, 0.05, 0.25)
     end
     local damage_to = #weapon.rows
     if arow then
