@@ -2732,6 +2732,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = '同类载具数量',
       ['Shape'] = '形状',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有带此被动的护甲共用。倍率：1 = 不变。',
+      ['Shares its name and description with the armor of this name: a change here changes both.'] = '与同名护甲共用名称和描述：在此处修改会同时改变两者。',
       ['Shear'] = '切变',
       ['Shell fired (id)'] = '发射的炮弹（ID）',
       ['Shells after it (id)'] = '之后的炮弹（ID）',
@@ -6584,6 +6585,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = '同類載具數量',
       ['Shape'] = '形狀',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有帶此被動的護甲共用。倍率：1 = 不變。',
+      ['Shares its name and description with the armor of this name: a change here changes both.'] = '與同名護甲共用名稱和描述：在此處修改會同時改變兩者。',
       ['Shear'] = '雷射剪',
       ['Shell fired (id)'] = '發射的炮彈（ID）',
       ['Shells after it (id)'] = '之後的炮彈（ID）',
@@ -10361,6 +10363,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Несколько машин одного вида',
       ['Shape'] = 'Форма',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Общее для всей брони с этим эффектом. Множители: 1 = без изменений.',
+      ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Название и описание общие с бронёй с этим названием: изменение здесь меняет оба.',
       ['Shear'] = 'Ножницы',
       ['Shell fired (id)'] = 'Снаряд (id)',
       ['Shells after it (id)'] = 'Следующие снаряды (id)',
@@ -13399,6 +13402,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Varios vehículos del mismo tipo',
       ['Shape'] = 'Forma',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Lo comparten todos los blindajes con esta pasiva. Multiplicadores: 1 = sin cambio.',
+      ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Comparte nombre y descripción con el blindaje del mismo nombre: un cambio aquí cambia ambos.',
       ['Shear'] = 'Segador',
       ['Shell fired (id)'] = 'Proyectil disparado (id)',
       ['Shells after it (id)'] = 'Proyectiles siguientes (id)',
@@ -16398,6 +16402,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Vários veículos do mesmo tipo',
       ['Shape'] = 'Forma',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Compartilhado por todas as blindagens com esta passiva. Multiplicadores: 1 = sem mudança.',
+      ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Compartilha nome e descrição com a armadura de mesmo nome: mudar aqui muda os dois.',
       ['Shear'] = 'Podadeira',
       ['Shell fired (id)'] = 'Projétil disparado (id)',
       ['Shells after it (id)'] = 'Projéteis seguintes (id)',
@@ -19666,13 +19671,13 @@ function MOD.kits.build()
             table.insert(weapons, at, last)
         end
     end
-    if last then last.last_armor = true end
-    MOD.kits.looks(by_name)
+    MOD.kits.looks()
     MOD.kits.migrate()
 end
--- Helmets and capes without an armor of the same name: a page each (offline), only for its Name and Description
--- boxes, after the passives. MOD.kits.texts: every kit's name text id -> its capitals and description ids.
-function MOD.kits.looks(armors)
+-- Helmets, then capes: a page each (offline), only for its Name and Description boxes, after the passives. A helmet
+-- named like an armor shares its texts, so its boxes are the armor's (same). MOD.kits.texts: every kit's name text
+-- id -> its capitals and description ids.
+function MOD.kits.looks()
     local host = rawget(_G, 'SHODAN_PHYSICS')
     local texts, list, seen, kinds = host and host.texts, {}, {}, { 'Helmet', 'Cape' }
     MOD.kits.texts = {}
@@ -19682,19 +19687,29 @@ function MOD.kits.looks(armors)
         MOD.kits.texts[k.name] = t
         t.caps[k.caps] = true
         t.desc[k.desc] = true
-        if MOD.offline and texts and texts[k.name] and texts[k.name] ~= '' and k.type ~= 0 and not armors[k.name] and not seen[k.name] then
+        if MOD.offline and texts and texts[k.name] and texts[k.name] ~= '' and k.type ~= 0 and not seen[k.name] then
             seen[k.name] = true
             local hash = string.format(MOD.kits.LOOK, k.name)
             local kind = kinds[k.type] or 'Look'
+            local same = by_hash[string.format(MOD.kits.PAGE, k.name)]
             list[#list + 1] = { name = kind .. ': ' .. texts[k.name], slot = 'Armors', hash = hash, key = hash_key(hash), rows = {},
-                                by_id = {}, kits = 'look', look = k.name, note = 'Every ' .. kind:lower() .. ' with this name.' }
+                                by_id = {}, kits = 'look', look = k.name, look_kind = k.type, same = same,
+                                note = same and 'Shares its name and description with the armor of this name: a change here changes both.'
+                                       or 'Every ' .. kind:lower() .. ' with this name.' }
             by_hash[hash] = list[#list]
         end
     end
-    table.sort(list, function(a, b) return a.name:lower() < b.name:lower() end)
+    table.sort(list, function(a, b)
+        if a.look_kind ~= b.look_kind then return a.look_kind < b.look_kind end
+        return a.name:lower() < b.name:lower()
+    end)
     local at = #weapons + 1
     for k = #weapons, 1, -1 do if weapons[k].slot == 'Armors' then at = k + 1; break end end
     for k, entry in ipairs(list) do table.insert(weapons, at + k - 1, entry) end
+end
+-- which part of the Armors tab a page is in (a line between parts), nil on other tabs
+function MOD.kits.part(w)
+    return w.player and 1 or w.kits == true and 2 or w.armor and 3 or w.passive and 4 or w.look_kind and 4 + w.look_kind or nil
 end
 -- the armors in the game, by text id, and their ids by name
 function MOD.kits.named()
@@ -24355,7 +24370,7 @@ end
 -- the page and field a box edits: 'line<id>', on an armor's passive row, is that passive's description
 function MOD.rename.page(w, field)
     local id = field:match('^line(%d+)$')
-    if not id then return w, field end
+    if not id then return w.same or w, field end
     return by_hash[string.format('FFFFFFFE%08X', tonumber(id))], 'desc'
 end
 
@@ -25285,7 +25300,7 @@ local function modified(weapon)
     for _, o in ipairs(overrides) do
         if o.hash == weapon.hash and MOD.parts_of(weapon, o.id) then return true end
     end
-    if MOD.rename.texts[weapon.hash] then return true end   -- a typed name or description (offline)
+    if MOD.rename.texts[MOD.rename.page(weapon, 'name').hash] then return true end   -- a typed name or description (offline)
     return settings.armor_passives[weapon.armor or 0] ~= nil   -- an armor with its own passives (offline)
 end
 
@@ -25790,7 +25805,8 @@ end
 local function reset_weapon(weapon)
     for _, row in ipairs(weapon.rows) do reset_row(weapon, row) end
     if weapon.armor then MOD.kits.set(weapon, nil) end
-    if MOD.rename.texts[weapon.hash] then MOD.rename.set(weapon, 'name', nil); MOD.rename.set(weapon, 'desc', nil) end
+    local page = MOD.rename.page(weapon, 'name')
+    if MOD.rename.texts[page.hash] then MOD.rename.set(page, 'name', nil); MOD.rename.set(page, 'desc', nil) end
 end
 
 -- The Enemy Editor's values (enemy and spawning pages) or the Stat Editor's: presets of one leave the other's alone.
@@ -26567,8 +26583,9 @@ local function draw(width, height)
             text((changed and '* ' or '') .. settings.tr(weapon.name) .. id, 24, y + 4, 16, ink, searching and 226 or 302)
         end
         region(key, 16, y, 318, 25)
-        -- the Armors tab's parts: Helldiver, Armor weight, the armors, the passives
-        if not searching and (weapon.player or weapon.kits == true or weapon.last_armor) then rect(16, y + 24, 318, 2, MUTED, 952) end
+        -- the Armors tab's parts: Helldiver, Armor weight, the armors, the passives, the helmets, the capes
+        local part, after = MOD.kits.part(weapon), list[ui.page + k]
+        if not searching and part and after and MOD.kits.part(after) ~= part then rect(16, y + 24, 318, 2, MUTED, 952) end
     end
     -- the Boosters tab: why only some boosters are there, under the list
     if ui.tab == 'Boosters' and not searching and not presets_tab and #list > 0 and #list <= LIST_ROWS - 5 then
@@ -26816,8 +26833,9 @@ local function draw(width, height)
         end
         local desc_rows
         if rename and rename.desc[1] then
-            local typed = MOD.rename.texts[weapon.hash]
-            local editing = ui.rename and ui.rename.weapon == weapon and ui.rename.field == 'desc' and ui.rename
+            local page = MOD.rename.page(weapon, 'desc')
+            local typed = MOD.rename.texts[page.hash]
+            local editing = ui.rename and ui.rename.weapon == page and ui.rename.field == 'desc' and ui.rename
             desc_rows = wrapped(editing and editing.text .. '_' or typed and typed.desc or rename.game.desc or '', 954 - x0 - 150 - 16)
             while #desc_rows > 7 do table.remove(desc_rows, editing and 1 or #desc_rows) end
         end
