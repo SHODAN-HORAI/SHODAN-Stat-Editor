@@ -2710,6 +2710,8 @@ MOD.langs = {
       ['Search weapons and stratagems'] = '搜索武器与战略配备',
       ['Searching speed (m/s)'] = '搜索速度 (米/秒)',
       ['Second ammo'] = '第二弹种',
+      ['Second ammo (id)'] = '第二弹药 (id)',
+      ['Second ammo replaces (1 or 2)'] = '第二弹药替换（1 或 2）',
       ['Second mode'] = '第二模式',
       ['Second mode explosion'] = '第二模式爆炸',
       ['Second mode fires (id)'] = '第二模式发射的弹丸(编号)',
@@ -3220,6 +3222,7 @@ MOD.langs = {
       ['none'] = '无',
       ['none (no explosion)'] = '无（不爆炸）',
       ['none (no projectile)'] = '无（没有弹丸）',
+      ['none. - / + : add one, hold Reload in game to switch'] = '无。- / + ：添加，游戏中按住装填键切换',
       ['normal projectile'] = '常规弹丸',
       ['not a faction'] = '不是有效阵营',
       ['not a finite number'] = '不是有限数值',
@@ -3253,6 +3256,7 @@ MOD.langs = {
       ['the body and every body part, bleed-out health too'] = '身体与每个部位，以及失血生命值',
       ['the download helper (shodan_hash.dll) is missing'] = '缺少下载辅助库（shodan_hash.dll）',
       ['the faction multipliers cannot slow patrols below this: lower it with them'] = '阵营倍率无法让巡逻低于此值：请一同调低',
+      ['the fire mode switch'] = '射击模式开关',
       ['the force a hit needs to stagger it (hit sizes it never staggers from stay that way)'] = '使其硬直所需的命中力度（原本不会造成硬直的命中仍然不会）',
       ['the force a hit needs to stagger them'] = '使其硬直所需的命中力度',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = '在 x1 时，游戏在约 100 名敌人后停止增援；存活敌人超过 200-240 时曾出现崩溃',
@@ -3261,8 +3265,10 @@ MOD.langs = {
       ['the holster is on the back or the hip'] = '收枪位置在背部或腰部',
       ['the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all'] = '模型及其身体部位；部分敌人的受击判定可能与模型不符，另一些敌人可能完全无效',
       ['the new code with the arrow keys or WASD, 1 to 9 arrows. Enter keeps it, Backspace takes one back,'] = '用方向键或 WASD 输入新代码，1 到 9 个箭头。Enter 保留，Backspace 退回一个，',
+      ['the rate of fire switch'] = '射速开关',
       ['the shot fired from this heat on, and what it does to you'] = '从该热量值起发射的弹丸，以及它对你自己造成的效果',
       ['the spare ammo in its backpack; read when the backpack is called in'] = '背包里的备用弹药；在被投放时读取',
+      ['the underbarrel switch'] = '下挂武器开关',
       ['the update helper (shodan_hash.dll) is missing'] = '缺少更新辅助库（shodan_hash.dll）',
       ['their wind-ups and attacks'] = '蓄力和攻击',
       ['tier 1 captive'] = '1级俘虏',
@@ -6563,6 +6569,8 @@ MOD.langs = {
       ['Search weapons and stratagems'] = '搜尋武器與戰略配備',
       ['Searching speed (m/s)'] = '搜尋速度 (米/秒)',
       ['Second ammo'] = '第二彈種',
+      ['Second ammo (id)'] = '第二彈藥 (id)',
+      ['Second ammo replaces (1 or 2)'] = '第二彈藥替換（1 或 2）',
       ['Second mode'] = '第二模式',
       ['Second mode explosion'] = '第二模式爆炸',
       ['Second mode fires (id)'] = '第二模式發射的射彈(編號)',
@@ -7073,6 +7081,7 @@ MOD.langs = {
       ['none'] = '無',
       ['none (no explosion)'] = '無（不爆炸）',
       ['none (no projectile)'] = '無（沒有射彈）',
+      ['none. - / + : add one, hold Reload in game to switch'] = '無。- / + ：新增，遊戲中按住裝填鍵切換',
       ['normal projectile'] = '常規射彈',
       ['not a faction'] = '不是有效陣營',
       ['not a finite number'] = '不是有限數值',
@@ -7106,6 +7115,7 @@ MOD.langs = {
       ['the body and every body part, bleed-out health too'] = '身體與每個部位，以及失血生命值',
       ['the download helper (shodan_hash.dll) is missing'] = '缺少下載輔助庫（shodan_hash.dll）',
       ['the faction multipliers cannot slow patrols below this: lower it with them'] = '陣營倍率無法讓巡邏低於此值：請一同調低',
+      ['the fire mode switch'] = '射擊模式開關',
       ['the force a hit needs to stagger it (hit sizes it never staggers from stay that way)'] = '使其硬直所需的命中力度（原本不會造成硬直的命中仍然不會）',
       ['the force a hit needs to stagger them'] = '使其硬直所需的命中力度',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = '在 x1 時，遊戲在約 100 名敵人後停止增援；存活敵人超過 200-240 時曾出現崩潰',
@@ -7114,8 +7124,10 @@ MOD.langs = {
       ['the holster is on the back or the hip'] = '收槍位置在背部或腰部',
       ['the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all'] = '模型及其身體部位；部分敵人的受擊判定可能與模型不符，另一些敵人可能完全無效',
       ['the new code with the arrow keys or WASD, 1 to 9 arrows. Enter keeps it, Backspace takes one back,'] = '用方向鍵或 WASD 輸入新程式碼，1 到 9 個箭頭。Enter 保留，Backspace 退回一個，',
+      ['the rate of fire switch'] = '射速開關',
       ['the shot fired from this heat on, and what it does to you'] = '從該熱量值起發射的射彈，以及它對你自己造成的效果',
       ['the spare ammo in its backpack; read when the backpack is called in'] = '背包裡的備用彈藥；在被投放時讀取',
+      ['the underbarrel switch'] = '下掛武器開關',
       ['the update helper (shodan_hash.dll) is missing'] = '缺少更新輔助庫（shodan_hash.dll）',
       ['their wind-ups and attacks'] = '蓄力和攻擊',
       ['tier 1 captive'] = '1級俘虜',
@@ -10342,6 +10354,8 @@ MOD.langs = {
       ['Search weapons and stratagems'] = 'Поиск оружия и стратагем',
       ['Searching speed (m/s)'] = 'Скорость поиска (м/с)',
       ['Second ammo'] = 'Второй тип боеприпасов',
+      ['Second ammo (id)'] = 'Вторые боеприпасы (id)',
+      ['Second ammo replaces (1 or 2)'] = 'Вторые боеприпасы заменяют (1 или 2)',
       ['Second mode'] = 'Второй режим',
       ['Second mode explosion'] = 'Взрыв второго режима',
       ['Second mode fires (id)'] = 'Второй режим выпускает (id)',
@@ -10802,6 +10816,7 @@ MOD.langs = {
       ['none'] = 'нет',
       ['none (no explosion)'] = 'нет (без взрыва)',
       ['none (no projectile)'] = 'нет (без снаряда)',
+      ['none. - / + : add one, hold Reload in game to switch'] = 'нет. - / + : добавить, в игре удерживайте перезарядку для смены',
       ['normal projectile'] = 'обычный снаряд',
       ['not a faction'] = 'не фракция',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = 'выстрел попадает в перекрестие; ближе или дальше чуть выше или ниже. Не меняет увеличение.',
@@ -10825,6 +10840,7 @@ MOD.langs = {
       ['the armory list it is in: 1 primary, 3 secondary'] = 'в каком списке арсенала: 1 основное, 3 дополнительное',
       ['the body and every body part, bleed-out health too'] = 'тело и все части тела, а также здоровье при кровотечении',
       ['the faction multipliers cannot slow patrols below this: lower it with them'] = 'множители фракций не замедлят патрули ниже этого: снижайте вместе с ними',
+      ['the fire mode switch'] = 'переключатель режима огня',
       ['the force a hit needs to stagger it (hit sizes it never staggers from stay that way)'] = 'сила удара, нужная, чтобы его ошеломить (удары, от которых он не ошеломляется, так и остаются)',
       ['the force a hit needs to stagger them'] = 'сила удара, нужная, чтобы их ошеломить',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = 'при x1 игра сдерживает подкрепления после ~100 врагов; при 200-240 живых врагах бывали вылеты',
@@ -10833,8 +10849,10 @@ MOD.langs = {
       ['the holster is on the back or the hip'] = 'кобура на спине или на бедре',
       ['the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all'] = 'модель и части тела; у некоторых врагов хитбоксы могут не совпадать с моделью, а у других это может вообще не работать',
       ['the new code with the arrow keys or WASD, 1 to 9 arrows. Enter keeps it, Backspace takes one back,'] = 'новый код стрелками или WASD, от 1 до 9 стрелок. Enter сохраняет, Backspace убирает одну,',
+      ['the rate of fire switch'] = 'переключатель темпа стрельбы',
       ['the shot fired from this heat on, and what it does to you'] = 'выстрел начиная с этого нагрева и его действие на вас',
       ['the spare ammo in its backpack; read when the backpack is called in'] = 'запас боеприпасов в его рюкзаке; читается при вызове рюкзака',
+      ['the underbarrel switch'] = 'переключатель подствольного оружия',
       ['their wind-ups and attacks'] = 'замахи и атаки',
       ['tier 1 captive'] = 'уровень 1, пленный',
       ['tier 2 guard'] = 'уровень 2, охрана',
@@ -13381,6 +13399,8 @@ MOD.langs = {
       ['Search weapons and stratagems'] = 'Buscar armas y estratagemas',
       ['Searching speed (m/s)'] = 'Velocidad buscando (m/s)',
       ['Second ammo'] = 'Segunda munición',
+      ['Second ammo (id)'] = 'Segunda munición (id)',
+      ['Second ammo replaces (1 or 2)'] = 'Segunda munición reemplaza (1 o 2)',
       ['Second mode'] = 'Segundo modo',
       ['Second mode explosion'] = 'Explosión del segundo modo',
       ['Second mode fires (id)'] = 'El segundo modo dispara (id)',
@@ -13824,6 +13844,7 @@ MOD.langs = {
       ['none'] = 'ninguno',
       ['none (no explosion)'] = 'ninguna (sin explosión)',
       ['none (no projectile)'] = 'ninguno (sin proyectil)',
+      ['none. - / + : add one, hold Reload in game to switch'] = 'ninguna. - / + : agregar, mantén Recargar en el juego para cambiar',
       ['normal projectile'] = 'proyectil normal',
       ['not a faction'] = 'no es una facción',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = 'en la mira; más cerca o más lejos cae un poco alto o bajo. No cambia el zoom.',
@@ -13847,6 +13868,7 @@ MOD.langs = {
       ['the armory list it is in: 1 primary, 3 secondary'] = 'la lista de la armería en la que está: 1 principal, 3 secundaria',
       ['the body and every body part, bleed-out health too'] = 'el cuerpo y cada parte del cuerpo, también la salud al desangrarse',
       ['the faction multipliers cannot slow patrols below this: lower it with them'] = 'los multiplicadores de facción no pueden bajar las patrullas de esto: bájalo junto con ellos',
+      ['the fire mode switch'] = 'la opción de modo de disparo',
       ['the force a hit needs to stagger it (hit sizes it never staggers from stay that way)'] = 'la fuerza que necesita un golpe para hacerlo tambalear (los tamaños de golpe que nunca lo hacen tambalear siguen igual)',
       ['the force a hit needs to stagger them'] = 'la fuerza que necesita un golpe para hacerlos tambalear',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = 'el juego frena los refuerzos pasados unos 100 enemigos en x1; se ha bloqueado pasados 200-240 enemigos vivos',
@@ -13855,8 +13877,10 @@ MOD.langs = {
       ['the holster is on the back or the hip'] = 'la funda está en la espalda o en la cadera',
       ['the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all'] = 'el modelo y sus partes del cuerpo; en algunos enemigos los hitboxes pueden no coincidir con el modelo, y en otros puede que no funcione en absoluto',
       ['the new code with the arrow keys or WASD, 1 to 9 arrows. Enter keeps it, Backspace takes one back,'] = 'el nuevo código con las flechas o WASD, de 1 a 9 flechas. Enter lo guarda, Backspace quita una,',
+      ['the rate of fire switch'] = 'la opción de cadencia de disparo',
       ['the shot fired from this heat on, and what it does to you'] = 'el disparo a partir de este calor, y lo que te hace',
       ['the spare ammo in its backpack; read when the backpack is called in'] = 'la munición de reserva en su mochila; se lee cuando se pide la mochila',
+      ['the underbarrel switch'] = 'la opción del arma acoplada',
       ['their wind-ups and attacks'] = 'preparaciones y ataques',
       ['tier 1 captive'] = 'cautivo nivel 1',
       ['tier 2 guard'] = 'guardia nivel 2',
@@ -16381,6 +16405,8 @@ MOD.langs = {
       ['Search weapons and stratagems'] = 'Buscar armas e estratégias',
       ['Searching speed (m/s)'] = 'Velocidade procurando (m/s)',
       ['Second ammo'] = 'Segunda munição',
+      ['Second ammo (id)'] = 'Segunda munição (id)',
+      ['Second ammo replaces (1 or 2)'] = 'Segunda munição substitui (1 ou 2)',
       ['Second mode'] = 'Segundo modo',
       ['Second mode explosion'] = 'Explosão do segundo modo',
       ['Second mode fires (id)'] = 'O segundo modo dispara (id)',
@@ -16824,6 +16850,7 @@ MOD.langs = {
       ['none'] = 'nenhum',
       ['none (no explosion)'] = 'nenhuma (sem explosão)',
       ['none (no projectile)'] = 'nenhum (sem projétil)',
+      ['none. - / + : add one, hold Reload in game to switch'] = 'nenhuma. - / + : adicionar, segure Recarregar no jogo para trocar',
       ['normal projectile'] = 'projétil normal',
       ['not a faction'] = 'não é uma facção',
       ['on the crosshair; closer or farther it lands a bit high or low. Does not change the zoom.'] = 'na mira; mais perto ou mais longe cai um pouco alto ou baixo. Não muda o zoom.',
@@ -16847,6 +16874,7 @@ MOD.langs = {
       ['the armory list it is in: 1 primary, 3 secondary'] = 'a lista do arsenal em que está: 1 principal, 3 secundária',
       ['the body and every body part, bleed-out health too'] = 'o corpo e cada parte do corpo, a vida ao sangrar também',
       ['the faction multipliers cannot slow patrols below this: lower it with them'] = 'os multiplicadores de facção não podem baixar as patrulhas além disto: diminua junto com eles',
+      ['the fire mode switch'] = 'a opção de modo de disparo',
       ['the force a hit needs to stagger it (hit sizes it never staggers from stay that way)'] = 'a força que um acerto precisa para fazê-lo cambalear (tamanhos de acerto que nunca o fazem cambalear continuam assim)',
       ['the force a hit needs to stagger them'] = 'a força que um acerto precisa para fazê-los cambalear',
       ['the game holds back reinforcements past about 100 enemies at x1; it has crashed past 200-240 enemies alive'] = 'o jogo segura os reforços passando de uns 100 inimigos em x1; já travou passando de 200-240 inimigos vivos',
@@ -16855,8 +16883,10 @@ MOD.langs = {
       ['the holster is on the back or the hip'] = 'o coldre fica nas costas ou no quadril',
       ['the model and its body parts; on some enemies the hitboxes may not match the model, and on others it may not work at all'] = 'o modelo e suas partes do corpo; em alguns inimigos as hitboxes podem não bater com o modelo, e em outros pode não funcionar',
       ['the new code with the arrow keys or WASD, 1 to 9 arrows. Enter keeps it, Backspace takes one back,'] = 'o novo código com as setas ou WASD, de 1 a 9 setas. Enter mantém, Backspace apaga uma,',
+      ['the rate of fire switch'] = 'a opção de cadência de tiro',
       ['the shot fired from this heat on, and what it does to you'] = 'o disparo a partir deste calor, e o que ele faz com você',
       ['the spare ammo in its backpack; read when the backpack is called in'] = 'a munição reserva na mochila; lida quando a mochila é chamada',
+      ['the underbarrel switch'] = 'a opção da arma acoplada',
       ['their wind-ups and attacks'] = 'preparações e ataques',
       ['tier 1 captive'] = 'cativo nível 1',
       ['tier 2 guard'] = 'guarda nível 2',
@@ -19177,11 +19207,19 @@ local function default_of(f)
 end
 
 -- Writes every copy of the table; read back, or rolled back.
-local function write_field(f, value)
+local write_field
+-- A gun with both weapon functions taken: the chosen one (t.pick: 1 left, 2 right) becomes the ammo switch while
+-- it has a second ammo. Run by either value, so config lines work in any order.
+function MOD.second_toggle(t, id)
+    write_field(t.left, id ~= 0 and read_field(t.pick) == 1 and 8 or default_of(t.left))
+    write_field(t.right, id ~= 0 and read_field(t.pick) == 2 and 8 or default_of(t.right))
+end
+write_field = function(f, value)
     if f.storage == 'virtual' then
         default_of(f)
         if read_field(f) ~= value then state.writes = state.writes + 1 end   -- (the host: changed since the last install)
         f.value = value
+        if f.toggle then MOD.second_toggle(f.toggle, read_field(f.toggle.second)) end
         return true
     end
     local entry = tables[f.kind]
@@ -19190,6 +19228,8 @@ local function write_field(f, value)
     if type(value) == 'number' and not MOD.parse_number(value) then return false, 'not a finite number' end
     if f.allowed and not f.allowed[value] then return false, f.allowed.why end   -- (the Slot row: 1 or 3)
     default_of(f)
+    if f.switch then write_field(f.switch, value ~= 0 and 8 or 0) end   -- (a second ammo's weapon function)
+    if f.toggle then MOD.second_toggle(f.toggle, value) end
     if f.most and value > f.most then value = f.most end
     local bytes, done = nil, {}
     if f.storage == 'tier' then bytes = KINDS[TYPES.destruction].bytes(f, value, read_field(f))
@@ -23465,7 +23505,9 @@ end
 -- weapon's projectile. The stat rows above stay the weapon's own projectile's. Choices:
 -- KINDS[T_PROJECTILE].choices, every listed weapon's own projectiles by name (built after resolving).
 -- Weapons with a second firing mode (the "programmable ammo" weapon function: the Autocannon's flak,
--- the Recoilless Rifle's HE) fire the fire mode's +576 in it: a second swap row for that one. `extra`
+-- the Recoilless Rifle's HE) fire the fire mode's +576 in it: a second swap row for that one. Weapons without one,
+-- with a function free (weapon +184 left, else +188 right): the same row, its choice also sets that function (8,
+-- tested in game on the S-11 and, right, the Railgun; in game, hold Reload to switch). `extra`
 -- (KINDS[T_ROUNDS].extra): a patterned magazine's rounds take the swapped projectile too (every one of
 -- them), a second ammo type has its own row.
 KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
@@ -23498,7 +23540,8 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
         row.note = function(others)
             local spec, now, own = KINDS[T_PROJECTILE], read_field(row_parts[1].field), default_of(row_parts[1].field)
             local shot = spec.by_id and spec.by_id[now]
-            local text = now == own and "its own. - / + : fire another weapon's"
+            local text = now == 0 and 'none. - / + : add one, hold Reload in game to switch'
+                         or now == own and "its own. - / + : fire another weapon's"
                          or ('fires: ' .. (shot and shot.label or ('projectile ' .. tostring(now))) .. '. The rows above stay its own')
             if #others > 0 then text = text .. '; ammo type shared with ' .. table.concat(others, ', ', 1, math.min(2, #others)) end
             return text
@@ -23512,6 +23555,27 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
         row = swap('projectile_2', 'Second mode fires (id)', { { id = 'projectile_2', field = alt } })
     else
         second = nil
+        local wrow = alt and tables[T_WEAPON].index[weapon.key]
+        local left = wrow and field_at(T_WEAPON, wrow + 184, 'u32', 100)
+        local right = wrow and field_at(T_WEAPON, wrow + 188, 'u32', 100)
+        local free = left and (default_of(left) == 0 and left or default_of(right) == 0 and right)
+        if left and not weapon.name:find('(', 1, true)   -- (no mounted guns, underbarrels)
+           and (weapon.slot == 'Primary' or weapon.slot == 'Secondary' or weapon.slot == 'Support') then
+            if free then alt.switch = free
+            else   -- both taken: the player picks which goes (the underbarrel's and the fire rate's last, first)
+                local l, r = default_of(left), default_of(right)
+                local pick = field_at(0, 'second_toggle:' .. weapon.hash, 'virtual', 2)
+                pick.default = (l == 11 or r == 2) and 2 or 1
+                pick.toggle = { left = left, right = right, pick = pick, second = alt }
+                alt.toggle = pick.toggle
+                add_row(weapon, 'Projectile swap', 'second_toggle', 'Second ammo replaces (1 or 2)', 'u32',
+                        { { id = 'second_toggle', field = pick } }, 1, 2, 1, 1).note = function()
+                    local gone = read_field(pick) == 1 and l or r
+                    return gone == 2 and 'the rate of fire switch' or gone == 3 and 'the fire mode switch' or 'the underbarrel switch'
+                end
+            end
+            row = swap('projectile_2', 'Second ammo (id)', { { id = 'projectile_2', field = alt } })
+        end
     end
     if ammo then
         local id = 'projectile_' .. ammo.prefix:sub(1, -2)
