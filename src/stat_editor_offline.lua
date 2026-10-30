@@ -2276,6 +2276,7 @@ MOD.langs = {
       ['Neck armor'] = '颈部装甲',
       ['Neck body'] = '颈部（本体）',
       ['Never'] = '从不',
+      ['No bolt pull'] = '取消拉栓',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
       ['No page in this editor uses this id.'] = '此编辑器中没有页面使用此 id。',
@@ -2782,6 +2783,7 @@ MOD.langs = {
       ['Simo Iron Sights'] = '“西莫”机械瞄具',
       ['Size'] = '体型',
       ['Size (x)'] = '体型 (x)',
+      ['Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.'] = '跳过每次射击后的拉栓动作。射速、弹药与伤害不变。',
       ['Slide speed / duration'] = '滑行速度 / 持续时间',
       ['Slope slide ends at (degrees)'] = '斜坡滑行结束角度（度）',
       ['Slope slide starts at (degrees)'] = '斜坡滑行起始角度（度）',
@@ -6138,6 +6140,7 @@ MOD.langs = {
       ['Neck armor'] = '頸部裝甲',
       ['Neck body'] = '頸部（本體）',
       ['Never'] = '從不',
+      ['No bolt pull'] = '取消拉栓',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
       ['No page in this editor uses this id.'] = '此編輯器中沒有頁面使用此 id。',
@@ -6644,6 +6647,7 @@ MOD.langs = {
       ['Simo Iron Sights'] = '「西莫」機械瞄具',
       ['Size'] = '體型',
       ['Size (x)'] = '體型 (x)',
+      ['Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.'] = '跳過每次射擊後的拉栓動作。射速、彈藥與傷害不變。',
       ['Slide speed / duration'] = '滑行速度 / 持續時間',
       ['Slope slide ends at (degrees)'] = '斜坡滑行結束角度（度）',
       ['Slope slide starts at (degrees)'] = '斜坡滑行起始角度（度）',
@@ -9946,6 +9950,7 @@ MOD.langs = {
       ['Neck armor'] = 'Броня шеи',
       ['Neck body'] = 'Шея (тело)',
       ['Never'] = 'Никогда',
+      ['No bolt pull'] = 'Без передёргивания затвора',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
       ['No page in this editor uses this id.'] = 'Ни одна страница редактора не использует этот id.',
@@ -10428,6 +10433,7 @@ MOD.langs = {
       ['Silo'] = 'Шахта',
       ['Size'] = 'Размер',
       ['Size (x)'] = 'Размер (x)',
+      ['Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.'] = 'Пропускает передёргивание затвора после каждого выстрела. Скорострельность, боезапас и урон не меняются.',
       ['Slide speed / duration'] = 'Скорость / длительность скольжения',
       ['Slope slide ends at (degrees)'] = 'Скольжение по склону до (градусов)',
       ['Slope slide starts at (degrees)'] = 'Скольжение по склону с (градусов)',
@@ -13010,6 +13016,7 @@ MOD.langs = {
       ['Neck'] = 'Cuello',
       ['Neck armor'] = 'Blindaje del cuello',
       ['Neck body'] = 'Cuerpo del cuello',
+      ['No bolt pull'] = 'Sin accionar el cerrojo',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
       ['No page in this editor uses this id.'] = 'Ninguna página de este editor usa este id.',
@@ -13474,6 +13481,7 @@ MOD.langs = {
       ['Silo'] = 'Silo',
       ['Size'] = 'Tamaño',
       ['Size (x)'] = 'Tamaño (x)',
+      ['Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.'] = 'Omite accionar el cerrojo tras cada disparo. La cadencia, la munición y el daño no cambian.',
       ['Slide speed / duration'] = 'Velocidad / duración del deslizamiento',
       ['Slope slide ends at (degrees)'] = 'El deslizamiento en pendiente termina a (grados)',
       ['Slope slide starts at (degrees)'] = 'El deslizamiento en pendiente empieza a (grados)',
@@ -16019,6 +16027,7 @@ MOD.langs = {
       ['Neck'] = 'Pescoço',
       ['Neck armor'] = 'Blindagem do pescoço',
       ['Neck body'] = 'Corpo do pescoço',
+      ['No bolt pull'] = 'Sem puxar o ferrolho',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
       ['No page in this editor uses this id.'] = 'Nenhuma página deste editor usa este id.',
@@ -16483,6 +16492,7 @@ MOD.langs = {
       ['Silo'] = 'Silo',
       ['Size'] = 'Tamanho',
       ['Size (x)'] = 'Tamanho (x)',
+      ['Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.'] = 'Pula o movimento do ferrolho após cada tiro. A cadência, a munição e o dano não mudam.',
       ['Slide speed / duration'] = 'Velocidade / duração do deslize',
       ['Slope slide ends at (degrees)'] = 'O deslize na ladeira termina em (graus)',
       ['Slope slide starts at (degrees)'] = 'O deslize na ladeira começa em (graus)',
@@ -19146,7 +19156,7 @@ local defaults = {}     -- key -> value before this mod first wrote it
 
 -- mask: one bit of a flag byte (several switches in one byte, each its own field)
 local function field_at(kind, offset, storage, limit, mask)
-    local key = kind .. ':' .. offset .. (mask and (':' .. mask) or '')
+    local key = kind .. ':' .. offset .. (storage == 'bolt' and ':bolt' or '') .. (mask and (':' .. mask) or '')
     local f = fields[key]
     if not f then
         f = { key = key, kind = kind, offset = offset, storage = storage, limit = limit, mask = mask, users = {} }
@@ -19185,6 +19195,10 @@ local function read_field(f)
     if f.storage == 'gun' then   -- an enemy's weapon: the chosen entity's number (MOD.enemy.gun_choices)
         return MOD.enemy.gun_id(api.read(entry.copies[1] + HEADER_BYTES + f.offset, 8))
     end
+    if f.storage == 'bolt' then   -- a pair of values shown as a switch (the No bolt pull row)
+        local v = peek4(entry.copies[1] + HEADER_BYTES + f.offset)
+        return v == f.bolt_on and 1 or v == f.bolt_off and 0 or nil
+    end
     if f.storage == 'flag' then   -- a bool byte
         local b = api.read(entry.copies[1] + HEADER_BYTES + f.offset, 1)
         b = b and b:byte()
@@ -19204,6 +19218,7 @@ local function encode(f, value)
     if f.storage == 'grenade' then return KINDS[TYPES.throwable].entity_bytes(value) end
     if f.storage == 'gun' then local g = MOD.enemy.gun_choices().by_id[value]; return g and g.key end
     if f.storage == 'f32' then return f32_bytes(value) end
+    if f.storage == 'bolt' then return u32_bytes(value >= 0.5 and f.bolt_on or f.bolt_off) end
     if f.storage == 'flag' and f.mask then   -- the byte with only that bit changed
         local b = api.read(tables[f.kind].copies[1] + HEADER_BYTES + f.offset, 1)
         b = b and b:byte()
@@ -20769,6 +20784,26 @@ local function resolve_gun(weapon, key)
             local r = add_row(weapon, 'Handling', 'suppressed', 'Suppressed', 'flag', { quiet, noise }, 0, 1, 1, 1)
             r.lead, r.suppression = true, true
             r.tip = { "Quieter for enemies: the noise of the game's suppressed guns. No suppressor model, same firing sound." }
+        end
+        -- no bolt pull (from 127MU's fork): the R-36's and R-40's fire animation (+936) and fire ability (+948, +1208)
+        -- take the R-63 Diligence's, only where the game still holds the expected values
+        local bolt = KINDS[T_WEAPON].stride == 1240
+                     and ({ B6AFF2195568767F = { { 936, 0x14FAF8EB, 'anim' }, { 948, 2668, 'ability' }, { 1208, 2668, 'ability' } },
+                            ['41F2DEF484634B59'] = { { 948, 2694, 'ability' } } })[weapon.hash]
+        local donor = bolt and tables[T_WEAPON].index[hash_key('03E67A19B07C6523')]
+        if donor then
+            local anim = default_of(field_at(T_WEAPON, donor + 936, 'u32', 4294967295))
+            local ability = default_of(field_at(T_WEAPON, donor + 948, 'u32', 100000))
+            local fits, parts = anim == 0xAE6CC371 and ability and ability > 0, {}
+            for k, s in ipairs(bolt) do
+                if default_of(field_at(T_WEAPON, data + s[1], 'u32', 4294967295)) ~= s[2] then fits = false end
+                parts[k] = part('no_bolt_' .. s[1], T_WEAPON, data + s[1], 'bolt', 1)
+                parts[k].field.bolt_off, parts[k].field.bolt_on = s[2], s[3] == 'anim' and anim or ability
+            end
+            if fits then
+                add_row(weapon, 'Handling', 'no_bolt', 'No bolt pull', 'flag', parts, 0, 1, 1, 1).tip =
+                    { 'Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.' }
+            end
         end
         -- infinite ammo (SHODAN Offline Integration): the game's own switches, WeaponData +960 and the
         -- projectile weapon's +36 (1240-byte layout)
