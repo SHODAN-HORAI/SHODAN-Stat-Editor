@@ -25244,9 +25244,13 @@ local function handle_table(address, kind, payload, blob)
     log(string.format('%s table at %s: %d entries (parsed in %.2f ms)', spec.name, hex(address), info, took))
 end
 
+-- Offline every file is loaded before the scan and no game frame waits on it, so it starts at once, in long slices,
+-- and never sweeps memory (from starstring's fork): that finds the editor's own copies and restarts the scan.
+if MOD.offline then START_FRAME, FRAME_BUDGET, PASS_DELAY, FALLBACK_SECONDS = 1, 0.025, 0.02, math.huge end
+
 local function after_pass(pass, final)
     if not searching() then return end
-    if have_all_tables() or final then become_ready(final) end
+    if have_all_tables() or final or (MOD.offline and pass >= 2) then become_ready(final or not have_all_tables()) end
 end
 
 -- The tables are still where they were (checked when the panel opens); if not, scan again.
