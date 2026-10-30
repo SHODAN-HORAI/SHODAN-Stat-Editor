@@ -1668,11 +1668,14 @@ MOD.langs = {
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc 取消。HUD 也会显示新代码。',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = '一次调整所有 SEAF 士兵。在各自页面修改过的士兵保留其数值。',
       ['Every armor set with this name.'] = '同名的所有护甲套装。',
+      ['Every armor set with this name. Its passive text is shared by every armor with that passive.'] = '所有同名护甲。被动文本由拥有该被动的所有护甲共用。',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = '拥有此被动的所有护甲也会获得它们的效果（在各自页面设置）。',
+      ['Every cape with this name.'] = '所有同名披风。',
       ['Every change as soon as it is pushed, before testing: it may break.'] = '每项更改一经推送即更新，未经测试：可能出错。',
       ['Every commit'] = '每次提交',
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = '一次调整该阵营的所有敌人。在各自页面修改过的敌人保留其数值。',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = '你游戏中的所有绝地潜兵。加入其他玩家的大厅前，请先恢复游戏文件。',
+      ['Every helmet with this name.'] = '所有同名头盔。',
       ['Every passive is in already.'] = '所有被动都已添加。',
       ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = '你亲手瞄准的所有武器，包括固定炮台和载具武器：游戏的晃动乘以此数。0 = 无晃动。',
       ['Evictor'] = '驱逐者',
@@ -2360,6 +2363,7 @@ MOD.langs = {
       ['Partial charge explosion'] = '部分蓄力爆炸',
       ['Partial charge shot'] = '部分蓄力射击',
       ['Passive'] = '被动',
+      ['Passive text'] = '被动文本',
       ['Path start (0 to 1)'] = '路径起点（0 到 1）',
       ['Patriot Exosuit'] = '“爱国者”外骨骼装甲',
       ['Patrol frequency (x)'] = '巡逻频率 (x)',
@@ -2993,7 +2997,7 @@ MOD.langs = {
       ['Tutorial Reinforcement Beacon'] = '教学增援信标',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = '输入预设名称：Enter 确认，Esc 取消。',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = '输入百分比(%d-%d)：回车确认，Esc 取消。',
-      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = '输入文本：Enter 保存，Esc 取消。安装后会写入游戏的所有语言。',
+      ['Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'] = '输入文本：Enter 保存，Shift+Enter 换行（按两次留空行），Esc 取消。',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = '输入数值：回车确认，Esc 取消。超出范围的数值会取最接近的合法值。',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = '输入搜索内容：Enter 保留结果，Esc 清空搜索。',
       ['Ultimatum'] = '最后通牒',
@@ -5480,11 +5484,14 @@ MOD.langs = {
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc 取消。HUD 也會顯示新程式碼。',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = '一次調整所有 SEAF 士兵。在各自頁面修改過計程車兵保留其數值。',
       ['Every armor set with this name.'] = '同名的所有護甲套裝。',
+      ['Every armor set with this name. Its passive text is shared by every armor with that passive.'] = '所有同名護甲。被動文字由擁有該被動的所有護甲共用。',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = '擁有此被動的所有護甲也會獲得它們的效果（在各自頁面設定）。',
+      ['Every cape with this name.'] = '所有同名披風。',
       ['Every change as soon as it is pushed, before testing: it may break.'] = '每項更改一經推送即更新，未經測試：可能出錯。',
       ['Every commit'] = '每次提交',
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = '一次調整該陣營的所有敵人。在各自頁面修改過的敵人保留其數值。',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = '你遊戲中的所有絕地潛兵。加入其他玩家的大廳前，請先恢復遊戲檔案。',
+      ['Every helmet with this name.'] = '所有同名頭盔。',
       ['Every passive is in already.'] = '所有被動都已新增。',
       ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = '你親手瞄準的所有武器，包括固定炮台和載具武器：遊戲的晃動乘以此數。0 = 無晃動。',
       ['Evictor'] = '驅離者',
@@ -6172,6 +6179,7 @@ MOD.langs = {
       ['Partial charge explosion'] = '部分蓄力爆炸',
       ['Partial charge shot'] = '部分蓄力射擊',
       ['Passive'] = '被動',
+      ['Passive text'] = '被動文字',
       ['Path start (0 to 1)'] = '路徑起點（0 到 1）',
       ['Patriot Exosuit'] = '愛國者外骨骼裝甲',
       ['Patrol frequency (x)'] = '巡邏頻率 (x)',
@@ -6805,7 +6813,7 @@ MOD.langs = {
       ['Tutorial Reinforcement Beacon'] = '教學增援信標',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = '輸入預設名稱：Enter 確認，Esc 取消。',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = '輸入百分比(%d-%d)：回車確認，Esc 取消。',
-      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = '輸入文字：Enter 儲存，Esc 取消。安裝後會寫入遊戲的所有語言。',
+      ['Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'] = '輸入文字：Enter 儲存，Shift+Enter 換行（按兩次留空行），Esc 取消。',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = '輸入數值：回車確認，Esc 取消。超出範圍的數值會取最接近的合法值。',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = '輸入搜尋內容：Enter 保留結果，Esc 清空搜尋。',
       ['Ultimatum'] = '最後通牒',
@@ -9268,11 +9276,14 @@ MOD.langs = {
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc отменяет. HUD тоже показывает новый код.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Все солдаты SEAF сразу. Солдаты, изменённые на своей странице, сохраняют свои значения.',
       ['Every armor set with this name.'] = 'Все комплекты с этим названием.',
+      ['Every armor set with this name. Its passive text is shared by every armor with that passive.'] = 'Все комплекты брони с этим названием. Текст пассивки общий для всей брони с этой пассивкой.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Вся броня с этим эффектом получает и их эффекты (настраиваются на их страницах).',
+      ['Every cape with this name.'] = 'Все плащи с этим названием.',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Каждое изменение сразу после публикации, без проверки: возможны ошибки.',
       ['Every commit'] = 'Каждый коммит',
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Все враги фракции сразу. Враги, изменённые на своей странице, сохраняют свои значения.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Все десантники в вашей игре. Восстановите файлы игры, прежде чем заходить в лобби других игроков.',
+      ['Every helmet with this name.'] = 'Все шлемы с этим названием.',
       ['Every passive is in already.'] = 'Все пассивные эффекты уже добавлены.',
       ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Всё оружие, которым вы целитесь сами, включая турели-укрепления и оружие техники: колебание игры, умноженное на это число. 0 = без колебания.',
       ['Evictor'] = 'Вытеснитель',
@@ -9926,6 +9937,7 @@ MOD.langs = {
       ['Partial charge explosion'] = 'Взрыв с частичным зарядом',
       ['Partial charge shot'] = 'Выстрел с частичным зарядом',
       ['Passive'] = 'Пассивный эффект',
+      ['Passive text'] = 'Текст пассивки',
       ['Path start (0 to 1)'] = 'Начало пути (от 0 до 1)',
       ['Patriot Exosuit'] = 'Экзокостюм «Патриот»',
       ['Patrol frequency (x)'] = 'Частота патрулей (x)',
@@ -10525,7 +10537,7 @@ MOD.langs = {
       ['Turret'] = 'Башня',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Введите имя: Enter — сохранить, Esc — отмена. Игра тоже видит эти клавиши, поэтому называйте пресеты из меню.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Введите процент (%d-%d): Enter — задать, Esc — отмена.',
-      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Введите текст: Enter сохраняет, Esc отменяет. Установка внесёт его в игру на всех языках.',
+      ['Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'] = 'Введите текст: Enter сохраняет, Shift+Enter начинает новую строку (дважды оставляет пустую строку), Esc отменяет.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Введите значение: Enter — задать, Esc — отмена. Значения вне диапазона заменяются ближайшим допустимым.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Введите запрос: Enter — оставить результаты, Esc — очистить поиск. Игра тоже видит эти клавиши.',
       ['Ultimatum'] = 'Ультиматум',
@@ -12308,11 +12320,14 @@ MOD.langs = {
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc cancela. El HUD también muestra el nuevo código.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Todos los soldados SEAF a la vez. Los soldados que editaste en su propia página conservan sus valores.',
       ['Every armor set with this name.'] = 'Todo blindaje con este nombre.',
+      ['Every armor set with this name. Its passive text is shared by every armor with that passive.'] = 'Todos los conjuntos de blindaje con este nombre. Su texto de pasiva lo comparten todos los blindajes con esa pasiva.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Todos los blindajes con esta pasiva reciben sus efectos también (ajustados en sus propias páginas).',
+      ['Every cape with this name.'] = 'Todas las capas con este nombre.',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Cada cambio en cuanto se sube, antes de probarlo: puede fallar.',
       ['Every commit'] = 'Cada commit',
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Todos los enemigos de esta facción a la vez. Los enemigos que editaste en su propia página conservan sus valores.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Todos los helldivers de tu partida. Restaura los archivos del juego antes de unirte a partidas de otros jugadores.',
+      ['Every helmet with this name.'] = 'Todos los cascos con este nombre.',
       ['Every passive is in already.'] = 'Ya están todas las pasivas.',
       ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Toda arma que apuntas tú mismo, también emplazamientos y armas de vehículos: el balanceo del juego por este valor. 0 = sin balanceo.',
       ['Evictor'] = 'Desalojador',
@@ -12958,6 +12973,7 @@ MOD.langs = {
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosión con carga parcial',
       ['Partial charge shot'] = 'Disparo con carga parcial',
+      ['Passive text'] = 'Texto de pasiva',
       ['Path start (0 to 1)'] = 'Inicio del recorrido (0 a 1)',
       ['Patriot Exosuit'] = 'Exotraje Patriota',
       ['Patrol frequency (x)'] = 'Frecuencia de patrullas (x)',
@@ -13552,7 +13568,7 @@ MOD.langs = {
       ['Turret'] = 'Torreta',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Escribe el nombre: Enter lo guarda, Esc cancela. El juego también recibe estas teclas, así que nombra los perfiles desde un menú.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Escribe el porcentaje (%d-%d): Enter lo aplica, Esc cancela.',
-      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Escribe el texto: Enter lo guarda, Esc cancela. Instalar lo pone en el juego, en todos los idiomas.',
+      ['Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'] = 'Escribe el texto: Enter lo guarda, Shift+Enter empieza una línea nueva (dos veces deja un espacio), Esc cancela.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Escribe el valor: Enter lo aplica, Esc cancela. Los valores fuera de rango se ajustan al permitido más cercano.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Escribe para buscar: Enter mantiene los resultados, Esc borra la búsqueda. El juego también recibe estas teclas.',
       ['Ultimatum'] = 'Ultimátum',
@@ -15303,11 +15319,14 @@ MOD.langs = {
       ['Esc cancels. The HUD shows the new code too.'] = 'Esc cancela. O HUD também mostra o novo código.',
       ['Every SEAF soldier at once. Soldiers you have edited on their own page keep their values.'] = 'Todos os soldados SEAF de uma vez. Soldados que você editou na própria página mantêm seus valores.',
       ['Every armor set with this name.'] = 'Toda blindagem com este nome.',
+      ['Every armor set with this name. Its passive text is shared by every armor with that passive.'] = 'Todos os conjuntos de armadura com este nome. O texto do passivo é compartilhado por todas as armaduras com esse passivo.',
       ['Every armor with this passive gets their effects too (set on their own pages).'] = 'Todas as blindagens com esta passiva recebem os efeitos também (ajustados nas próprias páginas).',
+      ['Every cape with this name.'] = 'Todas as capas com este nome.',
       ['Every change as soon as it is pushed, before testing: it may break.'] = 'Toda mudança assim que é enviada, antes de testar: pode quebrar.',
       ['Every commit'] = 'Todo commit',
       ['Every enemy of this faction at once. Enemies you have edited on their own page keep their values.'] = 'Todos os inimigos desta facção de uma vez. Inimigos que você editou na própria página mantêm seus valores.',
       ['Every helldiver in your game. Restore the game\'s files before joining other players\' lobbies.'] = 'Todos os helldivers da sua partida. Restaure os arquivos do jogo antes de entrar em partidas de outros jogadores.',
+      ['Every helmet with this name.'] = 'Todos os capacetes com este nome.',
       ['Every passive is in already.'] = 'Todas as passivas já estão incluídas.',
       ['Every weapon you aim yourself, emplacements and vehicle guns too: the game\'s sway times this. 0 = no sway.'] = 'Toda arma que você mesmo mira, também posições fixas e armas de veículos: o balanço do jogo vezes este valor. 0 = sem balanço.',
       ['Evictor'] = 'Ordem de Despejo',
@@ -15953,6 +15972,7 @@ MOD.langs = {
       ['Partial charge'] = 'Carga parcial',
       ['Partial charge explosion'] = 'Explosão com carga parcial',
       ['Partial charge shot'] = 'Disparo com carga parcial',
+      ['Passive text'] = 'Texto do passivo',
       ['Path start (0 to 1)'] = 'Início do percurso (0 a 1)',
       ['Patriot Exosuit'] = 'Exouniforme Patriota',
       ['Patrol frequency (x)'] = 'Frequência de patrulhas (x)',
@@ -16547,7 +16567,7 @@ MOD.langs = {
       ['Turret'] = 'Torre',
       ['Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.'] = 'Digite o nome: Enter salva, Esc cancela. O jogo também recebe essas teclas, então nomeie os perfis a partir de um menu.',
       ['Type the percent (%d-%d): Enter sets it, Esc cancels.'] = 'Digite a porcentagem (%d-%d): Enter aplica, Esc cancela.',
-      ['Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.'] = 'Digite o texto: Enter mantém, Esc cancela. Instalar coloca no jogo, em todos os idiomas.',
+      ['Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.'] = 'Digite o texto: Enter mantém, Shift+Enter começa uma linha nova (duas vezes deixa um espaço), Esc cancela.',
       ['Type the value: Enter sets it, Esc cancels. Values out of range are set to the nearest allowed one.'] = 'Digite o valor: Enter aplica, Esc cancela. Valores fora do intervalo vão para o permitido mais próximo.',
       ['Type to search: Enter keeps the results, Esc clears the search. The game sees these keys too.'] = 'Digite para buscar: Enter mantém os resultados, Esc limpo a busca. O jogo também recebe essas teclas.',
       ['Ultimatum'] = 'Ultimato',
@@ -18658,7 +18678,7 @@ KINDS[TYPES.kit].parse = function(blob, stride, spec, address)
         if v and v >= #blob then v = v - address - HEADER_BYTES end
         return v and v >= 0 and v < #blob and v or nil
     end
-    local index = { name = u32(blob, 16), type = u32(blob, 40), passive = u32(blob, 28), pieces = {} }
+    local index = { name = u32(blob, 16), caps = u32(blob, 12), desc = u32(blob, 20), type = u32(blob, 40), passive = u32(blob, 28), pieces = {} }
     local bodies, count = at(48), u32(blob, 56)
     if not (index.name and index.type and count) or count > 8 then return nil, 'armor kit layout does not match this build' end
     if index.type ~= 0 or count == 0 then return index, 0 end
@@ -18718,9 +18738,11 @@ KINDS[TYPES.passive].parse = function(blob, stride, spec, address)
     end
     local mo, so = at(16, mcount, 16), at(32, scount, 12)
     if not mo or not so then return nil, 'passive layout does not match this build' end
-    local index = { id = id, mods = {}, stats = {} }
+    local index = { id = id, mods = {}, stats = {}, text = u32(blob, 4), lines = {} }
     for k = 0, mcount - 1 do
         index.mods[k + 1] = { id = u32(blob, mo + k * 16), type = u32(blob, mo + k * 16 + 4), offset = mo + k * 16 + 8 }
+        local line = u32(blob, mo + k * 16 + 12)
+        if line ~= 0 then index.lines[#index.lines + 1] = line end
     end
     for k = 0, scount - 1 do index.stats[k + 1] = { stat = u32(blob, so + k * 12), offset = so + k * 12 + 8 } end
     return index, mcount + scount
@@ -19455,7 +19477,8 @@ KINDS[TYPES.items].build = function()
                                     note = own and ('Muzzle. Only the ' .. own .. ' comes with it.')
                                            or slot >= 6 and (kinds[slot] .. '. Its modifiers apply to every weapon loaded with it.')
                                            or (kinds[slot] .. '. Its modifiers apply to every weapon fitted with it.'),
-                                    attachment = { mods = mods, scope = scope or nil, order = slot == 2 and 1 or slot == 1 and 2 or slot == 4 and 3 or 4 } }
+                                    attachment = { mods = mods, scope = scope or nil, order = slot == 2 and 1 or slot == 1 and 2 or slot == 4 and 3 or 4,
+                                                   texts = { peek4(top + r + 16), peek4(top + r + 12), peek4(top + r + 20) } } }
                 by_hash[hash] = list[#list]
             end
         end
@@ -19499,7 +19522,7 @@ end
 
 -- Armor weight: one page on the Armors tab, a row per armor (every armor set of that name), its weight on every
 -- piece of it (the torso's shown); speed and stamina follow it (tested in game, issue #89).
-MOD.kits = { HASH = 'FFFFFFF900000001', PAGE = 'FFFFFFF8%08X', MAX_PASSIVES = 14,
+MOD.kits = { HASH = 'FFFFFFF900000001', PAGE = 'FFFFFFF8%08X', LOOK = 'FFFFFFF7%08X', MAX_PASSIVES = 14,
              NAMES = { [0] = 'Light', [1] = 'Medium', [2] = 'Heavy' } }
 function MOD.kits.build()
     for k = #weapons, 1, -1 do
@@ -19529,14 +19552,41 @@ function MOD.kits.build()
             end
             last = { name = MOD.kit_names[id], slot = 'Armors', hash = hash, key = hash_key(hash), rows = {}, by_id = {},
                      kits = 'passive', armor = id, default = lead ~= 0 and { lead } or {},
-                     note = 'Every armor set with this name.' }
+                     note = 'Every armor set with this name. Its passive text is shared by every armor with that passive.' }
             by_hash[hash] = last
             at = at + 1
             table.insert(weapons, at, last)
         end
     end
     if last then last.last_armor = true end
+    MOD.kits.looks(by_name)
     MOD.kits.migrate()
+end
+-- Helmets and capes without an armor of the same name: a page each (offline), only for its Name and Description
+-- boxes, after the passives. MOD.kits.texts: every kit's name text id -> its capitals and description ids.
+function MOD.kits.looks(armors)
+    local host = rawget(_G, 'SHODAN_PHYSICS')
+    local texts, list, seen, kinds = host and host.texts, {}, {}, { 'Helmet', 'Cape' }
+    MOD.kits.texts = {}
+    for _, group in ipairs(KINDS[TYPES.kit].list) do
+        local k = tables[group].index
+        local t = MOD.kits.texts[k.name] or { caps = {}, desc = {} }
+        MOD.kits.texts[k.name] = t
+        t.caps[k.caps] = true
+        t.desc[k.desc] = true
+        if MOD.offline and texts and texts[k.name] and texts[k.name] ~= '' and k.type ~= 0 and not armors[k.name] and not seen[k.name] then
+            seen[k.name] = true
+            local hash = string.format(MOD.kits.LOOK, k.name)
+            local kind = kinds[k.type] or 'Look'
+            list[#list + 1] = { name = kind .. ': ' .. texts[k.name], slot = 'Armors', hash = hash, key = hash_key(hash), rows = {},
+                                by_id = {}, kits = 'look', look = k.name, note = 'Every ' .. kind:lower() .. ' with this name.' }
+            by_hash[hash] = list[#list]
+        end
+    end
+    table.sort(list, function(a, b) return a.name:lower() < b.name:lower() end)
+    local at = #weapons + 1
+    for k = #weapons, 1, -1 do if weapons[k].slot == 'Armors' then at = k + 1; break end end
+    for k, entry in ipairs(list) do table.insert(weapons, at + k - 1, entry) end
 end
 -- the armors in the game, by text id, and their ids by name
 function MOD.kits.named()
@@ -19553,7 +19603,7 @@ function MOD.kits.named()
     return by_name, order
 end
 function MOD.kits.resolve(entry)
-    if entry.kits == 'passive' then return end
+    if entry.kits ~= true then return end
     local by_name, order = MOD.kits.named()
     local function name_of(id) return MOD.kit_names[id] end
     local rows = { {}, {}, {} }
@@ -22250,6 +22300,11 @@ MOD.boosters = { LIST = {
     { 18, 'Concealed Insertion', 'Every hellpod leaves this smoke where it lands.', 'smoke', { 401, 400 } },
     { 20, 'Surplus EAT Allocation', 'The free one-shot EAT it adds to your stratagems.', 'eat', 0xDFB589B2 } } }
 
+-- booster id -> name, in capitals, description (text ids)
+MOD.boosters.TEXTS = { [11] = { 0x89F6921F, 0x00B22672 }, [12] = { 0x9097BB88, 0xA88337E6, 0x7A343F36 },
+    [14] = { 0x174DF35E, 0x8D0053F8, 0x5B24729F }, [15] = { 0x4014FD10, 0xE9B5BACA, 0x0BB15A34 },
+    [17] = { 0xC6B5F30A, 0xB3AFCC76 }, [18] = { 0x6E417BA8, 0x8F22DA6C, 0x672FC2C4 }, [20] = { 0x1CF90DEA, 0x4F268774 } }
+
 MOD.boosters.WHY = "Booster selection is limited due to the other boosters keeping their values in the game's program " ..
                    '(game.dll), not in the data files SSEO edits. Those could only be changed while the game runs, which ' ..
                    'is currently impossible.'
@@ -23798,6 +23853,16 @@ do
         state.updates = function() return settings.updates end   -- the host's updater: 'ask' or 'auto'
         state.update_channel = function() return settings.update_channel end   -- 'releases' or 'commits'
         state.armor_passives = function() return settings.armor_passives end   -- armor text id -> { passive ids }
+        state.one_line = function()   -- passive id -> how many lines its typed description has
+            local out = {}
+            for hash, typed in pairs(MOD.rename.texts) do
+                local w = by_hash[hash]
+                if w and w.passive and typed.desc then
+                    out[tables[w.passive].index.id] = #MOD.rename.parts((typed.desc:gsub('|', '\n')))
+                end
+            end
+            return out
+        end
         -- stratagem type -> { arrow, ... }: every call-in code set here (hostdata.lua M.codes writes them)
         state.codes = function()
             local out = {}
@@ -23864,9 +23929,11 @@ end
 -- ---------------------------------------------------------------- names and descriptions (offline)
 -- The Name and Description boxes under a page's rows: the game's text ids in its encyclopedia entry (weapons,
 -- throwables: +0 name, +8 in capitals, +20 description) and its stratagem's row (+44 name, +40 in capitals, +48
--- description). The host has the game's English texts (SHODAN_PHYSICS.texts, by id); Install puts the typed ones
+-- description), armors, helmets and capes (kit +16 name, +12 in capitals, +20 description; an armor and its helmet
+-- can share them), passives (+4 name, the first modifier's line; a typed one is the only line, hostdata drops the others), attachments (+16 name, +12 in capitals, +20
+-- description), boosters (their ids below: no table holds them). The host has the game's English texts (SHODAN_PHYSICS.texts, by id); Install puts the typed ones
 -- into every language's strings files through the patch archive (offline/vehicles.lua). In config.txt:
--- rename <page hash> name|desc <text>
+-- rename <page hash> name|desc <text> (| in a text: a new line; {H}: a # sign, which would start a comment)
 MOD.rename = { texts = {}, LIMIT = { name = 60, desc = 400 } }
 
 local function save_config()
@@ -23947,7 +24014,7 @@ local function save_config()
     for _, hash in ipairs(renamed) do
         for _, field in ipairs({ 'name', 'desc' }) do
             local v = MOD.rename.texts[hash][field]
-            if v then lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. v end
+            if v then lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. v:gsub('#', '{H}') end
         end
     end
     local ok, why = MOD.write_text(path, table.concat(lines, '\r\n') .. '\r\n')
@@ -24057,7 +24124,7 @@ local function load_config()
         local rhash, field, typed = line:match('^%s*rename%s+(%x+)%s+(%a+)%s+(.-)%s*$')
         if rhash and MOD.offline and (field == 'name' or field == 'desc') and typed ~= '' then
             local t = MOD.rename.texts[rhash:upper()] or {}
-            t[field], MOD.rename.texts[rhash:upper()], known = typed, t, true
+            t[field], MOD.rename.texts[rhash:upper()], known = typed:gsub('{H}', '#'), t, true
         end
         if not known then MOD.skipped('config.txt', at, line) end
     end
@@ -24108,9 +24175,42 @@ function MOD.rename.of(w)
     end
     local def = w.stratagem and w.stratagem.def
     if def then add(out.name, peek4(def.at + 44)); add(out.name, peek4(def.at + 40), true); add(out.desc, peek4(def.at + 48)) end
+    local kit = MOD.kits.texts and MOD.kits.texts[w.armor or w.look]
+    if kit then
+        add(out.name, w.armor or w.look)
+        for id in pairs(kit.caps) do add(out.name, id, true) end
+        for id in pairs(kit.desc) do add(out.desc, id) end
+    end
+    local passive = w.passive and tables[w.passive].index
+    if passive then
+        add(out.name, passive.text)
+        for _, id in ipairs(passive.lines) do add(out.desc, id) end
+    end
+    local a = w.attachment and w.attachment.texts or w.booster and MOD.boosters.TEXTS[w.booster[1]]
+    if a then add(out.name, a[1]); add(out.name, a[2], true); add(out.desc, a[3]) end
     if #out.name == 0 then return nil end
-    out.game = { name = texts[out.name[1][1]], desc = out.desc[1] and texts[out.desc[1][1]] }
+    out.game = { name = texts[out.name[1][1]], desc = out.desc[1] and texts[out.desc[1][1]]:gsub('\r?\n', '|') }
+    if passive then
+        -- every line, a gap between them: typed, each part goes to its line, so it keeps its own #BONUS value
+        local lines = {}
+        for k, n in ipairs(out.desc) do lines[k] = texts[n[1]]:gsub('\r?\n', '|') end
+        out.game.desc, out.lines = out.desc[1] and table.concat(lines, '||'), true
+    end
     return out
+end
+
+-- the page and field a box edits: 'line<id>', on an armor's passive row, is that passive's description
+function MOD.rename.page(w, field)
+    local id = field:match('^line(%d+)$')
+    if not id then return w, field end
+    return by_hash[string.format('FFFFFFFE%08X', tonumber(id))], 'desc'
+end
+
+-- a passive's typed text, by the blank lines in it
+function MOD.rename.parts(text)
+    local parts = {}
+    for part in (text .. '\n\n'):gmatch('(.-)\n\n') do parts[#parts + 1] = part end
+    return parts
 end
 
 -- id -> text of every typed name and description (the host's Install asks)
@@ -24119,7 +24219,16 @@ function MOD.rename.map()
     for hash, typed in pairs(MOD.rename.texts) do
         local ids = MOD.rename.of(by_hash[hash])
         for _, field in ipairs(ids and { 'name', 'desc' } or {}) do
-            for _, n in ipairs(typed[field] and ids[field] or {}) do out[n[1]] = n[2] and typed[field]:upper() or typed[field] end
+            local text = typed[field] and typed[field]:gsub('|', '\n')   -- (config.txt keeps a line per text)
+            if text and field == 'desc' and ids.lines then
+                local parts = MOD.rename.parts(text)
+                for k, part in ipairs(parts) do
+                    local n = ids.desc[math.min(k, #ids.desc)][1]
+                    out[n] = k > #ids.desc and out[n] .. '\n\n' .. part or part
+                end
+            else
+                for _, n in ipairs(text and ids[field] or {}) do out[n[1]] = n[2] and text:upper() or text end
+            end
         end
     end
     return out
@@ -25000,7 +25109,7 @@ local function weapons_in(tab)
         return list
     end
     for _, weapon in ipairs(weapons) do
-        if (#weapon.rows > 0 or weapon.armor) and not settings.hidden[weapon.slot] then
+        if (#weapon.rows > 0 or weapon.armor or weapon.look) and not settings.hidden[weapon.slot] then
             if words then
                 local name, all = weapon.name:lower(), true
                 for _, word in ipairs(words) do
@@ -26165,7 +26274,7 @@ local function draw(width, height)
             tab_x = tab_x + w + 4
         end
     end
-    button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or ui.weapon.armor and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
+    button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or (ui.weapon.armor or ui.weapon.look) and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
 
     -- a list's scroll bar (the weapon list, or the full presets): a thin track between the list and the
     -- line that parts the panel's halves, shown when the list is longer than LIST_ROWS
@@ -26524,7 +26633,7 @@ local function draw(width, height)
         end
         -- this weapon's presets, under its stats
         local sy = H - 70 - 34
-        if not weapon.armor then   -- (no values of its own to keep)
+        if not weapon.armor and not weapon.look then   -- (no values of its own to keep)
         text('PRESETS', x0, sy + 8, 15, MUTED)
         for n = 1, presets.weapon_count do
             local saved = presets.weapon_preset(weapon, n)
@@ -26537,7 +26646,30 @@ local function draw(width, height)
         end
         local bottom = H - 70 - 40
         local rename = MOD.offline and MOD.rename.of(weapon)
-        if rename then bottom = bottom - 92 end
+        -- a Description box shows all of its text: value in rows that fit in room, | starts a new one
+        local function wrapped(value, room)
+            local rows = {}
+            for para in (value .. '|'):gmatch('(.-)|') do
+                local line = ''
+                for word in para:gmatch('%S+') do
+                    local long = line == '' and word or line .. ' ' .. word
+                    if line ~= '' and width(long, 15 * s) > room * s then
+                        rows[#rows + 1], line = line, word
+                    else line = long end
+                end
+                rows[#rows + 1] = line
+            end
+            return rows
+        end
+        local desc_rows
+        if rename and rename.desc[1] then
+            local typed = MOD.rename.texts[weapon.hash]
+            local editing = ui.rename and ui.rename.weapon == weapon and ui.rename.field == 'desc' and ui.rename
+            desc_rows = wrapped(editing and editing.text .. '_' or typed and typed.desc or rename.game.desc or '', 954 - x0 - 150 - 16)
+            while #desc_rows > 7 do table.remove(desc_rows, editing and 1 or #desc_rows) end
+        end
+        local grown = desc_rows and (#desc_rows - 1) * 20 or 0
+        if rename then bottom = bottom - 92 - grown end
         -- an armor (offline): its passives
         local stack_list = MOD.offline and weapon.armor and MOD.kits.list_of(weapon)
         if stack_list then bottom = bottom - (36 + 34 * (#stack_list + 2)) end
@@ -26680,6 +26812,39 @@ local function draw(width, height)
             button('scroll:up', 'Up', 790, bottom + 6, 80, 26, ui.scroll > 1)
             button('scroll:down', 'Down', 874, bottom + 6, 80, 26, ui.last_visible < #weapon.rows)
         end
+        -- the part of value that fits in room (its end while typing)
+        local function fit(value, room, tail)
+            if width(value, 15 * s) <= room * s then return value end
+            local cs = {}
+            for c in value:gmatch('[%z\1-\127\194-\244][\128-\191]*') do cs[#cs + 1] = c end
+            local function cut(k) return tail and '...' .. table.concat(cs, '', #cs - k + 1) or table.concat(cs, '', 1, k) .. '...' end
+            local lo, hi = 0, #cs
+            while lo < hi do
+                local mid = math.ceil((lo + hi) / 2)
+                if width(cut(mid), 15 * s) <= room * s then lo = mid else hi = mid - 1 end
+            end
+            return cut(lo)
+        end
+        -- a text box and its R button (R at bx + bw + 4); rows: its text, wrapped
+        local function rename_box(field, bx, ry, bw, rows)
+            local page, on = MOD.rename.page(weapon, field)
+            local ids = MOD.rename.of(page)
+            local typed = MOD.rename.texts[page.hash]
+            typed = typed and typed[on]
+            local editing = ui.rename and ui.rename.weapon == page and ui.rename.field == on and ui.rename
+            local ok = on == 'name' or ids.desc[1] ~= nil
+            local hot = editing or (ok and ui.hover == 'rename:' .. field)
+            local h = rows and 8 + 20 * #rows or 28
+            rect(bx, ry, bw, h, editing and color(20, 26, 34) or hot and color(40, 52, 64) or color(28, 34, 42), 951)
+            outline(bx, ry, bw, h, hot and GOLD or color(70, 82, 94))
+            local value = editing and editing.text or typed or ids.game[on] or ''
+            if editing then value = fit(value .. '_', bw - 16, true) else value = fit(value, bw - 16) end
+            for k, row in ipairs(rows or { value }) do
+                text(row, bx + 8, ry + 6 + (k - 1) * 20, 15, typed and not editing and GOLD or WHITE)
+            end
+            region('rename:' .. field, bx, ry, bw, h, ok)
+            button('rename_reset:' .. field, 'R', bx + bw + 4, ry, 26, 28, typed ~= nil)
+        end
         if stack_list then
             y = (scrolling and bottom + 36 or y) + 12
             text('PASSIVES', x0, y + 4, 15, MUTED)
@@ -26692,7 +26857,9 @@ local function draw(width, height)
             end
             for _, id in ipairs(stack_list) do
                 local other = by_hash[string.format('FFFFFFFE%08X', id)]
-                text(other and other.name or ('Passive ' .. id), x0, y + 6, 16, WHITE, 420)
+                local boxed = other and MOD.rename.of(other)
+                text(other and other.name or ('Passive ' .. id), x0, y + 6, 16, WHITE, boxed and 196 or 420)
+                if boxed then rename_box('line' .. id, x0 + 204, y, 766 - x0 - 204) end
                 button('stack_open:' .. id, 'Open', 800, y, 88, 28, other ~= nil)
                 button('stack_del:' .. id, 'Remove', 896, y, 88, 28, true)
                 y = y + 34
@@ -26704,41 +26871,15 @@ local function draw(width, height)
             end
         end
         if rename then   -- the in-game name and description, at the very bottom
-            -- the part of value that fits in room (its end while typing)
-            local function fit(value, room, tail)
-                if width(value, 15 * s) <= room * s then return value end
-                local cs = {}
-                for c in value:gmatch('[%z\1-\127\194-\244][\128-\191]*') do cs[#cs + 1] = c end
-                local function cut(k) return tail and '...' .. table.concat(cs, '', #cs - k + 1) or table.concat(cs, '', 1, k) .. '...' end
-                local lo, hi = 0, #cs
-                while lo < hi do
-                    local mid = math.ceil((lo + hi) / 2)
-                    if width(cut(mid), 15 * s) <= room * s then lo = mid else hi = mid - 1 end
-                end
-                return cut(lo)
-            end
-            local ry = H - 70 - 40 - 88
+            local ry = H - 70 - 40 - 88 - grown
             text('IN-GAME TEXT', x0, ry + 4, 15, MUTED)
             text('Click a box to type. Install puts it in the game, in every language.', x0 + 150, ry + 4, 14, MUTED, W - x0 - 170)
             ry = ry + 26
-            for _, f in ipairs({ { 'name', 'Name' }, { 'desc', 'Description' } }) do
-                local field = f[1]
-                local typed = MOD.rename.texts[weapon.hash]
-                typed = typed and typed[field]
-                local editing = ui.rename and ui.rename.weapon == weapon and ui.rename.field == field and ui.rename
-                local ok = field == 'name' or rename.desc[1] ~= nil
-                local bx = x0 + 150
-                local bw = 954 - bx
-                local hot = editing or (ok and ui.hover == 'rename:' .. field)
+            for _, f in ipairs({ { 'name', 'Name' }, { 'desc', weapon.passive and 'Passive text' or 'Description' } }) do
                 text(f[2], x0, ry + 6, 16, WHITE, 140)
-                rect(bx, ry, bw, 28, editing and color(20, 26, 34) or hot and color(40, 52, 64) or color(28, 34, 42), 951)
-                outline(bx, ry, bw, 28, hot and GOLD or color(70, 82, 94))
-                local value = editing and editing.text or typed or rename.game[field] or ''
-                if editing then value = fit(value .. '_', bw - 16, true) else value = fit(value, bw - 16) end
-                text(value, bx + 8, ry + 6, 15, typed and not editing and GOLD or WHITE)
-                region('rename:' .. field, bx, ry, bw, 28, ok)
-                button('rename_reset:' .. field, 'R', 958, ry, 26, 28, typed ~= nil)
-                ry = ry + 34
+                local rows = f[1] == 'desc' and desc_rows or nil
+                rename_box(f[1], x0 + 150, ry, 954 - x0 - 150, rows)
+                ry = ry + 34 + (rows and (#rows - 1) * 20 or 0)
             end
         end
     end
@@ -26761,7 +26902,7 @@ local function draw(width, height)
         text('Type the name: Enter keeps it, Esc cancels. The game sees these keys too, so name presets from a menu.',
              18, H - 56, 14, MUTED, W - 280)
     elseif ui.rename then
-        text('Type the text: Enter keeps it, Esc cancels. Install puts it in the game, in every language.',
+        text('Type the text: Enter keeps it, Shift+Enter starts a new line (twice leaves a gap), Esc cancels.',
              18, H - 56, 14, MUTED, W - 280)
     elseif ui.value and ui.value.setting then
         local r = settings.RANGE[ui.value.setting]
@@ -26898,7 +27039,7 @@ function MOD.restore_last()
     ui.tab, ui.page, ui.search, ui.settings, ui.weapon = tabs[1], 1, { text = '', active = false }, false, nil
     for _, t in ipairs(tabs) do if t == last.tab then ui.tab = t end end
     local page = last.weapon and by_hash[last.weapon]
-    if page and page.slot == ui.tab and (#page.rows > 0 or page.armor) and (page.enemy ~= nil) == MOD.enemy.on then
+    if page and page.slot == ui.tab and (#page.rows > 0 or page.armor or page.look) and (page.enemy ~= nil) == MOD.enemy.on then
         select_weapon(page)
     else
         select_weapon(weapons_in(ui.tab)[1])
@@ -26914,7 +27055,7 @@ local function click(key)
     if ui.search.active and kind ~= 'search' then ui.search.active = false end
     if ui.value and key ~= 'value:' .. ui.value.n then finish_value(true) end
     if ui.code and key ~= 'code:' .. ui.code.n then MOD.code.finish(false) end
-    if ui.rename and key ~= 'rename:' .. ui.rename.field then
+    if ui.rename and key ~= 'rename:' .. ui.rename.box then
         MOD.rename.set(ui.rename.weapon, ui.rename.field, ui.rename.text)
         ui.rename, ui.version = nil, ui.version + 1
     end
@@ -27019,10 +27160,12 @@ local function click(key)
         elseif n and arg == 'rename' then presets.start_rename(n) end
     elseif kind == 'stack_pick' and weapon then ui.stack_pick = weapon
     elseif kind == 'rename' and weapon and not ui.rename then
-        local ids, typed = MOD.rename.of(weapon), MOD.rename.texts[weapon.hash]
-        ui.rename = { weapon = weapon, field = arg, text = typed and typed[arg] or ids and ids.game[arg] or '' }
+        local page, field = MOD.rename.page(weapon, arg)
+        local ids, typed = MOD.rename.of(page), MOD.rename.texts[page.hash]
+        ui.rename = { weapon = page, field = field, box = arg, text = typed and typed[field] or ids and ids.game[field] or '' }
     elseif kind == 'rename_reset' and weapon then
-        MOD.rename.set(weapon, arg, nil)
+        local page, field = MOD.rename.page(weapon, arg)
+        MOD.rename.set(page, field, nil)
         ui.version = ui.version + 1
     elseif kind == 'stack_cancel' then ui.stack_pick = nil
     elseif kind == 'copy_pick' and weapon then ui.copy = { weapon = weapon, section = arg, chosen = {} }
@@ -27367,14 +27510,17 @@ local function keyboard(now)
         local edit = ui.rename
         if pressed('Escape', now) then ui.rename = nil; return end
         if pressed('Enter', now) then
-            MOD.rename.set(edit.weapon, edit.field, edit.text)
-            ui.rename, ui.version = nil, ui.version + 1
-            return
+            if edit.field ~= 'desc' or not key_down(VK.Shift) then
+                MOD.rename.set(edit.weapon, edit.field, edit.text)
+                ui.rename, ui.version = nil, ui.version + 1
+                return
+            end
+            if #edit.text < MOD.rename.LIMIT.desc then edit.text = edit.text .. '|' end
         end
         -- held: about one character a frame (long descriptions)
         if pressed('Backspace', now, 0.3, 0.015) then edit.text = edit.text:gsub('[%z\1-\127\194-\244][\128-\191]*$', '') end
-        local function add(c)   -- ('#' starts a comment in config.txt)
-            if c ~= '#' and #edit.text + #c <= MOD.rename.LIMIT[edit.field] then edit.text = edit.text .. c end
+        local function add(c)
+            if #edit.text + #c <= MOD.rename.LIMIT[edit.field] then edit.text = edit.text .. c end
         end
         if poll then
             for _, vk in ipairs(TEXT_KEYS) do

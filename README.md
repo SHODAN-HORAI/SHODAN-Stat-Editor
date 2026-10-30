@@ -1,7 +1,7 @@
 # SHODAN Stat Editor
 
 Change the stats of weapons, throwables, stratagems, mechas, boosters, attachments, armor passives and your
-helldiver in **Helldivers 2**, and transmog armor: give any armor up to 14 passives. The **Enemy Editor**
+helldiver in **Helldivers 2**, and transmog armor. The **Enemy Editor**
 changes every enemy, your SEAF allies and how they spawn, and keeps custom difficulties as presets. **SHODAN Stat Editor
 Offline** (SSEO) is a Windows program: pick a weapon, change its numbers, press **Install into the
 game**, and play. It writes your values into the game's own
@@ -129,7 +129,7 @@ the passives you want. Every armor has its own page on the Armors tab:
   the values set on its own page. The passive pages are below the armors.
 - With several passives the armory shows the first one's name and at most 3 effects. All of them
   apply. Two passives with the same effect count it once.
-- **Reset armor** puts its passive back to the game's.
+- **Reset armor** puts its passive, name and description back to the game's.
 
 **Armor weight**: on the Armors tab, make any armor light, medium or heavy. Speed and stamina
 follow the weight you pick.
@@ -231,9 +231,12 @@ with your presets. The game gets them when you press **Install into the game** (
 closed: it reads its files when it starts). The bar at the bottom says whether your values are in
 the game.
 
-**Names and descriptions.** Weapon, throwable and stratagem pages have Name and Description boxes at
-the bottom. Click one, type, and press Enter; R puts the game's own text back. Install puts your text
-in the game, in every language.
+**Names and descriptions.** Weapons, throwables, stratagems, armors, helmets, capes, passives,
+attachments and boosters have Name and Description boxes at the bottom of their pages, and each passive
+on an armor's page has a text box of its own. Click one, type, and press Enter; R puts the game's own text back. Press
+Shift+Enter in a description for a new line, twice for a blank line
+between paragraphs. In passive text, `#BONUS` shows the passive's value and each paragraph keeps its
+own. Install puts your text in the game, in every language.
 
 ## Settings
 

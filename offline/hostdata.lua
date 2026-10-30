@@ -199,15 +199,27 @@ end
 
 -- The armory's preview of a passive lists at most 3 described modifiers (no native passive has more; a 4th crashes
 -- the game, issue #74): past the 3rd, a modifier keeps its effect but loses its description id (+12). The ids
--- that lose it go to `hidden`.
+-- that lose it go to `hidden`. `parts`, each passive's modifiers, take turns, so a long first one does not hide the rest.
 local MAX_DESCRIBED = 3
-local function cap_descriptions(mods, hidden)
-    local out, shown = {}, 0
+local function cap_descriptions(mods, hidden, parts)
+    local keep, left = {}, MAX_DESCRIBED
+    for round = 1, MAX_DESCRIBED do
+        for _, part in ipairs(parts) do
+            local seen = 0
+            for o = 1, #part, 16 do
+                if part:sub(o + 12, o + 15) ~= '\0\0\0\0' then
+                    seen = seen + 1
+                    local id = part:sub(o, o + 3)
+                    if seen == round and left > 0 and not keep[id] then keep[id], left = true, left - 1 end
+                end
+            end
+        end
+    end
+    local out = {}
     for o = 1, #mods, 16 do
         local m = mods:sub(o, o + 15)
         if m:sub(13, 16) ~= '\0\0\0\0' then
-            shown = shown + 1
-            if shown > MAX_DESCRIBED then
+            if not keep[m:sub(1, 4)] then
                 local b1, b2, b3, b4 = m:byte(1, 4)
                 hidden[#hidden + 1] = string.format('%08X', ((b4 * 256 + b3) * 256 + b2) * 256 + b1)
                 m = m:sub(1, 12) .. '\0\0\0\0'
@@ -221,9 +233,10 @@ end
 local KIT = 0xD9A55AA0
 local FIRST_NEW_ID = 60
 -- lists: armor text id -> { passive id, ... }. Adds to / changes `changes` (from M.diff) in place.
-function M.armor_passives(changes, lists, log)
-    log, lists = log or function() end, lists or {}
-    if not next(lists) then return true end
+-- one_line: passive id -> the lines of its typed description; its other lines leave the armory.
+function M.armor_passives(changes, lists, log, one_line)
+    log, lists, one_line = log or function() end, lists or {}, one_line or {}
+    if not next(lists) and not next(one_line) then return true end
     local function change_of(typ)
         local f
         for _, file in pairs(M.files) do
@@ -246,6 +259,18 @@ function M.armor_passives(changes, lists, log)
     -- every passive's modifiers and weapon stat modifiers, as edited
     local p, n = pc.plain, pc.n
     local hs = G.headers(p, n)
+    for _, h in ipairs(hs) do
+        local P = h.at + 24
+        if h.type == PASSIVE and h.size >= 56 and one_line[u32(p, P)] then
+            local left = one_line[u32(p, P)]
+            for at = P + 56 + 12, P + 56 + 12 + (u32(p, P + 24) - 1) * 16, 16 do
+                if u32(p, at) ~= 0 then
+                    if left <= 0 then ffi.cast('uint32_t *', p + at)[0] = 0; pc.bytes = pc.bytes + 4 end
+                    left = left - 1
+                end
+            end
+        end
+    end
     local blocks, next_id = {}, FIRST_NEW_ID
     for _, h in ipairs(hs) do
         if h.type == PASSIVE and h.size >= 56 then
@@ -276,11 +301,12 @@ function M.armor_passives(changes, lists, log)
         elseif records[key] then
             wanted[armor] = records[key]
         else
-            local mods, stats, dropped, hidden = '', '', {}, {}
+            local mods, stats, dropped, hidden, parts = '', '', {}, {}, {}
             for _, id in ipairs(list) do
                 mods, stats = append_mods(mods, blocks[id].mods, dropped), stats .. blocks[id].stats
+                parts[#parts + 1] = blocks[id].mods
             end
-            mods = cap_descriptions(mods, hidden)
+            mods = cap_descriptions(mods, hidden, parts)
             local head = ffi.new('uint8_t[80]')
             ffi.copy(head, blocks[list[1]].head, 80)
             local payload = head + 24

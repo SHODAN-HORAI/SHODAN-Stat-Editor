@@ -253,7 +253,7 @@ local function main()
         if I.game_running() then say('Helldivers 2 is running: close it, then Install.', WARN); return end
         busy('Installing: finding what changed...')
         local changes = D.diff()
-        local stacked, why_not = D.armor_passives(changes, state.armor_passives and state.armor_passives(), log)
+        local stacked, why_not = D.armor_passives(changes, state.armor_passives and state.armor_passives(), log, state.one_line and state.one_line())
         if not stacked then
             for _, c in ipairs(changes) do G.free(c.plain) end
             bar.busy = nil
