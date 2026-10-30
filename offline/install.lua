@@ -22,6 +22,9 @@ for _, declaration in ipairs({
     'int Process32FirstW(void *snapshot, host_process_entry *entry);',
     'int Process32NextW(void *snapshot, host_process_entry *entry);',
     'int CloseHandle(void *handle);',
+    'void *OpenProcess(uint32_t access, int inherit, uint32_t pid);',
+    'int TerminateProcess(void *process, uint32_t code);',
+    'intptr_t ShellExecuteA(void *window, const char *verb, const char *file, const char *params, const char *folder, int show);',
     'typedef struct { uint32_t attributes, times[6], size_high, size_low, reserved[2]; char name[260], short_name[14]; } host_find_data;',
     'void *FindFirstFileA(const char *pattern, host_find_data *data);',
     'int FindNextFileA(void *find, host_find_data *data);',
@@ -159,12 +162,12 @@ function M.remember_game(folder)
     write(CHOSEN, folder .. '\n')
 end
 
-function M.game_running()
+local function game_processes()
+    local pids = {}
     local snap = kernel.CreateToolhelp32Snapshot(2, 0)   -- TH32CS_SNAPPROCESS
-    if snap == nil or ffi.cast('intptr_t', snap) == -1 then return false end
+    if snap == nil or ffi.cast('intptr_t', snap) == -1 then return pids end
     local e = ffi.new('host_process_entry')
     e.size = ffi.sizeof(e)
-    local running = false
     local ok = kernel.Process32FirstW(snap, e)
     while ok ~= 0 do
         local name = {}
@@ -173,11 +176,29 @@ function M.game_running()
             if c == 0 then break end
             name[#name + 1] = c < 128 and string.char(c) or '?'
         end
-        if table.concat(name):lower() == 'helldivers2.exe' then running = true; break end
+        if table.concat(name):lower() == 'helldivers2.exe' then pids[#pids + 1] = e.pid end
         ok = kernel.Process32NextW(snap, e)
     end
     kernel.CloseHandle(snap)
-    return running
+    return pids
+end
+
+function M.game_running() return #game_processes() > 0 end
+
+-- From Thodmcniujiao's fork. Asks Steam to start the game; Windows' answer above 32 means it took the request.
+function M.launch_game()
+    return ffi.load('shell32').ShellExecuteA(nil, 'open', 'steam://rungameid/553850', nil, nil, 1) > 32
+end
+
+-- Ends the game at once (it gets no chance to save). True when no process is left to end.
+function M.close_game()
+    local all = true
+    for _, pid in ipairs(game_processes()) do
+        local process = kernel.OpenProcess(1, 0, pid)   -- PROCESS_TERMINATE
+        if process == nil or kernel.TerminateProcess(process, 1) == 0 then all = false end
+        if process ~= nil then kernel.CloseHandle(process) end
+    end
+    return all
 end
 
 -- ---------------------------------------------------------------- installed.txt

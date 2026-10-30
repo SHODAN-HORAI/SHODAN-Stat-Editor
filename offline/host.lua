@@ -135,12 +135,14 @@ local function main()
         local s = shim.h / 1080
         local y0, y1 = 1038 * s, 1072 * s
         bar.buttons = {
-            { key = 'install', label = 'Install into the game', x0 = 30 * s, x1 = 290 * s, y0 = y0, y1 = y1 },
-            { key = 'restore', label = 'Restore the game\'s files', x0 = 302 * s, x1 = 562 * s, y0 = y0, y1 = y1 },
+            { key = 'install', label = 'Install into the game', x0 = 30 * s, x1 = 210 * s, y0 = y0, y1 = y1 },
+            { key = 'restore', label = 'Restore the game\'s files', x0 = 218 * s, x1 = 398 * s, y0 = y0, y1 = y1 },
+            { key = 'start_game', label = 'Start game', x0 = 406 * s, x1 = 506 * s, y0 = y0, y1 = y1, tint = { 26, 54, 36 } },
+            { key = 'close_game', label = 'Close game', x0 = 514 * s, x1 = 614 * s, y0 = y0, y1 = y1, tint = { 58, 30, 32 } },
         }
         if bar.release then
             local x1 = shim.w - 30 * s
-            bar.buttons[3] = { key = 'update', label = 'Update to ' .. bar.release.label, x0 = x1 - 170 * s, x1 = x1,
+            bar.buttons[#bar.buttons + 1] = { key = 'update', label = 'Update to ' .. bar.release.label, x0 = x1 - 170 * s, x1 = x1,
                                y0 = 9 * s, y1 = 41 * s, gold = true }   -- top right, in the tagline's place
         end
         -- the titles (paint_bar): Stat Editor, then Enemy Editor once the editor offers the switch
@@ -211,13 +213,14 @@ local function main()
         end
         for _, b in ipairs(bar.buttons) do
             local hovered = bar.hover == b.key and not bar.busy
-            shim.fill(b.x0, b.y0, b.x1, b.y1, hovered and { 255, 52, 66, 80 } or { 255, 28, 34, 42 })
+            local c = b.tint or { 28, 34, 42 }
+            shim.fill(b.x0, b.y0, b.x1, b.y1, hovered and { 255, c[1] * 1.6, c[2] * 1.6, c[3] * 1.6 } or { 255, c[1], c[2], c[3] })
             local edge = hovered and GOLD or { 255, 70, 82, 94 }
             local e = math.max(1, math.floor(2 * s + 0.5))
             shim.fill(b.x0, b.y0, b.x1, b.y0 + e, edge); shim.fill(b.x0, b.y1 - e, b.x1, b.y1, edge)
             shim.fill(b.x0, b.y0, b.x0 + e, b.y1, edge); shim.fill(b.x1 - e, b.y0, b.x1, b.y1, edge)
             shim.flush()
-            local size, label = 16 * s, tr(b.label)
+            local size, label = 16 * s, tr(b.key == 'close_game' and bar.close_until and 'Click again' or b.label)
             while size > 10 * s and shim.text_width(label, size) > b.x1 - b.x0 - 12 * s do size = size - 0.5 end
             shim.text(label, (b.x0 + b.x1 - shim.text_width(label, size)) / 2, (b.y0 + b.y1) / 2 + size * 0.35, size,
                       b.gold and GOLD or WHITE)
@@ -265,6 +268,22 @@ local function main()
     end
 
     local function say(text, tone) bar.message, bar.tone = text, tone or MUTED end
+    local function start_game()
+        if I.game_running() then say('Helldivers 2 is already running.', WARN)
+        elseif I.launch_game() then say('Starting Helldivers 2 through Steam...', GOOD)
+        else say('Could not ask Steam to start the game.', WARN) end
+    end
+    -- the second click within 4 seconds ends it (bar.close_until: the button says so)
+    local function close_game()
+        if not I.game_running() then bar.close_until = nil; say('Helldivers 2 is not running.'); return end
+        if not bar.close_until then
+            bar.close_until = clock() + 4
+            say('Click again within 4 seconds to end the game. Unsaved progress is lost.', WARN)
+            return
+        end
+        bar.close_until = nil
+        if I.close_game() then say('Helldivers 2 was closed.', GOOD) else say('Could not close Helldivers 2.', WARN) end
+    end
 
     local function busy(text)
         bar.busy = text
@@ -477,11 +496,13 @@ local function main()
         if not down and was_down and armed and armed == hover and state.phase == 'ready' then
             bar.message = nil
             if hover == 'install' then install() elseif hover == 'restore' then restore()
+            elseif hover == 'start_game' then start_game() elseif hover == 'close_game' then close_game()
             elseif hover == 'update' and update_program() then break
             elseif hover == 'title_stat' or hover == 'title_enemy' then state.switch_editor(hover == 'title_enemy') end
             armed = nil
         end
         was_down = down
+        if bar.close_until and clock() >= bar.close_until then bar.close_until, bar.message = nil, nil end
         local text = status()
         local signature = table.concat({ shim.version, state.phase, tostring(state.status), tostring(hover), text,
                                          shim.lang(), bar.release and bar.release.label or '', bar.dropped, tostring(bar.banner) }, '|')
