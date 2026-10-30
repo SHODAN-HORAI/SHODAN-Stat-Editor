@@ -130,7 +130,7 @@ local function main()
 
     -- ------------------------------------------------------------ the host's bar (below the panel)
     local bar = { hover = nil, message = nil, tone = MUTED, busy = nil, base = nil, buttons = {}, dropped = 0, banner = nil }
-    local DROPPED = "Installed, but not every weapon's effects can load. Shots from the others may show no trail unless someone brings that weapon."
+    local DROPPED = "Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions."
     local function layout()
         local s = shim.h / 1080
         local y0, y1 = 1038 * s, 1072 * s
@@ -246,12 +246,40 @@ local function main()
         end
         -- over the top strip, so a click here never lands on the panel
         if bar.banner then
-            shim.fill(0, 0, shim.w, 46 * s, { 255, 122, 60, 14 })
-            shim.fill(0, 46 * s - math.max(1, math.floor(2 * s + 0.5)), shim.w, 46 * s, WARN)
+            -- what did not fit, under the warning: a line per kind, wrapped
+            local lines, room = {}, shim.w - 60 * s
+            local listed = state.dropped or {}
+            for _, g in ipairs({ { 'Projectiles with no trail:', listed.shots }, { 'Stratagems left out of missions:', listed.stratagems } }) do
+                local line = g[2] and g[2][1] and tr(g[1])
+                for k, name in ipairs(g[2] or {}) do
+                    local longer = line .. (k > 1 and ', ' or ' ') .. name
+                    if shim.text_width(longer, 16 * s) > room then
+                        lines[#lines + 1] = line .. ','
+                        line = name
+                    else line = longer end
+                end
+                if line then lines[#lines + 1] = line end
+            end
+            bar.banner_h = (46 + 24 * #lines + (#lines > 0 and 6 or 0)) * s
+            shim.fill(0, 0, shim.w, bar.banner_h, { 255, 122, 60, 14 })
+            shim.fill(0, bar.banner_h - math.max(1, math.floor(2 * s + 0.5)), shim.w, bar.banner_h, WARN)
             shim.flush()
+            for k, line in ipairs(lines) do shim.text(line, 30 * s, (40 + 24 * k) * s, 16 * s, WHITE) end
             local warning, size = tr(DROPPED), 19 * s
             while size > 10 * s and shim.text_width(warning, size) > shim.w - 60 * s do size = size - 0.5 end
-            shim.text(warning, 30 * s, 23 * s + size * 0.35, size, WHITE)
+            -- the setting's name a shade darker: the text in three pieces, or whole when a language has no such piece
+            local x, y = 30 * s, 23 * s + size * 0.35
+            local name = tr('Always bring it')
+            local at, stop = warning:find(name, 1, true)
+            if at then
+                local before = warning:sub(1, at - 1)
+                shim.text(before, x, y, size, WHITE)
+                x = x + shim.text_width(before, size)
+                shim.text(name, x, y, size, { 255, 205, 195, 185 })
+                x = x + shim.text_width(name, size)
+                warning = warning:sub(stop + 1)
+            end
+            shim.text(warning, x, y, size, WHITE)
         end
     end
 
@@ -487,7 +515,7 @@ local function main()
                 if x and x >= b.x0 and x < b.x1 and y >= b.y0 and y < b.y1 then hover = b.key end
             end
         end
-        bar.banner = bar.dropped > 0 and x ~= nil and (bar.banner and y < 46 * bar.s
+        bar.banner = bar.dropped > 0 and x ~= nil and (bar.banner and y < (bar.banner_h or 46 * bar.s)
                      or x >= bar.sign.x0 and x < bar.sign.x1 and y >= bar.sign.y0 and y < bar.sign.y1)
         if bar.banner then hover = 'banner' end   -- it covers the titles and the Update button
         bar.hover = hover
