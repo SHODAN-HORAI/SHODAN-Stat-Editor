@@ -2977,6 +2977,7 @@ MOD.langs = {
       ['The beacon\'s timer still counts down the usual time (tested).'] = '信标仍显示原本的倒计时（已由作者测试）。',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = '炸药背包、炸药包及其爆炸。冷却时间见“战略配备”页。',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = '射弹命中物体时引发的爆炸。0：不爆炸。',
+      ['The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.'] = '弹药在命中任何目标之前寿命耗尽时触发的爆炸。0:无爆炸。',
       ['The flamethrower you carry.'] = '你携带的火焰喷射器。',
       ['The game holds at most 1023 rounds in a backpack.'] = '游戏中一个背包最多容纳 1023 发。',
       ['The game holds at most 2048 rounds in a magazine.'] = '游戏中一个弹匣最多容纳 2048 发。',
@@ -6860,6 +6861,7 @@ MOD.langs = {
       ['The beacon\'s timer still counts down the usual time (tested).'] = '信標仍顯示原本的倒計時（已由作者測試）。',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = '炸藥背包、炸藥包及其爆炸。冷卻時間見「戰略配備」頁。',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = '射彈命中物體時引發的爆炸。0：不爆炸。',
+      ['The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.'] = '彈藥在命中任何目標之前壽命耗盡時觸發的爆炸。0:無爆炸。',
       ['The flamethrower you carry.'] = '你攜帶的火焰噴射器。',
       ['The game holds at most 1023 rounds in a backpack.'] = '遊戲中一個背包最多容納 1023 發。',
       ['The game holds at most 2048 rounds in a magazine.'] = '遊戲中一個彈匣最多容納 2048 發。',
@@ -10653,6 +10655,7 @@ MOD.langs = {
       ['The beacon\'s countdown before the delivery is sent.'] = 'Отсчёт маяка до отправки доставки.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'Рюкзак с зарядом, сам заряд и его взрыв. Перезарядка: вкладка «Стратагемы».',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = 'Взрыв, который снаряд вызывает при попадании во что-либо. 0: без взрыва.',
+      ['The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.'] = 'Взрыв, который снаряд вызывает, когда его время жизни истекает раньше попадания. 0: без взрыва.',
       ['The flamethrower you carry.'] = 'Огнемет, который вы носите.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'Игра вмещает в рюкзак не более 1023 патронов.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'Игра вмещает в магазин не более 2048 патронов.',
@@ -13719,6 +13722,7 @@ MOD.langs = {
       ['The beacon\'s countdown before the delivery is sent.'] = 'La cuenta regresiva de la baliza antes de enviar la entrega.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'La mochila de cargas, la carga y su explosión. Tiempo de recarga: pestaña Estratagemas.',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = 'La explosión que causa la ronda al golpear algo. 0: sin explosión.',
+      ['The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.'] = 'La explosión que provoca el proyectil cuando se acaba su tiempo de vida antes de impactar con algo. 0: sin explosión.',
       ['The flamethrower you carry.'] = 'El lanzallamas que llevas.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'El juego permite como máximo 1023 rondas en una mochila.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'El juego permite como máximo 2048 rondas en un cargador.',
@@ -16749,6 +16753,7 @@ MOD.langs = {
       ['The beacon\'s countdown before the delivery is sent.'] = 'A contagem regressiva do sinalizador antes de a entrega ser enviada.',
       ['The charge backpack, the charge and its blast. Cooldown: Stratagems tab.'] = 'A mochila de cargas, a carga e a explosão dela. Tempo de recarga: aba Estratégias.',
       ['The explosion the round sets off when it hits something. 0: no explosion.'] = 'A explosão que a munição causa ao acertar algo. 0: sem explosão.',
+      ['The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.'] = 'A explosão que o projétil causa quando seu tempo de vida acaba antes de atingir algo. 0: sem explosão.',
       ['The flamethrower you carry.'] = 'O lança-chamas que você carrega.',
       ['The game holds at most 1023 rounds in a backpack.'] = 'O jogo permite no máximo 1023 munições numa mochila.',
       ['The game holds at most 2048 rounds in a magazine.'] = 'O jogo permite no máximo 2048 munições num carregador.',
@@ -20435,7 +20440,7 @@ local function resolve_gun(weapon, key)
                                   { part(idp .. 'blast_angle', T_PROJECTILE, p + 136, 'f32', 100000) }, 0, 360, 1, 10)
             angle.note = MOD.records.NOTES.weapon_angle
         end
-        if expiry then blast_id('expiry_explosion', 'Expiry explosion (id)', 156) end
+        if expiry then blast_id('expiry_explosion', 'Expiry explosion (id)', 156).tip = MOD.records.TIPS.expiry end
         local first = #blasts
         if impact and impact > 0 then blasts[#blasts + 1] = { id = impact, prefix = idp .. 'blast', section = xsection, damage = true } end
         if expiry and expiry > 0 and expiry ~= impact then
@@ -23845,6 +23850,7 @@ MOD.records.NOTES = {
 -- the (?) tips of the fuse rows: what they do (RL-77 Flak 2 m and 0.2 s, the P-34 Breacher's sticky round 1 s)
 MOD.records.TIPS = {
     impact = { 'The explosion the round sets off when it hits something. 0: no explosion.' },
+    expiry = { 'The explosion the round sets off when its life time runs out before it hits anything. 0: no explosion.' },
     proximity = { 'The round goes off when it passes this close to an enemy, without hitting it. 0: off (the RL-77 uses 2 m).',
                   'Only works with the blast angle at 360, and the distance has to be larger than one step of the round:',
                   'keep it above about speed / frame rate.' },
@@ -24028,6 +24034,7 @@ function MOD.records.rows(page)
         local expiry = add_row(page, 'Explosion id', 'expiry_explosion', 'Expiry explosion (id)', 'u32',
                                { part('expiry_explosion', kind, at + 156, 'u32', 100000) }, 0, 100000, 1, 10)
         expiry.choice = 'explosion'
+        expiry.tip = MOD.records.TIPS.expiry
         num('Explosion id', 'arming', 'Arming distance (m)', 160, 'f32', 200, 0.1, 1)
         num('Explosion id', 'blast_angle', 'Blast angle (deg)', 136, 'f32', 360, 1, 10).note = MOD.records.NOTES.angle
         -- ricochets (issue #116): shalzuth's max_ricochets/threshold angle/speed, 4 bytes later in the game's data
