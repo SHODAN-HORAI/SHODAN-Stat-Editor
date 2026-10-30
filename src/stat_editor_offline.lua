@@ -1959,6 +1959,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到冲击伤害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺虫',
+      ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = '在主武器栏中打空后不会丢弃：会留在手中，直到你拾取其他武器。',
       ['In-game text'] = '游戏内文本',
       ['Incendiary'] = '燃烧弹',
       ['Incendiary Impact'] = '燃烧冲击弹',
@@ -5763,6 +5764,7 @@ MOD.langs = {
       ['Impact damage taken'] = '受到衝擊傷害',
       ['Impact explosion (id)'] = '命中爆炸 (ID)',
       ['Impaler'] = '穿刺蟲',
+      ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = '在主武器欄中打空後不會丟棄：會留在手中，直到你拾取其他武器。',
       ['In-game text'] = '遊戲內文字',
       ['Incendiary'] = '燃燒彈',
       ['Incendiary Impact'] = '衝擊燃燒彈',
@@ -9524,6 +9526,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Получаемый урон от ударов',
       ['Impact explosion (id)'] = 'Взрыв при попадании (ID)',
       ['Impaler'] = 'Пронзатель',
+      ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'В основном слоте не выбрасывается, когда пусто: остаётся в руках, пока не подберёте другое оружие.',
       ['In-game text'] = 'Текст в игре',
       ['Incendiary'] = '«Зажигательная»',
       ['Incendiary Impact'] = 'Зажигательная ударная',
@@ -12554,6 +12557,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Daño de impacto recibido',
       ['Impact explosion (id)'] = 'Explosión al impactar (id)',
       ['Impaler'] = 'Empalador',
+      ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'En el espacio principal no se tira al vaciarse: se queda en tus manos hasta que recojas otra arma.',
       ['In-game text'] = 'Texto en el juego',
       ['Incendiary'] = 'Incendiaria',
       ['Incendiary Impact'] = 'Impacto incendiario',
@@ -15542,6 +15546,7 @@ MOD.langs = {
       ['Impact damage taken'] = 'Dano de impacto recebido',
       ['Impact explosion (id)'] = 'Explosão de impacto (id)',
       ['Impaler'] = 'Empalador',
+      ['In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'] = 'No espaço principal não é descartada ao esvaziar: fica nas suas mãos até você pegar outra arma.',
       ['In-game text'] = 'Texto no jogo',
       ['Incendiary'] = 'Incendiária',
       ['Incendiary Impact'] = 'Impacto Incendiário',
@@ -19045,6 +19050,7 @@ local function write_field(f, value)
     for _, undo in ipairs(done) do if undo[2] ~= bytes then state.writes = state.writes + 1; break end end
     if f.storage == 'grenade' then KINDS[TYPES.throwable].rearm() end
     if f.storage == 'tier' and f.death then write_field(f.death, u32(bytes, 8)) end   -- the health's type follows
+    if f.auto_drop then write_field(f.auto_drop, value == 1 and 0 or default_of(f.auto_drop)) end   -- (MOD.slot.pickup_row)
     return true
 end
 
@@ -24456,6 +24462,14 @@ function MOD.slot.pickup_row(weapon, key)
     r.label_of = function() return 'Picked up into: ' .. (read_field(p.field) == 1 and 'Primary slot' or 'Support slot') end
     r.tip = { 'Picking it up puts it in your primary slot instead (1), in place of your primary. 3 = the support slot.',
               'Not offered on backpack weapons: their backpack does not attach when the weapon is in your primary slot.' }
+    -- WeaponData +464 auto_drop_ability (1240-byte layout; the EATs and the Commando): played when out of ammo, it
+    -- always drops the support slot, so in the primary slot it looped and threw your support weapon away (issue #115)
+    local at = KINDS[T_WEAPON].stride == 1240 and tables[T_WEAPON] and tables[T_WEAPON].index[key]
+    local drop = at and field_at(T_WEAPON, at + 464, 'u32', 100000)
+    if drop and (default_of(drop) or 0) ~= 0 then
+        p.field.auto_drop = drop
+        r.tip[3] = 'In the primary slot it is not thrown away when empty: it stays in your hands until you pick up another weapon.'
+    end
 end
 
 function MOD.slot.row(weapon)
