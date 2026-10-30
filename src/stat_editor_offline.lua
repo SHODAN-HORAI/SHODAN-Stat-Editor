@@ -2276,6 +2276,7 @@ MOD.langs = {
       ['Never'] = '从不',
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
+      ['No page in this editor uses this id.'] = '此编辑器中没有页面使用此 id。',
       ['No passive.'] = '无被动。',
       ['No presets yet.'] = '还没有预设。',
       ['Noise'] = '噪音',
@@ -3054,6 +3055,7 @@ MOD.langs = {
       ['Updates'] = '更新',
       ['Upload Discovery'] = '上传发现',
       ['Urchin'] = '海胆',
+      ['Used by:'] = '使用者：',
       ['Uses per mission'] = '每次任务使用次数',
       ['Uses per rearm'] = '每次重新武装后的可用次数',
       ['V2'] = 'v2',
@@ -6135,6 +6137,7 @@ MOD.langs = {
       ['Never'] = '從不',
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
+      ['No page in this editor uses this id.'] = '此編輯器中沒有頁面使用此 id。',
       ['No passive.'] = '無被動。',
       ['No presets yet.'] = '還沒有預設。',
       ['Noise'] = '噪音',
@@ -6913,6 +6916,7 @@ MOD.langs = {
       ['Updates'] = '更新',
       ['Upload Discovery'] = '上傳發現',
       ['Urchin'] = '海膽',
+      ['Used by:'] = '使用者：',
       ['Uses per mission'] = '每次任務使用次數',
       ['Uses per rearm'] = '每次重新武裝後的可用次數',
       ['V2'] = 'v2',
@@ -9940,6 +9944,7 @@ MOD.langs = {
       ['Never'] = 'Никогда',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
+      ['No page in this editor uses this id.'] = 'Ни одна страница редактора не использует этот id.',
       ['No passive.'] = 'Нет пассивки.',
       ['No presets yet.'] = 'Пресетов пока нет.',
       ['Noise'] = 'Шум',
@@ -10676,6 +10681,7 @@ MOD.langs = {
       ['Update channel'] = 'Канал обновлений',
       ['Updates'] = 'Обновления',
       ['Urchin'] = 'Озорник',
+      ['Used by:'] = 'Используют:',
       ['Uses per mission'] = 'Применений за миссию',
       ['Uses per rearm'] = 'Применений за перевооружение',
       ['V2'] = 'v2',
@@ -13001,6 +13007,7 @@ MOD.langs = {
       ['Neck body'] = 'Cuerpo del cuello',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
+      ['No page in this editor uses this id.'] = 'Ninguna página de este editor usa este id.',
       ['No passive.'] = 'Sin pasivo.',
       ['No presets yet.'] = 'Aún no hay perfiles.',
       ['Noise'] = 'Ruido',
@@ -13718,6 +13725,7 @@ MOD.langs = {
       ['Update channel'] = 'Canal de actualizaciones',
       ['Updates'] = 'Actualizaciones',
       ['Urchin'] = 'Ladronzuelo',
+      ['Used by:'] = 'Usado por:',
       ['Uses per mission'] = 'Usos por misión',
       ['Uses per rearm'] = 'Usos por rearme',
       ['V2'] = 'V2',
@@ -16007,6 +16015,7 @@ MOD.langs = {
       ['Neck body'] = 'Corpo do pescoço',
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
+      ['No page in this editor uses this id.'] = 'Nenhuma página deste editor usa este id.',
       ['No passive.'] = 'Sem passiva.',
       ['No presets yet.'] = 'Ainda não há perfis.',
       ['Noise'] = 'Ruído',
@@ -16724,6 +16733,7 @@ MOD.langs = {
       ['Update channel'] = 'Canal de atualizações',
       ['Updates'] = 'Atualizações',
       ['Urchin'] = 'Ouriço',
+      ['Used by:'] = 'Usado por:',
       ['Uses per mission'] = 'Usos por missão',
       ['Uses per rearm'] = 'Usos por rearmamento',
       ['V2'] = 'V2',
@@ -23685,6 +23695,7 @@ function MOD.records.users()
         if #w.rows > 0 and not w.name:match('^%(') then   -- not the '(Not Used)' dummies
             for _, shot in ipairs(w.own_shots or {}) do add(shots, shot.id, w.name) end
             for _, row in ipairs(w.rows) do
+                if row.choice == 'shrapnel' then add(shots, default_of(row.parts[1].field), w.name) end   -- (pieces, shells, bombs)
                 for _, q in ipairs(row.parts) do
                     if q.field.kind == T_PROJECTILE then add(shots, shot_at(q.field.offset), w.name)
                     elseif q.field.kind == T_EXPLOSION then add(blasts, blast_at(q.field.offset), w.name) end
@@ -23692,14 +23703,17 @@ function MOD.records.users()
             end
         end
     end
+    local fired = {}   -- explosion id -> the weapons whose own shots set it off
     for _, id in ipairs(MOD.records.ids(T_PROJECTILE)) do
         local name, at = MOD.round_names and MOD.round_names[id], tables[T_PROJECTILE].index[id]
-        for _, off in ipairs(name and { 144, 156 } or {}) do
-            local x = read_field(field_at(T_PROJECTILE, at + off, 'u32', 100000))
-            if x and x > 0 and not rounds[x] then rounds[x] = name end
+        for _, off in ipairs({ 144, 156 }) do
+            local f = field_at(T_PROJECTILE, at + off, 'u32', 100000)
+            local x = read_field(f)
+            if name and x and x > 0 and not rounds[x] then rounds[x] = name end
+            for _, n in ipairs(shots[id] or {}) do add(fired, default_of(f), n) end
         end
     end
-    MOD.records.cache = { shots = shots, blasts = blasts, rounds = rounds }
+    MOD.records.cache = { shots = shots, blasts = blasts, rounds = rounds, fired = fired }
     return MOD.records.cache
 end
 -- A record's name (English), or nil.
@@ -23709,6 +23723,26 @@ function MOD.records.name(kind, id)
     elseif kind == T_EXPLOSION then return (u.blasts[id] or {})[1] or u.rounds[id] end
     if state.lang and state.lang() == 'zh-Hans' and MOD.status.by[id] then return MOD.status.by[id].name end
     return KINDS[T_STATUS].names[id] or KINDS[T_STATUS].stuns[id]
+end
+-- A hovered id row's lines: the id now in it and every page that uses it (nil on other rows and at 0).
+function MOD.records.source(row)
+    local kind = (row.choice == true or row.choice == 'shrapnel') and T_PROJECTILE or row.choice == 'explosion' and T_EXPLOSION
+    local id = kind and read_field(row.parts[1].field)
+    if not id or id <= 0 then return nil end
+    local u, names, seen = MOD.records.users(), {}, {}
+    for _, list in ipairs(kind == T_PROJECTILE and { u.shots[id] or {} } or { u.blasts[id] or {}, u.fired[id] or {} }) do
+        for _, n in ipairs(list) do
+            if not seen[n] then seen[n] = true; names[#names + 1] = state.tr and state.tr(n) or n end
+        end
+    end
+    local lines = { MOD.records.label(kind, id) }
+    if #names == 0 then lines[2] = kind == T_EXPLOSION and u.rounds[id] and ((state.tr and state.tr(u.rounds[id])) or u.rounds[id])
+                                   or 'No page in this editor uses this id.' end
+    for k = 1, math.min(#names, 12), 3 do   -- three names a line
+        lines[#lines + 1] = (k == 1 and ((state.tr and state.tr('Used by:') or 'Used by:') .. ' ') or '') .. table.concat(names, ', ', k, math.min(k + 2, #names, 12))
+    end
+    if #names > 12 then lines[#lines + 1] = '+' .. (#names - 12) end
+    return lines
 end
 -- A choice's label in a note: '#12 · 10g Sabot' (the name in the panel's language), 'none (no explosion)'.
 function MOD.records.label(kind, id)
@@ -26978,6 +27012,13 @@ local function draw(width, height)
                 if row.tip then
                     text('(?)', x0 + math.min(width(label, 16), 236) + 6, y + bh / 2 - 7, 14, DIM)
                     if ui.hover == 'row:' .. n then tip_overlay = { lines = row.tip, x = x0, y = y + bh + 2 } end
+                end
+                if row.choice and (ui.hover == 'row:' .. n or ui.hover == 'value:' .. n) then
+                    local lines = MOD.records.source(row)
+                    if lines then
+                        for _, line in ipairs(ui.hover == 'row:' .. n and row.tip or {}) do lines[#lines + 1] = line end
+                        tip_overlay = { lines = lines, x = x0, y = y + bh + 2 }
+                    end
                 end
                 if row.code then   -- a call-in code: its arrows, and Record
                     local rec = ui.code and ui.code.n == n and ui.code.weapon == weapon and ui.code
