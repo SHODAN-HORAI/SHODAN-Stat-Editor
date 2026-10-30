@@ -1347,6 +1347,8 @@ MOD.langs = {
       ['Bastion MK XVI'] = '堡垒Mk XVI',
       ['Battery'] = '电池',
       ['Bayonet melee'] = '刺刀近战',
+      ['Beam range (m)'] = '光束射程（米）',
+      ['Beam stays after the shot (s)'] = '射击后光束持续 (秒)',
       ['Beamer'] = '光束器',
       ['Belt-Fed Grenade Launcher'] = '弹链式榴弹发射器',
       ['Berserker'] = '狂暴者',
@@ -5211,6 +5213,8 @@ MOD.langs = {
       ['Bastion MK XVI'] = '堡壘Mk XVI',
       ['Battery'] = '電池',
       ['Bayonet melee'] = '刺刀近戰',
+      ['Beam range (m)'] = '光束射程（米）',
+      ['Beam stays after the shot (s)'] = '射擊後光束持續 (秒)',
       ['Beamer'] = '光束器',
       ['Belt-Fed Grenade Launcher'] = '彈鏈式榴彈發射器',
       ['Berserker'] = '狂暴者',
@@ -9069,6 +9073,8 @@ MOD.langs = {
       ['Bastion MK XVI'] = 'Mk-XVI «Бастион»',
       ['Battery'] = 'Батарея',
       ['Bayonet melee'] = 'Удар штыком',
+      ['Beam range (m)'] = 'Дальность луча (м)',
+      ['Beam stays after the shot (s)'] = 'Луч держится после выстрела (с)',
       ['Beamer'] = 'Излучатель',
       ['Belt-Fed Grenade Launcher'] = 'Ленточный гранатомет',
       ['Berserker'] = 'Берсерк',
@@ -12158,6 +12164,8 @@ MOD.langs = {
       ['Bastion MK XVI'] = 'Bastión Mk XVI',
       ['Battery'] = 'Batería',
       ['Bayonet melee'] = 'Cuerpo a cuerpo con bayoneta',
+      ['Beam range (m)'] = 'Alcance del rayo (m)',
+      ['Beam stays after the shot (s)'] = 'El rayo dura tras el disparo (s)',
       ['Beamer'] = 'Lanzarrayos',
       ['Belt-Fed Grenade Launcher'] = 'Lanzagranadas de cinta',
       ['Berserker'] = 'Frenético',
@@ -15169,6 +15177,8 @@ MOD.langs = {
       ['Bastion MK XVI'] = 'Bastião Mk XVI',
       ['Battery'] = 'Bateria',
       ['Bayonet melee'] = 'Corpo a corpo com baioneta',
+      ['Beam range (m)'] = 'Alcance do feixe (m)',
+      ['Beam stays after the shot (s)'] = 'O feixe dura após o tiro (s)',
       ['Beamer'] = 'Lança-raios',
       ['Belt-Fed Grenade Launcher'] = 'Lança-granadas com Fita',
       ['Berserker'] = 'Berserker',
@@ -20243,6 +20253,11 @@ local function resolve_gun(weapon, key)
     if drow then status_rows(weapon, 'Damage', '', drow, 'hit') end
     -- a beam's damage ticks per minute (BeamWeaponComponentData +104; SHODAN Offline Integration: 60 on the Laser
     -- Cannon and Laser Sentry)
+    -- a beam's reach (BeamSettings +8; from starstring's fork), where the beam is the damage source
+    local reach = beam and drow and tables[T_BEAM] and tables[T_BEAM].index[read_field(field_at(T_BEAM_WEAPON, beam, 'u32', 100000)) or -1]
+    if reach then
+        add_row(weapon, 'Damage', 'beam_range', 'Beam range (m)', 'f32', { part('beam_range', T_BEAM, reach + 8, 'f32', 100000) }, 0, 10000, 1, 10)
+    end
     local tick = beam and field_at(T_BEAM_WEAPON, beam + 104, 'u32', 6000)
     local ticks = tick and default_of(tick)
     if ticks and ticks > 0 and ticks <= 6000 then
