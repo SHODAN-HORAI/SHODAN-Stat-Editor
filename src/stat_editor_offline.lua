@@ -26845,18 +26845,51 @@ local function draw(width, height)
                 text(#preset.values .. ' value(s) for ' .. #names .. (MOD.enemy.on and ' page(s):' or ' weapon(s) / stratagem(s):'), x0, y, 16, WHITE)
             end
             y = y + 28
-            local room = math.floor((H - 110 - y) / 22)
-            for k, hash in ipairs(names) do
-                if k == room and #names > room then
-                    text('+ ' .. (#names - room + 1) .. ' more', x0, y, 15, MUTED)
-                    break
-                end
+            -- a line per page, and an open page's rows under it, scrolled by the wheel and Up / Down
+            local lines, room = {}, math.floor((H - 142 - y) / 22)
+            for _, hash in ipairs(names) do
+                lines[#lines + 1] = { hash = hash }
                 local weapon = by_hash[hash]
-                text(weapon and weapon.name or ('unknown ' .. hash), x0, y, 15, weapon and WHITE or WARN, 480)
-                text(counts[hash] .. ' value(s)', W - 24, y, 15, MUTED, 120, true)
+                for _, o in ipairs(ui.fopen == hash and weapon and preset.values or {}) do
+                    local p = o.hash == hash and weapon.by_id[o.id]
+                    if p then lines[#lines + 1] = { part = p, value = o.value, id = o.id } end
+                end
+            end
+            ui.fspan = math.max(0, #lines - room)
+            ui.fscroll = math.max(1, math.min(ui.fscroll or 1, ui.fspan + 1))
+            ui.sbar = nil
+            if ui.fspan > 0 then   -- as the stats' bar, the same looks and mouse
+                local top, len = y, room * 22 - 2
+                local th = math.max(24, len * room / #lines)
+                local ty = top + (len - th) * (ui.fscroll - 1) / ui.fspan
+                rect(989, top, 5, len, color(28, 34, 42), 951)
+                rect(989, ty, 5, th, ((ui.drag and ui.drag.bar == 'sbar') or ui.hover == 'sbar:thumb') and GOLD or color(110, 124, 138), 952)
+                region('sbar:track', 986, top, 12, len)
+                region('sbar:thumb', 986, ty, 12, th)
+                ui.sbar = { id = 'fscroll', top = height - oy - top * s, bottom = height - oy - (top + len) * s,
+                            thumb_top = height - oy - ty * s, thumb = th * s, span = ui.fspan, page = room }
+            end
+            for k = ui.fscroll, math.min(#lines, ui.fscroll + room - 1) do
+                local line = lines[k]
+                if line.hash then
+                    local weapon = by_hash[line.hash]
+                    text(weapon and weapon.name or ('unknown ' .. line.hash), x0, y, 15, ui.fopen == line.hash and GOLD or weapon and WHITE or WARN, 480)
+                    text(counts[line.hash] .. ' value(s)', W - 24, y, 15, MUTED, 120, true)
+                    region('fopen:' .. line.hash, x0, y - 2, W - 24 - x0, 22)
+                else
+                    -- shortcut: stored numbers, so a row shown as a multiplier or a time reads as its raw value
+                    text((line.part.row and line.part.row.label) or line.id, x0 + 16, y, 14, MUTED, 400)
+                    local game = default_of(line.part.field)
+                    text((game and number_text(game) or '?') .. ' -> ' .. number_text(line.value), W - 24, y, 14, WHITE, 160, true)
+                end
                 y = y + 22
             end
-            text('Saved as StatEditor\\' .. presets.file_name(chosen) .. ' (copy it to share the set).',
+            if ui.fspan > 0 then
+                text(string.format('rows %d-%d of %d', ui.fscroll, math.min(#lines, ui.fscroll + room - 1), #lines), x0, H - 128, 15, MUTED)
+                button('fscroll:up', 'Up', W - 24 - 164, H - 134, 80, 26, ui.fscroll > 1)
+                button('fscroll:down', 'Down', W - 24 - 80, H - 134, 80, 26, ui.fscroll <= ui.fspan)
+            end
+            text('Saved as StatEditor\\' .. presets.file_name(chosen) .. ' (copy it to share the set). A set from someone else: put its file in StatEditor\\import and restart.',
                  x0, H - 100, 14, DIM, W - x0 - 20)
         end
     end
@@ -27642,7 +27675,7 @@ local function click(key)
         if arg == 'save' then presets.save_weapon_preset(weapon, ui.wslot)
         elseif arg == 'load' then presets.load_weapon_preset(weapon, ui.wslot)
         elseif arg == 'clear' then presets.clear_weapon_preset(weapon, ui.wslot) end
-    elseif kind == 'fslot' then ui.fslot = tonumber(arg)
+    elseif kind == 'fslot' then ui.fslot, ui.fscroll = tonumber(arg), 1
     elseif kind == 'fpage' then ui.fpage = math.max(1, ui.fpage + (arg == 'next' and LIST_ROWS or -LIST_ROWS))
     elseif kind == 'name' then presets.finish_rename(arg == 'ok')
     elseif kind == 'fpreset' then
@@ -28219,7 +28252,7 @@ function ui.scroll_press(key, gy)
     local b = ui[name]
     if not b then return end
     if key:find(':thumb$') then ui.drag = { bar = name, from = gy, value = ui[b.id] }
-    elseif name == 'sbar' then click(gy > b.thumb_top and 'scroll:up' or 'scroll:down')
+    elseif name == 'sbar' and not b.page then click(gy > b.thumb_top and 'scroll:up' or 'scroll:down')
     else ui[b.id] = math.max(1, math.min(b.span + 1, ui[b.id] + (gy > b.thumb_top and -b.page or b.page))) end
 end
 
@@ -28233,7 +28266,7 @@ end
 
 function ui.wheel_scroll(notches)
     local left = ui.cursor_gx and ui.split_gx and ui.cursor_gx < ui.split_gx
-    local b = left and ui.lbar or (not left and ui.weapon and ui.sbar)
+    local b = left and ui.lbar or (not left and (ui.weapon or ui.tab == 'Presets') and ui.sbar)
     if b then ui[b.id] = math.max(1, math.min(b.span + 1, ui[b.id] - notches * 3)) end
 end
 
