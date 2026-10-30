@@ -24361,6 +24361,10 @@ local function save_config()
             if v then lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. v:gsub('#', '{H}') end
         end
     end
+    local old = io.open(path, 'rb')
+    local before = old and old:read('*a')
+    if old then old:close() end
+    if before and #before > 0 then MOD.write_text(path .. '.bak', before) end   -- the save before this one, to go back to by hand
     local ok, why = MOD.write_text(path, table.concat(lines, '\r\n') .. '\r\n')
     if not ok then log('could not write ' .. path .. ': ' .. why) end
 end
