@@ -25237,7 +25237,7 @@ end
 local LIST_ROWS = 27
 local W, H = 1000, 980       -- panel size in its own units
 
--- The weapons (or stratagems) of a tab; tab '?search': those of every tab whose name holds every
+-- The weapons (or stratagems) of a tab; tab '?search': those of the shown editor's tabs whose name holds every
 -- word of the search (any case), and with ui.search.edited only those with a saved change (the idea from
 -- 127MU's fork). The Records tab: its records, and searching there searches them.
 local function weapons_in(tab)
@@ -25264,7 +25264,7 @@ local function weapons_in(tab)
     for _, weapon in ipairs(weapons) do
         if (#weapon.rows > 0 or weapon.armor or weapon.look) and not settings.hidden[weapon.slot] then
             if words then
-                local name, all = weapon.name:lower(), true
+                local name, all = weapon.name:lower(), (weapon.enemy ~= nil) == (MOD.enemy.on == true)
                 for _, word in ipairs(words) do
                     if not name:find(word, 1, true) then all = false; break end
                 end
