@@ -1507,6 +1507,7 @@ MOD.langs = {
       ['Climb speed (m/s)'] = '爬升速度(米/秒)',
       ['Climb time limit (s)'] = '爬升时限(秒)',
       ['Climbing and sliding'] = '攀爬与滑行',
+      ['Close all'] = '全部收起',
       ['Close game'] = '关闭游戏',
       ['Cluster Bomb'] = '集束炸弹',
       ['Cognitive Disruptor'] = '感知干扰器',
@@ -2337,6 +2338,7 @@ MOD.langs = {
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = '只在爆炸角为 360 时生效，且距离要大于射弹每帧的位移：',
       ['Open'] = '打开',
       ['Open / close key'] = '打开 / 关闭热键',
+      ['Open all'] = '全部展开',
       ['Opened the GitHub page in your browser.'] = '已在浏览器中打开 GitHub 页面。',
       ['Opened the folder.'] = '已打开文件夹。',
       ['Opened the log folder.'] = '已打开日志文件夹。',
@@ -5401,6 +5403,7 @@ MOD.langs = {
       ['Climb speed (m/s)'] = '爬升速度(米/秒)',
       ['Climb time limit (s)'] = '爬升時限(秒)',
       ['Climbing and sliding'] = '攀爬與滑行',
+      ['Close all'] = '全部收起',
       ['Close game'] = '關閉遊戲',
       ['Cluster Bomb'] = '集束炸彈',
       ['Cognitive Disruptor'] = '認知干擾器',
@@ -6231,6 +6234,7 @@ MOD.langs = {
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = '只在爆炸角為 360 時生效，且距離要大於射彈每幀的位移：',
       ['Open'] = '開啟',
       ['Open / close key'] = '開啟 / 關閉熱鍵',
+      ['Open all'] = '全部展開',
       ['Opened the GitHub page in your browser.'] = '已在瀏覽器中開啟 GitHub 頁面。',
       ['Opened the folder.'] = '已開啟資料夾。',
       ['Opened the log folder.'] = '已開啟日誌資料夾。',
@@ -9283,6 +9287,7 @@ MOD.langs = {
       ['Climb speed (m/s)'] = 'Скорость подъема (м/с)',
       ['Climb time limit (s)'] = 'Предел времени подъема (с)',
       ['Climbing and sliding'] = 'Лазание и скольжение',
+      ['Close all'] = 'Закрыть все',
       ['Close game'] = 'Закрыть игру',
       ['Cluster Bomb'] = 'Кластерная бомба',
       ['Cognitive Disruptor'] = 'Искажатель разума',
@@ -10070,6 +10075,7 @@ MOD.langs = {
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Работает только при угле взрыва 360, и дистанция должна быть больше шага снаряда за кадр:',
       ['Open'] = 'Открыть',
       ['Open / close key'] = 'Клавиша открытия / закрытия',
+      ['Open all'] = 'Открыть все',
       ['Opened the GitHub page in your browser.'] = 'Страница GitHub открыта в браузере.',
       ['Opened the folder.'] = 'Папка открыта.',
       ['Opened the log folder.'] = 'Папка журналов открыта.',
@@ -12400,6 +12406,7 @@ MOD.langs = {
       ['Climb speed (m/s)'] = 'Velocidad de ascenso (m/s)',
       ['Climb time limit (s)'] = 'Límite de tiempo de ascenso (s)',
       ['Climbing and sliding'] = 'Escalada y deslizamiento',
+      ['Close all'] = 'Cerrar todo',
       ['Close game'] = 'Cerrar juego',
       ['Cluster Bomb'] = 'Bomba de racimo',
       ['Cognitive Disruptor'] = 'Disruptor Cognitivo',
@@ -13164,6 +13171,7 @@ MOD.langs = {
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Solo funciona con el ángulo de explosión en 360, y la distancia tiene que ser mayor que un paso de la ronda:',
       ['Open'] = 'Abrir',
       ['Open / close key'] = 'Tecla de abrir / cerrar',
+      ['Open all'] = 'Abrir todo',
       ['Opened the GitHub page in your browser.'] = 'Se abrió la página de GitHub en tu navegador.',
       ['Opened the folder.'] = 'Se abrió la carpeta.',
       ['Opened the log folder.'] = 'Se abrió la carpeta de registros.',
@@ -15441,6 +15449,7 @@ MOD.langs = {
       ['Climb speed (m/s)'] = 'Velocidade de subida (m/s)',
       ['Climb time limit (s)'] = 'Limite de tempo de subida (s)',
       ['Climbing and sliding'] = 'Escalada e deslizamento',
+      ['Close all'] = 'Fechar tudo',
       ['Close game'] = 'Fechar jogo',
       ['Cluster Bomb'] = 'Bomba de fragmentação',
       ['Cognitive Disruptor'] = 'Disruptor Cognitivo',
@@ -16205,6 +16214,7 @@ MOD.langs = {
       ['Only works with the blast angle at 360, and the distance has to be larger than one step of the round:'] = 'Só funciona com o ângulo de explosão em 360, e a distância precisa ser maior que um passo da munição:',
       ['Open'] = 'Abrir',
       ['Open / close key'] = 'Tecla de abrir / fechar',
+      ['Open all'] = 'Abrir tudo',
       ['Opened the GitHub page in your browser.'] = 'A página do GitHub foi aberta no seu navegador.',
       ['Opened the folder.'] = 'A pasta foi aberta.',
       ['Opened the log folder.'] = 'A pasta de logs foi aberta.',
@@ -25629,7 +25639,7 @@ local sr = nil          -- the engine (stingray)
 -- page / fpage: the first row the weapon / full preset list shows (the lists scroll by rows)
 local ui = { open = false, measured = {}, measures = 0, tab = 'Primary', page = 1, row = 1, scroll = 1, weapon = nil, hover = nil,
              gui = nil, world = nil, signature = nil, regions = {}, version = 0, errors = 0,
-             wslot = 1, fslot = nil, fpage = 1, message = nil,   -- chosen weapon preset / full preset, status line
+             wslot = 1, fslot = nil, fpage = 1, fopen = {}, message = nil,   -- chosen weapon preset / full preset, status line
              editing = nil, confirm = nil,    -- a preset name being typed; an overwrite / delete to confirm
              search = { text = '', active = false },    -- the list's search (active: being typed)
              value = nil }   -- a value being typed: { n = row, weapon, text, fresh (the first key replaces it) }
@@ -26778,6 +26788,7 @@ local function draw(width, height)
         return nil
     end
     local GOLD, WHITE, MUTED, DIM = MOD.egg.glitch and color(60, 255, 120) or MOD.enemy.on and color(255, 72, 60) or color(255, 213, 0), color(238, 242, 246), color(153, 171, 184), color(95, 108, 120)
+    local HEADING = MUTED   -- group titles: gold already means a changed item
     MOD.enemy.ALL_INK = MOD.enemy.ALL_INK or color(120, 200, 255)   -- a value only an 'All <faction>' row changed
     local WARN, GOOD = color(255, 150, 60), color(120, 220, 140)
 
@@ -26990,25 +27001,56 @@ local function draw(width, height)
                  (MOD.enemy.on and ' to enemies and spawning with it.' or ' with it.'),
                  x0, below, 15, MUTED, W - x0 - 20)
             -- what it holds: weapon (or stratagem) and how many of its values; click one for its rows
-            local y, names, counts = below + 28, {}, {}
-            for _, o in ipairs(preset.values) do
-                if not counts[o.hash] then counts[o.hash] = 0; names[#names + 1] = o.hash end
-                counts[o.hash] = counts[o.hash] + 1
+            local y = below + 28
+            local function slot(hash) return by_hash[hash] and by_hash[hash].slot or 'Other' end
+            -- worked out once per preset state: a redraw from the mouse moving changes none of this
+            local key, sorted = table.concat({ tostring(preset.values), ui.version, state.tables, tostring(MOD.enemy.on) }, '|'), ui.fsorted
+            if not sorted or sorted.key ~= key then
+                sorted = { key = key, names = {}, counts = {}, held = {} }
+                ui.fsorted = sorted
+                for _, o in ipairs(preset.values) do
+                    if not sorted.counts[o.hash] then
+                        sorted.counts[o.hash], sorted.held[o.hash] = 0, {}
+                        sorted.names[#sorted.names + 1] = o.hash
+                    end
+                    sorted.counts[o.hash] = sorted.counts[o.hash] + 1
+                    table.insert(sorted.held[o.hash], o)
+                end
+                -- by top tab, Attachments last, then by name
+                local rank = {}
+                for k, tab in ipairs(MOD.enemy.on and MOD.enemy.TABS or TABS) do rank[tab] = k end
+                rank.Attachments = 99
+                local function title(hash) return (by_hash[hash] and by_hash[hash].name or hash):lower() end
+                table.sort(sorted.names, function(a, b)
+                    local ra, rb = rank[slot(a)] or 50, rank[slot(b)] or 50
+                    if ra ~= rb then return ra < rb end
+                    return title(a) < title(b)
+                end)
             end
+            local names, counts, held = sorted.names, sorted.counts, sorted.held
             if #preset.values == 0 then
                 text('No changes: loading it puts every value back to the game\'s.', x0, y, 16, MUTED, W - x0 - 20)
             else
                 text(#preset.values .. ' value(s) for ' .. #names .. (MOD.enemy.on and ' page(s):' or ' weapon(s) / stratagem(s):'), x0, y, 16, WHITE)
+                ui.fnames = names
+                button('fopen_all:x', next(ui.fopen) and 'Close all' or 'Open all', W - 24 - 110, y - 6, 110, 26, true)
             end
             y = y + 28
             -- a line per page, and an open page's rows under it, scrolled by the wheel and Up / Down
             local lines, room = {}, math.floor((H - 142 - y) / 22)
+            local group = nil
             for _, hash in ipairs(names) do
+                if slot(hash) ~= group then
+                    group = slot(hash)
+                    if #lines > 0 then lines[#lines + 1] = { gap = true } end
+                    lines[#lines + 1] = { head = group }
+                end
                 lines[#lines + 1] = { hash = hash }
                 local weapon = by_hash[hash]
-                for _, o in ipairs(ui.fopen == hash and weapon and preset.values or {}) do
-                    local p = o.hash == hash and weapon.by_id[o.id]
-                    if p then lines[#lines + 1] = { part = p, value = o.value, id = o.id } end
+                for _, o in ipairs(ui.fopen[hash] and weapon and held[hash] or {}) do
+                    local p = weapon.by_id[o.id]
+                    if p then lines[#lines + 1] = { part = p, value = o.value, id = o.id }
+                    elseif o.id:match('^passive_') then lines[#lines + 1] = { passive = o.value, id = o.id } end
                 end
             end
             ui.fspan = math.max(0, #lines - room)
@@ -27027,9 +27069,14 @@ local function draw(width, height)
             end
             for k = ui.fscroll, math.min(#lines, ui.fscroll + room - 1) do
                 local line = lines[k]
-                if line.hash then
+                if line.gap then
+                    -- a blank row between groups
+                elseif line.head then
+                    text(line.head:upper(), x0, y - 2, 19, HEADING)
+                elseif line.hash then
                     local weapon = by_hash[line.hash]
-                    text(weapon and weapon.name or ('unknown ' .. line.hash), x0, y, 15, ui.fopen == line.hash and GOLD or weapon and WHITE or WARN, 480)
+                    if ui.hover == 'fopen:' .. line.hash then rect(x0, y - 2, W - 24 - x0, 22, color(40, 52, 64), 951) end
+                    text(weapon and weapon.name or ('unknown ' .. line.hash), x0, y, 15, ui.fopen[line.hash] and GOLD or weapon and WHITE or WARN, 480)
                     text(counts[line.hash] .. ' value(s)', W - 24, y, 15, MUTED, 120, true)
                     region('fopen:' .. line.hash, x0, y - 2, W - 24 - x0, 22)
                 else
@@ -27851,7 +27898,11 @@ local function click(key)
         elseif n and arg == 'delete' then presets.confirm('delete', n)
         elseif n and arg == 'rename' then presets.start_rename(n)
         elseif n and arg == 'desc' and not ui.editing then presets.start_rename(n, 'desc') end
-    elseif kind == 'fopen' then ui.fopen = ui.fopen ~= arg and arg or nil
+    elseif kind == 'fopen' then ui.fopen[arg] = not ui.fopen[arg] or nil
+    elseif kind == 'fopen_all' then
+        local open = not next(ui.fopen)
+        ui.fopen = {}
+        for _, hash in ipairs(open and ui.fnames or {}) do ui.fopen[hash] = true end
     elseif kind == 'fscroll' then ui.fscroll = (ui.fscroll or 1) + (arg == 'down' and 10 or -10)
     elseif kind == 'stack_pick' and weapon then ui.stack_pick = weapon
     elseif kind == 'rename' and weapon and not ui.rename then
@@ -28827,7 +28878,7 @@ local function panel_frame(now)
     local signature = table.concat({ width, height, state.phase, state.tables, ui.tab, ui.page, ui.row, ui.scroll,
                                      tostring(ui.hover), tostring(ui.drag ~= nil), ui.weapon and ui.weapon.hash or '-', ui.version,
                                      tostring(ui.settings), tostring(ui.binding), hotkey_name,
-                                     #overrides, ui.wslot, tostring(ui.fslot), ui.fpage,
+                                     #overrides, ui.wslot, tostring(ui.fslot), ui.fpage, ui.fscroll or 0,
                                      ui.message and ui.message.text or '', ui.editing and ui.editing.text or '-',
                                      ui.search.text, tostring(ui.search.active),
                                      ui.value and (ui.value.n .. '=' .. ui.value.text) or '-',
