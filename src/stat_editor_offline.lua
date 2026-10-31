@@ -24929,6 +24929,20 @@ function MOD.kits.migrate()
 end
 
 -- a page's text ids ({ id, capitals } lists name and desc) and its game texts (game.name, game.desc), nil without
+-- the id of a designation text, by the first word of a page's name (a stratagem's record holds no designation: its
+-- weapon's does)
+function MOD.rename.code_id(name)
+    if not MOD.rename.codes then
+        local codes, t, texts = {}, tables[TYPES.encyclopedia], rawget(_G, 'SHODAN_PHYSICS').texts
+        for _, e in pairs(t and t.index or {}) do
+            local id = type(e) == 'number' and peek4(t.copies[1] + HEADER_BYTES + e + 36)
+            if id and texts[id] then codes[texts[id]] = id end
+        end
+        MOD.rename.codes = codes
+    end
+    return MOD.rename.codes[name:match('^%S+')]
+end
+
 function MOD.rename.of(w)
     local host = rawget(_G, 'SHODAN_PHYSICS')
     local texts = host and host.texts
@@ -24943,6 +24957,7 @@ function MOD.rename.of(w)
     end
     local def = w.stratagem and w.stratagem.def
     if def then add(out.name, peek4(def.at + 44)); add(out.name, peek4(def.at + 40), true); add(out.desc, peek4(def.at + 48)) end
+    if def and not out.code[1] then add(out.code, MOD.rename.code_id(w.name)) end
     local kit = MOD.kits.texts and MOD.kits.texts[w.armor or w.look]
     if kit then
         add(out.name, w.armor or w.look)
