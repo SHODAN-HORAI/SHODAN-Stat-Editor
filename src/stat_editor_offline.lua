@@ -25880,7 +25880,7 @@ local sr = nil          -- the engine (stingray)
 -- page / fpage: the first row the weapon / full preset list shows (the lists scroll by rows)
 local ui = { open = false, measured = {}, measures = 0, tab = 'Primary', page = 1, row = 1, scroll = 1, weapon = nil, hover = nil,
              gui = nil, world = nil, signature = nil, regions = {}, version = 0, errors = 0,
-             wslot = 1, fslot = nil, fpage = 1, fopen = {}, message = nil,   -- chosen weapon preset / full preset, status line
+             wslot = 1, fslot = nil, fpage = 1, fopen = {}, closed = {}, fclosed = {}, message = nil,   -- chosen weapon preset / full preset, status line
              editing = nil, confirm = nil,    -- a preset name being typed; an overwrite / delete to confirm
              search = { text = '', active = false },    -- the list's search (active: being typed)
              value = nil }   -- a value being typed: { n = row, weapon, text, fresh (the first key replaces it) }
@@ -26023,15 +26023,17 @@ local function weapons_in(tab)
     return words and list or MOD.in_groups(list)
 end
 
--- The list as shown: a search as it is, a tab with a title row above each group (list.items: the pages without them)
+-- The list as shown: a search as it is, a tab with a title row above each group (list.items: the pages without them;
+-- a click on a title closes its group)
 function MOD.shown_list()
     if ui.search.text ~= '' or ui.search.edited then return weapons_in('?search') end
     local list, out, last = weapons_in(ui.tab), {}, nil
     for _, w in ipairs(list) do
         local _, title = MOD.group_of(w)
-        if title and title ~= last then out[#out + 1] = { head = title, name = '' } end
+        local closed = title and ui.closed[ui.tab .. '/' .. title]
+        if title and title ~= last then out[#out + 1] = { head = title, name = '', closed = closed } end
         last = title
-        out[#out + 1] = w
+        if not closed then out[#out + 1] = w end
     end
     if #out == #list then return list end
     out.items = #list
@@ -26181,9 +26183,10 @@ local function select_weapon(weapon)
     if weapon then
         ui.tab = weapon.slot
         local list = MOD.shown_list()
+        local rows = LIST_ROWS - (list.items and 1 or 0)   -- (the top row can be its group's title, kept in view)
         for n, w in ipairs(list) do
             if w == weapon and n < ui.page then ui.page = n
-            elseif w == weapon and n >= ui.page + LIST_ROWS then ui.page = n - LIST_ROWS + 1 end
+            elseif w == weapon and n >= ui.page + rows then ui.page = n - rows + 1 end
         end
     end
 end
@@ -27440,18 +27443,18 @@ local function draw(width, height)
                 if slot(hash) ~= group then
                     group = slot(hash)
                     if #lines > 0 then lines[#lines + 1] = { gap = true } end
-                    lines[#lines + 1] = { head = group }
+                    lines[#lines + 1] = { head = group, closed = ui.fclosed[group] }
                 end
-                lines[#lines + 1] = { hash = hash }
+                if not ui.fclosed[group] then lines[#lines + 1] = { hash = hash } end
                 local weapon = by_hash[hash]
-                for _, o in ipairs(ui.fopen[hash] and weapon and held[hash] or {}) do
+                for _, o in ipairs(not ui.fclosed[group] and ui.fopen[hash] and weapon and held[hash] or {}) do
                     local p = weapon.by_id[o.id]
                     if o.text then lines[#lines + 1] = { typed = o.id, value = o.text }
                     elseif p then lines[#lines + 1] = { part = p, value = o.value, id = o.id }
                     elseif o.id:match('^passive_') then lines[#lines + 1] = { passive = o.value, id = o.id } end
                 end
             end
-            ui.fspan = math.max(0, #lines - room)
+            ui.fspan = #lines > room and #lines - room + 1 or 0   -- (the top row can be a group's title, kept in view)
             ui.fscroll = math.max(1, math.min(ui.fscroll or 1, ui.fspan + 1))
             ui.sbar = nil
             if ui.fspan > 0 then   -- as the stats' bar, the same looks and mouse
@@ -27465,12 +27468,27 @@ local function draw(width, height)
                 ui.sbar = { id = 'fscroll', top = height - oy - top * s, bottom = height - oy - (top + len) * s,
                             thumb_top = height - oy - ty * s, thumb = th * s, span = ui.fspan, page = room }
             end
-            for k = ui.fscroll, math.min(#lines, ui.fscroll + room - 1) do
+            local function title(line)
+                local key = 'fhead:' .. line.head
+                rect(x0, y - 2, W - 24 - x0, 22, ui.hover == key and color(44, 56, 68) or color(23, 30, 39), 951)
+                text(line.head:upper(), x0 + 8, y - 2, 19, HEADING)
+                text(line.closed and '+' or '-', W - 32, y - 2, 19, HEADING, 30, true)
+                region(key, x0, y - 2, W - 24 - x0, 22)
+            end
+            local kept = nil
+            if lines[ui.fscroll] and not lines[ui.fscroll].head then
+                for j = ui.fscroll - 1, 1, -1 do
+                    if lines[j].head then kept = lines[j]; break end
+                end
+            end
+            if kept then title(kept); y = y + 22 end
+            local final = math.min(#lines, ui.fscroll + room - 1 - (kept and 1 or 0))
+            for k = ui.fscroll, final do
                 local line = lines[k]
                 if line.gap then
                     -- a blank row between groups
                 elseif line.head then
-                    text(line.head:upper(), x0, y - 2, 19, HEADING)
+                    title(line)
                 elseif line.hash then
                     local weapon = by_hash[line.hash]
                     if ui.hover == 'fopen:' .. line.hash then rect(x0, y - 2, W - 24 - x0, 22, color(40, 52, 64), 951) end
@@ -27491,7 +27509,7 @@ local function draw(width, height)
                 y = y + 22
             end
             if ui.fspan > 0 then
-                text(string.format('rows %d-%d of %d', ui.fscroll, math.min(#lines, ui.fscroll + room - 1), #lines), x0, H - 128, 15, MUTED)
+                text(string.format('rows %d-%d of %d', ui.fscroll, final, #lines), x0, H - 128, 15, MUTED)
                 button('fscroll:up', 'Up', W - 24 - 164, H - 134, 80, 26, ui.fscroll > 1)
                 button('fscroll:down', 'Down', W - 24 - 80, H - 134, 80, 26, ui.fscroll <= ui.fspan)
             end
@@ -27503,13 +27521,28 @@ local function draw(width, height)
     -- weapon list
     local searching = ui.search.text ~= '' or ui.search.active or ui.search.edited
     local list = presets_tab and {} or MOD.shown_list()
-    local last_top = math.max(1, #list - LIST_ROWS + 1)
+    local last_top = math.max(1, #list - LIST_ROWS + 1 + (list.items and 1 or 0))
     ui.page = math.max(1, math.min(ui.page, last_top))
+    -- as the stats' section titles: the top row keeps the title of the group scrolled under it
+    local kept = nil
+    if list.items and list[ui.page] and not list[ui.page].head then
+        for j = ui.page - 1, 1, -1 do
+            if list[j].head then kept = list[j]; break end
+        end
+    end
     for k = 1, LIST_ROWS do
-        local weapon = list[ui.page + k - 1]
+        local at = ui.page + k - 1 - (kept and 1 or 0)
+        local weapon = kept and k == 1 and kept or list[at]
         if not weapon then break end
         local y = 96 + (k - 1) * 26
-        if weapon.head then text(weapon.head:upper(), 24, y + 2, 19, HEADING, 302); goto next_row end
+        if weapon.head then
+            local key = 'lhead:' .. weapon.head
+            rect(16, y, 318, 25, ui.hover == key and color(44, 56, 68) or color(23, 30, 39), 951)
+            text(weapon.head:upper(), 24, y + 2, 19, HEADING, 280)
+            text(weapon.closed and '+' or '-', 326, y + 2, 19, HEADING, 30, true)
+            region(key, 16, y, 318, 25)
+            goto next_row
+        end
         local key = 'weapon:' .. weapon.hash
         if searching then text(weapon.slot, 326, y + 5, 13, DIM, 80, true) end
         local selected = weapon == ui.weapon
@@ -27525,7 +27558,7 @@ local function draw(width, height)
         -- smaller, without the name it shares
         local owner = not searching and weapon.name:match('^(.+): [^:]+$')
         if owner then
-            local j = ui.page + k - 2
+            local j = at - 1
             while list[j] and list[j].name:sub(1, #owner + 2) == owner .. ': ' do j = j - 1 end
             if not (list[j] and list[j].name == owner) then owner = nil end
         end
@@ -27560,7 +27593,7 @@ local function draw(width, height)
     if not presets_tab then
         if (ui.search.text ~= '' or ui.search.edited) and #list == 0 then text('Nothing matches.', 24, 100, 16, MUTED) end
         button('page:prev', '<', 16, py, 40, 30, ui.page > 1)
-        list_bar('page', #list)
+        list_bar('page', #list + (list.items and 1 or 0))
         text((#list > LIST_ROWS and not list.items and (ui.page .. '-' .. math.min(#list, ui.page + LIST_ROWS - 1) .. ' of ') or '') ..
              (list.items or #list) .. ((ui.search.text ~= '' or ui.search.edited) and ' found' or ' listed'),
              70, py + 7, 16, MUTED, 214)
@@ -28301,9 +28334,14 @@ local function click(key)
         elseif n and arg == 'rename' then presets.start_rename(n)
         elseif n and arg == 'desc' and not ui.editing then presets.start_rename(n, 'desc') end
     elseif kind == 'fopen' then ui.fopen[arg] = not ui.fopen[arg] or nil
+    elseif kind == 'fhead' then ui.fclosed[arg] = not ui.fclosed[arg] or nil; ui.version = ui.version + 1
+    elseif kind == 'lhead' then
+        local group = ui.tab .. '/' .. arg
+        ui.closed[group] = not ui.closed[group] or nil
+        ui.version = ui.version + 1
     elseif kind == 'fopen_all' then
         local open = not next(ui.fopen)
-        ui.fopen = {}
+        ui.fopen, ui.fclosed = {}, {}
         for _, hash in ipairs(open and ui.fnames or {}) do ui.fopen[hash] = true end
     elseif kind == 'fscroll' then ui.fscroll = (ui.fscroll or 1) + (arg == 'down' and 10 or -10)
     elseif kind == 'stack_pick' and weapon then ui.stack_pick = weapon
@@ -28804,6 +28842,8 @@ local function keyboard(now)
         local forward = held.PageDown ~= nil
         at = at + (forward and 1 or -1)
         if at < 1 then at = #all elseif at > #all then at = 1 end
+        local _, title = MOD.group_of(all[at])
+        if title then ui.closed[all[at].slot .. '/' .. title] = nil end   -- (its group opens)
         select_weapon(all[at])
         return
     end
