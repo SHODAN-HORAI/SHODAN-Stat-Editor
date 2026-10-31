@@ -245,7 +245,7 @@ function M.pump()
     while user.PeekMessageW(msg, nil, 0, 0, 1) ~= 0 do
         if msg.message == 0x0102 then   -- WM_CHAR: a character for the panel, an input method's own included
             M.push_typed(tonumber(msg.wparam))
-        else
+        elseif not (msg.message == 0x0106 and tonumber(msg.wparam) == 8) then   -- (Alt+Backspace: Windows would beep)
             user.TranslateMessage(msg)
             user.DispatchMessageW(msg)
         end

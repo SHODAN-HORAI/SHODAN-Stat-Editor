@@ -173,7 +173,7 @@ local function main()
         if bar.message then return bar.message, bar.tone end
         if state.phase ~= 'ready' then return 'Finding the stats...', MUTED end
         local n = installed_count()
-        local dirty = bar.base and state.writes ~= bar.base
+        local dirty = bar.base and (bar.base == -1 or next(state.touched))
         if dirty and n == 0 then return 'Your values are not in the game yet: close the game, then Install.', WARN end
         if dirty then return 'Changed since the last install: Install to put it in the game.', WARN end
         if n > 0 then return 'Your values are installed (' .. n .. ' game files). Close the game before installing.', GOOD end
@@ -214,7 +214,7 @@ local function main()
         end
         for _, b in ipairs(bar.buttons) do
             local hovered = bar.hover == b.key and not bar.busy
-            local due = b.key == 'install' and not bar.busy and bar.base and state.writes ~= bar.base   -- values not in the game yet
+            local due = b.key == 'install' and not bar.busy and bar.base and (bar.base == -1 or next(state.touched))   -- values not in the game yet
             local c = b.tint or { 28, 34, 42 }
             shim.fill(b.x0, b.y0, b.x1, b.y1, hovered and { 255, c[1] * 1.6, c[2] * 1.6, c[3] * 1.6 } or { 255, c[1], c[2], c[3] })
             local edge = hovered and GOLD or { 255, 70, 82, 94 }
@@ -370,7 +370,7 @@ local function main()
         local physics, vehicles = nil, nil
         if rawget(_G, 'SHODAN_PHYSICS') then physics, vehicles = V.patch() end
         if not next(writes) and not physics and not patch then
-            bar.busy, bar.base = nil, state.writes
+            bar.busy, bar.base, state.touched = nil, state.writes, {}
             say('Nothing to install: your values are the game\'s own.', GOOD)
             return
         end
@@ -396,7 +396,7 @@ local function main()
             say('Not installed: ' .. tostring(why), WARN)
             return
         end
-        bar.base = state.writes
+        bar.base, state.touched = state.writes, {}
         bar.dropped = dropped
         if dropped > 0 then state.notify(DROPPED, 8, true) end
         log(string.format('installed: %d changed, %d back to the original', made, back))
@@ -481,7 +481,7 @@ local function main()
         if state.phase == 'ready' and not said_ready then
             said_ready = true
             if installed_count() > 0 and state.load_donors then bar.dropped = state.load_donors() end
-            bar.base = installed_count() > 0 and state.writes or nil
+            bar.base, state.touched = installed_count() > 0 and state.writes or nil, {}
             log(string.format('ready: %s weapons, %s values applied, %s refused', tostring(state.weapons),
                 tostring(state.applied), tostring(state.refused)))
             local armors = state.armor_passives and state.armor_passives() or {}
