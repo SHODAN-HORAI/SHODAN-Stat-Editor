@@ -2300,6 +2300,7 @@ MOD.langs = {
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
       ['No page in this editor uses this id.'] = '此编辑器中没有页面使用此 id。',
       ['No passive.'] = '无被动。',
+      ['No passives'] = '无被动',
       ['No presets yet.'] = '还没有预设。',
       ['Noise'] = '噪音',
       ['None'] = '无',
@@ -6196,6 +6197,7 @@ MOD.langs = {
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
       ['No page in this editor uses this id.'] = '此編輯器中沒有頁面使用此 id。',
       ['No passive.'] = '無被動。',
+      ['No passives'] = '無被動',
       ['No presets yet.'] = '還沒有預設。',
       ['Noise'] = '噪音',
       ['None'] = '無',
@@ -10038,6 +10040,7 @@ MOD.langs = {
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
       ['No page in this editor uses this id.'] = 'Ни одна страница редактора не использует этот id.',
       ['No passive.'] = 'Нет пассивки.',
+      ['No passives'] = 'Без пассивок',
       ['No presets yet.'] = 'Пресетов пока нет.',
       ['Noise'] = 'Шум',
       ['None'] = 'Нет',
@@ -13136,6 +13139,7 @@ MOD.langs = {
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
       ['No page in this editor uses this id.'] = 'Ninguna página de este editor usa este id.',
       ['No passive.'] = 'Sin pasivo.',
+      ['No passives'] = 'Sin pasivas',
       ['No presets yet.'] = 'Aún no hay perfiles.',
       ['Noise'] = 'Ruido',
       ['None'] = 'Ninguno',
@@ -16179,6 +16183,7 @@ MOD.langs = {
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
       ['No page in this editor uses this id.'] = 'Nenhuma página deste editor usa este id.',
       ['No passive.'] = 'Sem passiva.',
+      ['No passives'] = 'Sem passivas',
       ['No presets yet.'] = 'Ainda não há perfis.',
       ['Noise'] = 'Ruído',
       ['None'] = 'Nenhum',
@@ -26589,6 +26594,12 @@ do
         for _, o in ipairs(overrides) do
             if MOD.is_enemy_value(o.hash) == MOD.enemy.on then values[#values + 1] = { hash = o.hash, id = o.id, value = o.value } end
         end
+        -- an armor's own passives live in the settings: a preset keeps them as passive_<n> <passive id> on its page
+        for armor, list in pairs(MOD.enemy.on and {} or settings.armor_passives) do
+            local hash = string.format('FFFFFFF8%08X', armor)
+            if #list == 0 then values[#values + 1] = { hash = hash, id = 'passive_none', value = 0 } end
+            for k, id in ipairs(list) do values[#values + 1] = { hash = hash, id = 'passive_' .. k, value = id } end
+        end
         return values
     end
     -- the example difficulties (MOD.enemy.EXAMPLES) into the Enemy Editor presets: first start, in free places;
@@ -26707,8 +26718,18 @@ do
         if not preset then return end
         if not settings.changes then say('Your changes are off: turn them on in Settings to load a preset'); return end
         MOD.reset_side(MOD.enemy.on)
-        local refused = 0
+        local refused, passives, values = 0, {}, {}
         for _, o in ipairs(preset.values) do
+            if o.id:match('^passive_') then
+                passives[o.hash] = passives[o.hash] or {}
+                if o.id ~= 'passive_none' then table.insert(passives[o.hash], o.value) end
+            else values[#values + 1] = o end
+        end
+        -- shortcut: an armor the preset does not name keeps its passives, so older presets wipe nothing
+        for hash, list in pairs(passives) do
+            if by_hash[hash] then MOD.kits.set(by_hash[hash], list) else refused = refused + 1 end
+        end
+        for _, o in ipairs(values) do
             local weapon = by_hash[o.hash]
             local parts = weapon and MOD.parts_of(weapon, o.id)
             local ok, why = false, weapon and ('no stat ' .. o.id) or ('unknown weapon ' .. o.hash)
@@ -27079,6 +27100,8 @@ local function draw(width, height)
                     text(weapon and weapon.name or ('unknown ' .. line.hash), x0, y, 15, ui.fopen[line.hash] and GOLD or weapon and WHITE or WARN, 480)
                     text(counts[line.hash] .. ' value(s)', W - 24, y, 15, MUTED, 120, true)
                     region('fopen:' .. line.hash, x0, y - 2, W - 24 - x0, 22)
+                elseif line.passive then
+                    text(line.id == 'passive_none' and 'No passives' or KINDS[TYPES.passive].NAMES[line.passive] or ('Passive ' .. line.passive), x0 + 16, y, 14, MUTED, 400)
                 else
                     -- shortcut: stored numbers, so a row shown as a multiplier or a time reads as its raw value
                     text((line.part.row and line.part.row.label) or line.id, x0 + 16, y, 14, MUTED, 400)
