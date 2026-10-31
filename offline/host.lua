@@ -142,7 +142,8 @@ local function main()
         }
         if bar.release then
             local x1 = shim.w - 30 * s
-            bar.buttons[#bar.buttons + 1] = { key = 'update', label = 'Update to ' .. bar.release.label, x0 = x1 - 170 * s, x1 = x1,
+            local label = 'Update to ' .. bar.release.label
+            bar.buttons[#bar.buttons + 1] = { key = 'update', label = label, x0 = x1 - math.max(170 * s, shim.text_width(tr(label), 16 * s) + 24 * s), x1 = x1,   -- (wide enough for its translation)
                                y0 = 9 * s, y1 = 41 * s, gold = true }   -- top right, in the tagline's place
         end
         -- the titles (paint_bar): Stat Editor, then Enemy Editor once the editor offers the switch
@@ -213,6 +214,7 @@ local function main()
         end
         for _, b in ipairs(bar.buttons) do
             local hovered = bar.hover == b.key and not bar.busy
+            local due = b.key == 'install' and not bar.busy and bar.base and state.writes ~= bar.base   -- values not in the game yet
             local c = b.tint or { 28, 34, 42 }
             shim.fill(b.x0, b.y0, b.x1, b.y1, hovered and { 255, c[1] * 1.6, c[2] * 1.6, c[3] * 1.6 } or { 255, c[1], c[2], c[3] })
             local edge = hovered and GOLD or { 255, 70, 82, 94 }
@@ -223,7 +225,7 @@ local function main()
             local size, label = 16 * s, tr(b.key == 'close_game' and bar.close_until and 'Click again' or b.label)
             while size > 10 * s and shim.text_width(label, size) > b.x1 - b.x0 - 12 * s do size = size - 0.5 end
             shim.text(label, (b.x0 + b.x1 - shim.text_width(label, size)) / 2, (b.y0 + b.y1) / 2 + size * 0.35, size,
-                      b.gold and GOLD or WHITE)
+                      (b.gold or due) and GOLD or WHITE)
         end
         local text, tone = status()
         text = tr(text)

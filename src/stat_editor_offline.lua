@@ -25114,6 +25114,7 @@ local function load_config()
         ' (' .. path .. ')')
 end
 
+function MOD.config_changed() config_dirty_at = api.now() + 0.75 end
 local function mark_config_dirty() config_dirty_at = api.now() + 0.75; MOD.enemy.refresh_due = true end
 
 -- an armor page's passives: its own list, or the game's
@@ -30849,7 +30850,11 @@ local function tick()
                 if #pending == 0 then log('all saved values applied (' .. state.applied .. ')') end
             end
         end
-        if MOD.enemy.refresh_due and #pending == 0 then MOD.enemy.faction_refresh() end
+        if MOD.enemy.refresh_due and #pending == 0 then
+            local writes = state.writes
+            MOD.enemy.faction_refresh()
+            state.writes = writes   -- (it only follows a change: on its own it is nothing to install)
+        end
         if config_dirty_at and now >= config_dirty_at then save_config() end
         if now >= settings.unlock.next_check then
             settings.unlock.next_check = now + 2
