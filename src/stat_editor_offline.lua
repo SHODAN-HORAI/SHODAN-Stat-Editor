@@ -27732,7 +27732,7 @@ local function draw(width, height)
             end
             y = y + 28
             -- a line per page, and an open page's rows under it, scrolled by the wheel and Up / Down
-            local lines, room = {}, math.floor((H - 142 - y) / 22)
+            local lines, room = {}, math.floor((H - (settings.nav_buttons and 142 or 112) - y) / 22)
             local group = nil
             for _, hash in ipairs(names) do
                 if slot(hash) ~= group then
@@ -27808,9 +27808,11 @@ local function draw(width, height)
                 y = y + 22
             end
             if ui.fspan > 0 then
-                text(string.format('rows %d-%d of %d', ui.fscroll, final, #lines), x0, H - 128, 15, MUTED)
-                button('fscroll:up', 'Up', W - 24 - 164, H - 134, 80, 26, ui.fscroll > 1)
-                button('fscroll:down', 'Down', W - 24 - 80, H - 134, 80, 26, ui.fscroll <= ui.fspan)
+                if settings.nav_buttons then
+                    text(string.format('rows %d-%d of %d', ui.fscroll, final, #lines), x0, H - 128, 15, MUTED)
+                    button('fscroll:up', 'Up', W - 24 - 164, H - 134, 80, 26, ui.fscroll > 1)
+                    button('fscroll:down', 'Down', W - 24 - 80, H - 134, 80, 26, ui.fscroll <= ui.fspan)
+                end
             end
             text('Saved as StatEditor\\' .. presets.file_name(chosen) .. ' (copy it to share the set). A set from someone else: put its file in StatEditor\\import and restart.',
                  x0, H - 100, 14, DIM, W - x0 - 20)
@@ -28156,7 +28158,7 @@ local function draw(width, height)
         local pitch = math.floor((bottom - y - sections * 24 - below) / math.max(1, #weapon.rows))
         local scrolling = pitch < 22
         if scrolling then
-            pitch, bottom = 24, bottom - 36
+            pitch, bottom = 24, bottom - (settings.nav_buttons and 36 or 0)
             ui.scroll = math.max(1, math.min(ui.scroll, #weapon.rows))
         else
             pitch, ui.scroll = math.min(26, pitch), 1
@@ -28296,9 +28298,11 @@ local function draw(width, height)
             region('sbar:thumb', 986, ty, 12, th)
             ui.sbar = { id = 'scroll', top = height - oy - top * s, bottom = height - oy - (top + len) * s,
                         thumb_top = height - oy - ty * s, thumb = th * s, span = span }
-            text(string.format('rows %d-%d of %d', ui.scroll, ui.last_visible, #weapon.rows), x0, bottom + 12, 15, MUTED)
-            button('scroll:up', 'Up', 790, bottom + 6, 80, 26, ui.scroll > 1)
-            button('scroll:down', 'Down', 874, bottom + 6, 80, 26, ui.last_visible < #weapon.rows)
+            if settings.nav_buttons then
+                text(string.format('rows %d-%d of %d', ui.scroll, ui.last_visible, #weapon.rows), x0, bottom + 12, 15, MUTED)
+                button('scroll:up', 'Up', 790, bottom + 6, 80, 26, ui.scroll > 1)
+                button('scroll:down', 'Down', 874, bottom + 6, 80, 26, ui.last_visible < #weapon.rows)
+            end
         end
         -- the part of value that fits in room (its end while typing)
         local function fit(value, room, tail)
