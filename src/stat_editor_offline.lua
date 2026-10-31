@@ -1528,7 +1528,6 @@ MOD.langs = {
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '选择载具，然后点击复制。它们会获得此部分显示的所有数值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '点 * 只显示你改过的内容（所有标签页）。',
-      ['Click a box to type. Install puts it in the game, in every language.'] = '点击输入框即可输入。安装后会写入游戏的所有语言。',
       ['Click again'] = '再点一次确认',
       ['Click again to overwrite'] = '再次点击以覆盖',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = '4 秒内再点一次即结束游戏，未保存的进度会丢失。',
@@ -5503,7 +5502,6 @@ MOD.langs = {
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '選擇載具，然後點選複製。它們會獲得此部分顯示的所有數值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '點 * 只顯示你改過的內容（所有標籤頁）。',
-      ['Click a box to type. Install puts it in the game, in every language.'] = '點選輸入框即可輸入。安裝後會寫入遊戲的所有語言。',
       ['Click again'] = '再點一次確認',
       ['Click again to overwrite'] = '再次點選以覆蓋',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = '4 秒內再點一次即結束遊戲，未儲存的進度會丟失。',
@@ -9466,7 +9464,6 @@ MOD.langs = {
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Выберите технику и нажмите «Копировать». Она получит все значения этого раздела.',
       ['Clear'] = 'Очистить',
       ['Click * to show only what you changed, from every tab.'] = 'Нажмите *, чтобы показать только изменённое, со всех вкладок.',
-      ['Click a box to type. Install puts it in the game, in every language.'] = 'Нажмите на поле, чтобы ввести текст. Установка внесёт его в игру на всех языках.',
       ['Click again'] = 'Нажмите ещё раз',
       ['Click again to overwrite'] = 'Нажмите еще раз, чтобы перезаписать',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Нажмите ещё раз в течение 4 секунд, чтобы закрыть игру. Несохранённый прогресс будет потерян.',
@@ -12664,7 +12661,6 @@ MOD.langs = {
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Elige los vehículos y pulsa Copiar. Reciben todos los valores de esta sección.',
       ['Clear'] = 'Borrar',
       ['Click * to show only what you changed, from every tab.'] = 'Haz clic en * para mostrar solo lo que cambiaste, de todas las pestañas.',
-      ['Click a box to type. Install puts it in the game, in every language.'] = 'Haz clic en un cuadro para escribir. Instalar lo pone en el juego, en todos los idiomas.',
       ['Click again'] = 'Haz clic otra vez',
       ['Click again to overwrite'] = 'Haz clic otra vez para sobrescribir',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Haz clic otra vez en 4 segundos para cerrar el juego. Se pierde el progreso sin guardar.',
@@ -15786,7 +15782,6 @@ MOD.langs = {
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Escolha os veículos e clique em Copiar. Eles recebem todos os valores desta seção.',
       ['Clear'] = 'Limpar',
       ['Click * to show only what you changed, from every tab.'] = 'Clique em * para mostrar só o que você mudou, de todas as abas.',
-      ['Click a box to type. Install puts it in the game, in every language.'] = 'Clique em uma caixa para digitar. Instalar coloca no jogo, em todos os idiomas.',
       ['Click again'] = 'Clique de novo',
       ['Click again to overwrite'] = 'Clique de novo para sobrescrever',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Clique de novo em 4 segundos para fechar o jogo. O progresso não salvo será perdido.',
@@ -27770,10 +27765,10 @@ local function draw(width, height)
             end
             local function title(line)
                 local key = 'fhead:' .. line.head
-                rect(x0, y - 2, W - 24 - x0, 22, ui.hover == key and color(44, 56, 68) or color(23, 30, 39), 951)
-                text(line.head:upper(), x0 + 8, y - 2, 19, HEADING)
-                text(line.closed and '+' or '-', W - 32, y - 2, 19, HEADING, 30, true)
-                region(key, x0, y - 2, W - 24 - x0, 22)
+                rect(x0 - 6, y - 2, W - 18 - x0, 22, ui.hover == key and color(44, 56, 68) or color(23, 30, 39), 951)
+                text(line.head:upper(), x0, y + 1, 19, HEADING, nil, nil, nil, 'heading')
+                text(line.closed and '+' or '-', W - 32, y + 1, 19, HEADING, 30, true)
+                region(key, x0 - 6, y - 2, W - 18 - x0, 22)
             end
             local kept = nil
             if lines[ui.fscroll] and not lines[ui.fscroll].head then
@@ -27842,8 +27837,8 @@ local function draw(width, height)
         if weapon.head then
             local key = 'lhead:' .. weapon.head
             rect(16, y, 318, 25, ui.hover == key and color(44, 56, 68) or color(23, 30, 39), 951)
-            text(weapon.head:upper(), 24, y + 2, 19, HEADING, 280)
-            text(weapon.closed and '+' or '-', 326, y + 2, 19, HEADING, 30, true)
+            text(weapon.head:upper(), 24, y + 4, 19, HEADING, 280, nil, nil, 'heading')
+            text(weapon.closed and '+' or '-', 326, y + 4, 19, HEADING, 30, true)
             region(key, 16, y, 318, 25)
             goto next_row
         end
@@ -28131,7 +28126,7 @@ local function draw(width, height)
         -- this weapon's presets, under its stats
         local sy = H - 70 - 34
         if not weapon.armor and not weapon.look then   -- (no values of its own to keep)
-        text('PRESETS', x0, sy + 8, 15, MUTED)
+        text('PRESETS', x0, sy + 8, 15, MUTED, nil, nil, nil, 'heading')
         for n = 1, presets.weapon_count do
             local saved = presets.weapon_preset(weapon, n)
             button('wslot:' .. n, tostring(n), x0 + 76 + (n - 1) * 46, sy, 40, 30, true, n == ui.wslot, saved and GOLD)
@@ -28179,7 +28174,7 @@ local function draw(width, height)
                     local note, others = row.note or '', shared_with(weapon, row)
                     if type(note) == 'function' then note, others = note(others), {} end
                     -- the note after the section's name (long ones: 'PARTIAL CHARGE EXPLOSION')
-                    local nx = math.max(110, #section * 10 + 14, width(section:upper(), 15 * s) / s + 14)   -- (translated: measured)
+                    local nx = math.max(110, #section * 11 + 14, width(section:upper(), 16 * s) / s + 14)   -- (translated: measured)
                     local copy = weapon.stratagem and weapon.stratagem.vehicle and MOD.COPY_SECTIONS[section]
                     local room, shown = W - x0 - 20 - nx - (copy and 120 or 0), 0
                     if note == '' and #others > 0 then
@@ -28191,7 +28186,8 @@ local function draw(width, height)
                             if k == 1 or not ink_font or width(note, 14 * s) <= room * s then break end
                         end
                     end
-                    text(section:upper(), x0, y + 4, 15, MUTED)
+                    rect(x0 - 6, y, W - 10 - x0, 22, color(15, 20, 26), 951)
+                    text(section:upper(), x0, y + 4, 16, HEADING, nil, nil, nil, 'heading')
                     if copy then button('copy_pick:' .. section, 'Copy to...', 874, y, 110, 21, true) end
                     if note ~= '' then text(note, x0 + nx, y + 4, 14, WARN, room) end
                     -- a list cut short: hovering it shows every name
@@ -28350,8 +28346,9 @@ local function draw(width, height)
             if on ~= 'code' then button('rename_reset:' .. field, 'R', bx + bw + 4, ry, 26, 28, typed ~= nil or (on == 'name' and all ~= nil and all.code ~= nil)) end
         end
         if stack_list then
-            y = (scrolling and bottom + 36 or y) + 12
-            text('PASSIVES', x0, y + 4, 15, MUTED)
+            y = (scrolling and bottom + (settings.nav_buttons and 36 or 0) or y) + 12
+            rect(x0 - 6, y, W - 10 - x0, 22, color(15, 20, 26), 951)
+            text('PASSIVES', x0, y + 4, 16, HEADING, nil, nil, nil, 'heading')
             text('Only this armor. Each passive\'s values are on its own page, below the armors.',
                  x0 + 150, y + 4, 14, MUTED, W - x0 - 170)
             y = y + 26
@@ -28376,8 +28373,8 @@ local function draw(width, height)
         end
         if rename then   -- the in-game name and description, at the very bottom
             local ry = H - 70 - 40 - 88 - grown
-            text('IN-GAME TEXT', x0, ry + 4, 15, MUTED)
-            text('Click a box to type. Install puts it in the game, in every language.', x0 + 150, ry + 4, 14, MUTED, W - x0 - 170)
+            rect(x0 - 6, ry, W - 10 - x0, 22, color(15, 20, 26), 951)
+            text('IN-GAME TEXT', x0, ry + 4, 16, HEADING, nil, nil, nil, 'heading')
             ry = ry + 26
             for _, f in ipairs({ { 'name', 'Name' }, { 'desc', weapon.passive and 'Passive text' or 'Description' } }) do
                 text(f[2], x0, ry + 6, 16, WHITE, 140)

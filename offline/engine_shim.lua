@@ -285,9 +285,9 @@ function M.key_down(vk) return user.GetAsyncKeyState(vk) < 0 end
 local fonts = {}
 local FACES = { ['zh-Hans'] = 'Microsoft YaHei UI', ['zh-Hant'] = 'Microsoft JhengHei UI' }
 M.lang = function() return 'en' end
-local function font_of(size, bold)
+local function font_of(size, bold, own)
     local h = math.max(6, math.floor(size + 0.5))
-    local face = FACES[M.lang()] or 'Segoe UI'
+    local face = FACES[M.lang()] or own or 'Segoe UI'
     local key = face .. h .. (bold and 'b' or '')
     if not fonts[key] then
         -- CLEARTYPE_QUALITY, DEFAULT_CHARSET
@@ -339,9 +339,9 @@ function M.fill(x0, y0, x1, y1, c)
 end
 
 -- text with its baseline at y (pixels from the top)
-function M.text(text, x, y, size, c, bold)
+function M.text(text, x, y, size, c, bold, face)
     if text == '' then return end
-    gdi.SelectObject(M.dc, font_of(size, bold))
+    gdi.SelectObject(M.dc, font_of(size, bold, face))
     gdi.SetTextColor(M.dc, c[2] + c[3] * 256 + c[4] * 65536)
     local w, n = wide(text)
     gdi.TextOutW(M.dc, math.floor(x + 0.5), math.floor(y + 0.5), w, n)
@@ -505,7 +505,7 @@ function M.engine()
                 add(gui, { kind = 'rect', z = pos[3] or 0, x = pos[1], y = pos[2], w = size[1], h = size[2], c = color })
             end,
             text = function(gui, text, font, size, material, pos, color)
-                add(gui, { kind = 'text', z = pos[3] or 0, x = pos[1], y = pos[2], text = tostring(text), size = size,
+                add(gui, { kind = 'text', face = font == 'heading' and 'Bahnschrift' or nil, z = pos[3] or 0, x = pos[1], y = pos[2], text = tostring(text), size = size,
                            c = color or { 255, 255, 255, 255 } })
             end,
             text_extents = function(gui, text, font, size)
@@ -544,7 +544,7 @@ function M.paint_guis(background)
             if item.kind == 'rect' then M.fill(item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c)
             else M.icon(item.name, item.x, M.h - item.y - item.h, item.x + item.w, M.h - item.y, item.c) end
         else
-            M.text(item.text, item.x, M.h - item.y, item.size, item.c)
+            M.text(item.text, item.x, M.h - item.y, item.size, item.c, nil, item.face)
             texting = true
         end
     end
