@@ -1523,6 +1523,7 @@ MOD.langs = {
       ['Chest damage taken'] = '受到胸部伤害',
       ['Choked (experimental)'] = '窒息（实验性）',
       ['Choose a weapon on the left.'] = '请在左侧选择武器。',
+      ['Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.'] = '选择预设后点击复制。相同的数值改用此预设的，其余保持不变。',
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '选择载具，然后点击复制。它们会获得此部分显示的所有数值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '点 * 只显示你改过的内容（所有标签页）。',
@@ -1567,6 +1568,8 @@ MOD.langs = {
       ['Cooling (% per s)'] = '散热(每秒%)',
       ['Copy'] = '复制',
       ['Copy to...'] = '复制到...',
+      ['Copy values to'] = '复制数值到',
+      ['Copy values to...'] = '复制数值到...',
       ['Could not ask Steam to start the game.'] = '无法让 Steam 启动游戏。',
       ['Could not close Helldivers 2.'] = '无法关闭游戏。',
       ['Countdown before delivery (s)'] = '投送前倒计时（秒）',
@@ -4789,6 +4792,7 @@ MOD.langs = {
       { '^drops (.+)$', '投下：%1' },
       { '^Copy (.+) to$', '将 %1 复制到' },
       { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', '已复制 %1 个数值到 %2 辆载具。' },
+      { '^Copied (%d+) value%(s%) into (%d+) preset%(s%)$', '已将 %1 个数值复制到 %2 个预设' },
       { '^Heat level (%d+)$', '热量等级 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；弹种与以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '发射：%1。上方各行仍为其自身数值' },
@@ -5485,6 +5489,7 @@ MOD.langs = {
       ['Chest damage taken'] = '受到胸部傷害',
       ['Choked (experimental)'] = '窒息（實驗性）',
       ['Choose a weapon on the left.'] = '請在左側選擇武器。',
+      ['Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.'] = '選擇預設後點選複製。相同的數值改用此預設的，其餘保持不變。',
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = '選擇載具，然後點選複製。它們會獲得此部分顯示的所有數值。',
       ['Clear'] = '清除',
       ['Click * to show only what you changed, from every tab.'] = '點 * 只顯示你改過的內容（所有標籤頁）。',
@@ -5529,6 +5534,8 @@ MOD.langs = {
       ['Cooling (% per s)'] = '散熱(每秒%)',
       ['Copy'] = '複製',
       ['Copy to...'] = '複製到...',
+      ['Copy values to'] = '複製數值到',
+      ['Copy values to...'] = '複製數值到...',
       ['Could not ask Steam to start the game.'] = '無法讓 Steam 啟動遊戲。',
       ['Could not close Helldivers 2.'] = '無法關閉遊戲。',
       ['Countdown before delivery (s)'] = '投送前倒計時（秒）',
@@ -8751,6 +8758,7 @@ MOD.langs = {
       { '^drops (.+)$', '投下：%1' },
       { '^Copy (.+) to$', '將 %1 複製到' },
       { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', '已複製 %1 個數值到 %2 輛載具。' },
+      { '^Copied (%d+) value%(s%) into (%d+) preset%(s%)$', '已將 %1 個數值複製到 %2 個預設' },
       { '^Heat level (%d+)$', '熱量等級 %1' },
       { '^(.+); ammo type shared with (.+)$', '%1；彈種與以下共用：%L2' },
       { '^fires: (.+)%. The rows above stay its own$', '發射：%1。上方各行仍為其自身數值' },
@@ -9435,6 +9443,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Получаемый урон в грудь',
       ['Choked (experimental)'] = 'Удушье (эксперимент.)',
       ['Choose a weapon on the left.'] = 'Выберите оружие слева.',
+      ['Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.'] = 'Выберите пресеты и нажмите «Копировать». Общие значения заменятся значениями этого пресета, остальные останутся.',
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Выберите технику и нажмите «Копировать». Она получит все значения этого раздела.',
       ['Clear'] = 'Очистить',
       ['Click * to show only what you changed, from every tab.'] = 'Нажмите *, чтобы показать только изменённое, со всех вкладок.',
@@ -9477,6 +9486,8 @@ MOD.langs = {
       ['Cooling (% per s)'] = 'Охлаждение (% в с)',
       ['Copy'] = 'Копировать',
       ['Copy to...'] = 'Копировать в...',
+      ['Copy values to'] = 'Копировать значения в',
+      ['Copy values to...'] = 'Копировать в...',
       ['Could not ask Steam to start the game.'] = 'Не удалось попросить Steam запустить игру.',
       ['Could not close Helldivers 2.'] = 'Не удалось закрыть Helldivers 2.',
       ['Countdown before delivery (s)'] = 'Отсчёт до доставки (с)',
@@ -11983,6 +11994,7 @@ MOD.langs = {
       { '^drops (.+)$', 'сбрасывает: %1' },
       { '^Copy (.+) to$', 'Копировать %1 в' },
       { '^Copied (%d+) value%(s%) to (%d+) vehicle%(s%)%.$', 'Скопировано значений: %1, техника: %2.' },
+      { '^Copied (%d+) value%(s%) into (%d+) preset%(s%)$', 'Скопировано значений: %1, пресетов: %2' },
       { '^Heat level (%d+)$', 'Уровень нагрева %1' },
       { '^(.+); ammo type shared with (.+)$', '%1; тип боеприпасов общий с: %L2' },
       { '^fires: (.+)%. The rows above stay its own$', 'стреляет: %1. Строки выше остаются его собственными' },
@@ -12620,6 +12632,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Daño recibido en el pecho',
       ['Choked (experimental)'] = 'Asfixia (experimental)',
       ['Choose a weapon on the left.'] = 'Elige un arma a la izquierda.',
+      ['Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.'] = 'Elige los perfiles y pulsa Copiar. Los valores en común toman los de este perfil, el resto de los suyos se queda.',
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Elige los vehículos y pulsa Copiar. Reciben todos los valores de esta sección.',
       ['Clear'] = 'Borrar',
       ['Click * to show only what you changed, from every tab.'] = 'Haz clic en * para mostrar solo lo que cambiaste, de todas las pestañas.',
@@ -12662,6 +12675,8 @@ MOD.langs = {
       ['Cooling (% per s)'] = 'Enfriamiento (% por s)',
       ['Copy'] = 'Copiar',
       ['Copy to...'] = 'Copiar a...',
+      ['Copy values to'] = 'Copiar valores a',
+      ['Copy values to...'] = 'Copiar valores a...',
       ['Could not ask Steam to start the game.'] = 'No se pudo pedir a Steam que inicie el juego.',
       ['Could not close Helldivers 2.'] = 'No se pudo cerrar Helldivers 2.',
       ['Countdown before delivery (s)'] = 'Cuenta regresiva de entrega (s)',
@@ -15027,6 +15042,7 @@ MOD.langs = {
       { '^Gear (%d+) ratio$', 'Relación de la marcha %1' },
       { '^fires (.+)$', 'dispara %1' },
       { '^drops (.+)$', 'lanza %1' },
+      { '^Copied (%d+) value%(s%) into (%d+) preset%(s%)$', '%1 valor(es) copiados a %2 perfil(es)' },
       { '^Zoom level (%d) %(x%)$', 'Nivel de zoom %1 (x)' },
       { '^Zeroing distance (%d) %(m%)$', 'Distancia de ajuste %1 (m)' },
       { '^PgUp/PgDn change weapon, Del resets, Ctrl%+1%-5 loads a weapon preset, Ctrl%+Shift%+1%-5 saves one; (%d+) value%(s%) changed%.$', 'RePág/AvPág: arma, Supr: restablecer, Ctrl(+Shift)+1-5: perfiles; %1 valor(es) cambiado(s).' },
@@ -15729,6 +15745,7 @@ MOD.langs = {
       ['Chest damage taken'] = 'Dano recebido no peito',
       ['Choked (experimental)'] = 'Sufocamento (experimental)',
       ['Choose a weapon on the left.'] = 'Escolha uma arma à esquerda.',
+      ['Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.'] = 'Escolha os perfis e clique em Copiar. Os valores em comum ficam com os deste perfil, o resto dos deles continua.',
       ['Choose the vehicles, then Copy. They get every value shown in this section.'] = 'Escolha os veículos e clique em Copiar. Eles recebem todos os valores desta seção.',
       ['Clear'] = 'Limpar',
       ['Click * to show only what you changed, from every tab.'] = 'Clique em * para mostrar só o que você mudou, de todas as abas.',
@@ -15771,6 +15788,8 @@ MOD.langs = {
       ['Cooling (% per s)'] = 'Resfriamento (% por s)',
       ['Copy'] = 'Copiar',
       ['Copy to...'] = 'Copiar para...',
+      ['Copy values to'] = 'Copiar valores para',
+      ['Copy values to...'] = 'Copiar valores para...',
       ['Could not ask Steam to start the game.'] = 'Não foi possível pedir à Steam para iniciar o jogo.',
       ['Could not close Helldivers 2.'] = 'Não foi possível fechar Helldivers 2.',
       ['Countdown before delivery (s)'] = 'Contagem antes da entrega (s)',
@@ -18136,6 +18155,7 @@ MOD.langs = {
       { '^Gear (%d+) ratio$', 'Relação da marcha %1' },
       { '^fires (.+)$', 'dispara %1' },
       { '^drops (.+)$', 'lança %1' },
+      { '^Copied (%d+) value%(s%) into (%d+) preset%(s%)$', '%1 valor(es) copiados para %2 perfil(is)' },
       { '^Zoom level (%d) %(x%)$', 'Nível de zoom %1 (x)' },
       { '^Zeroing distance (%d) %(m%)$', 'Distância de zeragem %1 (m)' },
       { '^PgUp/PgDn change weapon, Del resets, Ctrl%+1%-5 loads a weapon preset, Ctrl%+Shift%+1%-5 saves one; (%d+) value%(s%) changed%.$', 'PgUp/PgDn: arma, Del: redefinir, Ctrl(+Shift)+1-5: perfis; %1 valor(es) mudado(s).' },
@@ -27295,6 +27315,32 @@ do
         say((kind == 'save' and 'Again to overwrite "' or 'Again to delete "') .. full_presets[n].name .. '"')
         ui.version = ui.version + 1
     end
+    -- The preset's values and typed texts go into the others: what both hold takes this one's, the rest of each stays.
+    function presets.copy_values(from, targets)
+        local source = full_presets[from]
+        if not source then return end
+        local held, armors = {}, {}
+        for _, o in ipairs(source.values) do
+            held[o.hash .. ' ' .. o.id] = true
+            if o.id:match('^passive_') then armors[o.hash] = true end   -- (an armor's passives are one set)
+        end
+        for _, n in ipairs(targets) do
+            local into, values = full_presets[n], {}
+            for _, o in ipairs(into.values) do
+                if not (held[o.hash .. ' ' .. o.id] or armors[o.hash] and o.id:match('^passive_')) then values[#values + 1] = o end
+            end
+            for _, o in ipairs(source.values) do values[#values + 1] = { hash = o.hash, id = o.id, value = o.value } end
+            into.values, into.texts = values, into.texts or {}
+            for hash, typed in pairs(source.texts or {}) do
+                into.texts[hash] = into.texts[hash] or {}
+                for field, text in pairs(typed) do into.texts[hash][field] = text end
+            end
+            save_full_preset(n)
+            if presets.marked() and presets.marked().n == n then presets.marked().sig = 0; MOD.config_changed() end   -- (shows as changed)
+        end
+        say('Copied ' .. presets.size(source) .. ' value(s) into ' .. #targets .. ' preset(s)')
+        ui.version = ui.version + 1
+    end
     presets.load_presets = load_presets
     presets.weapon_preset = weapon_preset
     presets.save_weapon_preset = save_weapon_preset
@@ -27497,6 +27543,8 @@ local function draw(width, height)
         button('fpage:next', '>', 294, py, 40, 30, ui.fpage < last_top)
         list_bar('fpage', #order)
         button('fpreset:new', '+ New preset from current changes', 16, py + 40, 318, 30, #order < presets.full_count)
+        button('fpreset:copy', 'Copy values to...', 16, py + 74, 318, 30,
+               chosen ~= nil and #order > 1 and presets.size(presets.list()[chosen]) > 0)
         rect(343, 96, 2, H - 96 - 70, color(70, 82, 94), 951)
 
         local x0, preset = 356, chosen and presets.list()[chosen]
@@ -28281,6 +28329,28 @@ local function draw(width, height)
         if #choices == 0 then text('Every passive is in already.', x + 16, y + 80, 16, MUTED, w - 32, false, 960) end
         button('stack_cancel', 'Cancel', x + w - 16 - 104, y + h - 16 - 30, 104, 30, true, false, nil, 961)
     end
+    -- Copy values to: the other presets, any number chosen, then Copy
+    if ui.fcopy and (not presets_tab or ui.settings or ui.fcopy.enemy ~= MOD.enemy.on) then ui.fcopy = nil end
+    if ui.fcopy then
+        local x, y, w, h = 350, 84, W - 360, H - 104 - 84 - 8
+        rect(x, y, w, h, color(8, 11, 15), 958)
+        outline(x, y, w, h, GOLD, 959)
+        region('stack_modal', x, y, w, h, false)
+        text('Copy values to', x + 16, y + 14, 20, GOLD, w - 32, false, 960)
+        text('Choose the presets, then Copy. Values they share take this preset\'s, the rest of theirs stays.', x + 16, y + 44, 14, MUTED,
+             w - 32, false, 960)
+        local cols, bw, k = 3, math.floor((w - 32 - 16) / 3), 0
+        for _, n in ipairs(presets.full_order()) do
+            if n ~= ui.fcopy.from then
+                local col, row = k % cols, math.floor(k / cols)
+                button('fcopy_toggle:' .. n, presets.list()[n].name, x + 16 + col * (bw + 8), y + 74 + row * 34, bw, 30, true,
+                       ui.fcopy.chosen[n], nil, 961)
+                k = k + 1
+            end
+        end
+        button('fcopy_go', 'Copy', x + w - 16 - 104 - 8 - 104, y + h - 16 - 30, 104, 30, next(ui.fcopy.chosen) ~= nil, false, nil, 961)
+        button('fcopy_cancel', 'Cancel', x + w - 16 - 104, y + h - 16 - 30, 104, 30, true, false, nil, 961)
+    end
     -- Copy to: the other vehicles with this section, any number chosen, then Copy
     if ui.copy and ui.copy.weapon == weapon and not ui.settings then
         local choices = MOD.copy_targets(weapon, ui.copy.section)
@@ -28479,6 +28549,7 @@ local function click(key)
     elseif kind == 'fpreset' then
         local n = presets.chosen()
         if arg == 'new' then presets.new_full_preset()
+        elseif n and arg == 'copy' then ui.fcopy = { from = n, enemy = MOD.enemy.on, chosen = {} }
         elseif n and arg == 'load' then presets.load_full_preset(n)
         elseif n and arg == 'save' then presets.confirm('save', n)
         elseif n and arg == 'delete' then presets.confirm('delete', n)
@@ -28506,6 +28577,15 @@ local function click(key)
         if field == 'name' then MOD.rename.set(page, 'code', nil) end
         ui.version = ui.version + 1
     elseif kind == 'stack_cancel' then ui.stack_pick = nil
+    elseif kind == 'fcopy_toggle' and ui.fcopy then
+        local n = tonumber(arg)
+        ui.fcopy.chosen[n] = not ui.fcopy.chosen[n] or nil
+    elseif kind == 'fcopy_cancel' then ui.fcopy = nil
+    elseif kind == 'fcopy_go' and ui.fcopy then
+        local list = {}
+        for n in pairs(ui.fcopy.chosen) do list[#list + 1] = n end
+        presets.copy_values(ui.fcopy.from, list)
+        ui.fcopy = nil
     elseif kind == 'copy_pick' and weapon then ui.copy = { weapon = weapon, section = arg, chosen = {} }
     elseif kind == 'copy_toggle' and ui.copy then ui.copy.chosen[arg] = not ui.copy.chosen[arg] or nil
     elseif kind == 'copy_cancel' then ui.copy = nil
@@ -28977,8 +29057,8 @@ local function keyboard(now)
         if pressed('Escape', now) then ui.settings = false end
         return
     end
-    if ui.stack_pick or ui.copy then   -- the passive / Copy to picker is open: Esc closes it
-        if pressed('Escape', now) then ui.stack_pick, ui.copy = nil, nil end
+    if ui.stack_pick or ui.copy or ui.fcopy then   -- the passive / Copy to picker is open: Esc closes it
+        if pressed('Escape', now) then ui.stack_pick, ui.copy, ui.fcopy = nil, nil, nil end
         return
     end
     if pressed('PageDown', now) or pressed('PageUp', now) then
