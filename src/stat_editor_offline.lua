@@ -26997,6 +26997,20 @@ local function reset_all()
         for n = #pending, 1, -1 do
             if pending[n].id == 'grenade' then table.remove(pending, n) end
         end
+        for _, page in ipairs(weapons) do
+            if page.armor then MOD.kits.set(page, nil) end
+        end
+        settings.armor_passives = {}   -- (an armor no page shows any more)
+    end
+    for hash in pairs(MOD.rename.texts) do
+        if MOD.is_enemy_value(hash) == MOD.enemy.on then
+            local page = by_hash[hash]
+            if page then
+                for _, field in ipairs({ 'name', 'code', 'desc' }) do MOD.rename.set(page, field, nil) end
+            else
+                MOD.rename.texts[hash] = nil
+            end
+        end
     end
     MOD.reset_side(MOD.enemy.on)
 end
@@ -28513,6 +28527,8 @@ local function draw(width, height)
         local sure_reset = ui.confirm and ui.confirm.kind == 'reset_all'
         local any_reset = false
         for _, o in ipairs(overrides) do any_reset = any_reset or MOD.is_enemy_value(o.hash) == MOD.enemy.on end
+        for hash in pairs(MOD.rename.texts) do any_reset = any_reset or MOD.is_enemy_value(hash) == MOD.enemy.on end
+        any_reset = any_reset or (not MOD.enemy.on and next(settings.armor_passives) ~= nil)
         button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, any_reset, sure_reset)
         if MOD.enemy.on then button('restore_examples', 'Restore built-in presets', x0 + 196, y, 248, 28, true) end
         text('Reset every value in this current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
