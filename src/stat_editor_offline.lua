@@ -2692,6 +2692,7 @@ MOD.langs = {
       ['SH-51 Directional Shield'] = 'SH-51 定向护盾',
       ['SHARED WITH'] = '共用',
       ['SHIELD'] = '护盾',
+      ['SHIELD BASH'] = '盾牌猛击',
       ['SHODAN ENEMY EDITOR'] = 'SHODAN 敌人编辑器',
       ['SHODAN STAT EDITOR'] = 'SHODAN 数值编辑器',
       ['SHODAN weapon mods are running too: they put their own values back every 5 s'] = '检测到 SHODAN 武器 mod 同时运行：它们每 5 秒会把数值改回自己的设定',
@@ -2766,6 +2767,7 @@ MOD.langs = {
       ['Shield Generator Pack'] = '防护罩生成包',
       ['Shield Generator Relay'] = '防护罩生成中继器',
       ['Shield arm zone armor'] = '护盾臂部位护甲',
+      ['Shield bash'] = '盾牌猛击',
       ['Shield capacity'] = '护盾容量',
       ['Shield emitter'] = '护盾发生器',
       ['Shield forcefield'] = '护盾力场',
@@ -6581,6 +6583,7 @@ MOD.langs = {
       ['SH-51 Directional Shield'] = 'SH-51 定向護盾',
       ['SHARED WITH'] = '共用',
       ['SHIELD'] = '護盾',
+      ['SHIELD BASH'] = '盾牌猛擊',
       ['SHODAN ENEMY EDITOR'] = 'SHODAN 敵人編輯器',
       ['SHODAN STAT EDITOR'] = 'SHODAN 數值編輯器',
       ['SHODAN weapon mods are running too: they put their own values back every 5 s'] = '檢測到 SHODAN 武器 mod 同時執行：它們每 5 秒會把數值改回自己的設定',
@@ -6655,6 +6658,7 @@ MOD.langs = {
       ['Shield Generator Pack'] = '防護罩生成背包',
       ['Shield Generator Relay'] = '防護罩生成中繼器',
       ['Shield arm zone armor'] = '護盾臂部位護甲',
+      ['Shield bash'] = '盾牌猛擊',
       ['Shield capacity'] = '護盾容量',
       ['Shield emitter'] = '護盾發生器',
       ['Shield forcefield'] = '護盾力場',
@@ -10399,6 +10403,7 @@ MOD.langs = {
       ['SH-51 Directional Shield'] = 'SH-51 Щит направленного действия',
       ['SHARED WITH'] = 'ОБЩЕЕ С',
       ['SHIELD'] = 'ЩИТ',
+      ['SHIELD BASH'] = 'УДАР ЩИТОМ',
       ['SHODAN ENEMY EDITOR'] = 'SHODAN: РЕДАКТОР ВРАГОВ',
       ['SHODAN STAT EDITOR'] = 'РЕДАКТОР ХАРАКТЕРИСТИК SHODAN',
       ['SHODAN weapon mods are running too: they put their own values back every 5 s'] = 'Также работают оружейные моды SHODAN: они возвращают свои значения каждые 5 с',
@@ -10468,6 +10473,7 @@ MOD.langs = {
       ['Shield'] = 'Щит',
       ['Shield Generator Pack'] = '«Генератор щита»',
       ['Shield arm zone armor'] = 'Броня зоны руки со щитом',
+      ['Shield bash'] = 'Удар щитом',
       ['Shield capacity'] = 'Емкость щита',
       ['Shield emitter'] = 'Излучатель щита',
       ['Shield forcefield'] = 'Защитное поле',
@@ -13474,6 +13480,7 @@ MOD.langs = {
       ['SH-51 Directional Shield'] = 'SH-51 Escudo direccional',
       ['SHARED WITH'] = 'COMPARTIDO CON',
       ['SHIELD'] = 'ESCUDO',
+      ['SHIELD BASH'] = 'GOLPE DE ESCUDO',
       ['SHODAN ENEMY EDITOR'] = 'EDITOR DE ENEMIGOS SHODAN',
       ['SHODAN STAT EDITOR'] = 'SHODAN STAT EDITOR',
       ['SHODAN weapon mods are running too: they put their own values back every 5 s'] = 'Los mods de armas de SHODAN también están activos: vuelven a poner sus propios valores cada 5 s',
@@ -13543,6 +13550,7 @@ MOD.langs = {
       ['Shield'] = 'Escudo',
       ['Shield Generator Pack'] = 'Mochila generadora de escudo',
       ['Shield arm zone armor'] = 'Blindaje de la zona del brazo del escudo',
+      ['Shield bash'] = 'Golpe de escudo',
       ['Shield capacity'] = 'Capacidad del escudo',
       ['Shield emitter'] = 'Emisor del escudo',
       ['Shield forcefield'] = 'Campo de fuerza del escudo',
@@ -16510,6 +16518,7 @@ MOD.langs = {
       ['SH-51 Directional Shield'] = 'SH-51 Escudo direcional',
       ['SHARED WITH'] = 'COMPARTILHADO COM',
       ['SHIELD'] = 'ESCUDO',
+      ['SHIELD BASH'] = 'GOLPE DE ESCUDO',
       ['SHODAN ENEMY EDITOR'] = 'EDITOR DE INIMIGOS SHODAN',
       ['SHODAN STAT EDITOR'] = 'SHODAN STAT EDITOR',
       ['SHODAN weapon mods are running too: they put their own values back every 5 s'] = 'Os mods de armas SHODAN também estão rodando: eles recolocam os próprios valores a cada 5 s',
@@ -16579,6 +16588,7 @@ MOD.langs = {
       ['Shield'] = 'Escudo',
       ['Shield Generator Pack'] = 'Pacote Gerador de Escudo',
       ['Shield arm zone armor'] = 'Blindagem da zona do braço do escudo',
+      ['Shield bash'] = 'Golpe de escudo',
       ['Shield capacity'] = 'Capacidade do escudo',
       ['Shield emitter'] = 'Emissor do escudo',
       ['Shield forcefield'] = 'Campo de força do escudo',
@@ -23692,6 +23702,8 @@ local function resolve(weapon)
                         add_row(weapon, 'Physical shield', 'shield_plate_armor', 'Shield plate armor', 'u32',
                                 { part('shield_plate_armor', TYPES.health, at + 520 + 552 + 216, 'u32', 100) }, 0, 10, 1, 1)
                     end
+                    -- the bash is an ability, no record of the arm names its damage: row 251 (unnamed), the only one with the wiki's 9 values
+                    MOD.melee_rows(weapon, 251, 'Shield bash', 'bash_')
                 end
             end
         end
