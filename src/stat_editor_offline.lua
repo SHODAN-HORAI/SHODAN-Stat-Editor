@@ -27749,9 +27749,9 @@ local function draw(width, height)
                 local weapon = by_hash[hash]
                 for _, o in ipairs(not ui.fclosed[group] and ui.fopen[hash] and weapon and held[hash] or {}) do
                     local p = weapon.by_id[o.id]
-                    if o.text then lines[#lines + 1] = { typed = o.id, value = o.text }
-                    elseif p then lines[#lines + 1] = { part = p, value = o.value, id = o.id }
-                    elseif o.id:match('^passive_') then lines[#lines + 1] = { passive = o.value, id = o.id } end
+                    if o.text then lines[#lines + 1] = { typed = o.id, value = o.text, owner = hash }
+                    elseif p then lines[#lines + 1] = { part = p, value = o.value, id = o.id, owner = hash }
+                    elseif o.id:match('^passive_') then lines[#lines + 1] = { passive = o.value, id = o.id, owner = hash } end
                 end
             end
             ui.fspan = #lines > room and #lines - room + 1 or 0   -- (the top row can be a group's title, kept in view)
@@ -27785,6 +27785,10 @@ local function draw(width, height)
             local final = math.min(#lines, ui.fscroll + room - 1 - (kept and 1 or 0))
             for k = ui.fscroll, final do
                 local line = lines[k]
+                if line.owner then   -- (a double click opens the item's page)
+                    if ui.hover == 'fgo:' .. line.owner then rect(x0, y - 2, W - 24 - x0, 22, color(40, 52, 64), 951) end
+                    region('fgo:' .. line.owner, x0, y - 2, W - 24 - x0, 22)
+                end
                 if line.gap then
                     -- a blank row between groups
                 elseif line.head then
@@ -28579,6 +28583,57 @@ function MOD.restore_last()
     end
 end
 
+-- Back and forward through the pages seen, as a browser's (the mouse's side buttons): every change of editor, tab,
+-- page or Settings is noted, whichever way it was made.
+MOD.nav = { back = {}, forward = {}, LIMIT = 100 }
+function MOD.nav.here()
+    return { enemy = MOD.enemy.on, tab = ui.tab, weapon = ui.weapon and ui.weapon.hash, settings = ui.settings or false }
+end
+
+function MOD.nav.track()
+    local nav, at, now = MOD.nav, MOD.nav.at, MOD.nav.here()
+    if not ui.weapon or state.phase ~= 'ready' then return end
+    if at and at.enemy == now.enemy and at.tab == now.tab and at.weapon == now.weapon and at.settings == now.settings then return end
+    if at then
+        nav.back[#nav.back + 1], nav.forward = at, {}
+        if #nav.back > nav.LIMIT then table.remove(nav.back, 1) end
+    end
+    nav.at = now
+end
+
+-- An item's page, its group opened and any search closed
+function MOD.nav.show(page)
+    local _, title = MOD.group_of(page)
+    if title then ui.closed[page.slot .. '/' .. title] = nil end
+    ui.search = { text = '', active = false }
+    select_weapon(page)
+    ui.version = ui.version + 1
+end
+
+function MOD.nav.go(back)
+    local nav = MOD.nav
+    local from, into = back and nav.back or nav.forward, back and nav.forward or nav.back
+    local stop = table.remove(from)
+    if not stop then return end
+    into[#into + 1] = nav.at
+    state.switch_editor(stop.enemy)
+    if stop.tab ~= ui.tab then ui.page = 1 end
+    local page = stop.weapon and by_hash[stop.weapon]
+    if page then nav.show(page) end
+    if stop.tab == 'Presets' then ui.before_presets = page and page.slot or ui.before_presets end
+    ui.tab, ui.settings = stop.tab, stop.settings
+    nav.at = nav.here()
+    ui.version = ui.version + 1
+end
+
+-- A click on a Presets page line: true on the second one, which opens the item's page.
+function MOD.nav.twice(hash)
+    local again = ui.ftwice and ui.ftwice.hash == hash and api.now() - ui.ftwice.at < 0.5
+    ui.ftwice = not again and { hash = hash, at = api.now() } or nil
+    if again and by_hash[hash] then MOD.nav.show(by_hash[hash]) end
+    return again
+end
+
 local function click(key)
     if not key then return end
     local weapon = ui.weapon
@@ -28695,7 +28750,10 @@ local function click(key)
         elseif n and arg == 'delete' then presets.confirm('delete', n)
         elseif n and arg == 'rename' then presets.start_rename(n)
         elseif n and arg == 'desc' and not ui.editing then presets.start_rename(n, 'desc') end
-    elseif kind == 'fopen' then ui.fopen[arg] = not ui.fopen[arg] or nil
+    elseif kind == 'fopen' then
+        if not MOD.nav.twice(arg) then ui.fopen[arg] = not ui.fopen[arg] or nil end
+    elseif kind == 'fgo' then MOD.nav.twice(arg)
+    elseif kind == 'nav' then MOD.nav.go(arg == 'back')
     elseif kind == 'fhead' then ui.fclosed[arg] = not ui.fclosed[arg] or nil; ui.version = ui.version + 1
     elseif kind == 'lhead' then
         local group = ui.tab .. '/' .. arg
@@ -29304,6 +29362,7 @@ local mouse_was_down, armed = nil, nil
 
 -- Hover and clicks (press and release on the same control), in gui pixels from the bottom left.
 local function mouse(window)
+    if MOD.offline then MOD.nav.track() end
     if user.GetCursorPos(ffi.cast('void *', point)) == 0
        or user.ScreenToClient(window, ffi.cast('void *', point)) == 0
        or user.GetClientRect(window, ffi.cast('void *', rect)) == 0 then return end
@@ -29334,6 +29393,12 @@ local function mouse(window)
         end
     end
     mouse_was_down = down
+    if MOD.offline then
+        -- VK_XBUTTON1 and 2, the mouse's back and forward buttons
+        local side = sr.Mouse.button(5) == 1 and 'back' or sr.Mouse.button(6) == 1 and 'forward' or nil
+        if side and side ~= ui.side and not (ui.stack_pick or ui.copy or ui.fcopy) then click('nav:' .. side) end
+        ui.side = side
+    end
 end
 
 -- ---------------------------------------------------------------- cursor
