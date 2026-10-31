@@ -26750,21 +26750,16 @@ function MOD.reset_side(enemy)
     ui.version = ui.version + 1
 end
 
+-- the shown editor's values only
 local function reset_all()
     apply_at = 1
-    MOD.clear_grenade_pending()
-    for n = #pending, 1, -1 do
-        if pending[n].id == 'grenade' then table.remove(pending, n) end
+    if not MOD.enemy.on then   -- (grenades are the Stat Editor's)
+        MOD.clear_grenade_pending()
+        for n = #pending, 1, -1 do
+            if pending[n].id == 'grenade' then table.remove(pending, n) end
+        end
     end
-    for _, o in ipairs(overrides) do
-        local weapon = by_hash[o.hash]
-        local p = weapon and weapon.by_id[o.id]
-        local d = p and default_of(p.field)
-        if d ~= nil then write_field(p.field, d) end
-    end
-    overrides = {}
-    mark_config_dirty()
-    ui.version = ui.version + 1
+    MOD.reset_side(MOD.enemy.on)
 end
 
 function settings.set_changes(on)
