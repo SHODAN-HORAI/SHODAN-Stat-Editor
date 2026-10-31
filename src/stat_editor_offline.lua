@@ -1014,6 +1014,7 @@ MOD.langs = {
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '“+ 新建预设”（或 Insert 键）会把当前修改存为一组，接着你可以为它命名。',
       ['(Not Used) Additional Strafing Runs'] = '（未使用）额外机枪扫射',
       ['(Not Used) Air-TO-Air Missles'] = '（未使用）空对空导弹',
+      ['(changed)'] = '（已更改）',
       ['+ Add passive'] = '+ 添加被动',
       ['+ Armor rating'] = '护甲值',
       ['+ Ergonomics'] = '人机工效',
@@ -2501,6 +2502,8 @@ MOD.langs = {
       ['Pouncer'] = '猛扑虫',
       ['Predator Hunter'] = '掠食追猎虫',
       ['Predator Stalker'] = '掠食追踪虫',
+      ['Preset:'] = '预设：',
+      ['Preset: none'] = '预设：无',
       ['Presets'] = '预设',
       ['President rewards'] = '总统奖励',
       ['Press a key (Esc cancels)'] = '请按一个键(Esc 取消)',
@@ -2615,6 +2618,7 @@ MOD.langs = {
       ['Reset armor'] = '重置护甲',
       ['Reset booster'] = '重置增强配备',
       ['Reset enemy'] = '重置敌人',
+      ['Reset every value in this current preset to default.'] = '将当前预设的所有数值恢复为默认。',
       ['Reset helldiver'] = '重置潜兵',
       ['Reset passive'] = '重置被动',
       ['Reset record'] = '重置记录',
@@ -4980,6 +4984,7 @@ MOD.langs = {
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '「+ 新建預設」（或 Insert 鍵）會把當前修改存為一組，接著你可以為它命名。',
       ['(Not Used) Additional Strafing Runs'] = '（未使用）額外機槍掃射',
       ['(Not Used) Air-TO-Air Missles'] = '（未使用）空對空導彈',
+      ['(changed)'] = '（已更改）',
       ['+ Add passive'] = '+ 新增被動',
       ['+ Armor rating'] = '護甲值',
       ['+ Ergonomics'] = '人機工效',
@@ -6467,6 +6472,8 @@ MOD.langs = {
       ['Pouncer'] = '食腐蟲',
       ['Predator Hunter'] = '掠食者狩獵蟲',
       ['Predator Stalker'] = '掠食者跟蹤蟲',
+      ['Preset:'] = '預設：',
+      ['Preset: none'] = '預設：無',
       ['Presets'] = '預設',
       ['President rewards'] = '總統獎勵',
       ['Press a key (Esc cancels)'] = '請按一個鍵(Esc 取消)',
@@ -6581,6 +6588,7 @@ MOD.langs = {
       ['Reset armor'] = '重置護甲',
       ['Reset booster'] = '重置增強配備',
       ['Reset enemy'] = '重置敵人',
+      ['Reset every value in this current preset to default.'] = '將當前預設的所有數值恢復為預設。',
       ['Reset helldiver'] = '重置潛兵',
       ['Reset passive'] = '重置被動',
       ['Reset record'] = '重置記錄',
@@ -8944,6 +8952,7 @@ MOD.langs = {
       [' page(s):'] = ' стр.:',
       [' to enemies and spawning with it.'] = ' врагов и их появления.',
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '«+ Новый пресет» (или Insert) сохраняет текущие изменения как пресет; затем вы даете ему имя.',
+      ['(changed)'] = '(изменён)',
       ['+ Add passive'] = '+ Добавить эффект',
       ['+ Armor rating'] = '+ Рейтинг брони',
       ['+ Ergonomics'] = '+ Эргономика',
@@ -10374,6 +10383,8 @@ MOD.langs = {
       ['Pouncer'] = 'Прыгун',
       ['Predator Hunter'] = 'Хищный охотник',
       ['Predator Stalker'] = 'Хищный следопыт',
+      ['Preset:'] = 'Пресет:',
+      ['Preset: none'] = 'Пресет: нет',
       ['Presets'] = 'Пресеты',
       ['Press a key (Esc cancels)'] = 'Нажмите клавишу (Esc — отмена)',
       ['Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.'] = 'Нажмите клавишу для открытия и закрытия панели: F1-F12, Insert, Home, End, Pause или Scroll Lock. Esc — отмена.',
@@ -10482,6 +10493,7 @@ MOD.langs = {
       ['Reset armor'] = 'Сбросить броню',
       ['Reset booster'] = 'Сбросить усиление',
       ['Reset enemy'] = 'Сбросить врага',
+      ['Reset every value in this current preset to default.'] = 'Сбросить все значения текущего пресета.',
       ['Reset helldiver'] = 'Сбросить десантника',
       ['Reset passive'] = 'Сброс эффекта',
       ['Reset record'] = 'Сбросить запись',
@@ -12143,6 +12155,7 @@ MOD.langs = {
       [' page(s):'] = ' página(s):',
       [' to enemies and spawning with it.'] = ' a los enemigos y a su aparición.',
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '"+ Nuevo perfil" (o Insert) guarda tus cambios actuales como uno; luego le pones nombre.',
+      ['(changed)'] = '(cambiado)',
       ['+ Add passive'] = '+ Añadir pasiva',
       ['+ Armor rating'] = '+ Valor de blindaje',
       ['+ Ergonomics'] = '+ Ergonomía',
@@ -13538,6 +13551,8 @@ MOD.langs = {
       ['Pouncer'] = 'Saltador',
       ['Predator Hunter'] = 'Cazador depredador',
       ['Predator Stalker'] = 'Acechador depredador',
+      ['Preset:'] = 'Perfil:',
+      ['Preset: none'] = 'Perfil: ninguno',
       ['Presets'] = 'Perfiles',
       ['Press a key (Esc cancels)'] = 'Presiona una tecla (Esc cancela)',
       ['Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.'] = 'Presiona la tecla que abrirá y cerrará el panel: F1-F12, Insert, Inicio, Fin, Pausa o Bloq Despl. Esc cancela.',
@@ -13645,6 +13660,7 @@ MOD.langs = {
       ['Reset armor'] = 'Restablecer blindaje',
       ['Reset booster'] = 'Restablecer potenciador',
       ['Reset enemy'] = 'Restablecer enemigo',
+      ['Reset every value in this current preset to default.'] = 'Restablece todos los valores de este perfil actual.',
       ['Reset helldiver'] = 'Restablecer helldiver',
       ['Reset passive'] = 'Restablecer pasiva',
       ['Reset record'] = 'Restablecer registro',
@@ -15256,6 +15272,7 @@ MOD.langs = {
       [' page(s):'] = ' página(s):',
       [' to enemies and spawning with it.'] = ' aos inimigos e ao surgimento.',
       ['"+ New preset" (or Insert) saves your current changes as one; you name it next.'] = '"+ Novo perfil" (ou Insert) salva suas mudanças atuais como uma; depois você dá o nome.',
+      ['(changed)'] = '(alterado)',
       ['+ Add passive'] = '+ Adicionar passiva',
       ['+ Armor rating'] = '+ Valor de blindagem',
       ['+ Ergonomics'] = '+ Ergonomia',
@@ -16651,6 +16668,8 @@ MOD.langs = {
       ['Pouncer'] = 'Saltador',
       ['Predator Hunter'] = 'Caçador predador',
       ['Predator Stalker'] = 'Perseguidor predador',
+      ['Preset:'] = 'Perfil:',
+      ['Preset: none'] = 'Perfil: nenhum',
       ['Presets'] = 'Perfis',
       ['Press a key (Esc cancels)'] = 'Pressione uma tecla (Esc cancela)',
       ['Press the key that should open and close the panel: F1-F12, Insert, Home, End, Pause or Scroll Lock. Esc cancels.'] = 'Pressione a tecla que vai abrir e fechar o painel: F1-F12, Insert, Home, End, Pause ou Scroll Lock. Esc cancela.',
@@ -16758,6 +16777,7 @@ MOD.langs = {
       ['Reset armor'] = 'Redefinir blindagem',
       ['Reset booster'] = 'Redefinir reforçador',
       ['Reset enemy'] = 'Redefinir inimigo',
+      ['Reset every value in this current preset to default.'] = 'Redefine todos os valores deste perfil atual.',
       ['Reset helldiver'] = 'Redefinir helldiver',
       ['Reset passive'] = 'Redefinir passiva',
       ['Reset record'] = 'Redefinir registro',
@@ -24726,7 +24746,7 @@ local config_dirty_at = nil
 -- or the id of a translation: fixed by the build (a language's release, MOD.lang), not a choice; offline (every
 -- language built in) a choice, saved as 'lang'.
 local settings = { changes = true, block_input = true, size = 80, side = 'right', opacity = 90,
-                   arc_mp = true, updates = 'ask', update_channel = 'releases', stacks = {}, own_off = {}, armor_passives = {}, hidden = {}, lang = MOD.lang or MOD.offline and rawget(_G, 'SHODAN_OFFLINE_LANG') or 'en',
+                   arc_mp = true, updates = 'ask', update_channel = 'releases', stacks = {}, own_off = {}, armor_passives = {}, hidden = {}, loaded = {}, nav_buttons = false, lang = MOD.lang or MOD.offline and rawget(_G, 'SHODAN_OFFLINE_LANG') or 'en',
                    last = { stat = {}, enemy = {} }, enemy_last = false,
                    GITHUB = 'https://github.com/SHODAN-HORAI/SHODAN-Stat-Editor',
                    RANGE = { size = { 50, 100 }, opacity = { 10, 100 } } }
@@ -24941,6 +24961,8 @@ local function save_config()
     if last.enemy.tab then lines[#lines + 1] = 'enemy_tab ' .. last.enemy.tab end
     if last.enemy.weapon then lines[#lines + 1] = 'enemy_page ' .. last.enemy.weapon end
     lines[#lines + 1] = 'editor ' .. (settings.enemy_last and 'enemy' or 'stat')
+    -- loaded_stat / loaded_enemy <preset number>:<signature of the values it left>: shown above the tabs
+    for side, at in pairs(settings.loaded) do lines[#lines + 1] = 'loaded_' .. side .. ' ' .. at.n .. ':' .. at.sig end
     for _, o in ipairs(overrides) do
         local weapon = by_hash[o.hash]
         lines[#lines + 1] = o.hash .. ' ' .. o.id .. ' ' .. number_text(o.value) ..
@@ -25006,6 +25028,10 @@ local function load_config()
             known = true
         elseif name == 'update_channel' and (value == 'releases' or value == 'commits') then
             settings.update_channel = value
+            known = true
+        elseif (name == 'loaded_stat' or name == 'loaded_enemy') and value:match('^%d+:%d+$') then
+            local n, sig = value:match('^(%d+):(%d+)$')
+            settings.loaded[name:sub(8)] = { n = tonumber(n), sig = tonumber(sig) }
             known = true
         elseif name == 'updates' and (value == 'ask' or value == 'auto') then
             settings.updates = value
@@ -27159,6 +27185,34 @@ do
     end
     presets.current_count = function() return presets.size({ values = current_values(), texts = presets.current_texts() }) end
 
+    -- The preset last loaded or saved in the shown editor: its signature tells whether the values still match it.
+    function presets.marked() return settings.loaded[MOD.enemy.on and 'enemy' or 'stat'] end
+    function presets.signature()
+        local list, sum = {}, 0
+        for _, o in ipairs(current_values()) do list[#list + 1] = o.hash .. ' ' .. o.id .. ' ' .. string.format('%.4g', o.value) end
+        for hash, typed in pairs(presets.current_texts()) do
+            for field, text in pairs(typed) do list[#list + 1] = hash .. ' ' .. field .. ' ' .. text end
+        end
+        table.sort(list)
+        for _, line in ipairs(list) do
+            for k = 1, #line do sum = (sum * 33 + line:byte(k)) % 4294967296 end
+        end
+        return sum
+    end
+    function presets.mark(n)
+        settings.loaded[MOD.enemy.on and 'enemy' or 'stat'] = n and { n = n, sig = presets.signature() } or nil
+        mark_config_dirty()
+    end
+    -- the line above the tabs
+    function presets.loaded_label()
+        local at = presets.marked()
+        local preset = at and presets.list()[at.n]
+        if not preset then return nil end
+        local key = ui.version .. tostring(MOD.enemy.on) .. at.sig
+        if ui.fmark ~= key then ui.fmark, ui.fchanged = key, presets.signature() ~= at.sig end
+        return preset.name, ui.fchanged
+    end
+
     -- Preset numbers in use, in order.
     local function full_order()
         local order = {}
@@ -27228,6 +27282,7 @@ do
         if not n then say('All ' .. FULL_PRESETS .. ' presets are in use: delete one first'); return end
         full_presets[n] = { name = 'Preset ' .. n, values = current_values(), texts = presets.current_texts() }
         save_full_preset(n)
+        presets.mark(n)
         show(n)
         start_rename(n)
         say('Saved ' .. #full_presets[n].values .. ' changed value(s) as a new preset. Type its name, Enter keeps it.')
@@ -27237,6 +27292,7 @@ do
         if not full_presets[n] then return end
         full_presets[n].values, full_presets[n].texts = current_values(), presets.current_texts()
         save_full_preset(n)
+        presets.mark(n)
         say('Saved ' .. #full_presets[n].values .. ' changed value(s) into "' .. full_presets[n].name .. '"')
         ui.version = ui.version + 1
     end
@@ -27283,6 +27339,7 @@ do
             end
             if not ok then refused = refused + 1; log('preset "' .. preset.name .. '": ' .. (weapon and weapon.name or o.hash) .. ' ' .. o.id .. ': ' .. tostring(why)) end
         end
+        presets.mark(n)
         say('Loaded "' .. preset.name .. '"' .. (refused > 0 and (' (' .. refused .. ' value(s) not applied)') or ''))
         ui.version = ui.version + 1
     end
@@ -27292,6 +27349,7 @@ do
         if not preset then return end
         full_presets[n] = nil
         save_full_preset(n)
+        if presets.marked() and presets.marked().n == n then presets.mark(nil) end
         if ui.editing and ui.editing.n == n then ui.editing = nil end
         say('Deleted "' .. preset.name .. '"')
         ui.version = ui.version + 1
@@ -27398,7 +27456,7 @@ local function draw(width, height)
         return measure
     end
     local function width(value, size) return measure_text(settings.tr(value), size) end
-    local function text(value, x, y, size, c, limit, align_right, z)
+    local function text(value, x, y, size, c, limit, align_right, z, face)
         if value == nil or value == '' or not ink_font then return end
         value = settings.tr(value)
         size = size * s
@@ -27414,7 +27472,20 @@ local function draw(width, height)
             if align_right then px = px - measure end
         end
         step('Gui.text')
-        Gui.text(gui, value, ink_font, size, ink_material, Vector3(px, height - oy - y * s - size * 0.8, z or 953), c or WHITE)
+        Gui.text(gui, value, MOD.offline and face or ink_font, size, ink_material, Vector3(px, height - oy - y * s - size * 0.8, z or 953), c or WHITE)
+    end
+    -- the loaded preset: "Preset:", its name in gold (in either editor), then "(changed)"
+    local function preset_line(x, y, size, right)
+        local name, changed = presets.loaded_label()
+        local parts = name and { { 'Preset:', MUTED }, { name, color(255, 213, 0) } } or { { 'Preset: none', MUTED } }
+        if changed then parts[3] = { '(changed)', WARN } end
+        local total = 0
+        for _, part in ipairs(parts) do total = total + width(part[1], size) + 6 end
+        x = right and x - total + 6 or x
+        for _, part in ipairs(parts) do
+            text(part[1], x, y, size, part[2])
+            x = x + width(part[1], size) + 6
+        end
     end
     local function outline(x, y, w, h, c, z)
         z = z or 952
@@ -27475,7 +27546,10 @@ local function draw(width, height)
             tab_x = tab_x + w + 4
         end
     end
-    button('reset_weapon', ui.weapon and (ui.weapon.passive and 'Reset passive' or (ui.weapon.armor or ui.weapon.look) and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon'), W - 16 - 124, MOD.offline and 10 or 52, 124, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
+    local reset_label = ui.weapon and (ui.weapon.passive and 'Reset passive' or (ui.weapon.armor or ui.weapon.look) and 'Reset armor' or ui.weapon.booster and 'Reset booster' or ui.weapon.enemy and (ui.weapon.slot == 'Spawning' and 'Reset spawning' or 'Reset enemy') or ui.weapon.player and 'Reset helldiver' or ui.weapon.record and 'Reset record') or (MOD.enemy.on and 'Reset enemy' or 'Reset weapon')
+    local reset_w = math.max(124, width(reset_label, 16) + 18)   -- (as wide as its translated name)
+    button('reset_weapon', reset_label, W - 16 - reset_w, MOD.offline and 10 or 52, reset_w, MOD.offline and 30 or 32, ui.weapon ~= nil and modified(ui.weapon))
+    preset_line(W - 26 - reset_w, 18, 15, true)
 
     -- a Description box shows all of its text: value in rows that fit in room, | starts a new one
     local function wrapped(value, room)
@@ -27928,10 +28002,13 @@ local function draw(width, height)
         end
         y = y + 52
         local sure_reset = ui.confirm and ui.confirm.kind == 'reset_all'
-        button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, #overrides > 0, sure_reset)
-        button('restore_examples', 'Restore built-in presets', x0 + 196, y, 248, 28, true)
-        text('Resets all values from the current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
-        text('Puts the built-in Enemy Editor presets back as they came. Your own presets stay.', x0 + 16, y + 48, 14, MUTED, W - x0 - 40)
+        local any_reset = false
+        for _, o in ipairs(overrides) do any_reset = any_reset or MOD.is_enemy_value(o.hash) == MOD.enemy.on end
+        button('reset_all', sure_reset and 'Sure?' or 'Reset all values', x0, y, 188, 28, any_reset, sure_reset)
+        if MOD.enemy.on then button('restore_examples', 'Restore built-in presets', x0 + 196, y, 248, 28, true) end
+        text('Reset every value in this current preset to default.', x0 + 16, y + 30, 14, MUTED, W - x0 - 40)
+        if MOD.enemy.on then text('Puts the built-in Enemy Editor presets back as they came. Your own presets stay.', x0 + 16, y + 48, 14, MUTED, W - x0 - 40) end
+        if inside(y + (MOD.enemy.on and 66 or 48), 14) then preset_line(x0 + 16, y + (MOD.enemy.on and 66 or 48), 14) end
         y = y + 90
         rect(x0, y, W - x0 - 16, 1, color(70, 82, 94), 951)
         y = y + 20
@@ -28527,6 +28604,7 @@ local function click(key)
         else
             ui.confirm = nil
             reset_all()
+            presets.mark(nil)
         end
     elseif kind == 'restore_examples' then
         local n = presets.restore_examples(true)
