@@ -1694,6 +1694,7 @@ MOD.langs = {
       ['Eagle strike. The rearm time is shared by every Eagle.'] = '飞鹰打击。所有飞鹰共用重新武装时间。',
       ['Eagles cannot be called within this distance while it stands'] = '在其被摧毁前，此范围内无法呼叫飞鹰',
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = '在“投掷物”页编辑该手雷即可调整。资源加载完成后选择才会生效。',
+      ['Editor'] = '编辑器',
       ['Effect'] = '效果',
       ['Egg'] = '虫卵',
       ['Egg cluster'] = '虫卵簇',
@@ -1873,6 +1874,7 @@ MOD.langs = {
       ['GR-8 Recoilless Rifle'] = 'GR-8 无后坐力炮',
       ['GRENADE SWAP'] = '手雷交换',
       ['Gallant'] = '英勇无畏',
+      ['Gameplay'] = '游戏玩法',
       ['Gas'] = '毒气榴弹',
       ['Gas (Sterilizer)'] = '毒气（灭菌器）',
       ['Gas Mine Deployer'] = '毒气布雷器',
@@ -1886,6 +1888,7 @@ MOD.langs = {
       ['Gatling Sentry'] = '加特林哨戒炮',
       ['Gazer'] = '凝视者',
       ['Gazer Spire'] = '凝视者尖塔',
+      ['General'] = '常规',
       ['Generator'] = '发电机',
       ['Generator Pack'] = '护盾生成背包',
       ['Get in and out speed (x)'] = '进出速度 (x)',
@@ -5666,6 +5669,7 @@ MOD.langs = {
       ['Eagle strike. The rearm time is shared by every Eagle.'] = '飛鷹打擊。所有飛鷹共用重新武裝時間。',
       ['Eagles cannot be called within this distance while it stands'] = '在其被摧毀前，此範圍內無法呼叫飛鷹',
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = '在「投擲物」頁編輯該手雷即可調整。資源載入完成後選擇才會生效。',
+      ['Editor'] = '編輯器',
       ['Effect'] = '效果',
       ['Egg'] = '蟲卵',
       ['Egg cluster'] = '蟲卵簇',
@@ -5845,6 +5849,7 @@ MOD.langs = {
       ['GR-8 Recoilless Rifle'] = 'GR-8 無後座力炮',
       ['GRENADE SWAP'] = '手雷交換',
       ['Gallant'] = '英勇',
+      ['Gameplay'] = '遊戲玩法',
       ['Gas'] = '毒氣彈',
       ['Gas (Sterilizer)'] = '毒氣（滅菌器）',
       ['Gas Mine Deployer'] = '毒氣佈雷器',
@@ -5858,6 +5863,7 @@ MOD.langs = {
       ['Gatling Sentry'] = '哨戒格林炮',
       ['Gazer'] = '凝視者',
       ['Gazer Spire'] = '凝視者尖塔',
+      ['General'] = '常規',
       ['Generator'] = '發電機',
       ['Generator Pack'] = '護盾生成背包',
       ['Get in and out speed (x)'] = '進出速度 (x)',
@@ -9616,6 +9622,7 @@ MOD.langs = {
       ['Eagle strike. The rearm time is shared by every Eagle.'] = 'Удар «Орла». Время перевооружения общее для всех ударов «Орла».',
       ['Eagles cannot be called within this distance while it stands'] = 'пока объект цел, в этом радиусе нельзя вызывать «Орлов»',
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = 'Настраивайте гранату во вкладке «Метательное». Выбор применяется после загрузки ресурсов.',
+      ['Editor'] = 'Редактор',
       ['Effect'] = 'Эффект',
       ['Egg'] = 'Яйцо',
       ['Egg cluster'] = 'Кладка яиц',
@@ -9788,6 +9795,7 @@ MOD.langs = {
       ['GR-8 Recoilless Rifle'] = 'GR-8 «Безоткатная винтовка»',
       ['GRENADE SWAP'] = 'ЗАМЕНА ГРАНАТЫ',
       ['Gallant'] = '«Кавалер»',
+      ['Gameplay'] = 'Игровой процесс',
       ['Gas'] = 'Газовая',
       ['Gas Mortar Sentry'] = 'Турель с газовым минометом',
       ['Gas damage taken'] = 'Получаемый урон от газа',
@@ -9797,6 +9805,7 @@ MOD.langs = {
       ['Gatling Sentry'] = '«Турель Гатлинга»',
       ['Gazer'] = 'Наблюдатель',
       ['Gazer Spire'] = 'Шпиль «Наблюдатель»',
+      ['General'] = 'Общие',
       ['Generator'] = 'Генератор',
       ['Get in and out speed (x)'] = 'Скорость посадки и высадки (x)',
       ['Giga Grenade'] = 'Гигаграната',
@@ -12811,6 +12820,7 @@ MOD.langs = {
       ['Eagle strike. The rearm time is shared by every Eagle.'] = 'Ataque de Águila. El tiempo de rearme lo comparten todos los Águilas.',
       ['Eagles cannot be called within this distance while it stands'] = 'No se pueden pedir Águilas a esta distancia mientras esté en pie',
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = 'Edita la granada en Arrojadizos para ajustarla. Los recursos se cargan antes de aplicar la selección.',
+      ['Editor'] = 'Editor',
       ['Effect'] = 'Efecto',
       ['Egg'] = 'Huevo',
       ['Egg cluster'] = 'Grupo de huevos',
@@ -12978,6 +12988,7 @@ MOD.langs = {
       ['GR-8 Recoilless Rifle'] = 'GR-8 Rifle sin retroceso',
       ['GRENADE SWAP'] = 'CAMBIO DE GRANADA',
       ['Gallant'] = 'Galante',
+      ['Gameplay'] = 'Jugabilidad',
       ['Gas'] = 'Gas',
       ['Gas Mortar Sentry'] = 'Vigía mortero de gas',
       ['Gas damage taken'] = 'Daño de gas recibido',
@@ -12987,6 +12998,7 @@ MOD.langs = {
       ['Gatling Sentry'] = 'Vigía gatling',
       ['Gazer'] = 'Oteador',
       ['Gazer Spire'] = 'Espira vigía',
+      ['General'] = 'General',
       ['Generator'] = 'Generador',
       ['Get in and out speed (x)'] = 'Velocidad al subir y bajar (x)',
       ['Giga Grenade'] = 'Gigagranada',
@@ -15930,6 +15942,7 @@ MOD.langs = {
       ['Eagle strike. The rearm time is shared by every Eagle.'] = 'Ataque da Águia. O tempo de rearmamento é compartilhado por todas as Águias.',
       ['Eagles cannot be called within this distance while it stands'] = 'Águias não podem ser chamadas a esta distância enquanto ele estiver de pé',
       ['Edit the grenade on Throwables to tune it. Assets load before selection applies.'] = 'Edite a granada em Arremessáveis para ajustá-la. Os recursos carregam antes de a seleção valer.',
+      ['Editor'] = 'Editor',
       ['Effect'] = 'Efeito',
       ['Egg'] = 'Ovo',
       ['Egg cluster'] = 'Grupo de ovos',
@@ -16097,6 +16110,7 @@ MOD.langs = {
       ['GR-8 Recoilless Rifle'] = 'GR-8 Rifle Sem Recuo',
       ['GRENADE SWAP'] = 'TROCA DE GRANADA',
       ['Gallant'] = 'Galante',
+      ['Gameplay'] = 'Jogabilidade',
       ['Gas'] = 'Gás',
       ['Gas Mortar Sentry'] = 'Morteiro Sentinela Gasoso',
       ['Gas damage taken'] = 'Dano de gás recebido',
@@ -16106,6 +16120,7 @@ MOD.langs = {
       ['Gatling Sentry'] = 'Sentinela Gatling',
       ['Gazer'] = 'Miradora',
       ['Gazer Spire'] = 'Pináculo Bisbilhoteiro',
+      ['General'] = 'Geral',
       ['Generator'] = 'Gerador',
       ['Get in and out speed (x)'] = 'Velocidade de entrar e sair (x)',
       ['Giga Grenade'] = 'Gigagranada',
@@ -27900,7 +27915,23 @@ local function draw(width, height)
     local x0 = 356
     if ui.settings then
         text('Settings', x0, 94, 22, GOLD)
-        local y = 132
+        -- the page scrolls: a row outside the view is left out whole
+        local TOP, BOTTOM, STEP = 126, 906, 12
+        ui.sbar = nil
+        ui.sscroll = ui.sscroll or 1
+        local y = 132 - (ui.sscroll - 1) * STEP
+        local draw_text, draw_button, draw_rect, draw_region = text, button, rect, region
+        local function inside(at, h) return at >= TOP and at + h <= BOTTOM end
+        local function text(value, x, at, size, ...) if inside(at, size) then draw_text(value, x, at, size, ...) end end
+        local function button(key, label, x, at, w, h, ...) if inside(at, h) then draw_button(key, label, x, at, w, h, ...) end end
+        local function rect(x, at, w, h, ...) if inside(at, h) then draw_rect(x, at, w, h, ...) end end
+        local function region(key, x, at, w, h, ...) if inside(at, h) then draw_region(key, x, at, w, h, ...) end end
+        local function heading(label)
+            y = y + 6
+            rect(x0 - 6, y, W - 14 - x0, 25, color(23, 30, 39), 951)   -- (as the list's group titles)
+            text(settings.tr(label):upper(), x0, y + 4, 19, HEADING, nil, nil, nil, 'heading')
+            y = y + 33
+        end
         local function choice(label, key, options, current)
             text(label, x0, y + 6, 16, WHITE, 270)
             for k, o in ipairs(options) do
@@ -27910,6 +27941,7 @@ local function draw(width, height)
         end
         local ONOFF = { { 'on', 'On' }, { 'off', 'Off' } }
         local function onoff(v) return v and 'on' or 'off' end
+        heading('General')
         if MOD.offline then
             text('Language', x0, y + 6, 16, WHITE, 270)
             local options = { { id = 'en', name = 'English' } }
@@ -27950,6 +27982,7 @@ local function draw(width, height)
             percent('Background opacity', 'opacity')
         end
         if MOD.offline then   -- wider buttons than choice()'s: 'Automatic', 'Every commit' in every language
+            heading('Updates')
             text('Updates', x0, y + 6, 16, WHITE, 270)
             for k, o in ipairs({ { 'ask', 'Ask' }, { 'auto', 'Automatic' } }) do
                 button('set:updates:' .. o[1], o[2], 640 + (k - 1) * 134, y, 130, 28, true, settings.updates == o[1])
@@ -27976,6 +28009,7 @@ local function draw(width, height)
         y = y + 14
         end
         local notes, warn = {}, false
+        heading('Gameplay')
         choice('Several vehicles of a kind', 'vehicles', ONOFF, onoff(MOD.vehicles.on))
         text('On: a loadout can take more than one exosuit, FRV or tank.', x0 + 16, y - 6, 14, MUTED, W - x0 - 40)
         y = y + 14
@@ -27988,6 +28022,10 @@ local function draw(width, height)
         y = y + 14
         choice('Sniper crosshair in third person', 'reticle', ONOFF, onoff(MOD.tweaks.reticle.on))
         text('On: sniper rifles show a crosshair when you aim in third person.', x0 + 16, y - 6, 14, MUTED, W - x0 - 40)
+        y = y + 14
+        heading('Editor')
+        choice('Up/Down and arrow buttons', 'nav_buttons', ONOFF, onoff(settings.nav_buttons))
+        text('On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.', x0 + 16, y - 6, 14, MUTED, W - x0 - 40)
         y = y + 14
         if not MOD.offline then   -- (the game's item list exists only while it runs)
         choice('Unlock unused items', 'unlock_all', ONOFF, onoff(settings.unlock_any()))
@@ -28042,6 +28080,20 @@ local function draw(width, height)
         button('link:log_open', 'Folder', 896, y, 88, 28, true)
         text(MOD.offline and (data_dir('StatEditor') or ''):gsub('/', '\\') or log_dir .. '\\' .. MOD.log,
              x0 + 128, y + 7, 14, MUTED, 300)
+        local span = math.max(0, math.ceil((y + 28 + (ui.sscroll - 1) * STEP - BOTTOM) / STEP))
+        if ui.sscroll > span + 1 then ui.sscroll, ui.version = span + 1, ui.version + 1 end
+        if span > 0 then   -- as the stats' bar, the same looks and mouse
+            local len = BOTTOM - TOP
+            local th = math.max(24, len * len / (len + span * STEP))
+            local ty = TOP + (len - th) * (ui.sscroll - 1) / span
+            local hot = (ui.drag and ui.drag.bar == 'sbar') or ui.hover == 'sbar:thumb'
+            draw_rect(989, TOP, 5, len, color(28, 34, 42), 951)
+            draw_rect(989, ty, 5, th, hot and GOLD or color(110, 124, 138), 952)
+            draw_region('sbar:track', 986, TOP, 12, len)
+            draw_region('sbar:thumb', 986, ty, 12, th)
+            ui.sbar = { id = 'sscroll', top = height - oy - TOP * s, bottom = height - oy - (TOP + len) * s,
+                        thumb_top = height - oy - ty * s, thumb = th * s, span = span, page = 20 }
+        end
     elseif presets_tab then
         -- drawn above
     elseif not weapon then
@@ -29244,7 +29296,7 @@ end
 
 function ui.wheel_scroll(notches)
     local left = ui.cursor_gx and ui.split_gx and ui.cursor_gx < ui.split_gx
-    local b = left and ui.lbar or (not left and (ui.weapon or ui.tab == 'Presets') and ui.sbar)
+    local b = left and ui.lbar or (not left and (ui.weapon or ui.tab == 'Presets' or ui.settings) and ui.sbar)
     if b then ui[b.id] = math.max(1, math.min(b.span + 1, ui[b.id] - notches * 3)) end
 end
 
@@ -29639,7 +29691,7 @@ local function panel_frame(now)
     local signature = table.concat({ width, height, state.phase, state.tables, ui.tab, ui.page, ui.row, ui.scroll,
                                      tostring(ui.hover), tostring(ui.drag ~= nil), ui.weapon and ui.weapon.hash or '-', ui.version,
                                      tostring(ui.settings), tostring(ui.binding), hotkey_name,
-                                     #overrides, ui.wslot, tostring(ui.fslot), ui.fpage, ui.fscroll or 0,
+                                     #overrides, ui.wslot, tostring(ui.fslot), ui.fpage, ui.fscroll or 0, ui.sscroll or 0,
                                      ui.message and ui.message.text or '', ui.editing and ui.editing.text or '-',
                                      ui.search.text, tostring(ui.search.active),
                                      ui.value and (ui.value.n .. '=' .. ui.value.text) or '-',
