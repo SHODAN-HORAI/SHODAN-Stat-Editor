@@ -157,7 +157,7 @@ local function main()
         end
         local last = bar.titles[#bar.titles]
         bar.sign = { x0 = last.x1 + 12 * s, x1 = last.x1 + 44 * s, y0 = 9 * s, y1 = 39 * s }   -- the free space after the titles
-        bar.s, bar.h = s, shim.h
+        bar.s, bar.h, bar.lang = s, shim.h, shim.lang()
     end
     layout()
 
@@ -475,7 +475,7 @@ local function main()
         local now = clock()
         update(math.min(0.1, now - last))
         last = now
-        if bar.h ~= shim.h then layout() end   -- moved onto another screen: sized for that one
+        if bar.h ~= shim.h or bar.lang ~= shim.lang() then layout() end   -- moved onto another screen or another language: sized for that one
         if state.phase == 'ready' and not said_ready then
             said_ready = true
             if installed_count() > 0 and state.load_donors then bar.dropped = state.load_donors() end
