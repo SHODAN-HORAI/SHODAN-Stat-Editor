@@ -1024,6 +1024,7 @@ MOD.langs = {
       ['+ Throwables (start, max)'] = '投掷物数量（初始 / 上限）',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + 按名称切换战略配备（-- / ++ 每次切换 10 项）。',
       ['-180 with right at 180: all the way round'] = '-180 且右限为 180：可转一整圈',
+      ['-1: as far as straight ahead'] = '-1：与正前方相同',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = 常规弹丸；- / + 按上方名称选择投掷手雷。',
       ['0 light, 1 medium, 2 heavy'] = '0 轻型，1 中型，2 重型',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0：立即。RL-77 等待 0.2 秒，P-34 Breacher（先粘附燃烧）1 秒。',
@@ -2563,6 +2564,7 @@ MOD.langs = {
       ['Rear brake strength'] = '后轮制动力',
       ['Rear cockpit'] = '后驾驶舱',
       ['Rear damping'] = '后悬挂阻尼',
+      ['Rear sight range (m)'] = '后方视野距离（米）',
       ['Rear spring stiffness'] = '后悬挂刚度',
       ['Rear suspension travel'] = '后悬挂行程',
       ['Rear wheel grip'] = '后轮抓地力',
@@ -2865,6 +2867,7 @@ MOD.langs = {
       ['Shrieker Nest'] = '尖啸虫巢穴',
       ['Sickle'] = '镰刀',
       ['Side'] = '侧面',
+      ['Side sight range (m)'] = '侧方视野距离（米）',
       ['Siege-Ready'] = '蓄势出击',
       ['Sight cone height (degrees)'] = '视野锥高度 (度)',
       ['Sight cone width (degrees)'] = '视野锥宽度 (度)',
@@ -4975,6 +4978,7 @@ MOD.langs = {
       ['+ Throwables (start, max)'] = '投擲物數量（初始 / 上限）',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + 按名稱切換戰略配備（-- / ++ 每次切換 10 項）。',
       ['-180 with right at 180: all the way round'] = '-180 且右限為 180：可轉一整圈',
+      ['-1: as far as straight ahead'] = '-1：與正前方相同',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = 常規射彈；- / + 按上方名稱選擇投擲手雷。',
       ['0 light, 1 medium, 2 heavy'] = '0 輕型，1 中型，2 重型',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0：立即。RL-77 等待 0.2 秒，P-34 Breacher（先粘附燃燒）1 秒。',
@@ -6514,6 +6518,7 @@ MOD.langs = {
       ['Rear brake strength'] = '後輪制動力',
       ['Rear cockpit'] = '後駕駛艙',
       ['Rear damping'] = '後懸掛阻尼',
+      ['Rear sight range (m)'] = '後方視野距離（米）',
       ['Rear spring stiffness'] = '後懸掛剛度',
       ['Rear suspension travel'] = '後懸掛行程',
       ['Rear wheel grip'] = '後輪抓地力',
@@ -6816,6 +6821,7 @@ MOD.langs = {
       ['Shrieker Nest'] = '尖叫蟲巢穴',
       ['Sickle'] = '鐮刀',
       ['Side'] = '側面',
+      ['Side sight range (m)'] = '側方視野距離（米）',
       ['Siege-Ready'] = '圍攻準備完畢',
       ['Sight cone height (degrees)'] = '視野錐高度 (度)',
       ['Sight cone width (degrees)'] = '視野錐寬度 (度)',
@@ -8924,6 +8930,7 @@ MOD.langs = {
       ['+ Throwables (start, max)'] = '+ Метательное (в начале, макс.)',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + перебирают стратагемы по названию (-- / ++: по 10 за раз).',
       ['-180 with right at 180: all the way round'] = '-180 при правом 180: полный круг',
+      ['-1: as far as straight ahead'] = '-1: как прямо вперёд',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = обычный снаряд; - / + выбирает гранату по названию выше.',
       ['0 light, 1 medium, 2 heavy'] = '0 лёгкая, 1 средняя, 2 тяжёлая',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0: сразу. RL-77 ждёт 0,2 с, P-34 Breacher (сначала прилипает и горит) 1 с.',
@@ -10402,6 +10409,7 @@ MOD.langs = {
       ['Rear brake strength'] = 'Тормоза задних колёс',
       ['Rear cockpit'] = 'Задняя кабина',
       ['Rear damping'] = 'Демпфирование сзади',
+      ['Rear sight range (m)'] = 'Дальность заднего зрения (м)',
       ['Rear spring stiffness'] = 'Жёсткость задней подвески',
       ['Rear suspension travel'] = 'Ход задней подвески',
       ['Rear wheel grip'] = 'Сцепление задних колёс',
@@ -10690,6 +10698,7 @@ MOD.langs = {
       ['Shrieker Nest'] = 'Гнездо крикунов',
       ['Sickle'] = '«Серп»',
       ['Side'] = 'сбоку',
+      ['Side sight range (m)'] = 'Дальность бокового зрения (м)',
       ['Siege-Ready'] = 'К осаде готов',
       ['Sight cone height (degrees)'] = 'Высота конуса зрения (градусы)',
       ['Sight cone width (degrees)'] = 'Ширина конуса зрения (градусы)',
@@ -12108,6 +12117,7 @@ MOD.langs = {
       ['+ Throwables (start, max)'] = '+ Arrojadizos (inicio, máx.)',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + recorre las estratagemas por nombre (-- / ++: de 10 en 10).',
       ['-180 with right at 180: all the way round'] = '-180 con derecha en 180: toda la vuelta',
+      ['-1: as far as straight ahead'] = '-1: igual que hacia delante',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = proyectil normal; - / + elige una granada arrojadiza por nombre arriba.',
       ['0 light, 1 medium, 2 heavy'] = '0 ligero, 1 intermedio, 2 pesado',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0: al instante. El RL-77 espera 0.2 s, el P-34 Breacher (primero se pega y arde) 1 s.',
@@ -13550,6 +13560,7 @@ MOD.langs = {
       ['Rear brake strength'] = 'Fuerza de los frenos traseros',
       ['Rear cockpit'] = 'Cabina trasera',
       ['Rear damping'] = 'Amortiguación trasera',
+      ['Rear sight range (m)'] = 'Alcance de visión trasera (m)',
       ['Rear spring stiffness'] = 'Rigidez de la suspensión trasera',
       ['Rear suspension travel'] = 'Recorrido de la suspensión trasera',
       ['Rear wheel grip'] = 'Agarre de las ruedas traseras',
@@ -13825,6 +13836,7 @@ MOD.langs = {
       ['Shrieker Nest'] = 'Nido de aulladores',
       ['Sickle'] = 'Hoz',
       ['Side'] = 'Lado',
+      ['Side sight range (m)'] = 'Alcance de visión lateral (m)',
       ['Siege-Ready'] = 'Asedio a la Orden',
       ['Sight cone height (degrees)'] = 'Alto del cono de visión (grados)',
       ['Sight cone width (degrees)'] = 'Ancho del cono de visión (grados)',
@@ -15206,6 +15218,7 @@ MOD.langs = {
       ['+ Throwables (start, max)'] = '+ Arremessáveis (início, máx.)',
       ['- / + steps through the stratagems by name (-- / ++: 10 at a time).'] = '- / + percorre as estratégias por nome (-- / ++: de 10 em 10).',
       ['-180 with right at 180: all the way round'] = '-180 com direita em 180: a volta toda',
+      ['-1: as far as straight ahead'] = '-1: igual à visão para a frente',
       ['0 = normal projectile; - / + selects a throwable grenade by name above.'] = '0 = projétil normal; - / + escolhe uma granada arremessável pelo nome acima.',
       ['0 light, 1 medium, 2 heavy'] = '0 leve, 1 médio, 2 pesado',
       ['0: at once. The RL-77 waits 0.2 s, the P-34 Breacher (it sticks and burns first) 1 s.'] = '0: na hora. O RL-77 espera 0.2 s, o P-34 Breacher (primeiro gruda e queima) 1 s.',
@@ -16648,6 +16661,7 @@ MOD.langs = {
       ['Rear brake strength'] = 'Força dos freios traseiros',
       ['Rear cockpit'] = 'Cabine traseira',
       ['Rear damping'] = 'Amortecimento traseiro',
+      ['Rear sight range (m)'] = 'Alcance de visão traseira (m)',
       ['Rear spring stiffness'] = 'Rigidez da suspensão traseira',
       ['Rear suspension travel'] = 'Curso da suspensão traseira',
       ['Rear wheel grip'] = 'Aderência das rodas traseiras',
@@ -16923,6 +16937,7 @@ MOD.langs = {
       ['Shrieker Nest'] = 'Antro de Estridentes',
       ['Sickle'] = 'Foice',
       ['Side'] = 'Lado',
+      ['Side sight range (m)'] = 'Alcance de visão lateral (m)',
       ['Siege-Ready'] = 'Pronta para Cercos',
       ['Sight cone height (degrees)'] = 'Altura do cone de visão (graus)',
       ['Sight cone width (degrees)'] = 'Largura do cone de visão (graus)',
@@ -23591,6 +23606,11 @@ function MOD.enemy.more_rows(entry)
     if #keep > 0 then
         MOD.enemy.mult_row(entry, 'Senses', 'retention', 'Tracking after losing sight (x)', keep, 20, true,
                            'how long it keeps hunting you once you break line of sight; x1: as in the game, x2: twice as long')
+    end
+    -- SensorEye +4 / +8: -1 in the game's data means as far as straight ahead
+    for _, s in ipairs({ { 'sight_side', 'Side sight range (m)', 4 }, { 'sight_rear', 'Rear sight range (m)', 8 } }) do
+        local r = row(TYPES.sensor, 'Senses', s[1], s[2], { s[3] }, 'f32', 10000, -1, 1000, 1, 10, '-1: as far as straight ahead')
+        for _, p in ipairs(r and r.parts or {}) do p.field.signed = true end
     end
     row(TYPES.sensor, 'Senses', 'sight_h', 'Sight cone width (degrees)', { 12 }, 'f32', 360, 0, 360, 1, 10)
     row(TYPES.sensor, 'Senses', 'sight_v', 'Sight cone height (degrees)', { 16 }, 'f32', 360, 0, 360, 1, 10)
