@@ -308,6 +308,9 @@ end
 
 -- c: { a, r, g, b }
 function M.fill(x0, y0, x1, y1, c)
+    -- a thin line keeps its thickness wherever it lands (rounding each edge alone made it 1 to 3 pixels)
+    if y1 - y0 < 4 then y0, y1 = math.floor(y0 + 0.5), math.floor(y0 + 0.5) + math.max(1, math.floor(y1 - y0 + 0.5)) end
+    if x1 - x0 < 4 then x0, x1 = math.floor(x0 + 0.5), math.floor(x0 + 0.5) + math.max(1, math.floor(x1 - x0 + 0.5)) end
     x0, y0 = math.max(0, math.floor(x0 + 0.5)), math.max(0, math.floor(y0 + 0.5))
     x1, y1 = math.min(M.w, math.floor(x1 + 0.5)), math.min(M.h, math.floor(y1 + 0.5))
     if x1 <= x0 or y1 <= y0 then return end
