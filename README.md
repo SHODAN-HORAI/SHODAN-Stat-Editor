@@ -171,8 +171,8 @@ both editors in the game. Its tabs are Terminids, Automatons, Illuminate, SEAF a
 from the Stat Editor's: loading a difficulty leaves your weapons as they are, and loading a weapon
 setup leaves the enemies. It comes with **Default** (the game's own values), **Horde**, **Glass
 Cannon** and **Elite**; change them, delete them or add your own. They are saved as
-`enemy_preset_01.txt` … next to config.txt, to share like full presets. **Restore built-in presets**
-in Settings puts the four back as they came.
+`enemy_preset_01.txt` … next to config.txt, and share as files or [preset codes](#presets) like full
+presets. **Restore built-in presets** in Settings puts the four back as they came.
 
 - A faction row leaves alone every enemy you have changed by hand, so a difficulty can raise a
   whole faction and still tune single enemies.
@@ -285,14 +285,32 @@ you have made.
 
 - **+ New preset** saves your current changes as one, then you type its name (Enter keeps it,
   Esc cancels).
-- **Load** replaces all current changes with the preset. **Save current changes here**,
-  **Rename** and **Delete** work on the chosen one; overwriting and deleting ask twice.
+- **Load** replaces all current changes with the preset. **Save current changes** and **Delete**
+  work on the chosen one; overwriting and deleting ask twice. Click a preset's name to rename it.
+  The Save button's text turns gold when you have unsaved changes.
 - Keyboard there: Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves
   into the chosen one, F2 renames, Del deletes.
 
 Presets are saved next to config.txt, as `weapon_presets.txt` and `preset_01.txt` …
 `preset_50.txt`. A full preset file can be copied into another player's `StatEditor` folder to
 share the whole setup.
+
+**Preset codes.** Share a full preset or custom difficulty as a line of text. **Copy code** puts the
+chosen preset's code on your clipboard. To add one you were sent, click the box under
+**Copy values to...**, paste it with Ctrl+V (or type it) and press Enter. It is added as a new
+preset; nothing changes until you load it. A code made in the other editor goes to that editor's
+presets.
+
+Good to know about codes:
+
+- **The code is the preset.** Nothing is stored online, so a code holds every value itself: a small
+  difficulty is a short line, a preset with hundreds of values is a long one.
+- **Codes hold your numbers, not the game's.** After a game update changes a weapon or enemy, a code
+  still sets the values it was made with, which may no longer match that patch's balance.
+- **Versions can drift apart.** A code made in a newer SSEO can name stats yours doesn't have yet:
+  those are skipped and you are told how many. If a game update removes or reworks something, loading
+  the preset tells you how many values could not be applied. Use the same SSEO version as whoever
+  made the code to get all of it.
 
 ## Good to know
 
