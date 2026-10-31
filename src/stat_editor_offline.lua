@@ -2384,6 +2384,7 @@ MOD.langs = {
       ['On'] = '开',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = '开启：单次配装可携带多台 外骨骼装甲、FRV 或坦克。',
       ['On: in your armory / stratagem list.'] = '开启：出现在你的军械库 / 战略配备列表中。',
+      ['On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.'] = '开启：在列表旁显示上、下、< 和 > 按钮。鼠标滚轮、滚动条和按键始终可用。',
       ['On: sniper rifles show a crosshair when you aim in third person.'] = '开启：以第三人称瞄准时，狙击步枪显示准星。',
       ['On: stratagem balls stick on more surfaces instead of bouncing off.'] = '开启：战略配备信标可粘附在更多表面上，而不会弹开。',
       ['On: your '] = '开启：你的',
@@ -3167,6 +3168,7 @@ MOD.langs = {
       ['Unsafe warp: damage to you'] = '不安全跃迁：对你造成的伤害',
       ['Unsafe warp: explosion'] = '不安全跃迁：爆炸',
       ['Up'] = '上移',
+      ['Up/Down and arrow buttons'] = '上/下和箭头按钮',
       ['Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,'] = '上下键选择数值项，左右键调整（Shift 为大步长），点击数值或按回车直接输入，',
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = '上下键选择，回车读取，Insert 新建，Shift+Insert 存入当前预设，F2 重命名，Del 删除。',
       ['Update channel'] = '更新渠道',
@@ -6354,6 +6356,7 @@ MOD.langs = {
       ['On'] = '開',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = '開啟：單次配裝可攜帶多台 外骨骼裝甲、FRV 或坦克。',
       ['On: in your armory / stratagem list.'] = '開啟：出現在你的軍械庫 / 戰略配備列表中。',
+      ['On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.'] = '開啟：在列表旁顯示上、下、< 和 > 按鈕。滑鼠滾輪、捲軸和按鍵始終可用。',
       ['On: sniper rifles show a crosshair when you aim in third person.'] = '開啟：以第三人稱瞄準時，狙擊步槍顯示準星。',
       ['On: stratagem balls stick on more surfaces instead of bouncing off.'] = '開啟：戰略配備信標可粘附在更多表面上，而不會彈開。',
       ['On: your '] = '開啟：你的',
@@ -7137,6 +7140,7 @@ MOD.langs = {
       ['Unsafe warp: damage to you'] = '不安全躍遷：對你造成的傷害',
       ['Unsafe warp: explosion'] = '不安全躍遷：爆炸',
       ['Up'] = '上移',
+      ['Up/Down and arrow buttons'] = '上/下和箭頭按鈕',
       ['Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,'] = '上下鍵選擇數值項，左右鍵調整（Shift 為大步長），點選數值或按回車直接輸入，',
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = '上下鍵選擇，回車讀取，Insert 新建，Shift+Insert 存入當前預設，F2 重新命名，Del 刪除。',
       ['Update channel'] = '更新渠道',
@@ -10269,6 +10273,7 @@ MOD.langs = {
       ['On'] = 'Вкл',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = 'Вкл: в снаряжение можно взять больше одного экзокостюма, МТР или танка.',
       ['On: in your armory / stratagem list.'] = 'Вкл: в вашем арсенале / списке стратагем.',
+      ['On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.'] = 'Вкл.: показывает кнопки вверх, вниз, < и > у списков. Колесо мыши, полосы прокрутки и клавиши работают в любом случае.',
       ['On: sniper rifles show a crosshair when you aim in third person.'] = 'Вкл.: снайперские винтовки показывают прицел при прицеливании от третьего лица.',
       ['On: stratagem balls stick on more surfaces instead of bouncing off.'] = 'Вкл.: маяки стратагем прилипают к большему числу поверхностей, а не отскакивают.',
       ['On: your '] = 'Вкл: ваши ',
@@ -11012,6 +11017,7 @@ MOD.langs = {
       ['Unsafe warp: damage to you'] = 'Небезопасный варп: урон вам',
       ['Unsafe warp: explosion'] = 'Небезопасный варп: взрыв',
       ['Up'] = 'Вверх',
+      ['Up/Down and arrow buttons'] = 'Кнопки вверх/вниз и стрелки',
       ['Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,'] = 'Вверх/Вниз — выбор параметра, Влево/Вправо — изменение (Shift: крупный шаг), щелкните значение или нажмите Enter для ввода,',
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = 'Вверх/Вниз — выбор, Enter — загрузить, Insert — новый, Shift+Insert — сохранить в него, F2 — переименовать, Del — удалить.',
       ['Update channel'] = 'Канал обновлений',
@@ -13439,6 +13445,7 @@ MOD.langs = {
       ['Ombudsman'] = 'Defensor del pueblo',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = 'Activado: un arsenal puede llevar más de un exotraje, FRV o tanque.',
       ['On: in your armory / stratagem list.'] = 'Activado: en tu armería / lista de estratagemas.',
+      ['On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.'] = 'Activado: muestra los botones arriba, abajo, < y > junto a las listas. La rueda del mouse, las barras y las teclas funcionan igual.',
       ['On: sniper rifles show a crosshair when you aim in third person.'] = 'Activado: los rifles de francotirador muestran una mira al apuntar en tercera persona.',
       ['On: stratagem balls stick on more surfaces instead of bouncing off.'] = 'Activado: las bolas de estratagema se pegan a más superficies en vez de rebotar.',
       ['On: your '] = 'Activado: tus ',
@@ -14165,6 +14172,7 @@ MOD.langs = {
       ['Unsafe warp: damage to you'] = 'Distorsión insegura: daño que recibes',
       ['Unsafe warp: explosion'] = 'Distorsión insegura: explosión',
       ['Up'] = 'Arriba',
+      ['Up/Down and arrow buttons'] = 'Botones arriba/abajo y flechas',
       ['Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,'] = 'Arriba/Abajo eligen una estadística, Izquierda/Derecha la cambian (Shift: pasos más grandes), haz clic en un valor o presiona Enter para escribirlo,',
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = 'Arriba/Abajo eligen, Enter carga, Insert crea uno nuevo, Shift+Insert guarda en él, F2 renombra, Supr elimina.',
       ['Update channel'] = 'Canal de actualizaciones',
@@ -16556,6 +16564,7 @@ MOD.langs = {
       ['Ombudsman'] = 'Provedora',
       ['On: a loadout can take more than one exosuit, FRV or tank.'] = 'Ligado: um aparato pode levar mais de um exouniforme, FRV ou tanque.',
       ['On: in your armory / stratagem list.'] = 'Ligado: no seu arsenal / lista de estratégias.',
+      ['On: shows the Up, Down, < and > buttons by the lists. The mouse wheel, scroll bars and keys work either way.'] = 'Ligado: mostra os botões para cima, para baixo, < e > junto às listas. A roda do mouse, as barras e as teclas funcionam de qualquer forma.',
       ['On: sniper rifles show a crosshair when you aim in third person.'] = 'Ligado: rifles de precisão mostram uma mira ao mirar em terceira pessoa.',
       ['On: stratagem balls stick on more surfaces instead of bouncing off.'] = 'Ligado: as bolas de estratégia grudam em mais superfícies em vez de quicar.',
       ['On: your '] = 'Ligado: suas ',
@@ -17282,6 +17291,7 @@ MOD.langs = {
       ['Unsafe warp: damage to you'] = 'Dobra insegura: dano em você',
       ['Unsafe warp: explosion'] = 'Dobra insegura: explosão',
       ['Up'] = 'Cima',
+      ['Up/Down and arrow buttons'] = 'Botões para cima/baixo e setas',
       ['Up/Down choose a stat, Left/Right change it (Shift: bigger steps), click a value or press Enter to type it,'] = 'Cima/Baixo escolhem um atributo, Esquerda/Direita mudam (Shift: passos maiores), clique num valor ou pressione Enter para digitar,',
       ['Up/Down choose, Enter loads, Insert makes a new one, Shift+Insert saves into it, F2 renames, Del deletes.'] = 'Cima/Baixo escolhem, Enter carrega, Insert cria um novo, Shift+Insert salva nele, F2 renomeia, Del exclui.',
       ['Update channel'] = 'Canal de atualizações',
@@ -24949,6 +24959,7 @@ local function save_config()
     lines[#lines + 1] = 'stratagem_bounce ' .. onoff(MOD.tweaks.bounce.on)
     lines[#lines + 1] = 'foliage_pass_through ' .. onoff(MOD.tweaks.foliage.on)
     lines[#lines + 1] = 'sniper_crosshair ' .. onoff(MOD.tweaks.reticle.on)
+    lines[#lines + 1] = 'nav_buttons ' .. onoff(settings.nav_buttons)
     -- hide_tabs <tab>,<tab>...: the tabs Settings > Tabs shown turned off
     local hidden = {}
     for tab in pairs(settings.hidden) do hidden[#hidden + 1] = tab end
@@ -25064,6 +25075,9 @@ local function load_config()
             known = true
         elseif name == 'several_vehicles' then
             MOD.vehicles.on = value == 'on'; MOD.vehicles.apply()
+            known = true
+        elseif name == 'nav_buttons' then
+            settings.nav_buttons = value == 'on'
             known = true
         elseif name == 'stratagem_bounce' or name == 'foliage_pass_through' or name == 'sniper_crosshair' then
             MOD.tweaks[name == 'stratagem_bounce' and 'bounce' or name == 'sniper_crosshair' and 'reticle' or 'foliage'].on = value == 'on'
@@ -26093,6 +26107,8 @@ function settings.shown_tabs()
     return list
 end
 local LIST_ROWS = 27
+-- the rows a list shows: filling the column down to the search box (Presets: its own buttons need the room)
+function MOD.list_rows() return ui.tab == 'Presets' and LIST_ROWS or settings.nav_buttons and LIST_ROWS + 1 or LIST_ROWS + 2 end
 local W, H = 1000, 980       -- panel size in its own units
 
 -- The lists' groups, as the game's armory and the wiki name them (https://helldivers.wiki.gg/wiki/Weapons): a tab's
@@ -26380,7 +26396,7 @@ local function select_weapon(weapon)
     if weapon then
         ui.tab = weapon.slot
         local list = MOD.shown_list()
-        local rows = LIST_ROWS - (list.items and 1 or 0)   -- (the top row can be its group's title, kept in view)
+        local rows = MOD.list_rows() - (list.items and 1 or 0)   -- (the top row can be its group's title, kept in view)
         for n, w in ipairs(list) do
             if w == weapon and n < ui.page then ui.page = n
             elseif w == weapon and n >= ui.page + rows then ui.page = n - rows + 1 end
@@ -27575,9 +27591,9 @@ local function draw(width, height)
     -- line that parts the panel's halves, shown when the list is longer than LIST_ROWS
     ui.lbar, ui.split_gx = nil, ox + 343 * s
     local function list_bar(id, total)
-        if total <= LIST_ROWS then return end
-        local top, len, span = 96, LIST_ROWS * 26 - 1, total - LIST_ROWS
-        local th = math.max(24, len * LIST_ROWS / total)
+        if total <= MOD.list_rows() then return end
+        local top, len, span = 96, MOD.list_rows() * 26 - 1, total - MOD.list_rows()
+        local th = math.max(24, len * MOD.list_rows() / total)
         local ty = top + (len - th) * math.min(1, (ui[id] - 1) / span)
         rect(336, top, 5, len, color(28, 34, 42), 951)
         local hot = (ui.drag and ui.drag.bar == 'lbar') or ui.hover == 'lbar:thumb'
@@ -27585,7 +27601,7 @@ local function draw(width, height)
         region('lbar:track', 335, top, 8, len)
         region('lbar:thumb', 335, ty, 8, th)
         ui.lbar = { id = id, top = height - oy - top * s, bottom = height - oy - (top + len) * s,
-                    thumb_top = height - oy - ty * s, thumb = th * s, span = span, page = LIST_ROWS }
+                    thumb_top = height - oy - ty * s, thumb = th * s, span = span, page = MOD.list_rows() }
     end
 
     local presets_tab = ui.tab == 'Presets'
@@ -27606,10 +27622,10 @@ local function draw(width, height)
         end
         if #order == 0 then text('No presets yet.', 24, 100, 16, MUTED) end
         local py = 96 + LIST_ROWS * 26 + 8
-        button('fpage:prev', '<', 16, py, 40, 30, ui.fpage > 1)
+        if settings.nav_buttons then button('fpage:prev', '<', 16, py, 40, 30, ui.fpage > 1) end
         text((#order > LIST_ROWS and (ui.fpage .. '-' .. math.min(#order, ui.fpage + LIST_ROWS - 1) .. ' of ') or '') ..
              #order .. ' (max ' .. presets.full_count .. ')', 70, py + 7, 16, MUTED, 214)
-        button('fpage:next', '>', 294, py, 40, 30, ui.fpage < last_top)
+        if settings.nav_buttons then button('fpage:next', '>', 294, py, 40, 30, ui.fpage < last_top) end
         list_bar('fpage', #order)
         button('fpreset:new', '+ New preset from current changes', 16, py + 40, 318, 30, #order < presets.full_count)
         button('fpreset:copy', 'Copy values to...', 16, py + 74, 318, 30,
@@ -27789,7 +27805,7 @@ local function draw(width, height)
     -- weapon list
     local searching = ui.search.text ~= '' or ui.search.active or ui.search.edited
     local list = presets_tab and {} or MOD.shown_list()
-    local last_top = math.max(1, #list - LIST_ROWS + 1 + (list.items and 1 or 0))
+    local last_top = math.max(1, #list - MOD.list_rows() + 1 + (list.items and 1 or 0))
     ui.page = math.max(1, math.min(ui.page, last_top))
     -- as the stats' section titles: the top row keeps the title of the group scrolled under it
     local kept = nil
@@ -27798,7 +27814,7 @@ local function draw(width, height)
             if list[j].head then kept = list[j]; break end
         end
     end
-    for k = 1, LIST_ROWS do
+    for k = 1, MOD.list_rows() do
         local at = ui.page + k - 1 - (kept and 1 or 0)
         local weapon = kept and k == 1 and kept or list[at]
         if not weapon then break end
@@ -27844,7 +27860,7 @@ local function draw(width, height)
         ::next_row::
     end
     -- the Boosters tab: why only some boosters are there, under the list
-    if ui.tab == 'Boosters' and not searching and not presets_tab and #list > 0 and #list <= LIST_ROWS - 5 then
+    if ui.tab == 'Boosters' and not searching and not presets_tab and #list > 0 and #list <= MOD.list_rows() - 5 then
         local line, y, words = '', 96 + #list * 26 + 12, settings.tr(MOD.boosters.WHY)
         local spaced = words:find(' ')
         for word in words:gmatch(spaced and '%S+' or '[^\128-\191][\128-\191]*') do
@@ -27857,17 +27873,14 @@ local function draw(width, height)
         end
         text(line, 24, y, 14, MUTED)
     end
-    local py = 96 + LIST_ROWS * 26 + 8
+    local py = 96 + MOD.list_rows() * 26 + 8
     if not presets_tab then
         if (ui.search.text ~= '' or ui.search.edited) and #list == 0 then text('Nothing matches.', 24, 100, 16, MUTED) end
-        button('page:prev', '<', 16, py, 40, 30, ui.page > 1)
+        if settings.nav_buttons then button('page:prev', '<', 16, py, 40, 30, ui.page > 1) end
         list_bar('page', #list + (list.items and 1 or 0))
-        text((#list > LIST_ROWS and not list.items and (ui.page .. '-' .. math.min(#list, ui.page + LIST_ROWS - 1) .. ' of ') or '') ..
-             (list.items or #list) .. ((ui.search.text ~= '' or ui.search.edited) and ' found' or ' listed'),
-             70, py + 7, 16, MUTED, 214)
-        button('page:next', '>', 294, py, 40, 30, ui.page < last_top)
+        if settings.nav_buttons then button('page:next', '>', 294, py, 40, 30, ui.page < last_top) end
         -- search box: click it (or Ctrl+F) and type; the list shows what matches, from every tab
-        local sy, active = py + 40, ui.search.active
+        local sy, active = py + (settings.nav_buttons and 40 or 10), ui.search.active
         rect(16, sy, 230, 30, active and color(20, 26, 34) or color(28, 34, 42), 951)
         outline(16, sy, 230, 30, active and GOLD or (ui.hover == 'search' and GOLD or color(70, 82, 94)))
         if ui.search.text == '' and not active then
@@ -28559,6 +28572,7 @@ local function click(key)
             MOD.vehicles.on = value == 'on'; MOD.vehicles.apply()
         elseif name == 'bounce' or name == 'foliage' or name == 'reticle' then
             MOD.tweaks[name].on = value == 'on'; MOD.tweaks.apply()
+        elseif name == 'nav_buttons' then settings.nav_buttons = value == 'on'
         elseif name == 'unlock_all' then
             settings.unlock_all(value == 'on'); settings.unlock.next_check = 0
         elseif name:find('^unlock_') then
@@ -28597,7 +28611,7 @@ local function click(key)
         elseif arg == 'edited' then ui.search.edited, ui.page = not ui.search.edited or nil, 1
         else ui.search.active = true end
     elseif kind == 'weapon' then select_weapon(by_hash[arg])
-    elseif kind == 'page' then ui.page = math.max(1, ui.page + (arg == 'next' and LIST_ROWS or -LIST_ROWS))
+    elseif kind == 'page' then ui.page = math.max(1, ui.page + (arg == 'next' and MOD.list_rows() or -MOD.list_rows()))
     elseif kind == 'reset_all' then
         if not (ui.confirm and ui.confirm.kind == 'reset_all') then
             ui.confirm = { kind = 'reset_all', till = api.now() + 3 }
