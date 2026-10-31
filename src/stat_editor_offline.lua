@@ -26717,6 +26717,9 @@ do
         for _, o in ipairs(full_presets[n].values) do
             lines[#lines + 1] = o.hash .. ' ' .. o.id .. ' ' .. number_text(o.value) .. named(o.hash)
         end
+        for hash, typed in pairs(full_presets[n].texts or {}) do
+            for field, text in pairs(typed) do lines[#lines + 1] = 'rename ' .. hash .. ' ' .. field .. ' ' .. text:gsub('#', '{H}') end
+        end
         write_lines(path, lines)
     end
 
@@ -26729,7 +26732,12 @@ do
             local desc = line:match('^%s*desc%s+(.-)%s*$')
             local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
             local parsed = hash and MOD.parse_number(amount)
-            if name and name ~= '' then
+            local page, field, typed = line:match('^%s*rename%s+(' .. HEX16 .. ')%s+(%a+)%s+(.+)$')
+            if page then
+                preset.texts = preset.texts or {}
+                preset.texts[page:upper()] = preset.texts[page:upper()] or {}
+                preset.texts[page:upper()][field] = typed:gsub('{H}', '#')
+            elseif name and name ~= '' then
                 preset.name = name:sub(1, NAME_BYTES)
             elseif desc and desc ~= '' then
                 preset.desc = desc:sub(1, MOD.rename.LIMIT.desc)
@@ -26930,6 +26938,25 @@ do
         end
         return values
     end
+    -- the shown editor's typed names and descriptions, a copy
+    function presets.current_texts()
+        local texts = {}
+        for hash, typed in pairs(MOD.rename.texts) do
+            if MOD.is_enemy_value(hash) == MOD.enemy.on then
+                texts[hash] = {}
+                for field, text in pairs(typed) do texts[hash][field] = text end
+            end
+        end
+        return texts
+    end
+    -- what a preset holds: its values and its typed texts
+    function presets.size(preset)
+        local n = #preset.values
+        for _, typed in pairs(preset.texts or {}) do
+            for _ in pairs(typed) do n = n + 1 end
+        end
+        return n
+    end
     -- the example difficulties (MOD.enemy.EXAMPLES) into the Enemy Editor presets: first start, in free places;
     -- overwrite (Settings' Restore button): a preset of the same name is replaced, the player's others stay
     function presets.restore_examples(overwrite)
@@ -26956,7 +26983,7 @@ do
         MOD.enemy.on = was
         return done
     end
-    presets.current_count = function() return #current_values() end
+    presets.current_count = function() return presets.size({ values = current_values(), texts = presets.current_texts() }) end
 
     -- Preset numbers in use, in order.
     local function full_order()
@@ -27025,7 +27052,7 @@ do
         local n = nil
         for k = 1, FULL_PRESETS do if not full_presets[k] then n = k; break end end
         if not n then say('All ' .. FULL_PRESETS .. ' presets are in use: delete one first'); return end
-        full_presets[n] = { name = 'Preset ' .. n, values = current_values() }
+        full_presets[n] = { name = 'Preset ' .. n, values = current_values(), texts = presets.current_texts() }
         save_full_preset(n)
         show(n)
         start_rename(n)
@@ -27034,7 +27061,7 @@ do
 
     local function save_full_preset_now(n)
         if not full_presets[n] then return end
-        full_presets[n].values = current_values()
+        full_presets[n].values, full_presets[n].texts = current_values(), presets.current_texts()
         save_full_preset(n)
         say('Saved ' .. #full_presets[n].values .. ' changed value(s) into "' .. full_presets[n].name .. '"')
         ui.version = ui.version + 1
@@ -27056,6 +27083,10 @@ do
         -- shortcut: an armor the preset does not name keeps its passives, so older presets wipe nothing
         for hash, list in pairs(passives) do
             if by_hash[hash] then MOD.kits.set(by_hash[hash], list) else refused = refused + 1 end
+        end
+        for hash, typed in pairs(preset.texts or {}) do
+            for _, field in ipairs(by_hash[hash] and { 'name', 'code', 'desc' } or {}) do MOD.rename.set(by_hash[hash], field, typed[field]) end
+            if not by_hash[hash] then refused = refused + 1 end
         end
         for _, o in ipairs(values) do
             local weapon = by_hash[o.hash]
@@ -27296,7 +27327,7 @@ local function draw(width, height)
             if n == chosen then rect(16, y, 318, 25, (MOD.enemy.on and color(96, 20, 16) or color(90, 74, 8)), 951)
             elseif ui.hover == key then rect(16, y, 318, 25, color(40, 52, 64), 951) end
             text(preset.name, 24, y + 4, 16, n == chosen and GOLD or WHITE, 214)
-            text(#preset.values .. ' value(s)', 326, y + 5, 14, MUTED, 86, true)
+            text(presets.size(preset) .. ' value(s)', 326, y + 5, 14, MUTED, 86, true)
             region(key, 16, y, 318, 25)
         end
         if #order == 0 then text('No presets yet.', 24, 100, 16, MUTED) end
@@ -27353,7 +27384,7 @@ local function draw(width, height)
             local y = below + 28
             local function slot(hash) return by_hash[hash] and by_hash[hash].slot or 'Other' end
             -- worked out once per preset state: a redraw from the mouse moving changes none of this
-            local key, sorted = table.concat({ tostring(preset.values), ui.version, state.tables, tostring(MOD.enemy.on) }, '|'), ui.fsorted
+            local key, sorted = table.concat({ tostring(preset.values), tostring(preset.texts), ui.version, state.tables, tostring(MOD.enemy.on) }, '|'), ui.fsorted
             if not sorted or sorted.key ~= key then
                 sorted = { key = key, names = {}, counts = {}, held = {} }
                 ui.fsorted = sorted
@@ -27364,6 +27395,18 @@ local function draw(width, height)
                     end
                     sorted.counts[o.hash] = sorted.counts[o.hash] + 1
                     table.insert(sorted.held[o.hash], o)
+                end
+                for hash, typed in pairs(preset.texts or {}) do
+                    if not sorted.counts[hash] then
+                        sorted.counts[hash], sorted.held[hash] = 0, {}
+                        sorted.names[#sorted.names + 1] = hash
+                    end
+                    for _, field in ipairs({ 'name', 'code', 'desc' }) do
+                        if typed[field] then
+                            sorted.counts[hash] = sorted.counts[hash] + 1
+                            table.insert(sorted.held[hash], { hash = hash, id = field, text = typed[field] })
+                        end
+                    end
                 end
                 -- by top tab, Attachments last, then by name
                 local rank = {}
@@ -27377,10 +27420,10 @@ local function draw(width, height)
                 end)
             end
             local names, counts, held = sorted.names, sorted.counts, sorted.held
-            if #preset.values == 0 then
+            if #names == 0 then
                 text('No changes: loading it puts every value back to the game\'s.', x0, y, 16, MUTED, W - x0 - 20)
             else
-                text(#preset.values .. ' value(s) for ' .. #names .. (MOD.enemy.on and ' page(s):' or ' weapon(s) / stratagem(s):'), x0, y, 16, WHITE)
+                text(presets.size(preset) .. ' value(s) for ' .. #names .. (MOD.enemy.on and ' page(s):' or ' weapon(s) / stratagem(s):'), x0, y, 16, WHITE)
                 ui.fnames = names
                 button('fopen_all:x', next(ui.fopen) and 'Close all' or 'Open all', W - 24 - 110, y - 6, 110, 26, true)
             end
@@ -27398,7 +27441,8 @@ local function draw(width, height)
                 local weapon = by_hash[hash]
                 for _, o in ipairs(ui.fopen[hash] and weapon and held[hash] or {}) do
                     local p = weapon.by_id[o.id]
-                    if p then lines[#lines + 1] = { part = p, value = o.value, id = o.id }
+                    if o.text then lines[#lines + 1] = { typed = o.id, value = o.text }
+                    elseif p then lines[#lines + 1] = { part = p, value = o.value, id = o.id }
                     elseif o.id:match('^passive_') then lines[#lines + 1] = { passive = o.value, id = o.id } end
                 end
             end
@@ -27428,6 +27472,9 @@ local function draw(width, height)
                     text(weapon and weapon.name or ('unknown ' .. line.hash), x0, y, 15, ui.fopen[line.hash] and GOLD or weapon and WHITE or WARN, 480)
                     text(counts[line.hash] .. ' value(s)', W - 24, y, 15, MUTED, 120, true)
                     region('fopen:' .. line.hash, x0, y - 2, W - 24 - x0, 22)
+                elseif line.typed then
+                    text(({ name = 'Name', code = 'Designation', desc = 'Description' })[line.typed], x0 + 16, y, 14, MUTED, 130)
+                    text(line.value, W - 24, y, 14, WHITE, 420, true)
                 elseif line.passive then
                     text(line.id == 'passive_none' and 'No passives' or KINDS[TYPES.passive].NAMES[line.passive] or ('Passive ' .. line.passive), x0 + 16, y, 14, MUTED, 400)
                 else
