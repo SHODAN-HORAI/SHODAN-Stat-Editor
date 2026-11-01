@@ -1186,6 +1186,8 @@ MOD.langs = {
       ['9x70mm Super Uranium Core'] = '9x70mm超铀芯弹',
       ['A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.'] = '空投舱落地用时为此倒计时加 4.75 秒下落时间，因此设为 0 时最快。',
       ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = '头部命中按伤害的这个倍数扣血。1 = 与身体相同。',
+      ['A limit: enemy reinforcements never come slower than this, even if a faction page asks for slower.'] = '上限提示：即使阵营页面要求更慢，敌方增援也不会比这个更慢。',
+      ['A limit: patrols never come slower than this, even if a faction page asks for slower.'] = '下限：即使阵营页面要求更慢，巡逻也不会比这个更慢。',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = '带座位的固定火炮，由空投舱投送。不是你携带的那把。',
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄准的固定版本。不是你携带的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你携带的那把。',
@@ -1195,6 +1197,7 @@ MOD.langs = {
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '预设会把所有敌人与生成的改动保存为一个自定义难度，名称由你决定。武器改动单独保存。',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '补给箱提供这么多。地图上的弹药箱提供一半，向下取整（至少 1）。',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = '补给箱提供这么多。地图上的弹药箱提供一半，向下取整。',
+      ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'SEAF 的第二个等待时间：x1 时为 80 到 100 秒。可能是士兵波次之间的间隔；游戏只给出了名称。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敌人自己页面上更改的数值保持红色：此页面不会改动它。',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你单独改过晃动系数的武器保留其数值。此行改变的晃动以蓝色显示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 自动哨戒炮',
@@ -1823,6 +1826,8 @@ MOD.langs = {
       ['Folder'] = '文件夹',
       ['Folder path copied.'] = '已复制文件夹路径。',
       ['Foliage pass-through'] = '穿透植被',
+      ['For very few patrols, lower this as well as Patrol frequency on the faction page.'] = '想让巡逻很少，请同时调低此项和阵营页面上的巡逻频率。',
+      ['For very few reinforcements, lower this as well as Reinforcement frequency on the faction page.'] = '想让增援很少，请同时调低此项和阵营页面上的增援频率。',
       ['Fortified'] = '强化',
       ['Forward share of the launch (0-1)'] = '起跳前冲占比(0-1)',
       ['Found in the game data (not in the built-in list).'] = '在游戏数据中找到（不在内置列表中）。',
@@ -1982,6 +1987,8 @@ MOD.langs = {
       ['High Dissipation Heatsink'] = '高功率散热器',
       ['High Explosive'] = '高爆弹',
       ['High-Velocity Shrapnel'] = '高速破片',
+      ['Higher means a longer wait, so they come slower. x2 is 160 to 200 seconds.'] = '数值越高等待越久，来得越慢。x2 为 160 到 200 秒。',
+      ['Higher means a longer wait, so they come slower. x2 is 310 to 330 seconds.'] = '数值越高等待越久，来得越慢。x2 为 310 到 330 秒。',
       ['Higher: a stiffer ride, less lean in turns, bumps kick harder.'] = '越高：行驶更硬，转弯侧倾更少，颠簸冲击更大。',
       ['Higher: leans more and tips over in sharp turns.'] = '越高：倾斜更多，急转弯时容易翻车。',
       ['Higher: stops in a shorter distance. Too high locks the wheels, and it skids instead of stopping.'] = '越高：刹车距离越短。太高会抱死车轮，车会打滑而不是停下。',
@@ -2017,6 +2024,7 @@ MOD.langs = {
       ['How fast their animations play. Most attacks follow the animation, so they come sooner or later too.'] = '它们的动画播放速度。大多数攻击跟随动画，所以攻击也会更早或更晚发生。',
       ['How hard the engine pushes. Higher: faster acceleration and steeper hills, but more wheelspin.'] = '引擎的推力。越高：加速更快、能爬更陡的坡，但更容易打滑。',
       ['How high the balance point sits. Lower (even below 0): stays flat in hard turns and over rocks.'] = '重心的高度。越低（甚至低于 0）：急转弯和过石头时更平稳。',
+      ['How long SEAF waits before sending more soldiers: 155 to 165 seconds at x1.'] = 'SEAF 派出更多士兵前的等待时间：x1 时为 155 到 165 秒。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射弹命中后（或近炸距离触发后）等待多久才爆炸。',
       ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = '一次飞越投下多少枚炸弹以及落点分布。炸弹仍是该飞鹰自己的。',
       ['How many times the round can bounce off a surface. 0: it never bounces back at you.'] = '射弹能从表面弹开多少次。0：它永远不会弹回到你身上。',
@@ -5194,6 +5202,8 @@ MOD.langs = {
       ['9x70mm Super Uranium Core'] = '9x70mm超鈾核心彈',
       ['A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.'] = '空投艙落地用時為此倒計時加 4.75 秒下落時間，因此設為 0 時最快。',
       ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = '頭部命中按傷害的這個倍數扣血。1 = 與身體相同。',
+      ['A limit: enemy reinforcements never come slower than this, even if a faction page asks for slower.'] = '上限提示：即使陣營頁面要求更慢，敵方增援也不會比這個更慢。',
+      ['A limit: patrols never come slower than this, even if a faction page asks for slower.'] = '下限：即使陣營頁面要求更慢，巡邏也不會比這個更慢。',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = '帶座位的固定火炮，由空投艙投送。不是你攜帶的那把。',
       ['A mounted copy aimed by AI. Not the one you carry.'] = '由 AI 瞄準的固定版本。不是你攜帶的那把。',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你攜帶的那把。',
@@ -5203,6 +5213,7 @@ MOD.langs = {
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '預設會把所有敵人與生成的改動儲存為一個自定義難度，名稱由你決定。武器改動單獨儲存。',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '補給箱提供這麼多。地圖上的彈藥箱提供一半，向下取整（至少 1）。',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = '補給箱提供這麼多。地圖上的彈藥箱提供一半，向下取整。',
+      ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'SEAF 的第二個等待時間：x1 時為 80 到 100 秒。可能是士兵波次之間的間隔；遊戲只給出了名稱。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敵人自己頁面上更改的數值保持紅色：此頁面不會改動它。',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你單獨改過晃動係數的武器保留其數值。此行改變的晃動以藍色顯示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 哨戒機炮',
@@ -5831,6 +5842,8 @@ MOD.langs = {
       ['Folder'] = '資料夾',
       ['Folder path copied.'] = '已複製資料夾路徑。',
       ['Foliage pass-through'] = '穿透植被',
+      ['For very few patrols, lower this as well as Patrol frequency on the faction page.'] = '想讓巡邏很少，請同時調低此項和陣營頁面上的巡邏頻率。',
+      ['For very few reinforcements, lower this as well as Reinforcement frequency on the faction page.'] = '想讓增援很少，請同時調低此項和陣營頁面上的增援頻率。',
       ['Fortified'] = '強化',
       ['Forward share of the launch (0-1)'] = '起跳前衝佔比(0-1)',
       ['Found in the game data (not in the built-in list).'] = '在遊戲資料中找到（不在內建列表中）。',
@@ -5990,6 +6003,8 @@ MOD.langs = {
       ['High Dissipation Heatsink'] = '高效能散熱器',
       ['High Explosive'] = '高爆彈',
       ['High-Velocity Shrapnel'] = '高速破片',
+      ['Higher means a longer wait, so they come slower. x2 is 160 to 200 seconds.'] = '數值越高等待越久，來得越慢。x2 為 160 到 200 秒。',
+      ['Higher means a longer wait, so they come slower. x2 is 310 to 330 seconds.'] = '數值越高等待越久，來得越慢。x2 為 310 到 330 秒。',
       ['Higher: a stiffer ride, less lean in turns, bumps kick harder.'] = '越高：行駛更硬，轉彎側傾更少，顛簸衝擊更大。',
       ['Higher: leans more and tips over in sharp turns.'] = '越高：傾斜更多，急轉彎時容易翻車。',
       ['Higher: stops in a shorter distance. Too high locks the wheels, and it skids instead of stopping.'] = '越高：剎車距離越短。太高會抱死車輪，車會打滑而不是停下。',
@@ -6025,6 +6040,7 @@ MOD.langs = {
       ['How fast their animations play. Most attacks follow the animation, so they come sooner or later too.'] = '它們的動畫播放速度。大多數攻擊跟隨動畫，所以攻擊也會更早或更晚發生。',
       ['How hard the engine pushes. Higher: faster acceleration and steeper hills, but more wheelspin.'] = '引擎的推力。越高：加速更快、能爬更陡的坡，但更容易打滑。',
       ['How high the balance point sits. Lower (even below 0): stays flat in hard turns and over rocks.'] = '重心的高度。越低（甚至低於 0）：急轉彎和過石頭時更平穩。',
+      ['How long SEAF waits before sending more soldiers: 155 to 165 seconds at x1.'] = 'SEAF 派出更多士兵前的等待時間：x1 時為 155 到 165 秒。',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = '射彈命中後（或近炸距離觸發後）等待多久才爆炸。',
       ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = '一次飛越投下多少枚炸彈以及落點分佈。炸彈仍是該飛鷹自己的。',
       ['How many times the round can bounce off a surface. 0: it never bounces back at you.'] = '射彈能從表面彈開多少次。0：它永遠不會彈回到你身上。',
@@ -9200,6 +9216,8 @@ MOD.langs = {
       ['9x70mm Super Uranium Core'] = 'С суперурановым сердечником 9x70 мм',
       ['A hellpod lands this many seconds plus its 4.75 s fall after the beacon, so 0 is the fastest it gets.'] = 'Капсула приземляется через столько секунд плюс 4,75 с падения после маяка, так что 0 быстрее всего.',
       ['A hit to the head costs this many times its damage. 1 = the same as the body.'] = 'Попадание в голову отнимает урон, умноженный на это число. 1 = как по телу.',
+      ['A limit: enemy reinforcements never come slower than this, even if a faction page asks for slower.'] = 'Предел: вражеские подкрепления не приходят реже этого, даже если на странице фракции задано реже.',
+      ['A limit: patrols never come slower than this, even if a faction page asks for slower.'] = 'Предел: патрули не приходят реже этого, даже если на странице фракции задано реже.',
       ['A mounted cannon with a seat, dropped by hellpod. Not the one you carry.'] = 'Станковое орудие с сиденьем, сбрасывается в Адской капсуле. Не то, что вы носите.',
       ['A mounted copy aimed by AI. Not the one you carry.'] = 'Станковая копия с наводкой ИИ. Не то, что вы носите.',
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Станковая копия под управлением ИИ (как огневая позиция). Не то, что вы носите.',
@@ -9209,6 +9227,7 @@ MOD.langs = {
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Пресет хранит все изменения врагов и их появления как свой уровень сложности под выбранным вами именем. Изменения оружия хранятся отдельно.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Ящик снабжения даёт столько. Ящик с боеприпасами на карте даёт половину с округлением вниз (минимум 1).',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = 'Ящик снабжения даёт столько. Ящик с боеприпасами на карте даёт половину с округлением вниз.',
+      ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'Второе ожидание СЕАФ: от 80 до 100 секунд при x1. Вероятно, пауза между волнами солдат; игра даёт только название.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Значение, изменённое на странице самого врага, остаётся красным: эта страница его не трогает.',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Оружие, у которого вы изменили свой Множитель колебания, сохраняет его. Колебание, изменённое этой строкой, показано синим.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 «Турель с автопушкой»',
@@ -9810,6 +9829,8 @@ MOD.langs = {
       ['Folder'] = 'Папка',
       ['Folder path copied.'] = 'Путь к папке скопирован.',
       ['Foliage pass-through'] = 'Пролёт сквозь листву',
+      ['For very few patrols, lower this as well as Patrol frequency on the faction page.'] = 'Чтобы патрулей было совсем мало, снизьте и это, и частоту патрулей на странице фракции.',
+      ['For very few reinforcements, lower this as well as Reinforcement frequency on the faction page.'] = 'Чтобы подкреплений было совсем мало, снизьте и это, и частоту подкреплений на странице фракции.',
       ['Fortified'] = 'Укрепление',
       ['Forward share of the launch (0-1)'] = 'Доля толчка вперед (0-1)',
       ['Found in the game data (not in the built-in list).'] = 'Найдено в данных игры (нет во встроенном списке).',
@@ -9958,6 +9979,8 @@ MOD.langs = {
       ['High Dissipation Heatsink'] = 'Высокоэффективный радиатор',
       ['High Explosive'] = '«Фугасная»',
       ['High-Velocity Shrapnel'] = 'Высокоскоростной снаряд со шрапнелью',
+      ['Higher means a longer wait, so they come slower. x2 is 160 to 200 seconds.'] = 'Больше значит дольше ждать, поэтому они приходят медленнее. x2: от 160 до 200 секунд.',
+      ['Higher means a longer wait, so they come slower. x2 is 310 to 330 seconds.'] = 'Больше значит дольше ждать, поэтому они приходят медленнее. x2: от 310 до 330 секунд.',
       ['Higher: a stiffer ride, less lean in turns, bumps kick harder.'] = 'Больше: жёстче ход, меньше крен в поворотах, кочки бьют сильнее.',
       ['Higher: leans more and tips over in sharp turns.'] = 'Выше: сильнее кренится и опрокидывается в крутых поворотах.',
       ['Higher: stops in a shorter distance. Too high locks the wheels, and it skids instead of stopping.'] = 'Больше: короче тормозной путь. Слишком много: колёса блокируются, и машину заносит.',
@@ -9991,6 +10014,7 @@ MOD.langs = {
       ['How fast their animations play. Most attacks follow the animation, so they come sooner or later too.'] = 'Как быстро проигрываются их анимации. Большинство атак следуют анимации, поэтому они тоже происходят раньше или позже.',
       ['How hard the engine pushes. Higher: faster acceleration and steeper hills, but more wheelspin.'] = 'Сила тяги двигателя. Больше: быстрее разгон и круче подъёмы, но больше пробуксовки.',
       ['How high the balance point sits. Lower (even below 0): stays flat in hard turns and over rocks.'] = 'Высота центра тяжести. Ниже (даже меньше 0): держится ровно в резких поворотах и на камнях.',
+      ['How long SEAF waits before sending more soldiers: 155 to 165 seconds at x1.'] = 'Сколько СЕАФ ждёт перед отправкой новых солдат: от 155 до 165 секунд при x1.',
       ['How long the round waits after the hit (or after the blast proximity trips) before it goes off.'] = 'Сколько снаряд ждёт после попадания (или после срабатывания дистанции подрыва), прежде чем взорваться.',
       ['How many bombs one run drops and how they land. The bombs stay this Eagle\'s own.'] = 'Сколько бомб сбрасывает один заход и как они ложатся. Бомбы остаются своими для этого «Орла».',
       ['How many times the round can bounce off a surface. 0: it never bounces back at you.'] = 'Сколько раз снаряд может отскочить от поверхности. 0: он никогда не отскочит обратно в вас.',
@@ -24215,15 +24239,23 @@ function MOD.enemy.spawning_resolve(entry)
         if not at then return end
         MOD.enemy.mult_row(entry, 'Lowest rates', 'floor_patrol', 'Lowest patrol frequency (x)',
                            { { TYPES.spawn_floor, at + 80 }, { TYPES.spawn_floor, at + 84 } }, 10, nil,
-                           'the faction multipliers cannot slow patrols below this: lower it with them')
+                           'the faction multipliers cannot slow patrols below this: lower it with them').tip =
+            { 'A limit: patrols never come slower than this, even if a faction page asks for slower.',
+              'For very few patrols, lower this as well as Patrol frequency on the faction page.' }
         MOD.enemy.mult_row(entry, 'Lowest rates', 'floor_reinf', 'Lowest reinforcement frequency (x)',
-                           { { TYPES.spawn_floor, at + 88 }, { TYPES.spawn_floor, at + 92 } }, 10)
+                           { { TYPES.spawn_floor, at + 88 }, { TYPES.spawn_floor, at + 92 } }, 10).tip =
+            { 'A limit: enemy reinforcements never come slower than this, even if a faction page asks for slower.',
+              'For very few reinforcements, lower this as well as Reinforcement frequency on the faction page.' }
         MOD.enemy.mult_row(entry, 'SEAF', 'seaf_reinf', 'SEAF reinforcement cooldown (x)',
                            { { TYPES.spawn_floor, at + 48 }, { TYPES.spawn_floor, at + 52 }, { TYPES.spawn_floor, at + 56 },
-                             { TYPES.spawn_floor, at + 60 } }, 10)
+                             { TYPES.spawn_floor, at + 60 } }, 10).tip =
+            { 'How long SEAF waits before sending more soldiers: 155 to 165 seconds at x1.',
+              'Higher means a longer wait, so they come slower. x2 is 310 to 330 seconds.' }
         MOD.enemy.mult_row(entry, 'SEAF', 'seaf_wave', 'SEAF wave cooldown (x)',
                            { { TYPES.spawn_floor, at + 64 }, { TYPES.spawn_floor, at + 68 }, { TYPES.spawn_floor, at + 72 },
-                             { TYPES.spawn_floor, at + 76 } }, 10)
+                             { TYPES.spawn_floor, at + 76 } }, 10).tip =
+            { 'A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.',
+              'Higher means a longer wait, so they come slower. x2 is 160 to 200 seconds.' }
         return
     end
     local t = tables[TYPES.hivemind]
