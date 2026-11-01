@@ -1532,6 +1532,11 @@ MOD.langs = {
       ['Click again'] = '再点一次确认',
       ['Click again to overwrite'] = '再次点击以覆盖',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = '4 秒内再点一次即结束游戏，未保存的进度会丢失。',
+      ['Client-sided only: in a lobby it counts for your own shots, not other players\'.'] = '仅客户端生效：在大厅中只对你自己的射击生效，对其他玩家无效。',
+      ['Client-sided only: other players may keep the game\'s normal radius.'] = '仅客户端生效：其他玩家可能仍是游戏原本的半径。',
+      ['Client-sided only: other players may see the game\'s normal shots.'] = '仅客户端生效：其他玩家可能看到游戏原本的射击。',
+      ['Client-sided only: other players see the normal animation; attack timing may follow the host.'] = '仅客户端生效：其他玩家看到的是正常动画；攻击时机可能以房主为准。',
+      ['Client-sided only: other players see the normal size; reach may follow the host.'] = '仅客户端生效：其他玩家看到的是正常大小；攻击距离可能以房主为准。',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '枪口上扬倍率（水平）',
       ['Climb multiplier (vertical)'] = '枪口上扬倍率（垂直）',
@@ -5535,6 +5540,11 @@ MOD.langs = {
       ['Click again'] = '再點一次確認',
       ['Click again to overwrite'] = '再次點選以覆蓋',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = '4 秒內再點一次即結束遊戲，未儲存的進度會丟失。',
+      ['Client-sided only: in a lobby it counts for your own shots, not other players\'.'] = '僅客戶端生效：在大廳中只對你自己的射擊生效，對其他玩家無效。',
+      ['Client-sided only: other players may keep the game\'s normal radius.'] = '僅客戶端生效：其他玩家可能仍是遊戲原本的半徑。',
+      ['Client-sided only: other players may see the game\'s normal shots.'] = '僅客戶端生效：其他玩家可能看到遊戲原本的射擊。',
+      ['Client-sided only: other players see the normal animation; attack timing may follow the host.'] = '僅客戶端生效：其他玩家看到的是正常動畫；攻擊時機可能以房主為準。',
+      ['Client-sided only: other players see the normal size; reach may follow the host.'] = '僅客戶端生效：其他玩家看到的是正常大小；攻擊距離可能以房主為準。',
       ['Climb acceleration'] = '爬升加速度',
       ['Climb multiplier (horizontal)'] = '槍口上揚倍率（水平）',
       ['Climb multiplier (vertical)'] = '槍口上揚倍率（垂直）',
@@ -9526,6 +9536,11 @@ MOD.langs = {
       ['Click again'] = 'Нажмите ещё раз',
       ['Click again to overwrite'] = 'Нажмите еще раз, чтобы перезаписать',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Нажмите ещё раз в течение 4 секунд, чтобы закрыть игру. Несохранённый прогресс будет потерян.',
+      ['Client-sided only: in a lobby it counts for your own shots, not other players\'.'] = 'Только на клиенте: в лобби это действует на ваши выстрелы, но не на выстрелы других игроков.',
+      ['Client-sided only: other players may keep the game\'s normal radius.'] = 'Только на клиенте: у других игроков радиус может остаться обычным.',
+      ['Client-sided only: other players may see the game\'s normal shots.'] = 'Только на клиенте: другие игроки могут видеть обычные выстрелы игры.',
+      ['Client-sided only: other players see the normal animation; attack timing may follow the host.'] = 'Только на клиенте: другие игроки видят обычную анимацию; время атак может зависеть от хоста.',
+      ['Client-sided only: other players see the normal size; reach may follow the host.'] = 'Только на клиенте: другие игроки видят обычный размер; дальность атак может зависеть от хоста.',
       ['Climb acceleration'] = 'Ускорение подъема',
       ['Climb multiplier (horizontal)'] = 'Множитель подъема (по горизонтали)',
       ['Climb multiplier (vertical)'] = 'Множитель подъема (по вертикали)',
@@ -12752,6 +12767,11 @@ MOD.langs = {
       ['Click again'] = 'Haz clic otra vez',
       ['Click again to overwrite'] = 'Haz clic otra vez para sobrescribir',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Haz clic otra vez en 4 segundos para cerrar el juego. Se pierde el progreso sin guardar.',
+      ['Client-sided only: in a lobby it counts for your own shots, not other players\'.'] = 'Solo del lado del cliente: en una sala cuenta para tus disparos, no para los de otros jugadores.',
+      ['Client-sided only: other players may keep the game\'s normal radius.'] = 'Solo del lado del cliente: los demás pueden conservar el radio normal del juego.',
+      ['Client-sided only: other players may see the game\'s normal shots.'] = 'Solo del lado del cliente: los demás pueden ver los disparos normales del juego.',
+      ['Client-sided only: other players see the normal animation; attack timing may follow the host.'] = 'Solo del lado del cliente: los demás ven la animación normal; el tiempo de los ataques puede seguir al anfitrión.',
+      ['Client-sided only: other players see the normal size; reach may follow the host.'] = 'Solo del lado del cliente: los demás ven el tamaño normal; el alcance puede seguir al anfitrión.',
       ['Climb acceleration'] = 'Aceleración de ascenso',
       ['Climb multiplier (horizontal)'] = 'Multiplicador de escalada (horizontal)',
       ['Climb multiplier (vertical)'] = 'Multiplicador de escalada (vertical)',
@@ -15902,6 +15922,11 @@ MOD.langs = {
       ['Click again'] = 'Clique de novo',
       ['Click again to overwrite'] = 'Clique de novo para sobrescrever',
       ['Click again within 4 seconds to end the game. Unsaved progress is lost.'] = 'Clique de novo em 4 segundos para fechar o jogo. O progresso não salvo será perdido.',
+      ['Client-sided only: in a lobby it counts for your own shots, not other players\'.'] = 'Apenas no cliente: em um lobby vale para os seus tiros, não para os de outros jogadores.',
+      ['Client-sided only: other players may keep the game\'s normal radius.'] = 'Apenas no cliente: os outros podem manter o raio normal do jogo.',
+      ['Client-sided only: other players may see the game\'s normal shots.'] = 'Apenas no cliente: os outros podem ver os tiros normais do jogo.',
+      ['Client-sided only: other players see the normal animation; attack timing may follow the host.'] = 'Apenas no cliente: os outros veem a animação normal; o tempo dos ataques pode seguir o anfitrião.',
+      ['Client-sided only: other players see the normal size; reach may follow the host.'] = 'Apenas no cliente: os outros veem o tamanho normal; o alcance pode seguir o anfitrião.',
       ['Climb acceleration'] = 'Aceleração de subida',
       ['Climb multiplier (horizontal)'] = 'Multiplicador de escalada (horizontal)',
       ['Climb multiplier (vertical)'] = 'Multiplicador de escalada (vertical)',
@@ -23743,6 +23768,24 @@ MOD.enemy.STATUSES = {
     { id = 'gas_taken', label = 'Gas damage taken (x)', kinds = { [27] = true, [28] = true }, offsets = { 168 } },
 }
 
+-- Rows that work differently in a lobby: their (?) and this line of the tip are orange
+MOD.enemy.CLIENT_HIT = "Client-sided only: in a lobby it counts for your own shots, not other players'."
+MOD.enemy.CLIENT_ANIM = 'Client-sided only: other players see the normal animation; attack timing may follow the host.'
+MOD.enemy.CLIENT_SIZE = 'Client-sided only: other players see the normal size; reach may follow the host.'
+MOD.enemy.CLIENT_SHOT = "Client-sided only: other players may see the game's normal shots."
+MOD.enemy.CLIENT_JAM = "Client-sided only: other players may keep the game's normal radius."
+MOD.enemy.CLIENT_ONLY = { armor = MOD.enemy.CLIENT_HIT, durable = MOD.enemy.CLIENT_HIT, all_armor = MOD.enemy.CLIENT_HIT,
+                          anim_speed = MOD.enemy.CLIENT_ANIM, anim_attack = MOD.enemy.CLIENT_ANIM, anim_hit = MOD.enemy.CLIENT_ANIM,
+                          all_anim = MOD.enemy.CLIENT_ANIM, scale = MOD.enemy.CLIENT_SIZE, all_spread = MOD.enemy.CLIENT_SHOT,
+                          jam_radius = MOD.enemy.CLIENT_JAM, scramble_radius = MOD.enemy.CLIENT_JAM }
+function MOD.enemy.client_only(weapon, row)
+    if not weapon.enemy then return nil end
+    if weapon.enemy.gun then   -- (a gun's 'durable' is its damage, not the enemy's durable ratio)
+        return (row.id:match('spread_[hv]$') or row.id:match('velocity$')) and MOD.enemy.CLIENT_SHOT or nil
+    end
+    return MOD.enemy.CLIENT_ONLY[(row.id:gsub('^zone%d+_', ''))]
+end
+
 -- The rest of an enemy's page, from its other components (each variant on the page written):
 -- Movement: AiEnemy (736 bytes in this build) state speeds guard +0, patrol +36, investigate +60, combat +100,
 -- strafe +124, drift +152, retreat +244, charge +276; AiCharacter +0 preferred / +4 maximum speed.
@@ -28689,9 +28732,15 @@ local function draw(width, height)
                 local label = row.label
                 if row.label_of then label = row.label_of() end
                 text(label, x0, y + bh / 2 - 8, 16, focus and GOLD or WHITE, 236)
-                if row.tip then
-                    text('(?)', x0 + math.min(width(label, 16), 236) + 6, y + bh / 2 - 7, 14, DIM)
-                    if ui.hover == 'row:' .. n then tip_overlay = { lines = row.tip, x = x0, y = y + bh + 2 } end
+                local client = MOD.enemy.client_only(weapon, row)
+                if row.tip or client then
+                    text('(?)', x0 + math.min(width(label, 16), 236) + 6, y + bh / 2 - 7, 14, client and WARN or DIM)
+                    if ui.hover == 'row:' .. n then
+                        local lines = {}
+                        for _, line in ipairs(row.tip or {}) do lines[#lines + 1] = line end
+                        lines[#lines + 1] = client
+                        tip_overlay = { lines = lines, warn = client, x = x0, y = y + bh + 2 }
+                    end
                 end
                 if row.choice and (ui.hover == 'row:' .. n or ui.hover == 'value:' .. n) then
                     local lines = MOD.records.source(row)
@@ -29001,7 +29050,7 @@ local function draw(width, height)
         rect(x, y, w, h, color(8, 11, 15), 958)
         rect(x, y, w, 2, GOLD, 959); rect(x, y + h - 2, w, 2, GOLD, 959)
         rect(x, y, 2, h, GOLD, 959); rect(x + w - 2, y, 2, h, GOLD, 959)
-        for k, line in ipairs(tip_overlay.lines) do text(line, x + 12, y + 8 + (k - 1) * 18, 15, WHITE, w - 24, false, 960) end
+        for k, line in ipairs(tip_overlay.lines) do text(line, x + 12, y + 8 + (k - 1) * 18, 15, line == tip_overlay.warn and WARN or WHITE, w - 24, false, 960) end
     end
     -- every entry a hovered 'shared with' list names, in columns, over the rows below it (above, near the bottom)
     if shared_overlay then
