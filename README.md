@@ -293,7 +293,9 @@ you have made.
 
 Presets are saved next to config.txt, as `weapon_presets.txt` and `preset_01.txt` …
 `preset_50.txt`. A full preset file can be copied into another player's `StatEditor` folder to
-share the whole setup.
+share the whole setup. To import files automatically, put them in `StatEditor\import` and start
+SSEO. A valid file is moved into the preset list; files with malformed lines or no preset entries
+are left in the import folder and reported in the log, so they can be corrected and tried again.
 
 **Preset codes.** Share a full preset or custom difficulty as a line of text. **Copy code** puts the
 chosen preset's code on your clipboard. To add one you were sent, click the box under

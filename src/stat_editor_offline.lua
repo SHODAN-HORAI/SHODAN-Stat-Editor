@@ -27155,35 +27155,48 @@ do
         write_lines(path, presets.body(full_presets[n], lines, named))
     end
 
-    -- A preset file's lines as a preset, or nil when it was cleared.
+    -- A preset file's lines as a preset, or nil when it was cleared or invalid.
     function presets.parse(lines, numbers, n, file)
         local preset = { name = 'Preset ' .. n, values = {} }
+        local skipped, recognized = 0, 0
+
         for i, line in ipairs(lines) do
-            if line:match('^%s*cleared') then return nil end
-            local name = line:match('^%s*name%s+(.-)%s*$')
-            local desc = line:match('^%s*desc%s+(.-)%s*$')
-            local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
-            local parsed = hash and MOD.parse_number(amount)
-            local page, field, typed = line:match('^%s*rename%s+(' .. HEX16 .. ')%s+(%a+)%s+(.+)$')
-            if page then
-                preset.texts = preset.texts or {}
-                preset.texts[page:upper()] = preset.texts[page:upper()] or {}
-                preset.texts[page:upper()][field] = typed:gsub('{H}', '#')
-            elseif name and name ~= '' then
-                preset.name = name:sub(1, NAME_BYTES)
-            elseif desc and desc ~= '' then
-                preset.desc = desc:sub(1, MOD.rename.LIMIT.desc)
-            elseif parsed then
-                preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
+            if line:match('^%s*$') or line:match('^%s*#') then
+                -- Blank lines and comments are valid parts of preset files.
+            elseif line:match('^%s*cleared') then
+                return nil, skipped, recognized
             else
-                MOD.skipped(file, numbers[i], line)
+                local name = line:match('^%s*name%s+(.-)%s*$')
+                local desc = line:match('^%s*desc%s+(.-)%s*$')
+                local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
+                local parsed = hash and MOD.parse_number(amount)
+                local page, field, typed = line:match('^%s*rename%s+(' .. HEX16 .. ')%s+(%a+)%s+(.+)$')
+
+                if page then
+                    recognized = recognized + 1
+                    preset.texts = preset.texts or {}
+                    preset.texts[page:upper()] = preset.texts[page:upper()] or {}
+                    preset.texts[page:upper()][field] = typed:gsub('{H}', '#')
+                elseif name and name ~= '' then
+                    recognized = recognized + 1
+                    preset.name = name:sub(1, NAME_BYTES)
+                elseif desc and desc ~= '' then
+                    preset.desc = desc:sub(1, MOD.rename.LIMIT.desc)
+                elseif parsed then
+                    recognized = recognized + 1
+                    preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
+                else
+                    skipped = skipped + 1
+                    MOD.skipped(file, numbers[i], line)
+                end
             end
         end
-        return preset
+
+        return preset, skipped, recognized
     end
 
-    -- Files someone sent you, put in StatEditor\import: each takes a free preset place, and the file goes once it
-    -- has one (no free place: it stays for the next start).
+    -- Files someone sent you, put in StatEditor\import: each valid file takes a free preset place.
+    -- Files with malformed lines or no preset entries stay untouched so they can be corrected and imported again.
     function presets.import()
         local dir, ok, I = preset_file('import'), pcall(require, 'install')
         if not (MOD.offline and dir and ok) then return end
@@ -27195,8 +27208,13 @@ do
             if raw then enemy = (raw:read('*a') or ''):find('SHODAN Enemy Editor preset', 1, true) ~= nil; raw:close() end
             local into, free = enemy and presets.enemy or presets.full, nil
             for k = 1, FULL_PRESETS do if not into[k] then free = k; break end end
-            local preset = lines and free and presets.parse(lines, numbers, free, file)
-            if preset then
+
+            local preset, skipped, recognized
+            if lines and free then
+                preset, skipped, recognized = presets.parse(lines, numbers, free, file)
+            end
+
+            if preset and skipped == 0 and recognized > 0 then
                 local was = MOD.enemy.on
                 MOD.enemy.on = enemy
                 into[free] = preset
@@ -27204,10 +27222,12 @@ do
                 MOD.enemy.on = was
                 os.remove(dir .. '/' .. file)
                 log('presets: imported ' .. file .. ' as "' .. preset.name .. '"')
+            elseif lines and free then
+                local reason = (skipped or 0) > 0 and (skipped .. ' malformed line(s)') or 'no preset entries found'
+                log('presets: kept ' .. file .. ' in import; ' .. reason .. '. Correct the file and restart SSEO.')
             end
         end
     end
-
     -- Share codes, as small as they can be: 2 bytes of sum (catches a code cut short or mistyped), the preset's name, its
     -- typed texts by page tag (3 bytes of a hash's sum), ids not in MOD.CODE_IDS (code_ids.txt: only ever add to its end),
     -- then bits: each different value once, at 4 bits a character; each page's tag and its stats, sorted, as steps
