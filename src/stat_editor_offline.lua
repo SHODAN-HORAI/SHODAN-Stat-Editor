@@ -1326,6 +1326,7 @@ MOD.langs = {
       ['Armor penetration'] = '穿甲',
       ['Armor weight'] = '护甲重量',
       ['Armors'] = '护甲',
+      ['Arms'] = '机臂',
       ['Ask'] = '询问',
       ['Assassinate'] = '刺杀',
       ['Assault'] = '突击',
@@ -2074,6 +2075,7 @@ MOD.langs = {
       ['Inner torso'] = '内躯干',
       ['Insides'] = '内部',
       ['Install into the game'] = '写入游戏',
+      ['Install loads the chosen arm\'s exosuit into every mission, so its model shows.'] = '安装会把所选机臂的外骨骼载入每场任务，使其模型显示。',
       ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = '安装后每个任务最多加载 6 把此类武器，无需携带。支援武器会自带其效果。',
       ['Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions.'] = '已安装,但无法全部载入。部分弹药可能没有轨迹,部分“始终携带”的战略配备不会进入任务。',
       ['Installing: finding what changed...'] = '写入中：正在查找改动…',
@@ -2154,6 +2156,11 @@ MOD.langs = {
       ['Left'] = '左',
       ['Left arm'] = '左手臂',
       ['Left arm armor'] = '左手臂装甲',
+      ['Left arm from (1-4)'] = '左臂来自 (1-4)',
+      ['Left arm from: Breakthrough'] = '左臂来自：Breakthrough',
+      ['Left arm from: Emancipator'] = '左臂来自：Emancipator',
+      ['Left arm from: Lumberer'] = '左臂来自：Lumberer',
+      ['Left arm from: Patriot'] = '左臂来自：Patriot',
       ['Left arm health'] = '左臂生命值',
       ['Left arm weakspot'] = '左手臂弱点',
       ['Left armor'] = '左装甲',
@@ -2662,6 +2669,11 @@ MOD.langs = {
       ['Right'] = '右',
       ['Right arm'] = '右手臂',
       ['Right arm armor'] = '右手臂装甲',
+      ['Right arm from (1-4)'] = '右臂来自 (1-4)',
+      ['Right arm from: Breakthrough'] = '右臂来自：Breakthrough',
+      ['Right arm from: Emancipator'] = '右臂来自：Emancipator',
+      ['Right arm from: Lumberer'] = '右臂来自：Lumberer',
+      ['Right arm from: Patriot'] = '右臂来自：Patriot',
       ['Right arm health'] = '右臂生命值',
       ['Right arm weakspot'] = '右手臂弱点',
       ['Right armor'] = '右装甲',
@@ -3099,6 +3111,7 @@ MOD.langs = {
       ['Tested releases only.'] = '仅限经过测试的正式版。',
       ['That did not work; see the log.'] = '操作失败，请查看日志。',
       ['That is not a valid preset code.'] = '这不是有效的预设代码。',
+      ['That takes one of the 6 spots the Projectile swap rows also use.'] = '这会占用弹丸替换行也使用的 6 个位置之一。',
       ['That would make a loop of extra stratagems.'] = '此选择会使额外战略配备形成循环。',
       ['The Arbitrator\'s underbarrel shotgun, not the rifle itself.'] = '“仲裁者”的下挂霰弹枪，不是步枪本身。',
       ['The Defender SEAF soldiers carry. Not yours.'] = 'SEAF 士兵携带的“防卫者”。不是你的那把。',
@@ -3285,6 +3298,7 @@ MOD.langs = {
       ['Wheel grip'] = '车轮抓地力',
       ['Wheel radius (m)'] = '车轮半径（米）',
       ['Wheels'] = '车轮',
+      ['Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.'] = '此机臂来自哪台外骨骼：1 Patriot，2 Emancipator，3 Breakthrough，4 Lumberer。',
       ['Wind-down time (s)'] = '转管减速时间（秒）',
       ['Wind-down time, released (s)'] = '松开扳机后减速时间（秒）',
       ['Wind-up'] = '转管加速',
@@ -3368,6 +3382,7 @@ MOD.langs = {
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = '此倍率下视野跟随瞄准的速度；如果高倍率时视野旋转，请调低',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = '高于飞行路线的高度；越低越贴近地面（地形仍会托住它）',
       ['its own. - / + : fire another weapon\'s'] = '自身弹丸。- / +：改为发射其他武器的弹丸',
+      ['its own. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer'] = '自身的。1 Patriot，2 Emancipator，3 Breakthrough，4 Lumberer',
       ['ivory legion assault'] = '象牙军团突击',
       ['ivory legion tier 2'] = '象牙军团2级',
       ['jammer'] = '干扰器',
@@ -5349,6 +5364,7 @@ MOD.langs = {
       ['Armor penetration'] = '穿甲',
       ['Armor weight'] = '護甲重量',
       ['Armors'] = '護甲',
+      ['Arms'] = '機臂',
       ['Ask'] = '詢問',
       ['Assassinate'] = '刺殺',
       ['Assault'] = '突擊',
@@ -6097,6 +6113,7 @@ MOD.langs = {
       ['Inner torso'] = '內軀幹',
       ['Insides'] = '內部',
       ['Install into the game'] = '寫入遊戲',
+      ['Install loads the chosen arm\'s exosuit into every mission, so its model shows.'] = '安裝會把所選機臂的外骨骼載入每場任務，使其模型顯示。',
       ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = '安裝後每個任務最多載入 6 把此類武器，無需攜帶。支援武器會自帶其效果。',
       ['Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions.'] = '已安裝,但無法全部載入。部分彈藥可能沒有軌跡,部分「始終攜帶」的戰略配備不會進入任務。',
       ['Installing: finding what changed...'] = '寫入中：正在查詢改動…',
@@ -6177,6 +6194,11 @@ MOD.langs = {
       ['Left'] = '左',
       ['Left arm'] = '左手臂',
       ['Left arm armor'] = '左手臂裝甲',
+      ['Left arm from (1-4)'] = '左臂來自 (1-4)',
+      ['Left arm from: Breakthrough'] = '左臂來自：Breakthrough',
+      ['Left arm from: Emancipator'] = '左臂來自：Emancipator',
+      ['Left arm from: Lumberer'] = '左臂來自：Lumberer',
+      ['Left arm from: Patriot'] = '左臂來自：Patriot',
       ['Left arm health'] = '左臂生命值',
       ['Left arm weakspot'] = '左手臂弱點',
       ['Left armor'] = '左裝甲',
@@ -6685,6 +6707,11 @@ MOD.langs = {
       ['Right'] = '右',
       ['Right arm'] = '右手臂',
       ['Right arm armor'] = '右手臂裝甲',
+      ['Right arm from (1-4)'] = '右臂來自 (1-4)',
+      ['Right arm from: Breakthrough'] = '右臂來自：Breakthrough',
+      ['Right arm from: Emancipator'] = '右臂來自：Emancipator',
+      ['Right arm from: Lumberer'] = '右臂來自：Lumberer',
+      ['Right arm from: Patriot'] = '右臂來自：Patriot',
       ['Right arm health'] = '右臂生命值',
       ['Right arm weakspot'] = '右手臂弱點',
       ['Right armor'] = '右裝甲',
@@ -7122,6 +7149,7 @@ MOD.langs = {
       ['Tested releases only.'] = '僅限經過測試的正式版。',
       ['That did not work; see the log.'] = '操作失敗，請檢視日誌。',
       ['That is not a valid preset code.'] = '這不是有效的預設程式碼。',
+      ['That takes one of the 6 spots the Projectile swap rows also use.'] = '這會佔用射彈替換行也使用的 6 個位置之一。',
       ['That would make a loop of extra stratagems.'] = '此選擇會使額外戰略配備形成迴圈。',
       ['The Arbitrator\'s underbarrel shotgun, not the rifle itself.'] = '「仲裁者」的下掛霰彈槍，不是步槍本身。',
       ['The Defender SEAF soldiers carry. Not yours.'] = 'SEAF 士兵攜帶的「防衛者」。不是你的那把。',
@@ -7308,6 +7336,7 @@ MOD.langs = {
       ['Wheel grip'] = '車輪抓地力',
       ['Wheel radius (m)'] = '車輪半徑（米）',
       ['Wheels'] = '車輪',
+      ['Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.'] = '此機臂來自哪台外骨骼：1 Patriot，2 Emancipator，3 Breakthrough，4 Lumberer。',
       ['Wind-down time (s)'] = '轉管減速時間（秒）',
       ['Wind-down time, released (s)'] = '鬆開扳機後減速時間（秒）',
       ['Wind-up'] = '轉管加速',
@@ -7391,6 +7420,7 @@ MOD.langs = {
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = '此倍率下視野跟隨瞄準的速度；如果高倍率時視野旋轉，請調低',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = '高於飛行路線的高度；越低越貼近地面（地形仍會托住它）',
       ['its own. - / + : fire another weapon\'s'] = '自身射彈。- / +：改為發射其他武器的射彈',
+      ['its own. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer'] = '自身的。1 Patriot，2 Emancipator，3 Breakthrough，4 Lumberer',
       ['ivory legion assault'] = '象牙軍團突擊',
       ['ivory legion tier 2'] = '象牙軍團2級',
       ['jammer'] = '干擾器',
@@ -9366,6 +9396,7 @@ MOD.langs = {
       ['Armor penetration'] = 'Бронепробиваемость',
       ['Armor weight'] = 'Вес брони',
       ['Armors'] = 'Броня',
+      ['Arms'] = 'Руки',
       ['Ask'] = 'Спрашивать',
       ['Assassinate'] = 'убийца',
       ['Assault'] = 'штурм',
@@ -10076,6 +10107,7 @@ MOD.langs = {
       ['Inner torso'] = 'Внутренний торс',
       ['Insides'] = 'Внутренности',
       ['Install into the game'] = 'Установить в игру',
+      ['Install loads the chosen arm\'s exosuit into every mission, so its model shows.'] = 'Установка загружает экзокостюм выбранной руки в каждую миссию, чтобы была видна её модель.',
       ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'Установка загружает до 6 таких видов оружия в каждую миссию, так что брать их не нужно. Оружие поддержки приносит своё сам.',
       ['Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions.'] = 'Установлено, но поместилось не всё. У некоторых снарядов может не быть следа, а часть стратагем «Брать всегда» не попадёт в миссии.',
       ['Installing: finding what changed...'] = 'Установка: поиск изменений...',
@@ -10151,6 +10183,11 @@ MOD.langs = {
       ['Left'] = 'Слева',
       ['Left arm'] = 'Левая рука',
       ['Left arm armor'] = 'Броня левой руки',
+      ['Left arm from (1-4)'] = 'Левая рука от (1-4)',
+      ['Left arm from: Breakthrough'] = 'Левая рука от: Breakthrough',
+      ['Left arm from: Emancipator'] = 'Левая рука от: Emancipator',
+      ['Left arm from: Lumberer'] = 'Левая рука от: Lumberer',
+      ['Left arm from: Patriot'] = 'Левая рука от: Patriot',
       ['Left arm health'] = 'Здоровье левой руки',
       ['Left arm weakspot'] = 'Слабая точка левой руки',
       ['Left armor'] = 'Левая броня',
@@ -10643,6 +10680,11 @@ MOD.langs = {
       ['Right'] = 'Справа',
       ['Right arm'] = 'Правая рука',
       ['Right arm armor'] = 'Броня правой руки',
+      ['Right arm from (1-4)'] = 'Правая рука от (1-4)',
+      ['Right arm from: Breakthrough'] = 'Правая рука от: Breakthrough',
+      ['Right arm from: Emancipator'] = 'Правая рука от: Emancipator',
+      ['Right arm from: Lumberer'] = 'Правая рука от: Lumberer',
+      ['Right arm from: Patriot'] = 'Правая рука от: Patriot',
       ['Right arm health'] = 'Здоровье правой руки',
       ['Right arm weakspot'] = 'Слабая точка правой руки',
       ['Right armor'] = 'Правая броня',
@@ -11056,6 +11098,7 @@ MOD.langs = {
       ['Tested releases only.'] = 'Только проверенные релизы.',
       ['That did not work; see the log.'] = 'Не получилось; см. журнал.',
       ['That is not a valid preset code.'] = 'Это неверный код пресета.',
+      ['That takes one of the 6 spots the Projectile swap rows also use.'] = 'Это занимает одно из 6 мест, которые используют и строки замены снаряда.',
       ['That would make a loop of extra stratagems.'] = 'Так получится цикл из доп. стратагем.',
       ['The Arbitrator\'s underbarrel shotgun, not the rifle itself.'] = 'Подствольный дробовик «Третейского судьи», а не сама винтовка.',
       ['The Defender SEAF soldiers carry. Not yours.'] = '«Защитник» солдат ВССЗ. Не ваш.',
@@ -11234,6 +11277,7 @@ MOD.langs = {
       ['Wheel grip'] = 'Сцепление колёс',
       ['Wheel radius (m)'] = 'Радиус колёс (м)',
       ['Wheels'] = 'Колёса',
+      ['Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.'] = 'Из какого экзокостюма эта рука: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.',
       ['Wind-down time (s)'] = 'Время замедления (с)',
       ['Wind-down time, released (s)'] = 'Время замедления после отпускания (с)',
       ['Wind-up'] = 'Раскрутка',
@@ -11297,6 +11341,7 @@ MOD.langs = {
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = 'как быстро прицел следует за наведением на этом увеличении; уменьшите, если на большом увеличении прицел крутится',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = 'высота над маршрутом полёта; ниже — ближе к земле (рельеф всё равно не даёт опуститься)',
       ['its own. - / + : fire another weapon\'s'] = 'свой. - / + : стрелять снарядом другого оружия',
+      ['its own. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer'] = 'своя. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer',
       ['ivory legion assault'] = 'Костяной легион, штурм',
       ['ivory legion tier 2'] = 'Костяной легион, уровень 2',
       ['jammer'] = 'глушилка',
@@ -12614,6 +12659,7 @@ MOD.langs = {
       ['Armor penetration'] = 'Penetración de blindaje',
       ['Armor weight'] = 'Peso del blindaje',
       ['Armors'] = 'Blindajes',
+      ['Arms'] = 'Brazos',
       ['Ask'] = 'Preguntar',
       ['Assassinate'] = 'Asesinato',
       ['Assault'] = 'Asalto',
@@ -13306,6 +13352,7 @@ MOD.langs = {
       ['Inner torso'] = 'Torso interior',
       ['Insides'] = 'Interior',
       ['Install into the game'] = 'Instalar en el juego',
+      ['Install loads the chosen arm\'s exosuit into every mission, so its model shows.'] = 'Instalar carga el exotraje del brazo elegido en cada misión, para que se vea su modelo.',
       ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'Instalar carga hasta 6 armas de este tipo en todas las misiones, así que nadie necesita llevarlas. Un arma de apoyo trae las suyas.',
       ['Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions.'] = 'Instalado, pero no cabe todo. Algunos proyectiles pueden no mostrar estela y algunas estratagemas de "Llevar siempre" quedan fuera de las misiones.',
       ['Installing: finding what changed...'] = 'Instalando: buscando qué cambió...',
@@ -13379,6 +13426,11 @@ MOD.langs = {
       ['Lb wing'] = 'Ala ti',
       ['Left'] = 'Izquierda',
       ['Left arm'] = 'Brazo izquierdo',
+      ['Left arm from (1-4)'] = 'Brazo izquierdo de (1-4)',
+      ['Left arm from: Breakthrough'] = 'Brazo izquierdo de: Breakthrough',
+      ['Left arm from: Emancipator'] = 'Brazo izquierdo de: Emancipator',
+      ['Left arm from: Lumberer'] = 'Brazo izquierdo de: Lumberer',
+      ['Left arm from: Patriot'] = 'Brazo izquierdo de: Patriot',
       ['Left arm health'] = 'Salud del brazo izquierdo',
       ['Left armor'] = 'Blindaje izquierdo',
       ['Left arms'] = 'Brazos izquierdos',
@@ -13852,6 +13904,11 @@ MOD.langs = {
       ['Rifle Justice. Short '] = 'Rifle Justice. Corto ',
       ['Right'] = 'Derecha',
       ['Right arm'] = 'Brazo derecho',
+      ['Right arm from (1-4)'] = 'Brazo derecho de (1-4)',
+      ['Right arm from: Breakthrough'] = 'Brazo derecho de: Breakthrough',
+      ['Right arm from: Emancipator'] = 'Brazo derecho de: Emancipator',
+      ['Right arm from: Lumberer'] = 'Brazo derecho de: Lumberer',
+      ['Right arm from: Patriot'] = 'Brazo derecho de: Patriot',
       ['Right arm health'] = 'Salud del brazo derecho',
       ['Right armor'] = 'Blindaje derecho',
       ['Right arms'] = 'Brazos derechos',
@@ -14253,6 +14310,7 @@ MOD.langs = {
       ['Tested releases only.'] = 'Solo versiones probadas.',
       ['That did not work; see the log.'] = 'Eso no funcionó; ver el registro.',
       ['That is not a valid preset code.'] = 'Ese código de preset no es válido.',
+      ['That takes one of the 6 spots the Projectile swap rows also use.'] = 'Eso ocupa uno de los 6 lugares que también usan las filas de cambio de proyectil.',
       ['That would make a loop of extra stratagems.'] = 'Eso formaría un ciclo de estratagemas extra.',
       ['The Arbitrator\'s underbarrel shotgun, not the rifle itself.'] = 'La escopeta en cañón secundario del Arbitrator, no el rifle en sí.',
       ['The Defender SEAF soldiers carry. Not yours.'] = 'El Defender que llevan los soldados SEAF. No el tuyo.',
@@ -14429,6 +14487,7 @@ MOD.langs = {
       ['Wheel grip'] = 'Agarre de las ruedas',
       ['Wheel radius (m)'] = 'Radio de las ruedas (m)',
       ['Wheels'] = 'Ruedas',
+      ['Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.'] = 'De qué exotraje viene este brazo: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.',
       ['Wind-down time (s)'] = 'Tiempo de frenado (s)',
       ['Wind-down time, released (s)'] = 'Tiempo de frenado, al soltar (s)',
       ['Wind-up'] = 'Arranque',
@@ -14480,6 +14539,7 @@ MOD.langs = {
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = 'qué tan rápido la vista sigue tu puntería con este zoom; bájalo si un zoom alto hace girar la vista',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = 'su altura sobre su ruta de vuelo; más bajo vuela más cerca del suelo (el terreno igual lo sostiene)',
       ['its own. - / + : fire another weapon\'s'] = 'el suyo. - / + : dispara el de otra arma',
+      ['its own. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer'] = 'el suyo. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer',
       ['ivory legion assault'] = 'asalto de la legión de marfil',
       ['ivory legion tier 2'] = 'legión de marfil nivel 2',
       ['jammer'] = 'inhibidor',
@@ -15775,6 +15835,7 @@ MOD.langs = {
       ['Armor penetration'] = 'Penetração de blindagem',
       ['Armor weight'] = 'Peso da blindagem',
       ['Armors'] = 'Blindagens',
+      ['Arms'] = 'Braços',
       ['Ask'] = 'Perguntar',
       ['Assassinate'] = 'Assassinato',
       ['Assault'] = 'Assalto',
@@ -16467,6 +16528,7 @@ MOD.langs = {
       ['Inner torso'] = 'Torso interno',
       ['Insides'] = 'Interior',
       ['Install into the game'] = 'Instalar no jogo',
+      ['Install loads the chosen arm\'s exosuit into every mission, so its model shows.'] = 'Instalar carrega o exotraje do braço escolhido em cada missão, para que seu modelo apareça.',
       ['Install loads up to 6 such weapons into every mission, so nobody has to bring them. A support weapon brings its own.'] = 'A instalação carrega até 6 armas desse tipo em todas as missões, então ninguém precisa levá-las. Uma arma de apoio traz as suas.',
       ['Installed, but not everything fits. Some projectiles may show no trail, and some Always bring it stratagems stay out of missions.'] = 'Instalado, mas nem tudo coube. Alguns projéteis podem não mostrar rastro e alguns estratagemas de "Levar sempre" ficam fora das missões.',
       ['Installing: finding what changed...'] = 'Instalando: procurando o que mudou...',
@@ -16540,6 +16602,11 @@ MOD.langs = {
       ['Lb wing'] = 'Asa te',
       ['Left'] = 'Esquerda',
       ['Left arm'] = 'Braço esquerdo',
+      ['Left arm from (1-4)'] = 'Braço esquerdo de (1-4)',
+      ['Left arm from: Breakthrough'] = 'Braço esquerdo de: Breakthrough',
+      ['Left arm from: Emancipator'] = 'Braço esquerdo de: Emancipator',
+      ['Left arm from: Lumberer'] = 'Braço esquerdo de: Lumberer',
+      ['Left arm from: Patriot'] = 'Braço esquerdo de: Patriot',
       ['Left arm health'] = 'Vida do braço esquerdo',
       ['Left armor'] = 'Blindagem esquerda',
       ['Left arms'] = 'Braços esquerdos',
@@ -17013,6 +17080,11 @@ MOD.langs = {
       ['Rifle Justice. Short '] = 'Rifle Justice. Curto ',
       ['Right'] = 'Direita',
       ['Right arm'] = 'Braço direito',
+      ['Right arm from (1-4)'] = 'Braço direito de (1-4)',
+      ['Right arm from: Breakthrough'] = 'Braço direito de: Breakthrough',
+      ['Right arm from: Emancipator'] = 'Braço direito de: Emancipator',
+      ['Right arm from: Lumberer'] = 'Braço direito de: Lumberer',
+      ['Right arm from: Patriot'] = 'Braço direito de: Patriot',
       ['Right arm health'] = 'Vida do braço direito',
       ['Right armor'] = 'Blindagem direita',
       ['Right arms'] = 'Braços direitos',
@@ -17414,6 +17486,7 @@ MOD.langs = {
       ['Tested releases only.'] = 'Só versões testadas.',
       ['That did not work; see the log.'] = 'Isso não funcionou; veja o log.',
       ['That is not a valid preset code.'] = 'Esse código de preset não é válido.',
+      ['That takes one of the 6 spots the Projectile swap rows also use.'] = 'Isso ocupa um dos 6 espaços que as linhas de troca de projétil também usam.',
       ['That would make a loop of extra stratagems.'] = 'Isso faria um ciclo de estratégias extras.',
       ['The Arbitrator\'s underbarrel shotgun, not the rifle itself.'] = 'A escopeta acoplada do Arbitrator, não o rifle em si.',
       ['The Defender SEAF soldiers carry. Not yours.'] = 'O Defender que os soldados SEAF carregam. Não é o seu.',
@@ -17590,6 +17663,7 @@ MOD.langs = {
       ['Wheel grip'] = 'Aderência das rodas',
       ['Wheel radius (m)'] = 'Raio das rodas (m)',
       ['Wheels'] = 'Rodas',
+      ['Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.'] = 'De qual exotraje vem este braço: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.',
       ['Wind-down time (s)'] = 'Tempo de desaceleração (s)',
       ['Wind-down time, released (s)'] = 'Tempo de desaceleração, ao soltar (s)',
       ['Wind-up'] = 'Aceleração',
@@ -17641,6 +17715,7 @@ MOD.langs = {
       ['how quickly the view follows your aim at this zoom; lower it if a high zoom spins the view'] = 'quão rápido a visão acompanha sua mira com este zoom; diminua se um zoom alto faz a visão girar',
       ['its height above its flight route; lower flies closer to the ground (terrain still holds it up)'] = 'a altura acima da rota de voo; mais baixo voa mais perto do chão (o terreno ainda o segura)',
       ['its own. - / + : fire another weapon\'s'] = 'o próprio. - / + : dispara o de outra arma',
+      ['its own. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer'] = 'o próprio. 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer',
       ['ivory legion assault'] = 'assalto da legião de marfim',
       ['ivory legion tier 2'] = 'legião de marfim nível 2',
       ['jammer'] = 'bloqueador',
@@ -22184,6 +22259,59 @@ end
 -- Validated EXO weapon-arm health components; other vehicle mounts are left alone.
 MOD.exo_mounted = { ['EXO-45 Patriot Exosuit'] = true, ['EXO-49 Emancipator Exosuit'] = true,
                     ['EXO-51 Lumberer Exosuit'] = true, ['EXO-55 Breakthrough Exosuit'] = true }
+-- Arm swaps (issue #130, tested in game: the Patriot with the Emancipator's right arm): an exosuit's left or
+-- right mount (MountComponentData +0, label +16) takes another exosuit's arm on that side. Install writes the
+-- arm and loads the donor exosuit into every mission (MOD.donors), so its model shows without anyone bringing it.
+MOD.exo_arms = { ORDER = { '79E4B3D2DA5E45E3', 'C2D449ECF7FACAB1', '35DBF54F016F3624', '7B2326F6FD9C8069' },
+                 NAMES = { 'Patriot', 'Emancipator', 'Breakthrough', 'Lumberer' },
+                 SIDES = { { 0x7BDEC47B, 'arm_left', 'Left arm' }, { 0x47775624, 'arm_right', 'Right arm' } } }
+-- the mount record offset of `key`'s arm on side `label`, nil when none
+function MOD.exo_arms.slot(key, label)
+    local mt = tables[TYPES.mount]
+    local at = mt and mt.index[key]
+    for m = 0, at and 4 or -1 do
+        if default_of(field_at(TYPES.mount, at + m * 24 + 16, 'u32', 4294967295)) == label then return at + m * 24 end
+    end
+end
+function MOD.exo_arms.rows(entry, key)
+    local E, own = MOD.exo_arms, nil
+    for k, hex in ipairs(E.ORDER) do if hash_key(hex) == key then own = k end end
+    if not own then return end
+    for _, side in ipairs(E.SIDES) do
+        local slot = E.slot(key, side[1])
+        if slot then
+            local f = field_at(TYPES.mount, side[2] .. ':' .. entry.hash, 'virtual', #E.ORDER)
+            f.default, f.arm = own, { slot = slot, label = side[1], own = own }
+            local row = add_row(entry, 'Arms', side[2], side[3] .. ' from (1-4)', 'u32', { { id = side[2], field = f } }, 1, #E.ORDER, 1, 1)
+            row.label_of = function() return side[3] .. ' from: ' .. (E.NAMES[read_field(f)] or '?') end
+            row.tip = { 'Which exosuit this arm comes from: 1 Patriot, 2 Emancipator, 3 Breakthrough, 4 Lumberer.',
+                        "Install loads the chosen arm's exosuit into every mission, so its model shows.",
+                        'That takes one of the 6 spots the Projectile swap rows also use.' }
+        end
+    end
+end
+-- At Install (MOD.donors): every arm row's mount words, and the donor exosuits' packages added to `want`
+function MOD.exo_arms.apply(want, seen)
+    local E = MOD.exo_arms
+    for _, f in pairs(fields) do
+        if f.arm then
+            local v = read_field(f)
+            local donor = v ~= f.arm.own and E.ORDER[v] and hash_key(E.ORDER[v])
+            local from = donor and E.slot(donor, f.arm.label)
+            for o = 0, 4, 4 do
+                local here = field_at(TYPES.mount, f.arm.slot + o, 'u32', 4294967295)
+                write_field(here, from and default_of(field_at(TYPES.mount, from + o, 'u32', 4294967295)) or default_of(here))
+            end
+            local key = from and tables[TYPES.package].index[donor]
+            local lo = key and read_field(field_at(TYPES.package, key + 8, 'u32', 4294967295))
+            local hi = key and read_field(field_at(TYPES.package, key + 12, 'u32', 4294967295))
+            if lo and (lo ~= 0 or hi ~= 0) and not seen[lo .. ':' .. hi] then
+                seen[lo .. ':' .. hi] = true
+                table.insert(want, 1, { lo, hi, name = 'EXO ' .. E.NAMES[v] })
+            end
+        end
+    end
+end
 KINDS[TYPES.vehicle].rows = function(entry, key, twins)
     local t = tables[TYPES.health]
     local at = t and t.index[key]
@@ -22234,6 +22362,7 @@ KINDS[TYPES.vehicle].rows = function(entry, key, twins)
             parts('regen_delay', 12, 'f32', 3600), 0, 600, 0.1, 1)
     -- the melee button's stomp is an ability, no record names its damage: row 253 (unnamed), the wiki's 9 values (609, the same, is the Cyborg Lieutenant's)
     if MOD.exo_mounted[entry.name] then MOD.melee_rows(entry, 253, 'Stomp', 'stomp_').tip = { 'Every exosuit shares this stomp.' } end
+    if MOD.exo_mounted[entry.name] then MOD.exo_arms.rows(entry, key) end
     MOD.physics.rows(entry, key)
     local n = 0
     for z = 0, 37 do
@@ -31042,6 +31171,7 @@ function MOD.donors()
             end
         end
     end
+    MOD.exo_arms.apply(want, seen)
     local used, tails = 0, {}
     for k, id in ipairs({ 2266266587, 3193487269, 867876502 }) do
         local group, at = find(id)
