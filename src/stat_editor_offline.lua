@@ -28052,7 +28052,7 @@ do
         local preset = full_presets[n]
         if not preset then return end
         if not settings.changes then say('Your changes are off: turn them on in Settings to load a preset'); return end
-        MOD.reset_side(MOD.enemy.on)
+        reset_all()   -- (names, descriptions and armor passives too: the preset's state exactly, issue #135)
         local refused, passives, values = 0, {}, {}
         for _, o in ipairs(preset.values) do
             if o.id:match('^passive_') then
@@ -28060,7 +28060,6 @@ do
                 if o.id ~= 'passive_none' then table.insert(passives[o.hash], o.value) end
             else values[#values + 1] = o end
         end
-        -- shortcut: an armor the preset does not name keeps its passives, so older presets wipe nothing
         for hash, list in pairs(passives) do
             if by_hash[hash] then MOD.kits.set(by_hash[hash], list) else refused = refused + 1 end
         end
