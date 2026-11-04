@@ -1647,6 +1647,7 @@ MOD.langs = {
       ['Done'] = '完成',
       ['Double Freedom'] = '双重自由',
       ['Double-Edge Sickle'] = '双刃镰刀',
+      ['Double-Edge Sickle heat ramp'] = '双刃镰刀热量递增',
       ['Down'] = '下移',
       ['Drag factor'] = '阻力系数',
       ['Dragonroach'] = '蟑龙',
@@ -1808,6 +1809,7 @@ MOD.langs = {
       ['Fire rate (x)'] = '射速 (x)',
       ['Fire/gas/acid/arc damage taken'] = '受到火焰 / 毒气 / 酸液 / 电弧伤害',
       ['Firebomb Hellpods'] = '火焰炸弹绝地喷射舱',
+      ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = '随着热量升高发射双刃镰刀的强化射击，接近过热时会伤害你。',
       ['First shell (id)'] = '第一发炮弹（ID）',
       ['Flame Sentry'] = '火焰喷射哨戒炮',
       ['Flames'] = '喷射火焰',
@@ -2880,6 +2882,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = '同类载具数量',
       ['Shape'] = '形状',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有带此被动的护甲共用。倍率：1 = 不变。',
+      ['Shares its levels: change their damage on the Double-Edge Sickle\'s page. Applies on Install.'] = '与其共用等级：在双刃镰刀页面修改其伤害。安装时生效。',
       ['Shares its name and description with the armor of this name: a change here changes both.'] = '与同名护甲共用名称和描述：在此处修改会同时改变两者。',
       ['Shear'] = '切变',
       ['Shell fired (id)'] = '发射的炮弹（ID）',
@@ -5663,6 +5666,7 @@ MOD.langs = {
       ['Done'] = '完成',
       ['Double Freedom'] = '雙重自由',
       ['Double-Edge Sickle'] = '雙刃鐮刀',
+      ['Double-Edge Sickle heat ramp'] = '雙刃鐮刀熱量遞增',
       ['Down'] = '下移',
       ['Drag factor'] = '阻力系數',
       ['Dragonroach'] = '龍蟑',
@@ -5824,6 +5828,7 @@ MOD.langs = {
       ['Fire rate (x)'] = '射速 (x)',
       ['Fire/gas/acid/arc damage taken'] = '受到火焰 / 毒氣 / 酸液 / 電弧傷害',
       ['Firebomb Hellpods'] = '燃燒彈絕地噴射艙',
+      ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = '隨著熱量升高發射雙刃鐮刀的強化射擊，接近過熱時會傷害你。',
       ['First shell (id)'] = '第一發炮彈（ID）',
       ['Flame Sentry'] = '火焰火箭炮',
       ['Flames'] = '火焰噴射器',
@@ -6896,6 +6901,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = '同類載具數量',
       ['Shape'] = '形狀',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = '所有帶此被動的護甲共用。倍率：1 = 不變。',
+      ['Shares its levels: change their damage on the Double-Edge Sickle\'s page. Applies on Install.'] = '與其共用等級：在雙刃鐮刀頁面修改其傷害。安裝時生效。',
       ['Shares its name and description with the armor of this name: a change here changes both.'] = '與同名護甲共用名稱和描述：在此處修改會同時改變兩者。',
       ['Shear'] = '雷射剪',
       ['Shell fired (id)'] = '發射的炮彈（ID）',
@@ -9660,6 +9666,7 @@ MOD.langs = {
       ['Done'] = 'Готово',
       ['Double Freedom'] = 'Двойная свобода',
       ['Double-Edge Sickle'] = 'Обоюдоострый серп',
+      ['Double-Edge Sickle heat ramp'] = 'Нагрев как у Обоюдоострого серпа',
       ['Down'] = 'Вниз',
       ['Drag factor'] = 'Коэффициент сопротивления',
       ['Dragonroach'] = 'Дракоракан',
@@ -9812,6 +9819,7 @@ MOD.langs = {
       ['Fire rate (x)'] = 'Скорострельность (x)',
       ['Fire/gas/acid/arc damage taken'] = 'Получаемый урон от огня/газа/кислоты/дуги',
       ['Firebomb Hellpods'] = 'Зажигательные Адские Капсулы',
+      ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Стреляет усиленными выстрелами Обоюдоострого серпа по мере нагрева и ранит вас перед перегревом.',
       ['First shell (id)'] = 'Первый снаряд (id)',
       ['Flame Sentry'] = 'Турель-огнемет',
       ['Flames'] = 'Горючая смесь',
@@ -10837,6 +10845,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Несколько машин одного вида',
       ['Shape'] = 'Форма',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Общее для всей брони с этим эффектом. Множители: 1 = без изменений.',
+      ['Shares its levels: change their damage on the Double-Edge Sickle\'s page. Applies on Install.'] = 'Уровни общие с ним: меняйте их урон на странице Обоюдоострого серпа. Применяется при установке.',
       ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Название и описание общие с бронёй с этим названием: изменение здесь меняет оба.',
       ['Shear'] = 'Ножницы',
       ['Shell fired (id)'] = 'Снаряд (id)',
@@ -12896,6 +12905,7 @@ MOD.langs = {
       ['Done'] = 'Listo',
       ['Double Freedom'] = 'Doble libertad',
       ['Double-Edge Sickle'] = 'Hoz de doble filo',
+      ['Double-Edge Sickle heat ramp'] = 'Escalado de calor de la Hoz de doble filo',
       ['Down'] = 'Abajo',
       ['Drag factor'] = 'Factor de arrastre',
       ['Dragonroach'] = 'Dracoracha',
@@ -13045,6 +13055,7 @@ MOD.langs = {
       ['Fire rate (x)'] = 'Cadencia de disparo (x)',
       ['Fire/gas/acid/arc damage taken'] = 'Daño de fuego/gas/ácido/arco recibido',
       ['Firebomb Hellpods'] = 'Cápsulas Hell de bombas incendiarias',
+      ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Dispara los disparos más fuertes de la Hoz de doble filo al calentarse y te hiere cerca del sobrecalentamiento.',
       ['First shell (id)'] = 'Primer proyectil (id)',
       ['Flame Sentry'] = 'Vigía de llamas',
       ['Flames'] = 'Llamas',
@@ -14031,6 +14042,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Varios vehículos del mismo tipo',
       ['Shape'] = 'Forma',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Lo comparten todos los blindajes con esta pasiva. Multiplicadores: 1 = sin cambio.',
+      ['Shares its levels: change their damage on the Double-Edge Sickle\'s page. Applies on Install.'] = 'Comparte sus niveles: cambia su daño en la página de la Hoz de doble filo. Se aplica al instalar.',
       ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Comparte nombre y descripción con el blindaje del mismo nombre: un cambio aquí cambia ambos.',
       ['Shear'] = 'Segador',
       ['Shell fired (id)'] = 'Proyectil disparado (id)',
@@ -16051,6 +16063,7 @@ MOD.langs = {
       ['Done'] = 'Pronto',
       ['Double Freedom'] = 'Dupla Liberdade',
       ['Double-Edge Sickle'] = 'Foice de Dois Gumes',
+      ['Double-Edge Sickle heat ramp'] = 'Escalada de calor da Foice de Dois Gumes',
       ['Down'] = 'Baixo',
       ['Drag factor'] = 'Fator de arrasto',
       ['Dragonroach'] = 'Dracobarata',
@@ -16200,6 +16213,7 @@ MOD.langs = {
       ['Fire rate (x)'] = 'Cadência (x)',
       ['Fire/gas/acid/arc damage taken'] = 'Dano de fogo/gás/ácido/arco recebido',
       ['Firebomb Hellpods'] = 'Hellpods Bombásticos',
+      ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Dispara os tiros mais fortes da Foice de Dois Gumes conforme esquenta e fere você perto de superaquecer.',
       ['First shell (id)'] = 'Primeiro projétil (id)',
       ['Flame Sentry'] = 'Sentinela ígnea',
       ['Flames'] = 'Chamas',
@@ -17186,6 +17200,7 @@ MOD.langs = {
       ['Several vehicles of a kind'] = 'Vários veículos do mesmo tipo',
       ['Shape'] = 'Forma',
       ['Shared by every armor with this passive. Multipliers: 1 = no change.'] = 'Compartilhado por todas as blindagens com esta passiva. Multiplicadores: 1 = sem mudança.',
+      ['Shares its levels: change their damage on the Double-Edge Sickle\'s page. Applies on Install.'] = 'Compartilha os níveis dela: mude o dano na página da Foice de Dois Gumes. Aplica ao instalar.',
       ['Shares its name and description with the armor of this name: a change here changes both.'] = 'Compartilha nome e descrição com a armadura de mesmo nome: mudar aqui muda os dois.',
       ['Shear'] = 'Podadeira',
       ['Shell fired (id)'] = 'Projétil disparado (id)',
@@ -21544,6 +21559,19 @@ local function resolve_gun(weapon, key)
                     end
                 end
             end
+        end
+        -- every other heat weapon has the same three levels, empty (#122): a switch copies the Double-Edge Sickle's
+        -- in at Install (MOD.donors; works on the Sickle, beam weapons ignore it: tested on the Laser Cannon 2026-11-04).
+        -- Its level 1 shot field goes with the swaps, so Install also loads the Double-Edge Sickle's package.
+        if (default_of(field_at(T_HEAT, heat, 'f32', 1000000)) or 0) == 0 and not record(T_BEAM_WEAPON) and
+           (weapon.slot == 'Primary' or weapon.slot == 'Secondary' or weapon.slot == 'Support') then
+            local lead = { id = 'heat_ramp', field = field_at(T_HEAT, 'ramp' .. heat, 'virtual', 1) }
+            lead.field.default, lead.field.ramp = 0, heat
+            add_row(weapon, 'Heat', 'heat_ramp', 'Double-Edge Sickle heat ramp', 'flag', { lead }, 0, 1, 1, 1).tip = {
+                "Fires the Double-Edge Sickle's stronger shots as it heats up, and hurts you near overheat.",
+                "Shares its levels: change their damage on the Double-Edge Sickle's page. Applies on Install." }
+            weapon.swaps = weapon.swaps or {}
+            weapon.swaps[#weapon.swaps + 1] = { parts = { part('heat_ramp_shot', T_HEAT, heat + 4, 'u32', 100000) } }
         end
     end
     -- each magazine attachment: its magazine, reload and heat values, then its stat modifiers (ergonomics
@@ -30928,6 +30956,27 @@ function MOD.donors()
     for _, id in ipairs(HIDDEN) do
         local group, at = find(id)
         if group then hidden[default_of(field_at(group, at, 'u32', 4294967295))] = true end
+    end
+    -- Double-Edge Sickle heat ramp switches: its three levels (start heat scaled to each weapon's overheat
+    -- threshold, shot, status on you) copied in, or the weapon's own empty ones back
+    local ht, src = tables[T_HEAT], nil
+    for _, at in pairs(ht and ht.index or {}) do
+        if (default_of(field_at(T_HEAT, at, 'f32', 1000000)) or 0) > 0 then src = at end
+    end
+    for _, f in pairs(fields) do
+        if f.ramp and src then
+            local on, cap = read_field(f) == 1, read_field(field_at(T_HEAT, f.ramp + 96, 'f32', 1000000)) or 0
+            local scale = cap / math.max(1, read_field(field_at(T_HEAT, src + 96, 'f32', 1000000)) or 0)
+            for k = 0, 2 do
+                local from, to = src + k * 24, f.ramp + k * 24
+                local start = field_at(T_HEAT, to, 'f32', 1000000)
+                write_field(start, on and (read_field(field_at(T_HEAT, from, 'f32', 1000000)) or 0) * scale or default_of(start))
+                for _, o in ipairs({ 4, 20 }) do
+                    local here = field_at(T_HEAT, to + o, 'u32', 4294967295)
+                    write_field(here, on and read_field(field_at(T_HEAT, from + o, 'u32', 4294967295)) or default_of(here))
+                end
+            end
+        end
     end
     -- A support weapon's first swap goes through its own stratagem, every other swap loads always.
     local own, own_list = {}, {}
