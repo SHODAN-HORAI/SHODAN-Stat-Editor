@@ -1811,6 +1811,7 @@ MOD.langs = {
       ['Fire/gas/acid/arc damage taken'] = '受到火焰 / 毒气 / 酸液 / 电弧伤害',
       ['Firebomb Hellpods'] = '火焰炸弹绝地喷射舱',
       ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = '随着热量升高发射双刃镰刀的强化射击，接近过热时会伤害你。',
+      ['Firing it standing no longer knocks you down or hurts you.'] = '站立射击不再将你击倒或伤害你。',
       ['First shell (id)'] = '第一发炮弹（ID）',
       ['Flame Sentry'] = '火焰喷射哨戒炮',
       ['Flames'] = '喷射火焰',
@@ -2374,6 +2375,7 @@ MOD.langs = {
       ['No changes: loading it puts every value back to the game\'s.'] = '没有修改：读取它会把所有数值恢复为游戏原值。',
       ['No description'] = '无描述',
       ['No free preset place: delete one first.'] = '没有空位：请先删除一个预设。',
+      ['No knockdown when standing'] = '站姿射击不倒地',
       ['No other vehicle has this section.'] = '没有其他载具有此部分。',
       ['No page in this editor uses this id.'] = '此编辑器中没有页面使用此 id。',
       ['No passive.'] = '无被动。',
@@ -5832,6 +5834,7 @@ MOD.langs = {
       ['Fire/gas/acid/arc damage taken'] = '受到火焰 / 毒氣 / 酸液 / 電弧傷害',
       ['Firebomb Hellpods'] = '燃燒彈絕地噴射艙',
       ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = '隨著熱量升高發射雙刃鐮刀的強化射擊，接近過熱時會傷害你。',
+      ['Firing it standing no longer knocks you down or hurts you.'] = '站立射擊不再將你擊倒或傷害你。',
       ['First shell (id)'] = '第一發炮彈（ID）',
       ['Flame Sentry'] = '火焰火箭炮',
       ['Flames'] = '火焰噴射器',
@@ -6395,6 +6398,7 @@ MOD.langs = {
       ['No changes: loading it puts every value back to the game\'s.'] = '沒有修改：讀取它會把所有數值恢復為遊戲原值。',
       ['No description'] = '無描述',
       ['No free preset place: delete one first.'] = '沒有空位：請先刪除一個預設。',
+      ['No knockdown when standing'] = '站姿射擊不倒地',
       ['No other vehicle has this section.'] = '沒有其他載具有此部分。',
       ['No page in this editor uses this id.'] = '此編輯器中沒有頁面使用此 id。',
       ['No passive.'] = '無被動。',
@@ -9825,6 +9829,7 @@ MOD.langs = {
       ['Fire/gas/acid/arc damage taken'] = 'Получаемый урон от огня/газа/кислоты/дуги',
       ['Firebomb Hellpods'] = 'Зажигательные Адские Капсулы',
       ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Стреляет усиленными выстрелами Обоюдоострого серпа по мере нагрева и ранит вас перед перегревом.',
+      ['Firing it standing no longer knocks you down or hurts you.'] = 'Стрельба стоя больше не сбивает с ног и не ранит.',
       ['First shell (id)'] = 'Первый снаряд (id)',
       ['Flame Sentry'] = 'Турель-огнемет',
       ['Flames'] = 'Горючая смесь',
@@ -10362,6 +10367,7 @@ MOD.langs = {
       ['No changes: loading it puts every value back to the game\'s.'] = 'Изменений нет: загрузка вернет все значения игры.',
       ['No description'] = 'Без описания',
       ['No free preset place: delete one first.'] = 'Нет свободного места: сначала удалите пресет.',
+      ['No knockdown when standing'] = 'Без падения при стрельбе стоя',
       ['No other vehicle has this section.'] = 'Ни у какой другой техники нет этого раздела.',
       ['No page in this editor uses this id.'] = 'Ни одна страница редактора не использует этот id.',
       ['No passive.'] = 'Нет пассивки.',
@@ -13062,6 +13068,7 @@ MOD.langs = {
       ['Fire/gas/acid/arc damage taken'] = 'Daño de fuego/gas/ácido/arco recibido',
       ['Firebomb Hellpods'] = 'Cápsulas Hell de bombas incendiarias',
       ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Dispara los disparos más fuertes de la Hoz de doble filo al calentarse y te hiere cerca del sobrecalentamiento.',
+      ['Firing it standing no longer knocks you down or hurts you.'] = 'Disparar de pie ya no te derriba ni te hace daño.',
       ['First shell (id)'] = 'Primer proyectil (id)',
       ['Flame Sentry'] = 'Vigía de llamas',
       ['Flames'] = 'Llamas',
@@ -13576,6 +13583,7 @@ MOD.langs = {
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sin cambios: cargarlo devuelve todos los valores a los del juego.',
       ['No description'] = 'Sin descripción',
       ['No free preset place: delete one first.'] = 'No hay lugar libre: elimina un preset primero.',
+      ['No knockdown when standing'] = 'Sin derribo al disparar de pie',
       ['No other vehicle has this section.'] = 'Ningún otro vehículo tiene esta sección.',
       ['No page in this editor uses this id.'] = 'Ninguna página de este editor usa este id.',
       ['No passive.'] = 'Sin pasivo.',
@@ -16221,6 +16229,7 @@ MOD.langs = {
       ['Fire/gas/acid/arc damage taken'] = 'Dano de fogo/gás/ácido/arco recebido',
       ['Firebomb Hellpods'] = 'Hellpods Bombásticos',
       ['Fires the Double-Edge Sickle\'s stronger shots as it heats up, and hurts you near overheat.'] = 'Dispara os tiros mais fortes da Foice de Dois Gumes conforme esquenta e fere você perto de superaquecer.',
+      ['Firing it standing no longer knocks you down or hurts you.'] = 'Atirar em pé não te derruba nem te machuca mais.',
       ['First shell (id)'] = 'Primeiro projétil (id)',
       ['Flame Sentry'] = 'Sentinela ígnea',
       ['Flames'] = 'Chamas',
@@ -16735,6 +16744,7 @@ MOD.langs = {
       ['No changes: loading it puts every value back to the game\'s.'] = 'Sem mudanças: carregar devolve todos os valores aos do jogo.',
       ['No description'] = 'Sem descrição',
       ['No free preset place: delete one first.'] = 'Sem espaço livre: exclua um preset primeiro.',
+      ['No knockdown when standing'] = 'Sem queda ao atirar em pé',
       ['No other vehicle has this section.'] = 'Nenhum outro veículo tem esta seção.',
       ['No page in this editor uses this id.'] = 'Nenhuma página deste editor usa este id.',
       ['No passive.'] = 'Sem passiva.',
@@ -21633,6 +21643,16 @@ local function resolve_gun(weapon, key)
                 add_row(weapon, 'Handling', 'no_bolt', 'No bolt pull', 'flag', parts, 0, 1, 1, 1).tip =
                     { 'Skips the bolt pull after each shot. Fire rate, ammo and damage stay as they are.' }
             end
+        end
+        -- no knockdown (issue #129, tested in game): firing standing knocks you down and hurts you. The Apex: its own
+        -- fire ability (+948) swapped for the generic one; the Variable's Total mode: the ability at +952 cleared
+        local fall = KINDS[T_WEAPON].stride == 1240
+                     and ({ B814EECE17533BC4 = { 948, 2677, 2719 }, F992CE97577C8A7F = { 952, 50, 0 } })[weapon.hash]
+        if fall and default_of(field_at(T_WEAPON, data + fall[1], 'u32', 4294967295)) == fall[2] then
+            local p = part('no_knockdown', T_WEAPON, data + fall[1], 'bolt', 1)
+            p.field.bolt_off, p.field.bolt_on = fall[2], fall[3]
+            add_row(weapon, 'Handling', 'no_knockdown', 'No knockdown when standing', 'flag', { p }, 0, 1, 1, 1).tip =
+                { 'Firing it standing no longer knocks you down or hurts you.' }
         end
         -- infinite ammo (SHODAN Offline Integration): the game's own switches, WeaponData +960 and the
         -- projectile weapon's +36 (1240-byte layout)
