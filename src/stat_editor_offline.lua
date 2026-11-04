@@ -20462,7 +20462,8 @@ end
 -- (type -> its stat modifiers) } }. The weapon's line: the items listed with its default one.
 -- Weapons whose other magazines are a line of their own: weapon -> that line's name. The AR-59
 -- Suppressor comes with the Liberator's Extended; its Short and Drum are 'whisper' ones.
-KINDS[TYPES.custom].LINES = { [hash_key('708EA298C82093D0')] = 'whisper rifle 5,5x50mm.' }
+KINDS[TYPES.custom].LINES = { [hash_key('708EA298C82093D0')] = 'whisper rifle 5,5x50mm.',
+                              [hash_key('41F2DEF484634B59')] = 'rifle simo.' }   -- (R-40 Sightliner: its two in two lines, issue #134)
 
 local function attachments(key)
     local cache = KINDS[TYPES.custom].cache
