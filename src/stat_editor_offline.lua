@@ -29759,11 +29759,16 @@ function MOD.egg.tick(now)
 end
 
 -- Keyboard: presses, and repeats while held (after 0.4 s, every 0.08 s; or after `delay`, every `every`).
+-- A key counts once it has been seen up while the window has focus: one Windows reports held from elsewhere
+-- (a controller mapped to keys, a stuck key) is ignored until let go (issue #132).
 local held = {}
+MOD.keys_up = {}
 local function pressed(name, now, delay, every)
     local down = key_down(VK[name])
     local h = held[name]
-    if not down then held[name] = nil; return false end
+    if not focused_window() then MOD.keys_up = {}; held[name] = nil; return false end
+    if not down then held[name], MOD.keys_up[name] = nil, true; return false end
+    if not MOD.keys_up[name] then return false end
     if not h then held[name] = { next = now + (delay or 0.4) }; return true end
     if now >= h.next then h.next = now + (every or 0.08); return true end
     return false
