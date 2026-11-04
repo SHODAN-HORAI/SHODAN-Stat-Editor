@@ -2421,6 +2421,7 @@ MOD.langs = {
       ['On: your '] = '开启：你的',
       ['On: your arc chain length / split apply with other players too (arcs can stay on screen).'] = '开启：你的电弧连锁长度 / 分裂对其他玩家同样生效（电弧可留在屏幕上）。',
       ['On: your rockets, launcher rounds and stratagem ordnance fly through tree canopies and bushes.'] = '开启：你的火箭弹、发射器弹药和战略配备弹药可穿过树冠和灌木。',
+      ['Once your reinforcements run out, one comes back after this long: 120 seconds by default.'] = '增援用完后，每隔这么久恢复一次：默认 120 秒。',
       ['One True Flag'] = '唯一真旗',
       ['One-Two'] = '幺二',
       ['One-handed'] = '单手持握',
@@ -2636,6 +2637,7 @@ MOD.langs = {
       ['Reinforced Scout Strider'] = '强化侦察纵步者',
       ['Reinforcement Beacon'] = '增援信标',
       ['Reinforcement frequency (x)'] = '增援频率 (x)',
+      ['Reinforcement regen time (s)'] = '增援恢复时间（秒）',
       ['Reinforcement size (x)'] = '增援规模 (x)',
       ['Reinforcements'] = '增援',
       ['Reinforcements (flares, breaches, drops)'] = '增援 (信号弹、虫潮、空投)',
@@ -2891,6 +2893,7 @@ MOD.langs = {
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次为冷却时间、本体、武器。',
       ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = '与普通地面巡逻分开。任务没有此类修正条件时不起作用。',
       ['Servo-Assisted'] = '伺服辅助',
+      ['Set it low for nearly endless reinforcements.'] = '调低可获得几乎无限的增援。',
       ['Sets off mines'] = '会引爆地雷',
       ['Settings'] = '设置',
       ['Settings are saved at once, in config.txt with your changes.'] = '设置会与你的修改一并即时保存到 config.txt。',
@@ -6459,6 +6462,7 @@ MOD.langs = {
       ['On: your '] = '開啟：你的',
       ['On: your arc chain length / split apply with other players too (arcs can stay on screen).'] = '開啟：你的電弧連鎖長度 / 分裂對其他玩家同樣生效（電弧可留在螢幕上）。',
       ['On: your rockets, launcher rounds and stratagem ordnance fly through tree canopies and bushes.'] = '開啟：你的火箭彈、發射器彈藥和戰略配備彈藥可穿過樹冠和灌木。',
+      ['Once your reinforcements run out, one comes back after this long: 120 seconds by default.'] = '增援用完後，每隔這麼久恢復一次：預設 120 秒。',
       ['One True Flag'] = '唯一真旗',
       ['One-Two'] = '雙響',
       ['One-handed'] = '單手持握',
@@ -6674,6 +6678,7 @@ MOD.langs = {
       ['Reinforced Scout Strider'] = '強化偵察闊步者',
       ['Reinforcement Beacon'] = '增援信標',
       ['Reinforcement frequency (x)'] = '增援頻率 (x)',
+      ['Reinforcement regen time (s)'] = '增援恢復時間（秒）',
       ['Reinforcement size (x)'] = '增援規模 (x)',
       ['Reinforcements'] = '增援',
       ['Reinforcements (flares, breaches, drops)'] = '增援 (訊號彈、蟲潮、空投)',
@@ -6929,6 +6934,7 @@ MOD.langs = {
       ['Sentry: its cooldown, its body, then its weapon.'] = '哨戒炮：依次為冷卻時間、本體、武器。',
       ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = '與普通地面巡邏分開。任務沒有此類修正條件時不起作用。',
       ['Servo-Assisted'] = '伺服輔助',
+      ['Set it low for nearly endless reinforcements.'] = '調低可獲得幾乎無限的增援。',
       ['Sets off mines'] = '會引爆地雷',
       ['Settings'] = '設定',
       ['Settings are saved at once, in config.txt with your changes.'] = '設定會與你的修改一併即時儲存到 config.txt。',
@@ -10442,6 +10448,7 @@ MOD.langs = {
       ['On: your '] = 'Вкл: ваши ',
       ['On: your arc chain length / split apply with other players too (arcs can stay on screen).'] = 'Вкл: ваши длина и разветвление цепи дуги действуют и с другими игроками (дуги могут оставаться на экране).',
       ['On: your rockets, launcher rounds and stratagem ordnance fly through tree canopies and bushes.'] = 'Вкл.: ваши ракеты, снаряды и боеприпасы стратагем пролетают сквозь кроны деревьев и кусты.',
+      ['Once your reinforcements run out, one comes back after this long: 120 seconds by default.'] = 'Когда подкрепления закончились, одно возвращается через это время: по умолчанию 120 секунд.',
       ['One True Flag'] = 'Один истинный флаг',
       ['One-Two'] = 'Двоечка',
       ['One-handed'] = 'Одной рукой',
@@ -10648,6 +10655,7 @@ MOD.langs = {
       ['Reinforced Epaulettes'] = 'Армированные эполеты',
       ['Reinforced Scout Strider'] = 'Укрепленный шатун-разведчик',
       ['Reinforcement frequency (x)'] = 'Частота подкреплений (x)',
+      ['Reinforcement regen time (s)'] = 'Время восстановления подкреплений (с)',
       ['Reinforcement size (x)'] = 'Размер подкреплений (x)',
       ['Reinforcements'] = 'Подкрепления',
       ['Reinforcements (flares, breaches, drops)'] = 'Подкрепления (сигнальные ракеты, прорывы, десанты)',
@@ -10892,6 +10900,7 @@ MOD.langs = {
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Турель: перезарядка, корпус, затем оружие.',
       ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = 'Отдельно от обычных наземных патрулей. Без такого модификатора на миссии ничего не меняет.',
       ['Servo-Assisted'] = 'Сервопривод',
+      ['Set it low for nearly endless reinforcements.'] = 'Поставьте поменьше, чтобы подкрепления были почти бесконечными.',
       ['Sets off mines'] = 'Подрывает мины',
       ['Settings'] = 'Настройки',
       ['Settings are saved at once, in config.txt with your changes.'] = 'Настройки сохраняются сразу, в config.txt вместе с вашими изменениями.',
@@ -13671,6 +13680,7 @@ MOD.langs = {
       ['On: your '] = 'Activado: tus ',
       ['On: your arc chain length / split apply with other players too (arcs can stay on screen).'] = 'Activado: tu longitud / división de cadenas de arco también se aplican con otros jugadores (los arcos pueden quedarse en pantalla).',
       ['On: your rockets, launcher rounds and stratagem ordnance fly through tree canopies and bushes.'] = 'Activado: tus cohetes, rondas de lanzador y artillería de estratagemas atraviesan copas de árboles y arbustos.',
+      ['Once your reinforcements run out, one comes back after this long: 120 seconds by default.'] = 'Cuando se acaban tus refuerzos, uno vuelve tras este tiempo: 120 segundos por defecto.',
       ['One True Flag'] = 'La única bandera',
       ['One-Two'] = 'Uno-Dos',
       ['One-handed'] = 'Una mano',
@@ -13874,6 +13884,7 @@ MOD.langs = {
       ['Reinforced Epaulettes'] = 'Charreteras Reforzadas',
       ['Reinforced Scout Strider'] = 'Andante explorador reforzado',
       ['Reinforcement frequency (x)'] = 'Frecuencia de refuerzos (x)',
+      ['Reinforcement regen time (s)'] = 'Tiempo de recarga de refuerzos (s)',
       ['Reinforcement size (x)'] = 'Tamaño de refuerzos (x)',
       ['Reinforcements'] = 'Refuerzos',
       ['Reinforcements (flares, breaches, drops)'] = 'Refuerzos (bengalas, brechas, envíos)',
@@ -14107,6 +14118,7 @@ MOD.langs = {
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Vigía: su tiempo de recarga, su cuerpo y luego su arma.',
       ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = 'Aparte de las patrullas normales en tierra. No hace nada en una misión sin ese modificador.',
       ['Servo-Assisted'] = 'Servoasistido',
+      ['Set it low for nearly endless reinforcements.'] = 'Bájalo para tener refuerzos casi infinitos.',
       ['Sets off mines'] = 'Activa minas',
       ['Settings'] = 'Configuración',
       ['Settings are saved at once, in config.txt with your changes.'] = 'La configuración se guarda al instante, en config.txt con tus cambios.',
@@ -16847,6 +16859,7 @@ MOD.langs = {
       ['On: your '] = 'Ligado: suas ',
       ['On: your arc chain length / split apply with other players too (arcs can stay on screen).'] = 'Ligado: seu comprimento / divisão de correntes de arco também valem com outros jogadores (os arcos podem ficar na tela).',
       ['On: your rockets, launcher rounds and stratagem ordnance fly through tree canopies and bushes.'] = 'Ligado: seus foguetes, munições de lançador e artilharia de estratégias atravessam copas de árvores e arbustos.',
+      ['Once your reinforcements run out, one comes back after this long: 120 seconds by default.'] = 'Quando seus reforços acabam, um volta depois desse tempo: 120 segundos por padrão.',
       ['One True Flag'] = 'A Bandeira Una',
       ['One-Two'] = 'Dois em Um',
       ['One-handed'] = 'Uma mão',
@@ -17050,6 +17063,7 @@ MOD.langs = {
       ['Reinforced Epaulettes'] = 'Dragonas Reforçadas',
       ['Reinforced Scout Strider'] = 'Caminhante explorador reforçado',
       ['Reinforcement frequency (x)'] = 'Frequência de reforços (x)',
+      ['Reinforcement regen time (s)'] = 'Tempo de recarga de reforços (s)',
       ['Reinforcement size (x)'] = 'Tamanho dos reforços (x)',
       ['Reinforcements'] = 'Reforços',
       ['Reinforcements (flares, breaches, drops)'] = 'Reforços (sinais, brechas, quedas)',
@@ -17283,6 +17297,7 @@ MOD.langs = {
       ['Sentry: its cooldown, its body, then its weapon.'] = 'Sentinela: o tempo de recarga, o corpo e depois a arma.',
       ['Separate from the normal ground patrols. Does nothing on a mission without such a modifier.'] = 'Separado das patrulhas normais em terra. Não faz nada numa missão sem esse modificador.',
       ['Servo-Assisted'] = 'Servomecanismo',
+      ['Set it low for nearly endless reinforcements.'] = 'Abaixe para ter reforços quase infinitos.',
       ['Sets off mines'] = 'Ativa minas',
       ['Settings'] = 'Configurações',
       ['Settings are saved at once, in config.txt with your changes.'] = 'As configurações são salvas na hora, em config.txt com suas mudanças.',
@@ -23131,6 +23146,7 @@ local function resolve_stratagem(entry)
                     { part('uses', def.kind, def.off + 80, 'u32', 999) }, 0, 999, 1, 5)
         end
         MOD.code.row(entry, def)
+        if entry.name == 'Reinforcement Beacon' then MOD.regen_row(entry) end
         if s.family ~= 'eagle' then MOD.callin_rows(entry, { def }) end
         if s.family ~= 'eagle' and MOD.extra.FAMILIES[s.family] then
             MOD.extra.row(entry, def)
@@ -26020,6 +26036,23 @@ TYPES.loadout = 0x4F2CF417
 TYPES.hivemind, TYPES.spawn_floor = 0xD0207221, 0xD74E6E1A
 KINDS[TYPES.hivemind] = { name = 'hive mind', stride = 1084, keyed = true }
 KINDS[TYPES.spawn_floor] = { name = 'spawn floor', stride = 96, keyed = true }
+-- GameModeComponentData (one 76-byte record per mission type): +28 the wait before a used-up reinforcement
+-- comes back (120 s in every mode, issue #136)
+TYPES.game_mode = 0x09E13FAC
+KINDS[TYPES.game_mode] = { name = 'game mode', stride = 76, keyed = true }
+function MOD.regen_row(entry)
+    local t = tables[TYPES.game_mode]
+    if not t then return end
+    local records, p = {}, {}
+    for _, off in pairs(t.index) do records[#records + 1] = off end
+    table.sort(records)
+    for n, off in ipairs(records) do p[n] = part(n == 1 and 'reinf_regen' or ('reinf_regen_' .. n), TYPES.game_mode, off + 28, 'f32', 100000) end
+    if #p == 0 or read_field(p[1].field) == nil then return end
+    local r = add_row(entry, 'Reinforcements', 'reinf_regen', 'Reinforcement regen time (s)', 'f32', p, 0, 10000, 1, 10)
+    r.lead = #p > 1 or nil   -- (same values: the first stands for all)
+    r.tip = { 'Once your reinforcements run out, one comes back after this long: 120 seconds by default.',
+              'Set it low for nearly endless reinforcements.' }
+end
 -- the enemy pages' other tables (filediver's typelib layouts; strides checked on the current build):
 -- AiCharacter (+0 preferred / +4 maximum speed), AiEnemy (each AI state's speed; 736 bytes in this build),
 -- Unit (+8 / +12 scale), Inventory (+0 / +8 weapons carried), SensorEar (+4 hearing),
