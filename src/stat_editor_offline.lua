@@ -1193,6 +1193,7 @@ MOD.langs = {
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你携带的那把。',
       ['A mounted copy. Not the one you carry.'] = '固定版本。不是你携带的那把。',
       ['A pathetic creature of meat and bone.'] = '一个由血肉和骨头组成的可怜生物。',
+      ['A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.'] = '导入文件夹中的一个预设文件未能导入。请修正日志中列出的行，然后重新启动 SSEO。',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '预设会把你所有的修改作为一组保存，并取一个你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '预设会把所有敌人与生成的改动保存为一个自定义难度，名称由你决定。武器改动单独保存。',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '补给箱提供这么多。地图上的弹药箱提供一半，向下取整（至少 1）。',
@@ -5314,6 +5315,7 @@ MOD.langs = {
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你攜帶的那把。',
       ['A mounted copy. Not the one you carry.'] = '固定版本。不是你攜帶的那把。',
       ['A pathetic creature of meat and bone.'] = '一個由血肉和骨頭組成的可憐生物。',
+      ['A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.'] = '匯入資料夾中的一個預設檔案未能匯入。請修正日誌中列出的行，然後重新啟動 SSEO。',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = '預設會把你所有的修改作為一組儲存，並取一個你指定的名字。',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = '預設會把所有敵人與生成的改動儲存為一個自定義難度，名稱由你決定。武器改動單獨儲存。',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '補給箱提供這麼多。地圖上的彈藥箱提供一半，向下取整（至少 1）。',
@@ -9433,6 +9435,7 @@ MOD.langs = {
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Станковая копия под управлением ИИ (как огневая позиция). Не то, что вы носите.',
       ['A mounted copy. Not the one you carry.'] = 'Станковая копия. Не то, что вы носите.',
       ['A pathetic creature of meat and bone.'] = 'Жалкое создание из мяса и костей.',
+      ['A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.'] = 'Файл пресета в папке import не импортирован. Исправьте строки, указанные в журнале, и снова запустите SSEO.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Пресет хранит все ваши изменения одним набором под выбранным вами именем.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Пресет хранит все изменения врагов и их появления как свой уровень сложности под выбранным вами именем. Изменения оружия хранятся отдельно.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Ящик снабжения даёт столько. Ящик с боеприпасами на карте даёт половину с округлением вниз (минимум 1).',
@@ -12784,6 +12787,7 @@ MOD.langs = {
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Una copia montada manejada por IA (tipo emplazamiento). No la que llevas.',
       ['A mounted copy. Not the one you carry.'] = 'Una copia montada. No la que llevas.',
       ['A pathetic creature of meat and bone.'] = 'Una patética criatura de carne y hueso.',
+      ['A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.'] = 'Un archivo de preset en la carpeta import no se importó. Corrige las líneas que indica el registro y vuelve a abrir SSEO.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Un perfil guarda todos tus cambios como un conjunto, con el nombre que elijas.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Un perfil guarda todos los cambios de enemigos y aparición como una dificultad personalizada, con el nombre que elijas. Tus cambios de armas se guardan aparte.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Una caja de reabastecimiento da esta cantidad. Una caja de munición en el mapa da la mitad, redondeada hacia abajo (mínimo 1).',
@@ -16043,6 +16047,7 @@ MOD.langs = {
       ['A mounted copy run by AI (emplacement-style). Not the one you carry.'] = 'Uma cópia montada operada por IA (tipo posicionamento). Não é a que você carrega.',
       ['A mounted copy. Not the one you carry.'] = 'Uma cópia montada. Não é a que você carrega.',
       ['A pathetic creature of meat and bone.'] = 'Uma criatura patética de carne e osso.',
+      ['A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.'] = 'Um arquivo de preset na pasta import não foi importado. Corrija as linhas que o log indica e abra o SSEO de novo.',
       ['A preset keeps every change you have made as one set, under a name you choose.'] = 'Um perfil guarda todas as suas mudanças como um conjunto, com o nome que você escolher.',
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Um perfil guarda todas as mudanças de inimigos e surgimento como uma dificuldade personalizada, com o nome que você escolher. Suas mudanças de armas ficam separadas.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Uma caixa de reabastecimento dá esta quantidade. Uma caixa de munição no mapa dá a metade, arredondada para baixo (mínimo 1).',
@@ -27939,35 +27944,41 @@ do
         write_lines(path, presets.body(full_presets[n], lines, named))
     end
 
-    -- A preset file's lines as a preset, or nil when it was cleared.
+    -- A preset file's lines as a preset, or nil when it was cleared; then how many lines it could not read, and how
+    -- many it could (names, values, texts: PR #127)
     function presets.parse(lines, numbers, n, file)
-        local preset = { name = 'Preset ' .. n, values = {} }
+        local preset, skipped, recognized = { name = 'Preset ' .. n, values = {} }, 0, 0
         for i, line in ipairs(lines) do
-            if line:match('^%s*cleared') then return nil end
+            if line:match('^%s*cleared') then return nil, skipped, recognized end
             local name = line:match('^%s*name%s+(.-)%s*$')
             local desc = line:match('^%s*desc%s+(.-)%s*$')
             local hash, id, amount = line:match('^%s*(' .. HEX16 .. ')%s+([%w_]+)%s+(%S+)')
             local parsed = hash and MOD.parse_number(amount)
             local page, field, typed = line:match('^%s*rename%s+(' .. HEX16 .. ')%s+(%a+)%s+(.+)$')
             if page then
+                recognized = recognized + 1
                 preset.texts = preset.texts or {}
                 preset.texts[page:upper()] = preset.texts[page:upper()] or {}
                 preset.texts[page:upper()][field] = typed:gsub('{H}', '#')
             elseif name and name ~= '' then
+                recognized = recognized + 1
                 preset.name = name:sub(1, NAME_BYTES)
             elseif desc and desc ~= '' then
                 preset.desc = desc:sub(1, MOD.rename.LIMIT.desc)
             elseif parsed then
+                recognized = recognized + 1
                 preset.values[#preset.values + 1] = { hash = hash:upper(), id = id, value = parsed }
             else
+                skipped = skipped + 1
                 MOD.skipped(file, numbers[i], line)
             end
         end
-        return preset
+        return preset, skipped, recognized
     end
 
-    -- Files someone sent you, put in StatEditor\import: each takes a free preset place, and the file goes once it
-    -- has one (no free place: it stays for the next start).
+    -- Files someone sent you, put in StatEditor\import: each valid file takes a free preset place, and the file goes once
+    -- it has one (no free place: it stays for the next start). A file with broken lines or no preset in it stays, to be
+    -- corrected and tried again, and the footer says so (PR #127).
     function presets.import()
         local dir, ok, I = preset_file('import'), pcall(require, 'install')
         if not (MOD.offline and dir and ok) then return end
@@ -27979,8 +27990,9 @@ do
             if raw then enemy = (raw:read('*a') or ''):find('SHODAN Enemy Editor preset', 1, true) ~= nil; raw:close() end
             local into, free = enemy and presets.enemy or presets.full, nil
             for k = 1, FULL_PRESETS do if not into[k] then free = k; break end end
-            local preset = lines and free and presets.parse(lines, numbers, free, file)
-            if preset then
+            local preset, skipped, recognized
+            if lines and free then preset, skipped, recognized = presets.parse(lines, numbers, free, file) end
+            if preset and skipped == 0 and recognized > 0 then
                 local was = MOD.enemy.on
                 MOD.enemy.on = enemy
                 into[free] = preset
@@ -27988,6 +28000,10 @@ do
                 MOD.enemy.on = was
                 os.remove(dir .. '/' .. file)
                 log('presets: imported ' .. file .. ' as "' .. preset.name .. '"')
+            elseif lines and free then
+                log('presets: kept ' .. file .. ' in import; ' .. (skipped > 0 and (skipped .. ' malformed line(s)')
+                    or 'no preset entries found') .. '. Correct the file and restart SSEO.')
+                MOD.notify('A preset file in the import folder was not imported. Fix the lines the log names and start SSEO again.', 20, true)
             end
         end
     end
