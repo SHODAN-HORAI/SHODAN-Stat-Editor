@@ -1198,6 +1198,7 @@ MOD.langs = {
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '补给箱提供这么多。地图上的弹药箱提供一半，向下取整（至少 1）。',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = '补给箱提供这么多。地图上的弹药箱提供一半，向下取整。',
       ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'SEAF 的第二个等待时间：x1 时为 80 到 100 秒。可能是士兵波次之间的间隔；游戏只给出了名称。',
+      ['A second ammo fires as many projectiles per shot as this weapon\'s own.'] = '第二种弹药每次射击的弹丸数与此武器自身弹药相同。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敌人自己页面上更改的数值保持红色：此页面不会改动它。',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你单独改过晃动系数的武器保留其数值。此行改变的晃动以蓝色显示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 自动哨戒炮',
@@ -3619,6 +3620,7 @@ MOD.langs = {
       ['a mounted copy run by ai (emplacement-style). not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你携带的那把。',
       ['a mounted copy. not the one you carry.'] = '固定版本。不是你携带的那把。',
       ['a preset keeps every change you have made as one set, under a name you choose.'] = '预设会把你所有的修改作为一组保存，并取一个你指定的名字。',
+      ['a second ammo fires as many projectiles per shot as this weapon\'s own.'] = '第二种弹药每次射击的弹丸数与此武器自身弹药相同。',
       ['a settings table moved; scanning again'] = '设置数据表已移动，正在重新扫描',
       ['a table moved; scanning again'] = '数据表已移动，正在重新扫描',
       ['a/ac-8 autocannon sentry'] = 'A/AC-8 自动哨戒炮',
@@ -5217,6 +5219,7 @@ MOD.langs = {
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = '補給箱提供這麼多。地圖上的彈藥箱提供一半，向下取整（至少 1）。',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = '補給箱提供這麼多。地圖上的彈藥箱提供一半，向下取整。',
       ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'SEAF 的第二個等待時間：x1 時為 80 到 100 秒。可能是士兵波次之間的間隔；遊戲只給出了名稱。',
+      ['A second ammo fires as many projectiles per shot as this weapon\'s own.'] = '第二種彈藥每次射擊的射彈數與此武器自身彈藥相同。',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = '在敵人自己頁面上更改的數值保持紅色：此頁面不會改動它。',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = '你單獨改過晃動係數的武器保留其數值。此行改變的晃動以藍色顯示。',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 哨戒機炮',
@@ -7638,6 +7641,7 @@ MOD.langs = {
       ['a mounted copy run by ai (emplacement-style). not the one you carry.'] = '由 AI 操作的固定版本（炮台式）。不是你攜帶的那把。',
       ['a mounted copy. not the one you carry.'] = '固定版本。不是你攜帶的那把。',
       ['a preset keeps every change you have made as one set, under a name you choose.'] = '預設會把你所有的修改作為一組儲存，並取一個你指定的名字。',
+      ['a second ammo fires as many projectiles per shot as this weapon\'s own.'] = '第二種彈藥每次射擊的射彈數與此武器自身彈藥相同。',
       ['a settings table moved; scanning again'] = '設定資料表已移動，正在重新掃描',
       ['a table moved; scanning again'] = '資料表已移動，正在重新掃描',
       ['a/ac-8 autocannon sentry'] = 'A/AC-8 哨戒機炮',
@@ -9234,6 +9238,7 @@ MOD.langs = {
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Ящик снабжения даёт столько. Ящик с боеприпасами на карте даёт половину с округлением вниз (минимум 1).',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = 'Ящик снабжения даёт столько. Ящик с боеприпасами на карте даёт половину с округлением вниз.',
       ['A second SEAF wait: 80 to 100 seconds at x1. Probably the pause between waves of soldiers; the game only gives the name.'] = 'Второе ожидание СЕАФ: от 80 до 100 секунд при x1. Вероятно, пауза между волнами солдат; игра даёт только название.',
+      ['A second ammo fires as many projectiles per shot as this weapon\'s own.'] = 'Вторые патроны дают столько же снарядов за выстрел, сколько собственные патроны этого оружия.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Значение, изменённое на странице самого врага, остаётся красным: эта страница его не трогает.',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Оружие, у которого вы изменили свой Множитель колебания, сохраняет его. Колебание, изменённое этой строкой, показано синим.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 «Турель с автопушкой»',
@@ -12483,6 +12488,7 @@ MOD.langs = {
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Un perfil guarda todos los cambios de enemigos y aparición como una dificultad personalizada, con el nombre que elijas. Tus cambios de armas se guardan aparte.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Una caja de reabastecimiento da esta cantidad. Una caja de munición en el mapa da la mitad, redondeada hacia abajo (mínimo 1).',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = 'Una caja de reabastecimiento da esta cantidad. Una caja de munición en el mapa da la mitad, redondeada hacia abajo.',
+      ['A second ammo fires as many projectiles per shot as this weapon\'s own.'] = 'La segunda munición dispara tantos proyectiles por disparo como la munición propia de esta arma.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Un valor cambiado en la página propia de un enemigo queda en rojo: esta página lo deja como está.',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Un arma cuyo propio Multiplicador de balanceo cambiaste lo conserva. El balanceo que cambia esta fila se muestra en azul.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 Vigía de cañón automático',
@@ -15641,6 +15647,7 @@ MOD.langs = {
       ['A preset keeps every enemy and spawning change as one custom difficulty, under a name you choose. Your weapon changes are kept apart.'] = 'Um perfil guarda todas as mudanças de inimigos e surgimento como uma dificuldade personalizada, com o nome que você escolher. Suas mudanças de armas ficam separadas.',
       ['A resupply box gives this many. An ammo box on the map gives half, rounded down (at least 1).'] = 'Uma caixa de reabastecimento dá esta quantidade. Uma caixa de munição no mapa dá a metade, arredondada para baixo (mínimo 1).',
       ['A resupply box gives this much. An ammo box on the map gives half, rounded down.'] = 'Uma caixa de reabastecimento dá esta quantidade. Uma caixa de munição no mapa dá a metade, arredondada para baixo.',
+      ['A second ammo fires as many projectiles per shot as this weapon\'s own.'] = 'A segunda munição dispara tantos projéteis por tiro quanto a munição própria desta arma.',
       ['A value changed on an enemy\'s own page stays red: this page leaves it as it is.'] = 'Um valor mudado na página própria de um inimigo fica vermelho: esta página o deixa como está.',
       ['A weapon whose own Sway multiplier you changed keeps it. Sway this row changes shows in blue.'] = 'Uma arma cujo próprio Multiplicador de balanço você mudou o mantém. O balanço que esta linha muda aparece em azul.',
       ['A/AC-8 Autocannon Sentry'] = 'A/AC-8 Canhão Automático Sentinela',
@@ -24532,6 +24539,7 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     local second = alt and default_of(alt)
     if second and second > 0 then
         row = swap('projectile_2', 'Second mode fires (id)', { { id = 'projectile_2', field = alt } })
+        weapon.second_ammo = true
     else
         second = nil
         local wrow = alt and tables[T_WEAPON].index[weapon.key]
@@ -24554,6 +24562,7 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
                 end
             end
             row = swap('projectile_2', 'Second ammo (id)', { { id = 'projectile_2', field = alt } })
+            weapon.second_ammo = true
         end
     end
     if ammo then
@@ -24566,6 +24575,8 @@ KINDS[T_PROJECTILE].swap_row = function(weapon, sources, shots, fire, extra)
     row.after = { "Swapping makes the shot the chosen weapon's, your edits to it included: damage,",
                   'armor penetration, forces, velocity, drag, gravity, pellets and explosions. Kept: this',
                   "weapon's fire rate, ammo, handling and heat. To tune the shot, edit the chosen weapon." }
+    -- (the game has no per-mode pellet count: a second ammo fires as many as the weapon's own shot, issue #125)
+    if weapon.second_ammo then row.after[#row.after + 1] = "A second ammo fires as many projectiles per shot as this weapon's own." end
     row.after_h = #row.after * 16 + 6
     weapon.own_shots = {}
     for _, shot in ipairs(shots or { { id = weapon.projectile } }) do
