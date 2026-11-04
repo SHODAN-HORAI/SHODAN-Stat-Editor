@@ -30923,6 +30923,12 @@ function MOD.donors()
         set(group, at, 172, donor and donor[2])
     end
     MOD.extra.always_undo(set)
+    -- the hidden donor stratagems; a support weapon's +200 holding one is our old link, anything else is its Extra stratagem
+    local HIDDEN, hidden = { 2663642538, 905054095, 101457192, 3702563421, 4264661046 }, {}
+    for _, id in ipairs(HIDDEN) do
+        local group, at = find(id)
+        if group then hidden[default_of(field_at(group, at, 'u32', 4294967295))] = true end
+    end
     -- A support weapon's first swap goes through its own stratagem, every other swap loads always.
     local own, own_list = {}, {}
     for pass = 1, 2 do
@@ -30931,7 +30937,9 @@ function MOD.donors()
             local id = at and read_field(field_at(TYPES.loadout, at, 'u32', 4294967295))
             local group, record = nil, nil
             if id then group, record = find(id) end
-            if pass == 1 and group then set(group, record, 200) end
+            if pass == 1 and group and hidden[read_field(field_at(group, record + 200, 'u32', 4294967295))] then
+                set(group, record, 200)
+            end
             for k, row in ipairs(weapon.swaps or {}) do
                 local now = read_field(row.parts[1].field)
                 local shot = now and now ~= default_of(row.parts[1].field) and by_id[now]
@@ -30967,7 +30975,7 @@ function MOD.donors()
         end
     end
     local always, links, turn = 4 - math.min(4, #own_list), 0, 0
-    for _, id in ipairs({ 2663642538, 905054095, 101457192, 3702563421, 4264661046 }) do
+    for _, id in ipairs(HIDDEN) do
         local group, at = find(id)
         if group and #tails > 0 then
             local donor, list = nil, nil
