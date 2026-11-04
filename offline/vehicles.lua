@@ -25,6 +25,7 @@ M.ARCHIVES = {
     ['2D85BFE3D8717FE5.' .. PHYSICS] = '2cee40dfbd0b174d',         -- M-104 Incinerator FRV
     ['16474112801385B6.' .. PHYSICS] = '17ec2d364664c3e9',         -- TD-220 Bastion
     ['B0C9FAF4AF8903F9.' .. PHYSICS] = '65ee777b72347cb4',         -- TD-110 Maelstrom
+    ['423FF97D57AB04F5.' .. PHYSICS] = '0dff5200594e867f',         -- GATER (its physics file is named after its second entity)
     ['79E4B3D2DA5E45E3.' .. STATE_MACHINE] = '0a4bd8a1833f11b2',   -- the exosuits (combat_walker, all four)
     -- the enemies' state machines (their animation speed; scratch\enemy_units.py writes these lines)
     ['00BCF8247A544CDC.' .. STATE_MACHINE] = '063a5b895ed482e6',   -- Shredder Tank
