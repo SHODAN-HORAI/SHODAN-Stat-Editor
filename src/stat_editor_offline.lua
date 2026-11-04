@@ -28742,7 +28742,7 @@ local function draw(width, height)
         local stack_list = MOD.offline and weapon.armor and MOD.kits.list_of(weapon)
         if stack_list then bottom = bottom - (36 + 34 * (#stack_list + 2)) end
         local pitch = math.floor((bottom - y - sections * 24 - below) / math.max(1, #weapon.rows))
-        local scrolling = pitch < 22
+        local scrolling = pitch < 22 and #weapon.rows > 0   -- (an armor page: no rows, only passives, issue #128)
         if scrolling then
             pitch, bottom = 24, bottom - (settings.nav_buttons and 36 or 0)
             ui.scroll = math.max(1, math.min(ui.scroll, #weapon.rows))
