@@ -25355,11 +25355,14 @@ function MOD.records.users()
     MOD.records.cache = { shots = shots, blasts = blasts, rounds = rounds, fired = fired }
     return MOD.records.cache
 end
+-- explosions nothing in the data links to a page, named by hand (matched to the wiki by radius; #147)
+-- shortcut: ids as of build 25988413, recheck if a game update renumbers explosions
+MOD.records.BLASTS = { [221] = 'Integrated Explosives' }
 -- A record's name (English), or nil.
 function MOD.records.name(kind, id)
     local u = MOD.records.users()
     if kind == T_PROJECTILE then return MOD.round_names and MOD.round_names[id] or (u.shots[id] or {})[1]
-    elseif kind == T_EXPLOSION then return (u.blasts[id] or {})[1] or u.rounds[id] end
+    elseif kind == T_EXPLOSION then return (u.blasts[id] or {})[1] or u.rounds[id] or MOD.records.BLASTS[id] end
     if state.lang and state.lang() == 'zh-Hans' and MOD.status.by[id] then return MOD.status.by[id].name end
     return KINDS[T_STATUS].names[id] or KINDS[T_STATUS].stuns[id]
 end
