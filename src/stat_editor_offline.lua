@@ -27912,6 +27912,15 @@ do
                 for _, v in ipairs(values or {}) do
                     lines[#lines + 1] = hash .. ' ' .. n .. ' ' .. v.id .. ' ' .. number_text(v.value) .. named(hash)
                 end
+                if values and values.passives then
+                    local list = #values.passives > 0 and table.concat(values.passives, ',') or 'none'
+                    lines[#lines + 1] = hash .. ' ' .. n .. ' passives ' .. list .. named(hash)
+                end
+                for page, typed in pairs(values and values.texts or {}) do
+                    for field, text in pairs(typed) do
+                        lines[#lines + 1] = hash .. ' ' .. n .. ' rename ' .. page .. ' ' .. field .. ' ' .. text:gsub('#', '{H}')
+                    end
+                end
             end
         end
         write_lines(path, lines)
@@ -28278,7 +28287,16 @@ do
                 if not values then values = {}; weapon_presets[hash][n] = values; count = count + 1 end
                 local id, amount = rest:match('^([%w_]+)%s+(%S+)$')
                 local parsed = id and MOD.parse_number(amount)
-                if parsed then
+                local page, field, typed = rest:match('^rename%s+(' .. HEX16 .. ')%s+(%a+)%s+(.+)$')
+                local passives = rest:match('^passives%s+([%d,]+)$') or rest:match('^passives%s+(none)$')
+                if passives then
+                    values.passives = {}
+                    for id in passives:gmatch('%d+') do values.passives[#values.passives + 1] = tonumber(id) end
+                elseif page then
+                    values.texts = values.texts or {}
+                    values.texts[page:upper()] = values.texts[page:upper()] or {}
+                    values.texts[page:upper()][field] = typed:gsub('{H}', '#')
+                elseif parsed then
                     values[#values + 1] = { id = id, value = parsed }
                 elseif rest ~= '-' then
                     MOD.skipped('weapon_presets.txt', weapon_numbers[i], line)
@@ -28347,12 +28365,31 @@ do
         return out
     end
 
+    -- the pages whose texts a weapon's page edits: its own, and on an armor each listed passive's description
+    function presets.text_pages(weapon)
+        local out = { (MOD.rename.page(weapon, 'name')) }   -- (one value: page() also returns the field)
+        for _, id in ipairs(MOD.offline and weapon.armor and MOD.kits.list_of(weapon) or {}) do
+            out[#out + 1] = by_hash[string.format('FFFFFFFE%08X', id)]   -- (#out + 1 skips a missing one)
+        end
+        return out
+    end
+
     local function weapon_preset(weapon, n)
         return weapon and weapon_presets[weapon.hash] and weapon_presets[weapon.hash][n]
     end
 
     local function save_weapon_preset(weapon, n)
         local values = weapon_changes(weapon)
+        local own = weapon.armor and settings.armor_passives[weapon.armor]   -- an armor's passive list (nil: the game's)
+        if own then values.passives = {}; for k, id in ipairs(own) do values.passives[k] = id end end
+        for _, page in ipairs(presets.text_pages(weapon)) do   -- every text the page lets you type, per preset
+            local typed = MOD.rename.texts[page.hash]
+            if typed then
+                values.texts = values.texts or {}
+                values.texts[page.hash] = {}
+                for field, text in pairs(typed) do values.texts[page.hash][field] = text end
+            end
+        end
         weapon_presets[weapon.hash] = weapon_presets[weapon.hash] or {}
         weapon_presets[weapon.hash][n] = values
         save_weapon_presets()
@@ -28400,6 +28437,13 @@ do
             end
         end
         for id in pairs(want) do refused = refused + 1; log('preset: ' .. weapon.name .. ' has no stat ' .. id) end
+        if weapon.armor then MOD.kits.set(weapon, values.passives and { unpack(values.passives) }) end   -- (a copy; before the texts: they follow its list)
+        for _, page in ipairs(MOD.offline and presets.text_pages(weapon) or {}) do   -- texts the preset lacks: the game's
+            local want, has = (values.texts or {})[page.hash] or {}, MOD.rename.texts[page.hash] or {}
+            for _, field in ipairs(presets.code.FIELDS) do
+                if has[field] ~= want[field] then MOD.rename.set(page, field, want[field]) end
+            end
+        end
         say('Loaded ' .. weapon.name .. ' preset ' .. n .. (refused > 0 and (' (' .. refused .. ' value(s) not applied)') or ''))
         ui.version = ui.version + 1
     end
@@ -29401,7 +29445,7 @@ local function draw(width, height)
         end
         -- this weapon's presets, under its stats
         local sy = H - 70 - 34
-        if not weapon.armor and not weapon.look then   -- (no values of its own to keep)
+        do   -- (armor, helmet and cape pages: their texts and passives)
         text('PRESETS', x0, sy + 8, 15, MUTED, nil, nil, nil, 'heading')
         for n = 1, presets.weapon_count do
             local saved = presets.weapon_preset(weapon, n)
@@ -30600,7 +30644,7 @@ local function keyboard(now)
         if n and pressed('Delete', now) then presets.confirm('delete', n) end
         return
     end
-    if not weapon or #weapon.rows == 0 then return end
+    if not weapon then return end
     if key_down(VK.Ctrl) then
         for n = 1, presets.weapon_count do
             if pressed('Key' .. n, now) then
@@ -30609,6 +30653,7 @@ local function keyboard(now)
             end
         end
     end
+    if #weapon.rows == 0 then return end
     local enter = pressed('Enter', now)
     if enter and weapon.rows[ui.row] and weapon.rows[ui.row].code then MOD.code.start(ui.row); return end
     if enter and weapon.rows[ui.row] and row_value(weapon.rows[ui.row]) ~= nil then
