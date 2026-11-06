@@ -150,6 +150,16 @@ function M.find_game(beside)
         for path in vdf:gmatch('"path"%s+"([^"]+)"') do roots[#roots + 1] = path:gsub('\\\\', '\\') end
     end
     roots[#roots + 1] = 'C:/Program Files (x86)/Steam'
+    return M.pick_game(roots)
+end
+
+-- The library holding Steam's install record (appmanifest) comes first: an old leftover copy in another library
+-- would otherwise win (#144). Without a usable record, the first library with the game.
+function M.pick_game(roots)
+    for _, r in ipairs(roots) do
+        local f = exists(r .. '/steamapps/appmanifest_553850.acf') and game_at(r)
+        if f then return f end
+    end
     for _, r in ipairs(roots) do
         local f = game_at(r)
         if f then return f end
