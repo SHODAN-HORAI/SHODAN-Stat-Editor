@@ -20001,7 +20001,7 @@ local T_HEAT, T_SPRAY, T_STATUS, T_MELEE = 0x4C981CD9, 0x8E551126, 0xC63E0B22, 0
 local TYPES = { arc_weapon = 0xB87BA9ED, arc = 0xAFDF0267, health = 0xB3915DE3, sensor = 0x14729B6A, detector = 0xFF67A367,
                 turret = 0x1EBA7593, custom = 0xEBA8F3D0, items = 0x1E604234, deltas = 0x683E604F,
                 throwable = 0xAF16BCB5, explosive = 0xF5CF9B8C, sticky = 0x9AF175A4, passive = 0x63CE0FEB,
-                vehicle = 0xEAEB2B0D, mount = 0x3845B1E0, shield = 0x5154DB66,
+                vehicle = 0xEAEB2B0D, mount = 0x3845B1E0, shield = 0x5154DB66, seat = 0x4AEAFC86, motion = 0x48F7C789, collision_damage = 0x76CC175E,
                 rack = 0xA98BB156, charge = 0xEAC335A1, jumppack = 0x54270608, recharge = 0x1F42878E,
                 warp = 0xA7813546, deposit = 0xC435BA85, package = 0x7A858691, reload = 0x991D454E,
                 thrower = 0xA29A84D8, minefield = 0x74FEF89A, mine_spawner = 0x0697FED6, bombard = 0xCDBC43D8, eagle = 0x556FF68B,
@@ -20063,6 +20063,10 @@ local KINDS = {
     -- vehicles (exosuits, FRVs, tanks): which entities are vehicles (VehicleComponentData), and what they
     -- carry (MountComponentData: 5 mounts of 24 bytes: +0 entity, +16 mount name)
     [TYPES.vehicle] = { name = 'vehicle', stride = 3704, keyed = true },
+    -- the vehicle's own seat collection, motion and collision damage components (dl_bin)
+    [TYPES.seat] = { name = 'seat collection', stride = 424, keyed = true },
+    [TYPES.motion] = { name = 'vehicle motion', stride = 456, keyed = true },
+    [TYPES.collision_damage] = { name = 'vehicle collision damage', stride = 208, keyed = true },
     [TYPES.mount] = { name = 'mount', stride = 120, keyed = true },
     -- energy shields (ShieldComponentData)
     [TYPES.shield] = { name = 'shield', stride = 344, keyed = true },
@@ -22733,6 +22737,293 @@ function MOD.exo_arms.apply(want, seen)
         end
     end
 end
+MOD.vehicle_data_tips_zh = {
+    suspension_len = { '游戏读取的悬挂长度值（dl_bin 这份）。', 'physics 文件里另有一份 travel，两者互不影响。' },
+    drivetrain = { '开：这个轮子由发动机驱动。', '关：它只是滚动，不输出动力（拖车轮）。' },
+    susp_trigger = { '悬挂压缩到该比例时触发 on_suspension 特效（0-1）。' },
+    susp_maxed = { '悬挂压缩到该比例时触发 on_suspension_maxed 特效（0-1）。' },
+    nav_los = { '载具周围导航视线检测的半径。', '它不改变模型或碰撞体积。' },
+    landing_time = { '滞空时间超过它才算一次落地（落地特效才会播）。' },
+    susp_cooldown = { '悬挂特效每次触发后的最短间隔（秒）。' },
+    fuel_min = { '开局有多少燃料。', 'GATER 10000；FRV 6000。' },
+    fuel_max = { '油箱容量，通常与下限相同。' },
+    fuel_idle = { '怠速时每秒烧多少油。' },
+    fuel_full = { '满油门时每秒烧多少油。' },
+    fuel_damaged = { '油箱破损后每秒漏多少油。' },
+    exit_speed = { '这是下车动作的阈值，不是速度上限：低于它士兵爬下来，', '达到或超过它士兵直接跳车翻滚。它不改变车能跑多快。' },
+    engine_start = { '从上车到引擎可以起步需要的时间（秒）。' },
+    low_fuel = { '剩余油量低于这个比例时亮低油警告（0-1）。' },
+    dust_min = { '车速超过它开始扬尘（米/秒）。' },
+    dust_max = { '到这个速度扬尘达到最大。' },
+    dust_min_amt = { '低速时的扬尘量。' },
+    dust_max_amt = { '高速时的扬尘量。' },
+    mount_side = { '每个挂载槽一个数字：0 两侧都算、1 左、2 右。', '挂的是什么实体固定在记录里，改不了。' },
+    seat_root_motion = { '换座位时启用根运动（实验性）。' },
+    seat_inherit_velocity = { '下车时继承所站节点的速度。' },
+    seat_kill_on_death = { '载具被摧毁时杀死车内乘客。' },
+    seat_kill_attach = { '载具被摧毁时销毁挂载物。' },
+    seat_start_open = { '生成时车门是开的。' },
+    seat_block_check = { '上车时做阻塞检查。' },
+    seat_ignore_entrance = { '忽略入口检查。' },
+    seat_music = { '上车时播放音乐事件。' },
+    seat_stratagem = { '车内是否允许使用战略配备。' },
+    seat_manual_leave = { '可以手动下车。' },
+    seat_hide_nameplate = { '隐藏座位铭牌。' },
+}
+-- A vehicle entity has no HellpodRack record of its own, so a turret cannot be mounted from the data files
+-- alone. This gives it one: the rack table has a free hashmap slot (2 in total) and any row the hashmap does
+-- not index can be overwritten. The default payload is the machinegun sentry with the rack's deploy animation
+-- and deploy ability, so the game deploys it the same way it deploys the MS-11's rack.
+MOD.vehicle_rack = {}
+function MOD.vehicle_data_rows(entry, key)
+    local vt = tables[TYPES.vehicle]
+    local vat = vt and vt.index[key]
+    if not vat then return end
+    local zh = rawget(_G, 'SHODAN_OFFLINE_LANG') == 'zh-Hans'
+    local function row(id, label, offset, storage, limit, min, max, small, big, tip)
+        local r = add_row(entry, 'Vehicle', 'veh_' .. id, label, storage,
+                          { part('veh_' .. id, TYPES.vehicle, vat + offset, storage, limit) }, min, max, small, big)
+        r.tip = (zh and MOD.vehicle_data_tips_zh[id]) or tip or MOD.vehicle_data_tips_zh[id]
+        return r
+    end
+    -- how many of the 32 wheel slots are filled: the last one with a length
+    local wheels = 0
+    for w = 0, 31 do
+        local v = read_field(field_at(TYPES.vehicle, vat + 0x08 + w * 64, 'f32', 100))
+        if v and v > 0 and v <= 50 then wheels = w + 1 end
+    end
+    if wheels > 0 then
+        local len, drv, thr, maxed = {}, {}, {}, {}
+        for w = 0, wheels - 1 do
+            local sfx = w > 0 and ('_' .. (w + 1)) or ''
+            local at = vat + 0x08 + w * 64
+            len[#len + 1] = part('veh_suspension_len' .. sfx, TYPES.vehicle, at, 'f32', 100)
+            drv[#drv + 1] = part('veh_drivetrain' .. sfx, TYPES.vehicle, at + 0x04, 'flag', 1)
+            thr[#thr + 1] = part('veh_susp_trigger' .. sfx, TYPES.vehicle, at + 0x08, 'f32', 1)
+            maxed[#maxed + 1] = part('veh_susp_maxed' .. sfx, TYPES.vehicle, at + 0x0C, 'f32', 1)
+        end
+        add_row(entry, 'Wheels', 'veh_suspension_len', 'Suspension length (dl_bin)', 'f32', len, 0, 50, 0.05, 0.25).tip =
+            (zh and MOD.vehicle_data_tips_zh.suspension_len) or
+            { 'The wheel suspension length as the game reads it.', 'The physics file keeps its own separate travel value; editing only that one changes nothing.' }
+        add_row(entry, 'Wheels', 'veh_drivetrain', 'Drivetrain wheel', 'flag', drv, 0, 1, 1, 1).tip =
+            (zh and MOD.vehicle_data_tips_zh.drivetrain) or
+            { 'On: this wheel is driven by the engine.', 'Off: it just rolls along (a trailer wheel).' }
+        add_row(entry, 'Wheels', 'veh_susp_trigger', 'Suspension trigger (0-1)', 'f32', thr, 0, 1, 0.05, 0.25).tip =
+            (zh and MOD.vehicle_data_tips_zh.susp_trigger) or
+            { 'The share of the suspension travel at which the on_suspension effect fires (0-1).' }
+        add_row(entry, 'Wheels', 'veh_susp_maxed', 'Suspension maxed trigger (0-1)', 'f32', maxed, 0, 1, 0.05, 0.25).tip =
+            (zh and MOD.vehicle_data_tips_zh.susp_maxed) or
+            { 'The share of the travel at which the on_suspension_maxed effect fires (0-1).' }
+    end
+    row('fuel_min', 'Fuel (min)', 0x860, 'f32', 1000000, 0, 1000000, 100, 1000,
+        { 'How much fuel it starts with.', 'The GATER 10000; the FRVs 6000.' })
+    row('fuel_max', 'Fuel (max)', 0x864, 'f32', 1000000, 0, 1000000, 100, 1000,
+        { 'The tank size; usually the same as the minimum.' })
+    row('fuel_idle', 'Fuel burn at idle (per s)', 0x868, 'f32', 10000, 0, 1000, 0.1, 1)
+    row('fuel_full', 'Fuel burn at full throttle (per s)', 0x86C, 'f32', 10000, 0, 1000, 0.1, 1)
+    row('fuel_damaged', 'Fuel burn when damaged (per s)', 0x870, 'f32', 10000, 0, 1000, 0.1, 1)
+    row('exit_speed', 'Fast exit above (m/s)', 0x874, 'f32', 1000, 0, 1000, 1, 5,
+        { 'A threshold for the exit animation, not a speed limit: below it the Helldiver climbs down,',
+          'at or above it he jumps out and rolls. It does not change how fast the vehicle can go.' })
+    row('engine_start', 'Engine start time (s)', 0x878, 'f32', 100, 0, 60, 0.1, 0.5)
+    row('low_fuel', 'Low fuel warning (0-1)', 0x87C, 'f32', 1, 0, 1, 0.01, 0.05)
+    row('dust_min', 'Dust from speed (m/s)', 0x850, 'f32', 1000, 0, 1000, 1, 5)
+    row('dust_max', 'Dust full at speed (m/s)', 0x854, 'f32', 1000, 0, 1000, 1, 5)
+    row('dust_min_amt', 'Dust at the low speed', 0x858, 'f32', 10, 0, 10, 0.05, 0.25)
+    row('dust_max_amt', 'Dust at the high speed', 0x85C, 'f32', 10, 0, 10, 0.05, 0.25)
+    row('nav_los', 'Navigator LOS radius', 0xDA4, 'f32', 1000, 0, 1000, 0.5, 2,
+        { 'How far the navigator line-of-sight check reaches around the vehicle.',
+          'It does not change the model or the collision size.' })
+    row('landing_time', 'Landing in-air time (s)', 0xE40, 'f32', 100, 0, 60, 0.05, 0.25,
+        { 'The shortest time in the air that still counts as a landing (its effect then plays).' })
+    -- the five suspension effects (SuspensionInfo, 24 B each from +0xDA8): only their cooldown is a number
+    local cooldowns = {}
+    for s = 0, 4 do
+        cooldowns[#cooldowns + 1] = part('veh_susp_cooldown' .. (s > 0 and ('_' .. (s + 1)) or ''), TYPES.vehicle,
+                                         vat + 0xDA8 + s * 24 + 0x10, 'f32', 100)
+    end
+    add_row(entry, 'Vehicle', 'veh_susp_cooldown', 'Suspension effect cooldown (s)', 'f32', cooldowns, 0, 60, 0.1, 0.5).tip =
+        (zh and MOD.vehicle_data_tips_zh.susp_cooldown) or
+        { 'How long a suspension effect has to wait before it can play again.' }
+    -- the mount slots (MountInfo, 24 B apart): what is mounted is fixed, only the side is a plain number.
+    -- A vehicle that has no mount record gets an empty one (nothing mounted), so its five slots become editable.
+    local mt = tables[TYPES.mount]
+    local mat = mt and mt.index[key]
+    if mat then
+        local sides = {}
+        for m = 0, 4 do
+            sides[#sides + 1] = part('veh_mount_side' .. (m > 0 and ('_' .. (m + 1)) or ''), TYPES.mount,
+                                     mat + m * 24 + 0x0C, 'u32', 2)
+        end
+        add_row(entry, 'Vehicle', 'veh_mount_side', 'Mount side (0 both, 1 left, 2 right)', 'u32', sides, 0, 2, 1, 1).tip =
+            (zh and MOD.vehicle_data_tips_zh.mount_side) or
+            { 'One number per mount slot; 0 counts on both sides.', 'The mounted entity itself is fixed in the record.' }
+    end
+    -- the seats (SeatCollectionComponent, 424 B): only a few entities have them
+    local st = tables[TYPES.seat]
+    local sat = st and st.index[key]
+    if sat then
+        local function flag(id, label, offset)
+            add_row(entry, 'Vehicle', 'seat_' .. id, label, 'flag',
+                    { part('seat_' .. id, TYPES.seat, sat + offset, 'flag', 1) }, 0, 1, 1, 1).tip =
+                zh and MOD.vehicle_data_tips_zh['seat_' .. id] or nil
+        end
+        flag('root_motion', 'Switch seats with root motion', 0x108)
+        flag('inherit_velocity', 'Passenger keeps node speed on exit', 0x109)
+        flag('kill_on_death', 'Kill the passengers when it dies', 0x10A)
+        flag('kill_attach', 'Kill the attachments when it dies', 0x10B)
+        flag('start_open', 'Start with the doors open', 0x10C)
+        flag('block_check', 'Block check on entry', 0x10D)
+        flag('ignore_entrance', 'Ignore the entrance check', 0x10E)
+        flag('music', 'Play music events on entry', 0x10F)
+        flag('stratagem', 'Stratagems allowed inside', 0x110)
+        flag('manual_leave', 'Can leave by hand', 0x130)
+        flag('hide_nameplate', 'Hide the seater nameplate', 0x131)
+        local holster = add_row(entry, 'Vehicle', 'seat_holster', 'Holster equipment on entering', 'flag',
+                                { part('seat_holster', TYPES.seat, sat + 0x111, 'flag', 1) }, 0, 1, 1, 1)
+        holster.tip = zh and { '上车时暂时收起装备。' } or { 'The Helldiver holsters the equipment while seated.' }
+        add_row(entry, 'Vehicle', 'seat_transition', 'Seat transition script', 'u32',
+                { part('seat_transition', TYPES.seat, sat + 0x000, 'u32', 100) }, 0, 100, 1, 1).tip =
+            zh and { '座位之间切换用的 transition 脚本序号（0-45）。' } or { 'The transition script between seats (a number, 0-45).' }
+        add_row(entry, 'Vehicle', 'seat_occupy_audio', 'Seat occupy audio (hash)', 'u32',
+                { part('seat_occupy_audio', TYPES.seat, sat + 0x128, 'u32', 4294967295) }, 0, 4294967295, 1, 1).tip =
+            zh and { 'wwise 音频事件哈希；改错会没声音。' } or { 'A wwise event hash; a wrong value just loses the sound.' }
+        add_row(entry, 'Vehicle', 'seat_leave_audio', 'Seat leave audio (hash)', 'u32',
+                { part('seat_leave_audio', TYPES.seat, sat + 0x12C, 'u32', 4294967295) }, 0, 4294967295, 1, 1).tip =
+            zh and { 'wwise 音频事件哈希；改错会没声音。' } or { 'A wwise event hash; a wrong value just loses the sound.' }
+        -- the 16 passenger slots: the entrance index is a plain number, the entity is a hash
+        local entrances = {}
+        for p = 0, 15 do
+            entrances[#entrances + 1] = part('seat_entrance' .. (p > 0 and ('_' .. (p + 1)) or ''), TYPES.seat,
+                                             sat + 0x008 + p * 16, 'u32', 100)
+        end
+        add_row(entry, 'Vehicle', 'seat_entrance', 'Passenger entrance (per slot)', 'u32', entrances, 0, 100, 1, 1).tip =
+            zh and { '每个预设乘客用哪个入口（transition 脚本里的序号）。' } or { 'Which entrance each preset passenger uses, per slot.' }
+    end
+    -- the state machine and the remaining ids/flags of the VehicleComponent record
+    row('spawn_state', 'Spawn state (0-3)', 0x000, 'u32', 3, 0, 3, 1, 1,
+        { 'Which state of the vehicle state machine it spawns in (a number, 0-3).' })
+    row('migrated_state', 'State after migrating (0-3)', 0x004, 'u32', 3, 0, 3, 1, 1)
+    row('track_anim', 'Track UV animation', 0x808, 'flag', 1, 0, 1, 1, 1,
+        { 'On for the vehicles with tracks: their treads scroll.' })
+    row('audio_source', 'Audio source node (hash)', 0x80C, 'u32', 4294967295, 0, 4294967295, 1, 1,
+        { 'The node the engine audio plays from (a hash).' })
+    row('hud_left_lo', 'HUD left icon, low 32 bits (hash)', 0x818, 'u32', 4294967295, 0, 4294967295, 1, 1,
+        { 'The left mount icon: an 8-byte asset hash, shown and edited as two halves.' })
+    row('hud_left_hi', 'HUD left icon, high 32 bits (hash)', 0x81C, 'u32', 4294967295, 0, 4294967295, 1, 1)
+    row('hud_right_lo', 'HUD right icon, low 32 bits (hash)', 0x820, 'u32', 4294967295, 0, 4294967295, 1, 1)
+    row('hud_right_hi', 'HUD right icon, high 32 bits (hash)', 0x824, 'u32', 4294967295, 0, 4294967295, 1, 1)
+    row('landing_impact', 'Landing impact type (0-273)', 0xE44, 'u32', 273, 0, 273, 1, 1,
+        { 'Which surface effect plays on landing (a number, 0-273).' })
+    row('hud_type', 'HUD vehicle info type (0-9)', 0xE5C, 'u32', 9, 0, 9, 1, 1,
+        { 'Which kind of HUD info the vehicle shows (a number, 0-9).' })
+    row('ignore_motion', 'Ignore vehicle motion constraint', 0xE50, 'u32', 1, 0, 1, 1, 1,
+        { 'On: other vehicles do not treat it as a motion constraint.' })
+    row('check_kill_height', 'Die below the zone kill height', 0xE54, 'u32', 1, 0, 1, 1, 1,
+        { 'On: it is destroyed if it falls below the kill height of a zone.' })
+    -- each wheel's node hashes (read-only in practice: they name bones in the physics file)
+    if wheels > 0 then
+        for _, n in ipairs({ { 'node_suspension', 'Suspension node (hash, per wheel)', 0x10 },
+                             { 'node_steering', 'Steering node (hash, per wheel)', 0x14 },
+                             { 'node_rotation', 'Rotation node (hash, per wheel)', 0x18 },
+                             { 'node_anim_susp', 'Suspension animation variable (per wheel)', 0x1C },
+                             { 'node_anim_rot', 'Rotation animation variable (per wheel)', 0x20 } }) do
+            local out = {}
+            for w = 0, wheels - 1 do
+                out[#out + 1] = part('veh_' .. n[1] .. (w > 0 and ('_' .. (w + 1)) or ''), TYPES.vehicle,
+                                     vat + 0x08 + w * 64 + n[3], 'u32', 4294967295)
+            end
+            add_row(entry, 'Wheels', 'veh_' .. n[1], n[2], 'u32', out, 0, 4294967295, 1, 1).tip =
+                { 'A name hash from the physics file; changing it breaks the link between wheel and bone.' }
+        end
+    end
+    -- the mount slots' node and name hashes (the same 5 slots as the sides above)
+    if mat then
+        local nodes, names, path_lo, path_hi = {}, {}, {}, {}
+        for m = 0, 4 do
+            local sfx = m > 0 and ('_' .. (m + 1)) or ''
+            nodes[#nodes + 1] = part('veh_mount_node' .. sfx, TYPES.mount, mat + m * 24 + 0x08, 'u32', 4294967295)
+            names[#names + 1] = part('veh_mount_name' .. sfx, TYPES.mount, mat + m * 24 + 0x10, 'u32', 4294967295)
+            path_lo[#path_lo + 1] = part('veh_mount_path_lo' .. sfx, TYPES.mount, mat + m * 24, 'u32', 4294967295)
+            path_hi[#path_hi + 1] = part('veh_mount_path_hi' .. sfx, TYPES.mount, mat + m * 24 + 4, 'u32', 4294967295)
+        end
+        add_row(entry, 'Vehicle', 'veh_mount_node', 'Mount node (hash, per slot)', 'u32', nodes, 0, 4294967295, 1, 1)
+        add_row(entry, 'Vehicle', 'veh_mount_name', 'Mount script name (hash, per slot)', 'u32', names, 0, 4294967295, 1, 1)
+        add_row(entry, 'Vehicle', 'veh_mount_path_lo', 'Mounted entity, low 32 bits (per slot)', 'u32', path_lo, 0, 4294967295, 1, 1).tip =
+            { 'The entity mounted in each slot, as a 64-bit hash in two halves.',
+              '0 = an empty slot; filling both halves mounts that entity there (a wrong hash can crash the game).',
+              'The slots are fixed at 5; there is no field to add a sixth.' }
+        add_row(entry, 'Vehicle', 'veh_mount_path_hi', 'Mounted entity, high 32 bits (per slot)', 'u32', path_hi, 0, 4294967295, 1, 1).tip =
+            { 'The upper half of the 64-bit entity hash (see the low half).' }
+    end
+    -- the motion component: acceleration, friction and how fast the controls answer (VehicleMotionComponent)
+    local mot = tables[TYPES.motion]
+    local mat2 = mot and mot.index[key]
+    if mat2 then
+        local function mrow(id, label, offset, min, max, small, big, tip)
+            local r = add_row(entry, 'Driving', 'mot_' .. id, label, 'f32',
+                              { part('mot_' .. id, TYPES.motion, mat2 + offset, 'f32', 1000000) }, min, max, small, big)
+            r.tip = (zh and MOD.vehicle_data_tips_zh['mot_' .. id]) or tip
+            return r
+        end
+        mrow('accel', 'Acceleration', 0x0, -1000, 1000, 0.5, 5,
+             { 'How fast the move speed builds up. The game gives no unit; negative is instant.' })
+        mrow('friction', 'Friction', 0x4, 0, 100, 0.05, 0.25,
+             { 'No official description; it sits right after acceleration, so it is read as ground friction.', 'Not verified in game.' })
+        mrow('speed_limit', 'Fast state at (m/s)', 0xC, 0, 200, 0.5, 2,
+             { 'The speed where it enters the fast state: that only changes particles, not physics.' })
+        mrow('rpm_mult', 'RPM multiplier when the engine is damaged', 0x158, 0, 2, 0.01, 0.05,
+             { '1 = no effect; 0.5 halves the engine speed.' })
+        mrow('torque_mult', 'Torque multiplier when the engine is damaged', 0x15C, 0, 2, 0.01, 0.05)
+        mrow('gear_mult', 'Gear change time multiplier when the gearbox is damaged', 0x160, 0, 10, 0.05, 0.25,
+             { 'Above 1 it shifts more slowly.' })
+        mrow('rim_radius', 'Bare rim radius (m)', 0x164, 0, 100, 0.01, 0.05,
+             { 'The radius once the tyre is shot off: how well it still rolls.' })
+        mrow('wheel_friction_mult', 'Friction multiplier of a damaged wheel', 0x168, 0, 10, 0.01, 0.05)
+        mrow('steer_response', 'Steering response', 0x16C, 0, 1000, 0.5, 2,
+             { 'A lerp speed from input to effect, not a steering limit: higher feels more direct.', 'The angle limit is in the physics file.' })
+        mrow('throttle_response', 'Throttle response', 0x170, 0, 1000, 0.5, 2,
+             { 'A lerp speed, not a top speed: higher feels more direct.' })
+        mrow('brake_response', 'Brake response', 0x174, 0, 1000, 0.5, 2)
+    end
+    -- the collision damage component: what it hurts and how hard (VehicleCollisionDamageComponent)
+    local col = tables[TYPES.collision_damage]
+    local cat = col and col.index[key]
+    if cat then
+        local function crow(id, label, offset, storage, limit, min, max, small, big, tip)
+            local r = add_row(entry, 'Driving', 'col_' .. id, label, storage,
+                              { part('col_' .. id, TYPES.collision_damage, cat + offset, storage, limit) }, min, max, small, big)
+            r.tip = (zh and MOD.vehicle_data_tips_zh['col_' .. id]) or tip
+            return r
+        end
+        crow('lower_speed', 'Hurt others above (km/h)', 0x0, 'f32', 10000, 0, 10000, 1, 5,
+             { 'Below this speed it does no impact damage at all.', 'This one is in km/h.' })
+        crow('upper_speed', 'Hurt others capped at (km/h)', 0x4, 'f32', 10000, 0, 10000, 1, 5,
+             { 'At or above this speed the damage stops growing.' })
+        crow('force_mult', 'Knockback force multiplier', 0x8, 'f32', 100, 0, 100, 0.05, 0.25,
+             { 'Higher: it needs more force to shove an enemy away.' })
+        crow('absorb_mult', 'Character impact absorb multiplier', 0xC, 'f32', 100, 0, 100, 0.05, 0.25,
+             { 'Lower: characters get crushed more easily.' })
+        crow('dealt_lower_dmg', 'Damage to others, base', 0x10, 'f32', 1000000, 0, 1000000, 10, 100)
+        crow('dealt_upper_dmg', 'Damage to others, max', 0x14, 'f32', 1000000, 0, 1000000, 10, 100)
+        crow('dealt_lower_demo', 'Demolition to others, base', 0x18, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('dealt_upper_demo', 'Demolition to others, max', 0x1C, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('dealt_lower_knock', 'Knockback to others, base', 0x20, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('dealt_upper_knock', 'Knockback to others, max', 0x24, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('self_lower_speed', 'Hurts itself above (km/h)', 0x28, 'f32', 10000, 0, 10000, 1, 5,
+             { 'Below this speed it takes no impact damage itself. Separate from the others threshold.' })
+        crow('self_upper_speed', 'Its own damage capped at (km/h)', 0x2C, 'f32', 10000, 0, 10000, 1, 5)
+        crow('self_lower_dmg', 'Damage to itself, base', 0x30, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('self_upper_dmg', 'Damage to itself, max', 0x34, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('absorb', 'Impact absorbed when smashing something', 0x38, 'f32', 1000000, 0, 1000000, 1, 10)
+        crow('demo_lower_speed', 'Demolition above (km/h, -1 = same)', 0x3C, 'f32', 10000, -1, 10000, 1, 5,
+             { '-1 reuses the ordinary threshold of the same name.' })
+        crow('demo_upper_speed', 'Demolition capped at (km/h, -1 = same)', 0x40, 'f32', 10000, -1, 10000, 1, 5)
+        crow('damage_type', 'Damage type it inflicts', 0x48, 'u32', 18, 0, 18, 1, 1,
+             { 'An enum index (0-18): which damage type its impact applies.' })
+        crow('self_inward', 'Self damage inward distance', 0x4C, 'f32', 10000, 0, 10000, 0.1, 0.5)
+    end
+end
 KINDS[TYPES.vehicle].rows = function(entry, key, twins)
     local t = tables[TYPES.health]
     local at = t and t.index[key]
@@ -22785,6 +23076,7 @@ KINDS[TYPES.vehicle].rows = function(entry, key, twins)
     if MOD.exo_mounted[entry.name] then MOD.melee_rows(entry, 253, 'Stomp', 'stomp_').tip = { 'Every exosuit shares this stomp.' } end
     if MOD.exo_mounted[entry.name] then MOD.exo_arms.rows(entry, key) end
     MOD.physics.rows(entry, key, twins)
+    MOD.vehicle_data_rows(entry, key)
     local n = 0
     for z = 0, 37 do
         local base = 520 + z * 552
